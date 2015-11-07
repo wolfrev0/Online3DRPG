@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: ff4d89b704b8ac542a1165ad5daa1580
+timeCreated: 1446886586
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Chest
+    100002: Foot_L
+    100004: Foot_R
+    100006: Hand_L
+    100008: Hand_R
+    100010: Head
+    100012: Hips
+    100014: locator_shield_L
+    100016: locator_shield_R
+    100018: locator_weapon_L
+    100020: locator_weapon_R
+    100022: LowerArm_L
+    100024: LowerArm_R
+    100026: LowerLeg_L
+    100028: LowerLeg_R
+    100030: MiddleDistal_L
+    100032: MiddleDistal_R
+    100034: MiddleIntermediate_L
+    100036: MiddleIntermediate_R
+    100038: MiddleProximal_L
+    100040: MiddleProximal_R
+    100042: Neck
+    100044: Player
+    100046: //RootNode
+    100048: Shield01
+    100050: Shoulder_L
+    100052: Shoulder_R
+    100054: Spine
+    100056: Sword01
+    100058: ThumbDistal_L
+    100060: ThumbDistal_R
+    100062: ThumbIntermediate_L
+    100064: ThumbIntermediate_R
+    100066: ThumbProximal_L
+    100068: ThumbProximal_R
+    100070: Toes_L
+    100072: Toes_R
+    100074: UpperArm_L
+    100076: UpperArm_R
+    100078: UpperLeg_L
+    100080: UpperLeg_R
+    400000: Chest
+    400002: Foot_L
+    400004: Foot_R
+    400006: Hand_L
+    400008: Hand_R
+    400010: Head
+    400012: Hips
+    400014: locator_shield_L
+    400016: locator_shield_R
+    400018: locator_weapon_L
+    400020: locator_weapon_R
+    400022: LowerArm_L
+    400024: LowerArm_R
+    400026: LowerLeg_L
+    400028: LowerLeg_R
+    400030: MiddleDistal_L
+    400032: MiddleDistal_R
+    400034: MiddleIntermediate_L
+    400036: MiddleIntermediate_R
+    400038: MiddleProximal_L
+    400040: MiddleProximal_R
+    400042: Neck
+    400044: Player
+    400046: //RootNode
+    400048: Shield01
+    400050: Shoulder_L
+    400052: Shoulder_R
+    400054: Spine
+    400056: Sword01
+    400058: ThumbDistal_L
+    400060: ThumbDistal_R
+    400062: ThumbIntermediate_L
+    400064: ThumbIntermediate_R
+    400066: ThumbProximal_L
+    400068: ThumbProximal_R
+    400070: Toes_L
+    400072: Toes_R
+    400074: UpperArm_L
+    400076: UpperArm_R
+    400078: UpperLeg_L
+    400080: UpperLeg_R
+    2300000: Shield01
+    2300002: Sword01
+    3300000: Shield01
+    3300002: Sword01
+    4300000: Shield01
+    4300002: Sword01
+    4300004: Player
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Player
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
