@@ -84,7 +84,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: .166666672
     manualCellSize: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 9c438eb74ea20f144b72a34d7283d644, type: 2}
 --- !u!1 &349942896
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 417234, guid: a274d370a1aac2348b72a5cbd09e5c19, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: .301999986
       objectReference: {fileID: 0}
     - target: {fileID: 417234, guid: a274d370a1aac2348b72a5cbd09e5c19, type: 2}
       propertyPath: m_LocalPosition.y
@@ -360,7 +360,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417234, guid: a274d370a1aac2348b72a5cbd09e5c19, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: .43599999
       objectReference: {fileID: 0}
     - target: {fileID: 417234, guid: a274d370a1aac2348b72a5cbd09e5c19, type: 2}
       propertyPath: m_LocalRotation.x
@@ -400,5 +400,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a798e04540c6cc44928eb7f757bc648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &1317761324
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317761321}
+  m_Enabled: 1
+  m_Radius: 9.99999975e-06
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 9.99999975e-06
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1317761325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317761321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04e5bbacaa17764aa9fc446f5457a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
