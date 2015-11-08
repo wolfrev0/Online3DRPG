@@ -94,7 +94,7 @@ ModelImporter:
     4300000: Shield01
     4300002: Sword01
     4300004: Player
-    7400000: Take 001
+    7400000: Down
     9500000: //RootNode
     13700000: Player
   materials:
@@ -116,7 +116,115 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Down
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hips
+        weight: 1
+      - path: Hips/Spine
+        weight: 1
+      - path: Hips/Spine/Chest
+        weight: 1
+      - path: Hips/Spine/Chest/Neck
+        weight: 1
+      - path: Hips/Spine/Chest/Neck/Head
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/locator_weapon_L
+        weight: 0
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/MiddleProximal_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/MiddleProximal_L/MiddleIntermediate_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/MiddleProximal_L/MiddleIntermediate_L/MiddleDistal_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/ThumbProximal_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/ThumbProximal_L/ThumbIntermediate_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/Hand_L/ThumbProximal_L/ThumbIntermediate_L/ThumbDistal_L
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/locator_shield_L
+        weight: 0
+      - path: Hips/Spine/Chest/Shoulder_L/UpperArm_L/LowerArm_L/locator_shield_L/Shield01
+        weight: 0
+      - path: Hips/Spine/Chest/Shoulder_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/locator_weapon_R
+        weight: 0
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/locator_weapon_R/Sword01
+        weight: 0
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/MiddleProximal_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/MiddleProximal_R/MiddleIntermediate_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/MiddleProximal_R/MiddleIntermediate_R/MiddleDistal_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/ThumbProximal_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/ThumbProximal_R/ThumbIntermediate_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/Hand_R/ThumbProximal_R/ThumbIntermediate_R/ThumbDistal_R
+        weight: 1
+      - path: Hips/Spine/Chest/Shoulder_R/UpperArm_R/LowerArm_R/locator_shield_R
+        weight: 0
+      - path: Hips/UpperLeg_L
+        weight: 1
+      - path: Hips/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Hips/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Hips/UpperLeg_L/LowerLeg_L/Foot_L/Toes_L
+        weight: 1
+      - path: Hips/UpperLeg_R
+        weight: 1
+      - path: Hips/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Hips/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Hips/UpperLeg_R/LowerLeg_R/Foot_R/Toes_R
+        weight: 1
+      - path: Player
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
