@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NPC : Entity
+public class Enemy : AliveEntity
 {
     void Start()
     {
 
     }
-    
+
     void Update()
     {
 

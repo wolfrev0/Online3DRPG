@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NPC : Entity
+public class AliveEntity : MonoBehaviour
 {
     void Start()
     {

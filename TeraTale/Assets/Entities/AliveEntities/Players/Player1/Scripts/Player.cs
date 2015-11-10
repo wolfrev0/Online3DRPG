@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : AliveEntity
 {
     const float kRaycastDistance = 50.0f;
     NavMeshAgent _navMeshAgent;
