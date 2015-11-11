@@ -3,6 +3,7 @@ Temp/
 Build/
 Obj/
 UnityGenerated/
+Bin/
 *.csproj
 *.sln
 *.svd
