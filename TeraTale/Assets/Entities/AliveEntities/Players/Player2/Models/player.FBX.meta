@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1877d6f0d668e974b9fa0d9d27d7ead4
-timeCreated: 1446971145
+timeCreated: 1447157788
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -128,13 +128,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: '
-
-      Imported file ''player'' conversion failed: Required human bone ''Hips'' not
-      found
-
-
-'
+    animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -148,7 +142,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .5
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -307,187 +301,187 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Box001
-      position: {x: -.0224225186, y: 1.4813503, z: .263038725}
+      position: {x: -.0112112593, y: .740675151, z: .131519362}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .523711026, y: .400389671, z: .560402274}
       transformModified: 1
     - name: Box002
-      position: {x: -.325020105, y: 2.60841274, z: .583013058}
+      position: {x: -.162510052, y: 1.30420637, z: .291506529}
       rotation: {x: 8.14603425e-08, y: -0, z: 0, w: 1}
       scale: {x: .491336942, y: .526139975, z: .612750173}
       transformModified: 1
     - name: Box003
-      position: {x: -.137202621, y: 2.6284678, z: 1.26017249}
+      position: {x: -.0686013103, y: 1.3142339, z: .630086243}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .407747269, y: .2469116, z: .283663809}
       transformModified: 1
     - name: Cylinder001
-      position: {x: -.0224225186, y: 2.66135931, z: .263038725}
+      position: {x: -.0112112593, y: 1.33067966, z: .131519362}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .41523996, y: .41523996, z: .41523996}
       transformModified: 1
     - name: Cylinder002
-      position: {x: -.0224225186, y: 1.21528554, z: .263038725}
+      position: {x: -.0112112593, y: .60764277, z: .131519362}
       rotation: {x: 1.54543116e-08, y: .707106709, z: -1.54543081e-08, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Cylinder003
-      position: {x: -.566676438, y: 2.50619149, z: .263038725}
+      position: {x: -.283338219, y: 1.25309575, z: .131519362}
       rotation: {x: .707106829, y: 1.70716348e-08, z: .707106709, w: -1.70716365e-08}
       scale: {x: -.578518271, y: -.578518271, z: -.523711026}
       transformModified: 1
     - name: Cylinder004
-      position: {x: -1.69912302, y: 2.61852741, z: .263038725}
+      position: {x: -.849561512, y: 1.30926371, z: .131519362}
       rotation: {x: -9.09314863e-08, y: .707106829, z: .707106769, w: -1.39473187e-07}
       scale: {x: -.868260503, y: -.868260503, z: -.868260503}
       transformModified: 1
     - name: Cylinder005
-      position: {x: .0542648509, y: 1.16980433, z: .263619572}
+      position: {x: .0271324255, y: .584902167, z: .131809786}
       rotation: {x: 1.54543116e-08, y: .707106709, z: -1.54543081e-08, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Cylinder006
-      position: {x: -.257795691, y: 2.74222851, z: .645220995}
+      position: {x: -.128897846, y: 1.37111425, z: .322610497}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .75172168, y: .75172168, z: .75172168}
       transformModified: 1
     - name: Group001
-      position: {x: -.158480421, y: 2.39329863, z: .723209858}
+      position: {x: -.0792402104, y: 1.19664931, z: .361604929}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Cylinder007
-      position: {x: -.00014725361, y: -.000732125831, z: .195912063}
+      position: {x: -7.36268048e-05, y: -.000366062915, z: .0979560316}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.77305174}
       transformModified: 1
     - name: Sphere002
-      position: {x: -0, y: 0, z: -.0160377808}
+      position: {x: -0, y: 0, z: -.0080188904}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.24241173}
       transformModified: 1
     - name: Group002
-      position: {x: -.0172285996, y: 2.15318799, z: .723209858}
+      position: {x: -.00861429982, y: 1.076594, z: .361604929}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Cylinder008
-      position: {x: -.000147274797, y: -.000732125831, z: .195912063}
+      position: {x: -7.36373986e-05, y: -.000366062915, z: .0979560316}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.77305174}
       transformModified: 1
     - name: Sphere003
-      position: {x: -6.05583184e-09, y: 0, z: -.0160381682}
+      position: {x: -3.02791592e-09, y: 0, z: -.00801908411}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.24241173}
       transformModified: 1
     - name: Group003
-      position: {x: .161724716, y: 1.96790385, z: .723209798}
+      position: {x: .0808623582, y: .983951926, z: .361604899}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Cylinder009
-      position: {x: -.000147277824, y: -.000732125831, z: .195912063}
+      position: {x: -7.3638912e-05, y: -.000366062915, z: .0979560316}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.77305174}
       transformModified: 1
     - name: Sphere004
-      position: {x: -0, y: 0, z: -.0160377808}
+      position: {x: -0, y: 0, z: -.0080188904}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.033234, y: 1.033234, z: 1.24241173}
       transformModified: 1
     - name: Helmet
-      position: {x: -.0224225204, y: 3.5140121, z: .158600852}
+      position: {x: -.0112112602, y: 1.75700605, z: .0793004259}
       rotation: {x: -.176031694, y: -.00393896038, z: .00760301156, w: .984347284}
       scale: {x: .185632825, y: .196770787, z: .196770817}
       transformModified: 1
     - name: Plane001
-      position: {x: -.389308959, y: 2.77213264, z: .294111967}
+      position: {x: -.19465448, y: 1.38606632, z: .147055984}
       rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Sphere001
-      position: {x: -.570587814, y: 2.49761653, z: .263038725}
+      position: {x: -.285293907, y: 1.24880826, z: .131519362}
       rotation: {x: -.5, y: -.5, z: .5, w: .5}
       scale: {x: .523711026, y: .523711026, z: .523711026}
       transformModified: 1
     - name: Bip Pelvis1
-      position: {x: -.00338122249, y: 1.3567493, z: .0109696388}
+      position: {x: -.00169061124, y: .678374648, z: .00548481941}
       rotation: {x: .710231543, y: -.703968108, z: -3.25694214e-06, w: 3.14402428e-06}
       scale: {x: .523710907, y: .523710489, z: .523711026}
       transformModified: 1
     - name: Bip L Leg
-      position: {x: .0388939418, y: .555577159, z: .0209510457}
+      position: {x: .0194469709, y: .277788579, z: .0104755228}
       rotation: {x: .00602547033, y: -7.59667892e-05, z: .999923587, w: -.0107983658}
       scale: {x: .999999821, y: .999999762, z: .999999821}
       transformModified: 1
     - name: Bip L Leg2
-      position: {x: -1.49034369, y: 3.19747915e-06, z: -3.1005859e-06}
+      position: {x: -.745171845, y: 1.59873957e-06, z: -1.55029295e-06}
       rotation: {x: -.000875655445, y: .0241757706, z: -.00769533543, w: .999677718}
       scale: {x: 1, y: 1.00000024, z: 1.00000048}
       transformModified: 1
     - name: Bip L Foot
-      position: {x: -.655028224, y: 8.72039777e-07, z: -2.22854601e-06}
+      position: {x: -.327514112, y: 4.36019889e-07, z: -1.114273e-06}
       rotation: {x: .00272342563, y: .496245772, z: .0116334492, w: .868099928}
       scale: {x: .999999762, y: 1, z: .999999881}
       transformModified: 1
     - name: Bip R Leg
-      position: {x: .0488441102, y: -.567713439, z: .0209407751}
+      position: {x: .0244220551, y: -.28385672, z: .0104703875}
       rotation: {x: .00602545217, y: -7.59672548e-05, z: .999923587, w: -.0107983658}
       scale: {x: .99999994, y: .999999523, z: .999999821}
       transformModified: 1
     - name: Bip R Leg2
-      position: {x: -1.49034369, y: 3.19747915e-06, z: -3.1005859e-06}
+      position: {x: -.745171845, y: 1.59873957e-06, z: -1.55029295e-06}
       rotation: {x: -.000875653699, y: .024175752, z: -.00769539597, w: .999677777}
       scale: {x: 1, y: 1.00000012, z: 1.0000006}
       transformModified: 1
     - name: Bip R Foot
-      position: {x: -.655028224, y: 8.72039777e-07, z: -2.22854601e-06}
+      position: {x: -.327514112, y: 4.36019889e-07, z: -1.114273e-06}
       rotation: {x: .00272339559, y: .496245652, z: .0116334464, w: .868099928}
       scale: {x: .999999821, y: 1, z: 1.00000024}
       transformModified: 1
     - name: Bip Pelvis2
-      position: {x: -.831385493, y: -5.14745722e-08, z: 1.25546054e-08}
+      position: {x: -.415692747, y: -2.57372861e-08, z: 6.27730268e-09}
       rotation: {x: 4.50807283e-06, y: 1.57237992e-08, z: .00442889333, w: .999990225}
       scale: {x: 1.00000107, y: 1.00000072, z: 1}
       transformModified: 1
     - name: Bip Pelvis3
-      position: {x: -.853536665, y: 0, z: 1.06309654e-08}
+      position: {x: -.426768333, y: 0, z: 5.31548272e-09}
       rotation: {x: 6.90114632e-12, y: 4.43620607e-09, z: .00148794055, w: .999998927}
       scale: {x: 1.00000036, y: .999999762, z: 1}
       transformModified: 1
     - name: Bip R Arm
-      position: {x: -.407854766, y: -1.04548502, z: -.021657519}
+      position: {x: -.203927383, y: -.52274251, z: -.0108287595}
       rotation: {x: -.0134965405, y: .013793163, z: .699253321, w: .714613557}
       scale: {x: .99999994, y: 1.00000036, z: 1}
       transformModified: 1
     - name: Bip R Arm2
-      position: {x: -.873878241, y: -2.42233284e-07, z: 9.20486457e-07}
+      position: {x: -.43693912, y: -1.21116642e-07, z: 4.60243228e-07}
       rotation: {x: -6.94682749e-05, y: -.0311994739, z: .00937506743, w: .999469221}
       scale: {x: 1.00000012, y: .999999642, z: .999999583}
       transformModified: 1
     - name: Bip R Hand
-      position: {x: -.771787584, y: -7.26699838e-08, z: -4.11796577e-07}
+      position: {x: -.385893792, y: -3.63349919e-08, z: -2.05898289e-07}
       rotation: {x: -.000123498801, y: -.866024971, z: -2.1529826e-05, w: .500000715}
       scale: {x: 1.00000048, y: .99999994, z: 1}
       transformModified: 1
     - name: Bip L Arm
-      position: {x: -.401764244, y: 1.00108695, z: -.0216575433}
+      position: {x: -.200882122, y: .500543475, z: -.0108287716}
       rotation: {x: .701376736, y: .71252948, z: .0135374069, w: -.0137528088}
       scale: {x: -1, y: -1.00000024, z: -.999999881}
       transformModified: 1
     - name: Bip L Arm2
-      position: {x: -.873878241, y: -2.42233284e-07, z: 9.20486457e-07}
+      position: {x: -.43693912, y: -1.21116642e-07, z: 4.60243228e-07}
       rotation: {x: -6.94600094e-05, y: -.0311994553, z: .00937504508, w: .999469221}
       scale: {x: 1.00000024, y: .999999762, z: .999999702}
       transformModified: 1
     - name: Bip L Hand
-      position: {x: -.771787584, y: -7.26699838e-08, z: -4.11796577e-07}
+      position: {x: -.385893792, y: -3.63349919e-08, z: -2.05898289e-07}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: .99999994}
       transformModified: 1
     - name: Bip Head
-      position: {x: -1.15701866, y: .00344329677, z: 1.69563293e-07}
+      position: {x: -.578509331, y: .00172164838, z: 8.47816466e-08}
       rotation: {x: 1.34109953e-07, y: -1.17606422e-08, z: -.00148791051, w: .999998868}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -500,8 +494,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 905f9412e824c7141b00cf68ee9f5f58,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0

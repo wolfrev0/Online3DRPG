@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 905f9412e824c7141b00cf68ee9f5f58
-timeCreated: 1447066365
+timeCreated: 1447203592
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -151,24 +151,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: UpperLeg_L
-      humanName: LeftUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: UpperLeg_R
       humanName: RightUpperLeg
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: LowerLeg_L
-      humanName: LeftLowerLeg
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -183,16 +167,16 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Foot_L
-      humanName: LeftFoot
+    - boneName: Foot_R
+      humanName: RightFoot
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Foot_R
-      humanName: RightFoot
+    - boneName: Toes_R
+      humanName: RightToes
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -209,6 +193,38 @@ ModelImporter:
         modified: 0
     - boneName: Chest
       humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Shoulder_R
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: UpperArm_R
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LowerArm_R
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Hand_R
+      humanName: RightHand
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -239,24 +255,8 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Shoulder_R
-      humanName: RightShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: UpperArm_L
       humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: UpperArm_R
-      humanName: RightUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -271,14 +271,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: LowerArm_R
-      humanName: RightLowerArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: Hand_L
       humanName: LeftHand
       limit:
@@ -287,8 +279,24 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Hand_R
-      humanName: RightHand
+    - boneName: UpperLeg_L
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LowerLeg_L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Foot_L
+      humanName: LeftFoot
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -297,14 +305,6 @@ ModelImporter:
         modified: 0
     - boneName: Toes_L
       humanName: LeftToes
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: Toes_R
-      humanName: RightToes
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -415,7 +415,7 @@ ModelImporter:
       transformModified: 1
     - name: Hips
       position: {x: 0, y: .91720289, z: 0}
-      rotation: {x: 0, y: 0, z: .70710659, w: -.707106948}
+      rotation: {x: 0, y: 0, z: -.707106829, w: .707106829}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Spine
@@ -440,7 +440,7 @@ ModelImporter:
       transformModified: 1
     - name: Shoulder_L
       position: {x: -.180917129, y: -.0674443245, z: .0284071155}
-      rotation: {x: 0, y: 0, z: .628453791, w: .777846992}
+      rotation: {x: 0, y: 0, z: .628453732, w: .777846932}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_L
@@ -470,7 +470,7 @@ ModelImporter:
       transformModified: 1
     - name: MiddleIntermediate_L
       position: {x: -.0265111439, y: -.00169852271, z: 5.551115e-19}
-      rotation: {x: 0, y: 0, z: -.0243336223, w: .999703944}
+      rotation: {x: 0, y: 0, z: -.0243336204, w: .999703884}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: MiddleDistal_L
@@ -480,7 +480,7 @@ ModelImporter:
       transformModified: 1
     - name: ThumbProximal_L
       position: {x: -.0287405718, y: -.0142530827, z: .0304422881}
-      rotation: {x: -.145361662, y: .347067833, z: .133712009, w: .916806996}
+      rotation: {x: -.145361647, y: .347067803, z: .133711994, w: .916806936}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ThumbIntermediate_L
@@ -505,7 +505,7 @@ ModelImporter:
       transformModified: 1
     - name: Shoulder_R
       position: {x: -.180916682, y: .0674443021, z: .0284071155}
-      rotation: {x: .628456414, y: .777844846, z: -4.76292648e-17, w: -3.84818582e-17}
+      rotation: {x: .628456354, y: .777844787, z: -4.76292615e-17, w: -3.84818549e-17}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_R
@@ -550,7 +550,7 @@ ModelImporter:
       transformModified: 1
     - name: ThumbProximal_R
       position: {x: .02874, y: .0142499991, z: -.0304422993}
-      rotation: {x: -.145397753, y: .347085238, z: .133639619, w: .916805267}
+      rotation: {x: -.145397738, y: .347085208, z: .133639604, w: .916805208}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ThumbIntermediate_R

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AliveEntity : MonoBehaviour
+public abstract class AliveEntity : Entity
 {
+    private float _hp;
+    private float _hpMax;
+
     void Start()
     {
 
