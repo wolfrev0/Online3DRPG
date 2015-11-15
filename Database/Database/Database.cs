@@ -2,34 +2,22 @@
 using LoboNet;
 using TeraTaleNet;
 
-namespace Proxy
+namespace Database
 {
-    class ProxyServer
+    class Database
     {
         Messenger _login;
-        Messenger _client;
 
-        public ProxyServer()
+        public Database()
         {
-            _login = ConnectToLogin();
-            _client = ListenClient();
+            _login = ListenLogin();
         }
 
-        Messenger ConnectToLogin()
+        Messenger ListenLogin()
         {
-            var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Proxy);
-            Console.WriteLine("Login Connected.");
-            _connecter.Dispose();
-
-            return new Messenger(new PacketStream(connection));
-        }
-
-        Messenger ListenClient()
-        {
-            var _listener = new TcpListener("0.0.0.0", (ushort)TargetPort.Client, 4);
+            var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Login, 1);
             var connection = _listener.Accept();
-            Console.WriteLine("Client Connected.");
+            Console.WriteLine("Login Connected.");
             _listener.Dispose();
 
             return new Messenger(new PacketStream(connection));
@@ -38,7 +26,6 @@ namespace Proxy
         public void Execute()
         {
             _login.Start();
-            _client.Start();
             try
             {
                 MainLoop();
@@ -51,7 +38,6 @@ namespace Proxy
             finally
             {
                 _login.Join();
-                _client.Join();
             }
         }
 
@@ -70,19 +56,6 @@ namespace Proxy
                     var packet = _login.Receive();
                     switch (packet.header.type)
                     {
-                        case PacketType.LoginResponse:
-                            OnLoginResponse((LoginResponse)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                if (_client.CanReceive())
-                {
-                    var packet = _client.Receive();
-                    switch (packet.header.type)
-                    {
                         case PacketType.LoginRequest:
                             OnLoginRequest((LoginRequest)packet.body);
                             break;
@@ -93,14 +66,19 @@ namespace Proxy
             }
         }
 
-        void OnLoginResponse(LoginResponse response)
-        {
-            _client.Send(new Packet(response));
-        }
-
         void OnLoginRequest(LoginRequest request)
         {
-            _login.Send(new Packet(request));
+            LoginResponse response;
+            if (IsValidLogin(request.id, request.pw))
+                response = new LoginResponse(true);
+            else
+                response = new LoginResponse(false);
+            _login.Send(new Packet(response));
+        }
+
+        bool IsValidLogin(string id, string pw)
+        {
+            return id == "root" && pw == "1234";
         }
     }
 }

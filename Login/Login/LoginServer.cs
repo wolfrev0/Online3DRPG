@@ -6,11 +6,23 @@ namespace Login
 {
     class LoginServer
     {
+        Messenger _database;
         Messenger _proxy;
 
         public LoginServer()
         {
+            _database = ConnectToDatabase();
             _proxy = ListenProxy();
+        }
+
+        Messenger ConnectToDatabase()
+        {
+            var _connecter = new TcpConnecter();
+            var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Login);
+            Console.WriteLine("Database Connected.");
+            _connecter.Dispose();
+
+            return new Messenger(new PacketStream(connection));
         }
 
         Messenger ListenProxy()
@@ -25,6 +37,7 @@ namespace Login
 
         public void Execute()
         {
+            _database.Start();
             _proxy.Start();
             try
             {
@@ -37,6 +50,7 @@ namespace Login
             }
             finally
             {
+                _database.Join();
                 _proxy.Join();
             }
         }
@@ -49,6 +63,19 @@ namespace Login
                 {
                     if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                         break;
+                }
+
+                if (_database.CanReceive())
+                {
+                    var packet = _database.Receive();
+                    switch (packet.header.type)
+                    {
+                        case PacketType.LoginResponse:
+                            OnLoginResponse((LoginResponse)packet.body);
+                            break;
+                        default:
+                            throw new ArgumentException("Received invalid packet type.");
+                    }
                 }
 
                 if (_proxy.CanReceive())
@@ -68,17 +95,12 @@ namespace Login
 
         void OnLoginRequest(LoginRequest request)
         {
-            LoginResponse response;
-            if(IsValidLogin(request.id, request.pw))
-                response = new LoginResponse(true);
-            else
-                response = new LoginResponse(false);
-            _proxy.Send(new Packet(response));
+            _database.Send(new Packet(request));
         }
 
-        bool IsValidLogin(string id, string pw)
+        void OnLoginResponse(LoginResponse response)
         {
-            return id == "root" && pw == "1234";
+            _proxy.Send(new Packet(response));
         }
     }
 }

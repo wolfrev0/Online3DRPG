@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Login
+﻿namespace Database
 {
     class Program
     {
         static void Main(string[] args)
         {
-            LoginServer server = new LoginServer();
+            Database server = new Database();
             server.Execute();
         }
     }
