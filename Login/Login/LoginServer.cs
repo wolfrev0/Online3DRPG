@@ -6,22 +6,26 @@ namespace Login
 {
     class LoginServer
     {
-        PacketStream _stream;
-        Messenger _messenger;
+        Messenger _proxy;
 
         public LoginServer()
         {
-            var _listener = new TcpListener("127.0.0.1", 9852, 4);
+            _proxy = ListenProxy();
+        }
+
+        Messenger ListenProxy()
+        {
+            var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Proxy, 1);
             var connection = _listener.Accept();
+            Console.WriteLine("Proxy Connected.");
             _listener.Dispose();
-            Console.WriteLine("Connected.");
-            _stream = new PacketStream(connection);
-            _messenger = new Messenger(_stream);
+
+            return new Messenger(new PacketStream(connection));
         }
 
         public void Execute()
         {
-            _messenger.Start();
+            _proxy.Start();
             try
             {
                 MainLoop();
@@ -33,8 +37,7 @@ namespace Login
             }
             finally
             {
-                _stream.Dispose();
-                _messenger.Join();
+                _proxy.Join();
             }
         }
 
@@ -48,9 +51,9 @@ namespace Login
                         break;
                 }
 
-                if (_messenger.CanReceive())
+                if (_proxy.CanReceive())
                 {
-                    var packet = _messenger.Receive();
+                    var packet = _proxy.Receive();
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
@@ -70,7 +73,7 @@ namespace Login
                 response = new LoginResponse(true);
             else
                 response = new LoginResponse(false);
-            _messenger.Send(new Packet(response));
+            _proxy.Send(new Packet(response));
         }
 
         bool IsValidLogin(string id, string pw)
