@@ -3,8 +3,8 @@ using System.Collections;
 
 public abstract class AliveEntity : Entity
 {
-    private float _hp;
-    private float _hpMax;
+    float _hp;
+    float _hpMax;
 
     void Start()
     {

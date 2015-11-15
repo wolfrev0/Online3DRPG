@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login
 {
@@ -10,6 +6,8 @@ namespace Login
     {
         static void Main(string[] args)
         {
+            LoginServer loginServer = new LoginServer();
+            loginServer.Execute();
         }
     }
 }
