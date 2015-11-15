@@ -30,6 +30,7 @@ namespace TeraTaleNet
             _stopped = true;
             _sender.Join();
             _receiver.Join();
+            _stream.Dispose();
         }
 
         public void Send(Packet packet)

@@ -11,8 +11,9 @@ namespace Login
 
         public LoginServer()
         {
-            var _server = new TcpServer("127.0.0.1", 9852, 4);
-            var connection = _server.Accept();
+            var _listener = new TcpListener("127.0.0.1", 9852, 4);
+            var connection = _listener.Accept();
+            _listener.Dispose();
             Console.WriteLine("Connected.");
             _stream = new PacketStream(connection);
             _messenger = new Messenger(_stream);

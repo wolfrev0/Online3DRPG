@@ -4,11 +4,11 @@ using System.Net.Sockets;
 
 namespace LoboNet
 {
-    public class TcpClient : IDisposable
+    public class TcpConnecter : IDisposable
     {
         bool disposed = false;
 
-        public TcpClient()
+        public TcpConnecter()
         {
         }
 

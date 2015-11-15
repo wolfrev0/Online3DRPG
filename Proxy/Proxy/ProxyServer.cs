@@ -6,16 +6,15 @@ namespace Login
 {
     class ProxyServer
     {
-        PacketStream _stream;
         Messenger _messenger;
 
         public ProxyServer()
         {
             //var _accepter = new Accepter("", 256, 4);
-            var _client = new TcpClient();
-            var connection = _client.Connect("127.0.0.1", 9852);
+            var _connecter = new TcpConnecter();
+            var connection = _connecter.Connect("127.0.0.1", 9852);
             Console.WriteLine("Connected.");
-            _stream = new PacketStream(connection);
+            var _stream = new PacketStream(connection);
             _messenger = new Messenger(_stream);
         }
 
@@ -33,7 +32,6 @@ namespace Login
             }
             finally
             {
-                _stream.Dispose();
                 _messenger.Join();
             }
         }

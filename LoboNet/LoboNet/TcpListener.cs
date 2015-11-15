@@ -4,12 +4,12 @@ using System.Net.Sockets;
 
 namespace LoboNet
 {
-    public class TcpServer : IDisposable
+    public class TcpListener : IDisposable
     {
         Socket _listener;
         bool disposed = false;
 
-        public TcpServer(string ip, ushort port, int backlogSize)
+        public TcpListener(string ip, ushort port, int backlogSize)
         {
             _listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _listener.Bind(new IPEndPoint(IPAddress.Parse(ip), port));
