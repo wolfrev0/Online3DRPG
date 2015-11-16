@@ -38,10 +38,7 @@ namespace Database
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            finally
-            {
-                _login.Join();
-            }
+            _login.Join();
         }
 
         void MainLoop()

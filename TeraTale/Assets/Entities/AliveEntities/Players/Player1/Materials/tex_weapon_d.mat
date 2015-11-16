@@ -126,7 +126,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .899999976
+        second: .5
     m_Colors:
       data:
         first:

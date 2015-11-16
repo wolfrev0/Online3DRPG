@@ -49,11 +49,9 @@ namespace Proxy
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            finally
-            {
-                _login.Join();
-                _client.Join();
-            }
+            _login.Join();
+            _client.Join();
+            Console.WriteLine("Proxy End.");
         }
 
         void MainLoop()
