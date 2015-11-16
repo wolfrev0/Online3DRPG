@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using LoboNet;
 
 namespace TeraTaleNet
 {
@@ -24,25 +25,19 @@ namespace TeraTaleNet
 
         public Header CreateHeader()
         {
-            return new Header(PacketType.LoginRequest, sizeof(int) + Encoding.UTF8.GetByteCount(_id) + sizeof(int) + Encoding.UTF8.GetByteCount(_pw));
+            return new Header(PacketType.LoginRequest, id.SerializedSizeUTF8() + pw.SerializedSizeUTF8());
         }
 
         public byte[] Serialize()
         {
-            var idLenBytes = BitConverter.GetBytes(id.Length);
-            var idBytes = Encoding.UTF8.GetBytes(id);
-            var pwLenBytes = BitConverter.GetBytes(pw.Length);
-            var pwBytes = Encoding.UTF8.GetBytes(pw);
+            var idBytes = id.SerializeUTF8();
+            var pwBytes = pw.SerializeUTF8();
 
-            var ret = new byte[idLenBytes.Length + idBytes.Length+ pwLenBytes.Length + pwBytes.Length];
+            var ret = new byte[idBytes.Length + pwBytes.Length];
 
             int offset = 0;
-            idLenBytes.CopyTo(ret, offset);
-            offset += idLenBytes.Length;
             idBytes.CopyTo(ret, offset);
             offset += idBytes.Length;
-            pwLenBytes.CopyTo(ret, offset);
-            offset += pwLenBytes.Length;
             pwBytes.CopyTo(ret, offset);
             offset += pwBytes.Length;
 
@@ -52,14 +47,10 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            int len = BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
-            _id = Encoding.UTF8.GetString(buffer, offset, len);
-            offset += len;
-            len = BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
-            _pw = Encoding.UTF8.GetString(buffer, offset, len);
-            offset += len;
+            _id += id.DeserializeUTF8(buffer, offset);
+            offset += id.SerializedSizeUTF8();
+            _pw += pw.DeserializeUTF8(buffer, offset);
+            offset += pw.SerializedSizeUTF8();
         }
     }
 }

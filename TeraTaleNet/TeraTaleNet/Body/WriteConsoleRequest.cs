@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using LoboNet;
 
 namespace TeraTaleNet
 {
@@ -21,20 +22,18 @@ namespace TeraTaleNet
         
         public Header CreateHeader()
         {
-            return new Header(PacketType.WriteConsoleRequest, sizeof(int) + Encoding.UTF8.GetByteCount(text));
+            return new Header(PacketType.WriteConsoleRequest, text.SerializedSizeUTF8());
         }
 
         public byte[] Serialize()
         {
-            var lenBytes = BitConverter.GetBytes(text.Length);
-            var textBytes = Encoding.UTF8.GetBytes(text);
+            var textBytes = text.SerializeUTF8();
 
-            var ret = new byte[lenBytes.Length + textBytes.Length];
+            var ret = new byte[textBytes.Length];
 
             int offset = 0;
-            lenBytes.CopyTo(ret, offset);
-            offset += lenBytes.Length;
             textBytes.CopyTo(ret, offset);
+            offset += textBytes.Length;
 
             return ret;
         }
@@ -42,9 +41,8 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            int len = BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
-            _text = Encoding.UTF8.GetString(buffer, offset, len);
+            _text = text.DeserializeUTF8(buffer, offset);
+            offset += text.SerializedSizeUTF8();
         }
     }
 }
