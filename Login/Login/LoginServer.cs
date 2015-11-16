@@ -10,6 +10,7 @@ namespace Login
     {
         Messenger _database;
         Messenger _proxy;
+        //Dictionary<string, Messenger>
 
         public LoginServer()
         {
