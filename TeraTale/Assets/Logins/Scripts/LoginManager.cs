@@ -35,6 +35,11 @@ public class LoginManager : MonoBehaviour
         }
     }
 
+    void OnApplicationQuit()
+    {
+        _proxy.Join();
+    }
+
     Messenger ConnectToProxy()
     {
         var _connecter = new TcpConnecter();
@@ -43,12 +48,6 @@ public class LoginManager : MonoBehaviour
         _connecter.Dispose();
 
         return new Messenger(new PacketStream(connection));
-    }
-    
-    //void OnDestroy()
-    void OnApplicationQuit()
-    {
-        _proxy.Join();
     }
 
     void Update ()

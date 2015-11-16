@@ -28,9 +28,9 @@ namespace TeraTaleNet
         public void Join()
         {
             _stopped = true;
+            _stream.Dispose();
             _sender.Join();
             _receiver.Join();
-            _stream.Dispose();
         }
 
         public void Send(Packet packet)
@@ -66,6 +66,7 @@ namespace TeraTaleNet
             {
                 Console.WriteLine(e.ToString());
             }
+            Console.WriteLine("Sender End.");
         }
 
         void Receiver()
@@ -86,6 +87,7 @@ namespace TeraTaleNet
             {
                 Console.WriteLine(e.ToString());
             }
+            Console.WriteLine("Receiver End.");
         }
     }
 }
