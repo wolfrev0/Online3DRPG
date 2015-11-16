@@ -51,7 +51,6 @@ namespace LoboNet
                 //
             }
 
-            _socket.Shutdown(SocketShutdown.Both);
             _stream.Close();
             disposed = true;
         }

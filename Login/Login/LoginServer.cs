@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using LoboNet;
 using TeraTaleNet;
@@ -50,8 +49,11 @@ namespace Login
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            _database.Join();
-            _proxy.Join();
+            finally
+            {
+                _database.Join();
+                _proxy.Join();
+            }
         }
 
         void MainLoop()
@@ -100,10 +102,6 @@ namespace Login
 
         void OnLoginResponse(LoginResponse response)
         {
-            if(response.accepted)
-            {
-
-            }
             _proxy.Send(new Packet(response));
         }
     }
