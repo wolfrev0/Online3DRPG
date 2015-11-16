@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using LoboNet;
 using TeraTaleNet;
 
@@ -91,6 +92,7 @@ namespace Login
                     }
                 }
             }
+            Thread.Sleep(10);
         }
 
         void OnLoginRequest(LoginRequest request)

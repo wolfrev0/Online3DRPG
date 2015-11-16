@@ -59,12 +59,12 @@ namespace TeraTaleNet
                         //Need ioLock?
                         _stream.Write(_sendQ.Dequeue());
                     }
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -79,12 +79,12 @@ namespace TeraTaleNet
                         //Need ioLock?
                         _recvQ.Enqueue(_stream.Read());
                     }
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.ToString());
             }
         }
     }

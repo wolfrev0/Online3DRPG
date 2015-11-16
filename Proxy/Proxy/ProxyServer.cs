@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using LoboNet;
 using TeraTaleNet;
 
@@ -90,6 +91,7 @@ namespace Proxy
                             throw new ArgumentException("Received invalid packet type.");
                     }
                 }
+                Thread.Sleep(10);
             }
         }
 

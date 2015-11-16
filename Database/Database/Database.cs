@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.IO;
 using LoboNet;
 using TeraTaleNet;
 
@@ -6,6 +8,7 @@ namespace Database
 {
     class Database
     {
+        static string accountLocation = "Accounts\\";
         Messenger _login;
 
         public Database()
@@ -64,21 +67,32 @@ namespace Database
                     }
                 }
             }
+            Thread.Sleep(10);
         }
 
         void OnLoginRequest(LoginRequest request)
         {
-            LoginResponse response;
-            if (IsValidLogin(request.id, request.pw))
-                response = new LoginResponse(true);
-            else
-                response = new LoginResponse(false);
-            _login.Send(new Packet(response));
-        }
-
-        bool IsValidLogin(string id, string pw)
-        {
-            return id == "root" && pw == "1234";
+            try {
+                using (var stream = new StreamReader(new FileStream(accountLocation + request.id, FileMode.Open)))
+                {
+                    string pw = stream.ReadLine();
+                    string nickName = stream.ReadLine();
+                    if (request.pw == pw)
+                    {
+                        var response = new LoginResponse(true, nickName);
+                        _login.Send(new Packet(response));
+                    }
+                    else
+                    {
+                        throw new IOException();
+                    }
+                }
+            }
+            catch(IOException)
+            {
+                var response = new LoginResponse(false, "");
+                _login.Send(new Packet(response));
+            }
         }
     }
 }

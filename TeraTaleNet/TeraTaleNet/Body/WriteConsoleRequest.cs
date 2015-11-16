@@ -21,13 +21,13 @@ namespace TeraTaleNet
         
         public Header CreateHeader()
         {
-            return new Header(PacketType.WriteConsoleRequest, sizeof(int) + Encoding.UTF8.GetByteCount(_text));
+            return new Header(PacketType.WriteConsoleRequest, sizeof(int) + Encoding.UTF8.GetByteCount(text));
         }
 
         public byte[] Serialize()
         {
-            var lenBytes = BitConverter.GetBytes(_text.Length);
-            var textBytes = Encoding.UTF8.GetBytes(_text);
+            var lenBytes = BitConverter.GetBytes(text.Length);
+            var textBytes = Encoding.UTF8.GetBytes(text);
 
             var ret = new byte[lenBytes.Length + textBytes.Length];
 

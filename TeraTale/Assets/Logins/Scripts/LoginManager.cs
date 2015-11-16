@@ -44,8 +44,9 @@ public class LoginManager : MonoBehaviour
 
         return new Messenger(new PacketStream(connection));
     }
-
-    void OnDestroy()
+    
+    //void OnDestroy()
+    void OnApplicationQuit()
     {
         _proxy.Join();
     }
@@ -70,7 +71,7 @@ public class LoginManager : MonoBehaviour
     {
         if (response.accepted)
         {
-            Debug.Log("Accepted.");
+            Debug.Log("Accepted " + response.nickName);
         }
         else
         {
