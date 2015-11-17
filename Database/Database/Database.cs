@@ -9,26 +9,26 @@ namespace Database
     class Database
     {
         static string accountLocation = "Accounts\\";
-        Messenger _login;
+        Messenger _messenger = new Messenger();
 
         public Database()
         {
-            _login = ListenLogin();
+            _messenger.Register("", ListenLogin());
         }
 
-        Messenger ListenLogin()
+        PacketStream ListenLogin()
         {
             var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Login, 1);
             var connection = _listener.Accept();
             Console.WriteLine("Login Connected.");
             _listener.Dispose();
 
-            return new Messenger(new PacketStream(connection));
+            return new PacketStream(connection);
         }
 
         public void Execute()
         {
-            _login.Start();
+            _messenger.Start();
             try
             {
                 MainLoop();
@@ -38,7 +38,7 @@ namespace Database
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            _login.Join();
+            _messenger.Join();
         }
 
         void MainLoop()
@@ -51,9 +51,9 @@ namespace Database
                         break;
                 }
 
-                if (_login.CanReceive())
+                if (_messenger.CanReceive(""))
                 {
-                    var packet = _login.Receive();
+                    var packet = _messenger.Receive("");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
@@ -77,7 +77,7 @@ namespace Database
                     if (request.pw == pw)
                     {
                         var response = new LoginResponse(true, nickName);
-                        _login.Send(new Packet(response));
+                        _messenger.Send("", new Packet(response));
                     }
                     else
                     {
@@ -88,7 +88,7 @@ namespace Database
             catch(IOException)
             {
                 var response = new LoginResponse(false, "");
-                _login.Send(new Packet(response));
+                _messenger.Send("", new Packet(response));
             }
         }
     }

@@ -7,7 +7,7 @@ using TeraTaleNet;
 public class LoginManager : MonoBehaviour
 {
     static LoginManager _instance;
-    Messenger _proxy;
+    Messenger _messenger = new Messenger();
 
     public static LoginManager instance
     {
@@ -25,8 +25,8 @@ public class LoginManager : MonoBehaviour
     {
         try
         {
-            _proxy = ConnectToProxy();
-            _proxy.Start();
+            _messenger.Register("Proxy", ConnectToProxy());
+            _messenger.Start();
         }
         catch(SocketException e)
         {
@@ -37,24 +37,24 @@ public class LoginManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        _proxy.Join();
+        _messenger.Join();
     }
 
-    Messenger ConnectToProxy()
+    PacketStream ConnectToProxy()
     {
         var _connecter = new TcpConnecter();
         var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Client);
         Debug.Log("Proxy Connected.");
         _connecter.Dispose();
 
-        return new Messenger(new PacketStream(connection));
+        return new PacketStream(connection);
     }
 
     void Update ()
     {
-        if (_proxy.CanReceive())
+        if (_messenger.CanReceive("Proxy"))
         {
-            var packet = _proxy.Receive();
+            var packet = _messenger.Receive("Proxy");
             switch (packet.header.type)
             {
                 case PacketType.LoginResponse:
@@ -80,6 +80,6 @@ public class LoginManager : MonoBehaviour
 
     public void SendLoginRequest(string id, string pw)
     {
-        _proxy.Send(new Packet(new LoginRequest(id, pw)));
+        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw)));
     }
 }

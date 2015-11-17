@@ -8,40 +8,37 @@ namespace Login
 {
     class LoginServer
     {
-        Messenger _database;
-        Messenger _proxy;
-        //Dictionary<string, Messenger>
+        Messenger _messenger= new Messenger();
 
         public LoginServer()
         {
-            _database = ConnectToDatabase();
-            _proxy = ListenProxy();
+            _messenger.Register("Database", ConnectToDatabase());
+            _messenger.Register("Proxy", ListenProxy());
         }
 
-        Messenger ConnectToDatabase()
+        PacketStream ConnectToDatabase()
         {
             var _connecter = new TcpConnecter();
             var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Login);
             Console.WriteLine("Database Connected.");
             _connecter.Dispose();
 
-            return new Messenger(new PacketStream(connection));
+            return new PacketStream(connection);
         }
 
-        Messenger ListenProxy()
+        PacketStream ListenProxy()
         {
             var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Proxy, 1);
             var connection = _listener.Accept();
             Console.WriteLine("Proxy Connected.");
             _listener.Dispose();
 
-            return new Messenger(new PacketStream(connection));
+            return new PacketStream(connection);
         }
 
         public void Execute()
         {
-            _database.Start();
-            _proxy.Start();
+            _messenger.Start();
             try
             {
                 MainLoop();
@@ -51,8 +48,7 @@ namespace Login
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            _database.Join();
-            _proxy.Join();
+            _messenger.Join();
         }
 
         void MainLoop()
@@ -65,9 +61,9 @@ namespace Login
                         break;
                 }
 
-                if (_database.CanReceive())
+                if (_messenger.CanReceive("Database"))
                 {
-                    var packet = _database.Receive();
+                    var packet = _messenger.Receive("Database");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginResponse:
@@ -78,9 +74,9 @@ namespace Login
                     }
                 }
 
-                if (_proxy.CanReceive())
+                if (_messenger.CanReceive("Proxy"))
                 {
-                    var packet = _proxy.Receive();
+                    var packet = _messenger.Receive("Proxy");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
@@ -96,7 +92,7 @@ namespace Login
 
         void OnLoginRequest(LoginRequest request)
         {
-            _database.Send(new Packet(request));
+            _messenger.Send("Database", new Packet(request));
         }
 
         void OnLoginResponse(LoginResponse response)
@@ -105,7 +101,7 @@ namespace Login
             {
 
             }
-            _proxy.Send(new Packet(response));
+            _messenger.Send("Proxy", new Packet(response));
         }
     }
 }

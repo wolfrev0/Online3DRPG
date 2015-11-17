@@ -7,39 +7,37 @@ namespace Proxy
 {
     class ProxyServer
     {
-        Messenger _login;
-        Messenger _client;
+        Messenger _messenger = new Messenger();
 
         public ProxyServer()
         {
-            _login = ConnectToLogin();
-            _client = ListenClient();
+            _messenger.Register("Login", ConnectToLogin());
+            _messenger.Register("Client", ListenClient());
         }
 
-        Messenger ConnectToLogin()
+        PacketStream ConnectToLogin()
         {
             var _connecter = new TcpConnecter();
             var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Proxy);
             Console.WriteLine("Login Connected.");
             _connecter.Dispose();
 
-            return new Messenger(new PacketStream(connection));
+            return new PacketStream(connection);
         }
 
-        Messenger ListenClient()
+        PacketStream ListenClient()
         {
             var _listener = new TcpListener("0.0.0.0", (ushort)TargetPort.Client, 4);
             var connection = _listener.Accept();
             Console.WriteLine("Client Connected.");
             _listener.Dispose();
 
-            return new Messenger(new PacketStream(connection));
+            return new PacketStream(connection);
         }
 
         public void Execute()
         {
-            _login.Start();
-            _client.Start();
+            _messenger.Start();
             try
             {
                 MainLoop();
@@ -49,9 +47,7 @@ namespace Proxy
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            _login.Join();
-            _client.Join();
-            Console.WriteLine("Proxy End.");
+            _messenger.Join();
         }
 
         void MainLoop()
@@ -64,9 +60,9 @@ namespace Proxy
                         break;
                 }
 
-                if (_login.CanReceive())
+                if (_messenger.CanReceive("Login"))
                 {
-                    var packet = _login.Receive();
+                    var packet = _messenger.Receive("Login");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginResponse:
@@ -77,9 +73,9 @@ namespace Proxy
                     }
                 }
 
-                if (_client.CanReceive())
+                if (_messenger.CanReceive("Client"))
                 {
-                    var packet = _client.Receive();
+                    var packet = _messenger.Receive("Client");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
@@ -95,12 +91,12 @@ namespace Proxy
 
         void OnLoginResponse(LoginResponse response)
         {
-            _client.Send(new Packet(response));
+            _messenger.Send("Client", new Packet(response));
         }
 
         void OnLoginRequest(LoginRequest request)
         {
-            _login.Send(new Packet(request));
+            _messenger.Send("Login", new Packet(request));
         }
     }
 }
