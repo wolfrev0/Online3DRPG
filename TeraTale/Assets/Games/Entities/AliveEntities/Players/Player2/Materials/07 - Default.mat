@@ -118,7 +118,7 @@ Material:
       data:
         first:
           name: _UVSec
-        second: 1
+        second: 0
       data:
         first:
           name: _Mode
