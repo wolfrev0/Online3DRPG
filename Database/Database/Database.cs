@@ -9,7 +9,7 @@ namespace Database
     class Database
     {
         static string accountLocation = "Accounts\\";
-        Messenger _messenger = new Messenger();
+        Messenger<string> _messenger = new Messenger<string>();
 
         public Database()
         {

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace TeraTaleNet
 {
-    public class Messenger
+    public class Messenger<T>
     {
         //concurrent Dictionary?
-        ConcurrentDictionary<string, ConcurrentQueue<Packet>> _sendQs = new ConcurrentDictionary<string, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<string, ConcurrentQueue<Packet>> _recvQs = new ConcurrentDictionary<string, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<string, PacketStream> _streams = new ConcurrentDictionary<string, PacketStream>();
+        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _sendQs = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
+        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _recvQs = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
+        ConcurrentDictionary<T, PacketStream> _streams = new ConcurrentDictionary<T, PacketStream>();
         Thread _sender;
         Thread _receiver;
         bool _stopped = false;
@@ -26,7 +26,7 @@ namespace TeraTaleNet
             _receiver.Start();
         }
 
-        public void Register(string key, PacketStream stream)
+        public void Register(T key, PacketStream stream)
         {
             _streams.Add(key, stream);
             _sendQs.Add(key, new ConcurrentQueue<Packet>());
@@ -45,17 +45,17 @@ namespace TeraTaleNet
             _receiver.Join();
         }
 
-        public void Send(string key, Packet packet)
+        public void Send(T key, Packet packet)
         {
             _sendQs[key].Enqueue(packet);
         }
 
-        public Packet Receive(string key)
+        public Packet Receive(T key)
         {
             return _recvQs[key].Dequeue();
         }
 
-        public bool CanReceive(string key)
+        public bool CanReceive(T key)
         {
             return _recvQs[key].Count > 0;
         }

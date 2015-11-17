@@ -8,7 +8,7 @@ namespace Login
 {
     class LoginServer
     {
-        Messenger _messenger= new Messenger();
+        Messenger<string> _messenger = new Messenger<string>();
         HashSet<string> loggedInUsers = new HashSet<string>();
 
         public LoginServer()
@@ -98,10 +98,17 @@ namespace Login
 
         void OnLoginResponse(LoginResponse response)
         {
-            if (response.accepted && loggedInUsers.Contains(response.nickName))
+            if (response.accepted)
             {
-                response.accepted = false;
-                response.reason = RejectedReason.LoggedInAlready;
+                if (loggedInUsers.Contains(response.nickName))
+                {
+                    response.accepted = false;
+                    response.reason = RejectedReason.LoggedInAlready;
+                }
+                else
+                {
+                    loggedInUsers.Add(response.nickName);
+                }
             }
             _messenger.Send("Proxy", new Packet(response));
         }

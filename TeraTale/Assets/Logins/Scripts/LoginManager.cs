@@ -7,7 +7,7 @@ using TeraTaleNet;
 public class LoginManager : MonoBehaviour
 {
     static LoginManager _instance;
-    Messenger _messenger = new Messenger();
+    Messenger<string> _messenger = new Messenger<string>();
 
     public static LoginManager instance
     {

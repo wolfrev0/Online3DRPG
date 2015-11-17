@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
 
@@ -7,7 +8,7 @@ namespace Proxy
 {
     class ProxyServer
     {
-        Messenger _messenger = new Messenger();
+        Messenger<string> _messenger = new Messenger<string>();
 
         public ProxyServer()
         {
