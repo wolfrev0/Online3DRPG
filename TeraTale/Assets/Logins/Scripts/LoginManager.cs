@@ -74,7 +74,7 @@ public class LoginManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Rejected.");
+            Debug.Log("Rejected because " + response.reason);
         }
     }
 

@@ -13,7 +13,7 @@ namespace Database
 
         public Database()
         {
-            _messenger.Register("", ListenLogin());
+            _messenger.Register("Login", ListenLogin());
         }
 
         PacketStream ListenLogin()
@@ -51,9 +51,9 @@ namespace Database
                         break;
                 }
 
-                if (_messenger.CanReceive(""))
+                if (_messenger.CanReceive("Login"))
                 {
-                    var packet = _messenger.Receive("");
+                    var packet = _messenger.Receive("Login");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
@@ -69,6 +69,7 @@ namespace Database
 
         void OnLoginRequest(LoginRequest request)
         {
+            LoginResponse response;
             try {
                 using (var stream = new StreamReader(new FileStream(accountLocation + request.id, FileMode.Open)))
                 {
@@ -76,20 +77,19 @@ namespace Database
                     string nickName = stream.ReadLine();
                     if (request.pw == pw)
                     {
-                        var response = new LoginResponse(true, nickName);
-                        _messenger.Send("", new Packet(response));
+                        response = new LoginResponse(true, RejectedReason.Accepted, nickName);
                     }
                     else
                     {
-                        throw new IOException();
+                        response = new LoginResponse(false, RejectedReason.InvalidPW, "Login");
                     }
                 }
             }
             catch(IOException)
             {
-                var response = new LoginResponse(false, "");
-                _messenger.Send("", new Packet(response));
+                response = new LoginResponse(false, RejectedReason.InvalidID, "Login");
             }
+            _messenger.Send("Login", new Packet(response));
         }
     }
 }
