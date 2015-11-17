@@ -4,13 +4,13 @@ using System;
 using System.IO;
 
 public class ParsingData : MonoBehaviour
-{ 
+{
     public Texture[] HeadTexture;
     public Texture[] BodyTexture;
+    public Texture[] FootTexture;
 
     MeshRenderer mesh;
-    int _curindex = 0;
-    int __curindex = 0;
+    int[] _curindex = new int[3];
 
 	void Start ()
     {
@@ -19,54 +19,66 @@ public class ParsingData : MonoBehaviour
 	
 	void Update ()
     {
-        if (_curindex <= 0)
-            _curindex = 0;
-        else if (_curindex >= HeadTexture.Length)
-            _curindex = HeadTexture.Length - 1;
+        for (int i = 0; i < 3; i++)
+        {
+            if (_curindex[i] <= 0)
+                _curindex[i] = 0;
+            else if (_curindex[i] >= HeadTexture.Length)
+                _curindex[i] = HeadTexture.Length - 1;
 
-        if (__curindex <= 0)
-            __curindex = 0;
-        else if (__curindex >= BodyTexture.Length)
-            __curindex = BodyTexture.Length - 1;
+            if (i == 0 && _curindex[i] >= HeadTexture.Length)
+                _curindex[i] = HeadTexture.Length - 1;
+            else if (i == 1 && _curindex[i] >= BodyTexture.Length)
+                _curindex[i] = BodyTexture.Length - 1;
+            else if (i == 2 && _curindex[i] >= FootTexture.Length)
+                _curindex[i] = FootTexture.Length - 1;
+        }
 
-        mesh.materials[0].mainTexture = HeadTexture[_curindex];
-        mesh.materials[1].mainTexture = BodyTexture[__curindex];
+        mesh.materials[0].mainTexture = HeadTexture[_curindex[0]];
+        mesh.materials[1].mainTexture = BodyTexture[_curindex[1]];
+        mesh.materials[2].mainTexture = FootTexture[_curindex[2]];
     }
 
     public void PreHead()
     {
-        _curindex--;
-        Debug.Log(_curindex);
+        _curindex[0]--;
     }
 
     public void NextHead()
     {
-        _curindex++;
-        Debug.Log(_curindex);
+        _curindex[0]++;
     }
 
     public void PreBody()
     {
-        __curindex--;
+        _curindex[1]--;
     }
 
     public void NextBody()
     {
-        __curindex++;
+        _curindex[1]++;
+    }
+
+    public void PreFoot()
+    {
+        _curindex[2]--;
+    }
+    public void NextFoot()
+    {
+        _curindex[2]++;
     }
 
     public void SaveData()
     {
-        StreamWriter sw = new StreamWriter(new FileStream("D:/Desktop/Projects/TeraTale/TextureInfo.txt", FileMode.Create));
+        StreamWriter sw = new StreamWriter(new FileStream("TextureInfo.txt", FileMode.Create));
 
-        sw.WriteLine(_curindex);
-
-        sw.WriteLine(__curindex);
+        for(int i=0;i<3;i++)
+            sw.WriteLine(_curindex[i]);
 
         sw.Close();
     }
     public void LoadData()
     {
-        Application.LoadLevel(4);
+        Application.LoadLevel(5);
     }
 }

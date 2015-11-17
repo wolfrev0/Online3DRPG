@@ -1677,7 +1677,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 2300000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1719,6 +1719,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 315207b236cfd2b41bbdaad6686cabfc, type: 2}
+    - target: {fileID: 2300000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 547498bfc6050024dabcec2fade2d952, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
   m_IsPrefabParent: 0
@@ -1741,6 +1745,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 379cc7669b302584e99fec5c3946f3b7, type: 3}
   - {fileID: 2800000, guid: d9dab9390c916e84eb78e0ffe03030cf, type: 3}
   ReadBody:
+  - {fileID: 2800000, guid: 379cc7669b302584e99fec5c3946f3b7, type: 3}
+  - {fileID: 2800000, guid: d9dab9390c916e84eb78e0ffe03030cf, type: 3}
+  ReadFoot:
   - {fileID: 2800000, guid: 379cc7669b302584e99fec5c3946f3b7, type: 3}
   - {fileID: 2800000, guid: d9dab9390c916e84eb78e0ffe03030cf, type: 3}
 --- !u!1 &1618364401
