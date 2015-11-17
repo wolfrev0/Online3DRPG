@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using LoboNet;
+﻿using LoboNet;
 
 namespace TeraTaleNet
 {

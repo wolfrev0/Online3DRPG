@@ -18,7 +18,7 @@ namespace Database
 
         PacketStream ListenLogin()
         {
-            var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Login, 1);
+            var _listener = new TcpListener("127.0.0.1", (ushort)Port.Database, 1);
             var connection = _listener.Accept();
             Console.WriteLine("Login Connected.");
             _listener.Dispose();

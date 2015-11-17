@@ -5,11 +5,12 @@ using System.Text;
 
 namespace TeraTaleNet
 {
-    public enum TargetPort : ushort
+    public enum Port : ushort
     {
         Client = 9852,
         Proxy,
-        Login,
+        LoginForProxy,
+        LoginForGameServer,
         Database,
         GameServer, 
     }

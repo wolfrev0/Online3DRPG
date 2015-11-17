@@ -1,42 +1,20 @@
 ﻿using UnityEngine;
 using System;
-using System.Net.Sockets;
-using System.IO;
 using LoboNet;
 using TeraTaleNet;
 
 public class LoginManager : MonoBehaviour
 {
-    static LoginManager _instance;
+    public NetworkManager net;
     Messenger<string> _messenger = new Messenger<string>();
 
-    public static LoginManager instance
+    void Start()
     {
-        get
-        {
-            if(!_instance)
-            {
-                _instance = FindObjectOfType<LoginManager>();
-            }
-            return _instance;
-        }
+        _messenger.Register("Proxy", ConnectToProxy());
+        _messenger.Start();
     }
 
-    void Start ()
-    {
-        try
-        {
-            _messenger.Register("Proxy", ConnectToProxy());
-            _messenger.Start();
-        }
-        catch(SocketException e)
-        {
-            Debug.LogException(e);
-            Destroy(gameObject);
-        }
-    }
-
-    void OnApplicationQuit()
+    void OnDestroy()
     {
         _messenger.Join();
     }
@@ -44,14 +22,14 @@ public class LoginManager : MonoBehaviour
     PacketStream ConnectToProxy()
     {
         var _connecter = new TcpConnecter();
-        var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Client);
+        var connection = _connecter.Connect("127.0.0.1", (ushort)Port.Proxy);
         Debug.Log("Proxy Connected.");
         _connecter.Dispose();
 
         return new PacketStream(connection);
     }
 
-    void Update ()
+    void Update()
     {
         if (_messenger.CanReceive("Proxy"))
         {
@@ -71,11 +49,14 @@ public class LoginManager : MonoBehaviour
     {
         if (response.accepted)
         {
-            Debug.Log("Accepted " + response.nickName);
+            net.stream = _messenger.Unregister("Proxy");
+            net.enabled = true;
+            DontDestroyOnLoad(net.gameObject);
+            Application.LoadLevel("Town");
         }
         else
         {
-            Debug.Log("Rejected because " + response.reason);
+
         }
     }
 

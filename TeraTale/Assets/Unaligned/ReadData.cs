@@ -13,7 +13,7 @@ public class ReadData : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        StreamReader sr = new StreamReader(new FileStream("D:/Desktop/Projects/TeraTale/TextureInfo.txt", FileMode.Open));
+        StreamReader sr = new StreamReader(new FileStream("TextureInfo.txt", FileMode.Open));
 
         mesh = GetComponent<MeshRenderer>();
         mesh.materials[0].mainTexture = ReadHead[System.Convert.ToInt32(sr.ReadLine())];

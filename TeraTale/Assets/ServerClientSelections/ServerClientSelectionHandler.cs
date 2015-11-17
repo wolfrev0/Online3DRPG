@@ -4,6 +4,8 @@ using System.Diagnostics;
 
 public class ServerClientSelectionHandler : MonoBehaviour
 {
+    public GameServer gameServer;
+
     public void OnServerClicked()
     {
         var database = new Process();
@@ -17,6 +19,8 @@ public class ServerClientSelectionHandler : MonoBehaviour
         var proxy = new Process();
         proxy.StartInfo.FileName = "C:\\Users\\Lobo\\Desktop\\Projects\\TeraTale\\Proxy\\Proxy\\bin\\Debug\\Proxy.exe";
         proxy.Start();
+
+        gameServer.enabled = true;
     }
 
     public void OnClientClicked()

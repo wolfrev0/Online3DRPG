@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Threading;
-using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
-using System.IO;
 
 namespace Proxy
 {
     class ProxyServer
     {
-        Accepter _accepter = new Accepter("0.0.0.0", (ushort)TargetPort.Client, 4);
+        Accepter _accepter = new Accepter("0.0.0.0", (ushort)Port.Proxy, 4);
         Messenger<string> _serverMessenger = new Messenger<string>();
         Messenger<string> _clientMessenger = new Messenger<string>();
         Messenger<int> _confirmMessenger = new Messenger<int>();
@@ -28,7 +26,7 @@ namespace Proxy
         PacketStream ConnectToLogin()
         {
             var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Proxy);
+            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.LoginForProxy);
             Console.WriteLine("Login Connected.");
             _connecter.Dispose();
 
@@ -113,7 +111,6 @@ namespace Proxy
 
         void OnLoginResponse(LoginResponse response)
         {
-            Console.WriteLine("OnLoginResponse " + response.confirmID + " " + response.reason);
             if (response.accepted)
             {
                 PacketStream stream = _confirmMessenger.Unregister(response.confirmID);

@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 public class CameraController : MonoBehaviour
 {
     public Transform _target;
-    float scrollSpeed = 100.0f;
     Vector3 relativeAtTargetPos = new Vector3(0, 6, -6);
 
     void Update()

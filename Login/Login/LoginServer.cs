@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.IO;
 using LoboNet;
 using TeraTaleNet;
 
@@ -16,12 +15,13 @@ namespace Login
         {
             _messenger.Register("Database", ConnectToDatabase());
             _messenger.Register("Proxy", ListenProxy());
+            _messenger.Register("GameServer", ListenGameServer());
         }
 
         PacketStream ConnectToDatabase()
         {
             var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)TargetPort.Login);
+            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.Database);
             Console.WriteLine("Database Connected.");
             _connecter.Dispose();
 
@@ -30,9 +30,19 @@ namespace Login
 
         PacketStream ListenProxy()
         {
-            var _listener = new TcpListener("127.0.0.1", (ushort)TargetPort.Proxy, 1);
+            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForProxy, 1);
             var connection = _listener.Accept();
             Console.WriteLine("Proxy Connected.");
+            _listener.Dispose();
+
+            return new PacketStream(connection);
+        }
+
+        PacketStream ListenGameServer()
+        {
+            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForGameServer, 1);
+            var connection = _listener.Accept();
+            Console.WriteLine("GameServer Connected.");
             _listener.Dispose();
 
             return new PacketStream(connection);
@@ -109,6 +119,7 @@ namespace Login
                 else
                 {
                     loggedInUsers.Add(response.nickName);
+                    //_messenger.Send("GameServer", new Packet());
                 }
             }
             _messenger.Send("Proxy", new Packet(response));
