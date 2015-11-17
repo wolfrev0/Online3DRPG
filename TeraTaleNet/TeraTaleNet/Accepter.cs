@@ -27,6 +27,7 @@ namespace TeraTaleNet
         public void Join()
         {
             _stopped = true;
+            _listener.Dispose();
             _accepter.Join();
         }
 

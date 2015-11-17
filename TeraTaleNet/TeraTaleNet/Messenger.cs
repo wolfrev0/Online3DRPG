@@ -14,6 +14,14 @@ namespace TeraTaleNet
         Thread _receiver;
         bool _stopped = false;
 
+        public Dictionary<T, PacketStream>.KeyCollection Keys
+        {
+            get
+            {
+                return _streams.Keys;
+            }
+        }
+
         public Messenger()
         {
             _sender = new Thread(Sender);
@@ -31,6 +39,13 @@ namespace TeraTaleNet
             _streams.Add(key, stream);
             _sendQs.Add(key, new ConcurrentQueue<Packet>());
             _recvQs.Add(key, new ConcurrentQueue<Packet>());
+        }
+
+        public PacketStream Unregister(T key)
+        {
+            var ret = _streams[key];
+            _streams.Remove(key);
+            return ret;
         }
         
         public void Join()
@@ -66,7 +81,7 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach(var key in _sendQs.Keys)
+                    foreach(var key in Keys)
                     {
                         if (_sendQs[key].Count > 0)
                         {
@@ -89,7 +104,7 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach (var key in _recvQs.Keys)
+                    foreach (var key in Keys)
                     {
                         if (_streams[key].HasPacket())
                         {

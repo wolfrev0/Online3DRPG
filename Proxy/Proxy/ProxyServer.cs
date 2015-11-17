@@ -8,12 +8,20 @@ namespace Proxy
 {
     class ProxyServer
     {
-        Messenger<string> _messenger = new Messenger<string>();
+        Accepter _accepter = new Accepter("0.0.0.0", (ushort)TargetPort.Client, 4);
+        Messenger<string> _serverMessenger = new Messenger<string>();
+        Messenger<string> _clientMessenger = new Messenger<string>();
+        Messenger<int> _confirmMessenger = new Messenger<int>();
+        int currentConfirmId = 0;
 
         public ProxyServer()
         {
-            _messenger.Register("Login", ConnectToLogin());
-            _messenger.Register("Client", ListenClient());
+            _serverMessenger.Register("Login", ConnectToLogin());
+            _accepter.onAccepted = (PacketStream stream) => 
+            {
+                _confirmMessenger.Register(currentConfirmId++, stream);
+                Console.WriteLine("Client Accepted.");
+            };
         }
 
         PacketStream ConnectToLogin()
@@ -26,19 +34,12 @@ namespace Proxy
             return new PacketStream(connection);
         }
 
-        PacketStream ListenClient()
-        {
-            var _listener = new TcpListener("0.0.0.0", (ushort)TargetPort.Client, 4);
-            var connection = _listener.Accept();
-            Console.WriteLine("Client Connected.");
-            _listener.Dispose();
-
-            return new PacketStream(connection);
-        }
-
         public void Execute()
         {
-            _messenger.Start();
+            _accepter.Start();
+            _serverMessenger.Start();
+            _clientMessenger.Start();
+            _confirmMessenger.Start();
             try
             {
                 MainLoop();
@@ -48,7 +49,10 @@ namespace Proxy
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
-            _messenger.Join();
+            _accepter.Join();
+            _serverMessenger.Join();
+            _clientMessenger.Join();
+            _confirmMessenger.Join();
         }
 
         void MainLoop()
@@ -61,9 +65,9 @@ namespace Proxy
                         break;
                 }
 
-                if (_messenger.CanReceive("Login"))
+                if (_serverMessenger.CanReceive("Login"))
                 {
-                    var packet = _messenger.Receive("Login");
+                    var packet = _serverMessenger.Receive("Login");
                     switch (packet.header.type)
                     {
                         case PacketType.LoginResponse:
@@ -74,16 +78,32 @@ namespace Proxy
                     }
                 }
 
-                if (_messenger.CanReceive("Client"))
+                foreach (var key in _clientMessenger.Keys)
                 {
-                    var packet = _messenger.Receive("Client");
-                    switch (packet.header.type)
+                    if (_clientMessenger.CanReceive(key))
                     {
-                        case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
+                        var packet = _clientMessenger.Receive(key);
+                        switch (packet.header.type)
+                        {
+                            default:
+                                throw new ArgumentException("Received invalid packet type.");
+                        }
+                    }
+                }
+
+                foreach (var confirmID in _confirmMessenger.Keys)
+                {
+                    if (_confirmMessenger.CanReceive(confirmID))
+                    {
+                        var packet = _confirmMessenger.Receive(confirmID);
+                        switch (packet.header.type)
+                        {
+                            case PacketType.LoginRequest:
+                                OnLoginRequest(confirmID, (LoginRequest)packet.body);
+                                break;
+                            default:
+                                throw new ArgumentException("Received invalid packet type.");
+                        }
                     }
                 }
                 Thread.Sleep(10);
@@ -92,12 +112,23 @@ namespace Proxy
 
         void OnLoginResponse(LoginResponse response)
         {
-            _messenger.Send("Client", new Packet(response));
+            Console.WriteLine("OnLoginResponse " + response.confirmID + " " + response.reason);
+            if (response.accepted)
+            {
+                PacketStream stream = _confirmMessenger.Unregister(response.confirmID);
+                _clientMessenger.Register(response.nickName, stream);
+                _clientMessenger.Send(response.nickName, new Packet(response));
+            }
+            else
+            {
+                _confirmMessenger.Send(response.confirmID, new Packet(response));
+            }
         }
 
-        void OnLoginRequest(LoginRequest request)
+        void OnLoginRequest(int confirmID, LoginRequest request)
         {
-            _messenger.Send("Login", new Packet(request));
+            request.confirmID = confirmID;
+            _serverMessenger.Send("Login", new Packet(request));
         }
     }
 }

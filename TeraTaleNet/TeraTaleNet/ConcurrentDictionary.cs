@@ -54,5 +54,10 @@ namespace TeraTaleNet
                 }
             }
         }
+
+        public void Remove(TKey key)
+        {
+            _dictionary.Remove(key);
+        }
     }
 }

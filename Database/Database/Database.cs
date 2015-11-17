@@ -77,17 +77,17 @@ namespace Database
                     string nickName = stream.ReadLine();
                     if (request.pw == pw)
                     {
-                        response = new LoginResponse(true, RejectedReason.Accepted, nickName);
+                        response = new LoginResponse(true, RejectedReason.Accepted, nickName, request.confirmID);
                     }
                     else
                     {
-                        response = new LoginResponse(false, RejectedReason.InvalidPW, "Login");
+                        response = new LoginResponse(false, RejectedReason.InvalidPW, "Login", request.confirmID);
                     }
                 }
             }
             catch(IOException)
             {
-                response = new LoginResponse(false, RejectedReason.InvalidID, "Login");
+                response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
             }
             _messenger.Send("Login", new Packet(response));
         }
