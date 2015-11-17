@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
+using System.IO;
 
 namespace Proxy
 {

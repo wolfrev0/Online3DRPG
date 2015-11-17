@@ -12,7 +12,7 @@ namespace Database
         Messenger<string> _messenger = new Messenger<string>();
 
         public Database()
-        {
+        {            
             _messenger.Register("Login", ListenLogin());
         }
 
