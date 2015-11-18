@@ -58,8 +58,8 @@ public class GameServer : MonoBehaviour
             var packet = _messenger.Receive("Login");
             switch (packet.header.type)
             {
-                case PacketType.PlayerJoin:
-                    OnPlayerJoin((PlayerJoin)packet.body);
+                case PacketType.PlayerLogin:
+                    OnPlayerLogin((PlayerLogin)packet.body);
                     break;
                 default:
                     throw new ArgumentException("Received invalid packet type.");
@@ -76,8 +76,8 @@ public class GameServer : MonoBehaviour
         }
     }
 
-    void OnPlayerJoin(PlayerJoin packet)
+    void OnPlayerLogin(PlayerLogin packet)
     {
-
+        _messenger.Send("Database", new Packet(new PlayerInfoRequest(packet.nickName)));
     }
 }

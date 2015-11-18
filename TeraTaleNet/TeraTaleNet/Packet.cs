@@ -27,8 +27,8 @@ namespace TeraTaleNet
                 case PacketType.LoginResponse:
                     body = new LoginResponse(bytes);
                     break;
-                case PacketType.PlayerJoin:
-                    body = new PlayerJoin(bytes);
+                case PacketType.PlayerLogin:
+                    body = new PlayerLogin(bytes);
                     break;
                 case PacketType.PlayerInfoRequest:
                     body = new PlayerInfoRequest(bytes);

@@ -119,7 +119,7 @@ namespace Login
                 else
                 {
                     loggedInUsers.Add(response.nickName);
-                    _messenger.Send("GameServer", new Packet(new PlayerJoin(response.nickName)));
+                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
                 }
             }
             _messenger.Send("Proxy", new Packet(response));

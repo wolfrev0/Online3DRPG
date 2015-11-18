@@ -5,7 +5,7 @@
         WriteConsoleRequest,
         LoginRequest,
         LoginResponse,
-        PlayerJoin,
+        PlayerLogin,
         PlayerInfoRequest,
         PlayerInfoResponse,
     }
