@@ -2,25 +2,25 @@
 
 namespace TeraTaleNet
 {
-    public class PlayerJoin : IBody
+    public class PlayerInfoRequest : IBody
     {
         string _nickName;
 
         public string nickName { get { return _nickName; } }
 
-        public PlayerJoin(string nickName)
+        public PlayerInfoRequest(string nickName)
         {
             _nickName = nickName;
         }
 
-        public PlayerJoin(byte[] buffer)
+        public PlayerInfoRequest(byte[] buffer)
         {
             Deserialize(buffer);
         }
 
         public Header CreateHeader()
         {
-            return new Header(PacketType.PlayerJoin, nickName.SerializedSizeUTF8());
+            return new Header(PacketType.PlayerInfoRequest, nickName.SerializedSizeUTF8());
         }
 
         public byte[] Serialize()

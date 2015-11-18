@@ -16,11 +16,13 @@ public class ServerClientSelectionHandler : MonoBehaviour
         login.StartInfo.FileName = "C:\\Users\\Lobo\\Desktop\\Projects\\TeraTale\\Login\\Login\\bin\\Debug\\Login.exe";
         login.Start();
 
+        gameServer.enabled = true;
+
         var proxy = new Process();
         proxy.StartInfo.FileName = "C:\\Users\\Lobo\\Desktop\\Projects\\TeraTale\\Proxy\\Proxy\\bin\\Debug\\Proxy.exe";
         proxy.Start();
 
-        gameServer.enabled = true;
+        Application.LoadLevel("Login");
     }
 
     public void OnClientClicked()

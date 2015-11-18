@@ -4,14 +4,9 @@ Build/
 Obj/
 UnityGenerated/
 Bin/
-*.csproj
-*.sln
 *.svd
 *.userprefs
 *.pidb
-*.suo
-*.user
-*.unityproj
 *.booproj
 .DS_Store
 .DS_Store?

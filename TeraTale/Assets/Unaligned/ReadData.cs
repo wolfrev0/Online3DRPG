@@ -22,9 +22,5 @@ public class ReadData : MonoBehaviour
         mesh.materials[2].mainTexture = ReadFoot[System.Convert.ToInt32(sr.ReadLine())];
 
         sr.Close();
-
-        Debug.Log(mesh.materials[0].mainTexture.name);
-        Debug.Log(mesh.materials[1].mainTexture.name);
-        Debug.Log(mesh.materials[2].mainTexture.name);
     }
 }

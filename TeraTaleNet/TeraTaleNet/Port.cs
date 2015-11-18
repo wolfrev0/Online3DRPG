@@ -11,7 +11,8 @@ namespace TeraTaleNet
         Proxy,
         LoginForProxy,
         LoginForGameServer,
-        Database,
+        DatabaseForLogin,
+        DatabaseForGameServer,
         GameServer, 
     }
 }

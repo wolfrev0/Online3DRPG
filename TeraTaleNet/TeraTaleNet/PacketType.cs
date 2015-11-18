@@ -3,8 +3,10 @@
     public enum PacketType
     {
         WriteConsoleRequest,
-        ConnecterInfo,
         LoginRequest,
         LoginResponse,
+        PlayerJoin,
+        PlayerInfoRequest,
+        PlayerInfoResponse,
     }
 }

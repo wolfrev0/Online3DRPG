@@ -16,6 +16,7 @@ namespace Proxy
         public ProxyServer()
         {
             _serverMessenger.Register("Login", ConnectToLogin());
+            _serverMessenger.Register("GameServer", ConnectToGameServer());
             _accepter.onAccepted = (PacketStream stream) => 
             {
                 _confirmMessenger.Register(currentConfirmId++, stream);
@@ -28,6 +29,16 @@ namespace Proxy
             var _connecter = new TcpConnecter();
             var connection = _connecter.Connect("127.0.0.1", (ushort)Port.LoginForProxy);
             Console.WriteLine("Login Connected.");
+            _connecter.Dispose();
+
+            return new PacketStream(connection);
+        }
+
+        PacketStream ConnectToGameServer()
+        {
+            var _connecter = new TcpConnecter();
+            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.GameServer);
+            Console.WriteLine("GameServer Connected.");
             _connecter.Dispose();
 
             return new PacketStream(connection);

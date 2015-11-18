@@ -5,8 +5,12 @@ using TeraTaleNet;
 
 public class LoginManager : MonoBehaviour
 {
-    public NetworkManager net;
     Messenger<string> _messenger = new Messenger<string>();
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -49,9 +53,9 @@ public class LoginManager : MonoBehaviour
     {
         if (response.accepted)
         {
+            var net = FindObjectOfType<NetworkManager>();
             net.stream = _messenger.Unregister("Proxy");
             net.enabled = true;
-            DontDestroyOnLoad(net.gameObject);
             Application.LoadLevel("Town");
         }
         else

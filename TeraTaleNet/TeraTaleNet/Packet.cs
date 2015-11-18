@@ -27,6 +27,15 @@ namespace TeraTaleNet
                 case PacketType.LoginResponse:
                     body = new LoginResponse(bytes);
                     break;
+                case PacketType.PlayerJoin:
+                    body = new PlayerJoin(bytes);
+                    break;
+                case PacketType.PlayerInfoRequest:
+                    body = new PlayerInfoRequest(bytes);
+                    break;
+                case PacketType.PlayerInfoResponse:
+                    body = new PlayerInfoResponse(bytes);
+                    break;
                 default:
                     throw new ArgumentException("PacketType does not matched.");
             }

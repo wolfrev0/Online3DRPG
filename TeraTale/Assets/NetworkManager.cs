@@ -5,20 +5,12 @@ using TeraTaleNet;
 
 public class NetworkManager : MonoBehaviour
 {
-    static NetworkManager _instance;
     public PacketStream stream;
     Messenger<string> _messenger = new Messenger<string>();
 
-    public static NetworkManager instance
+    void Awake()
     {
-        get
-        {
-            if (!_instance)
-            {
-                _instance = FindObjectOfType<NetworkManager>();
-            }
-            return _instance;
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

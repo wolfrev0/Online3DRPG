@@ -14,26 +14,16 @@ namespace Login
         public LoginServer()
         {
             _messenger.Register("Database", ConnectToDatabase());
-            _messenger.Register("Proxy", ListenProxy());
             _messenger.Register("GameServer", ListenGameServer());
+            _messenger.Register("Proxy", ListenProxy());
         }
 
         PacketStream ConnectToDatabase()
         {
             var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.Database);
+            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.DatabaseForLogin);
             Console.WriteLine("Database Connected.");
             _connecter.Dispose();
-
-            return new PacketStream(connection);
-        }
-
-        PacketStream ListenProxy()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForProxy, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("Proxy Connected.");
-            _listener.Dispose();
 
             return new PacketStream(connection);
         }
@@ -43,6 +33,16 @@ namespace Login
             var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForGameServer, 1);
             var connection = _listener.Accept();
             Console.WriteLine("GameServer Connected.");
+            _listener.Dispose();
+
+            return new PacketStream(connection);
+        }
+
+        PacketStream ListenProxy()
+        {
+            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForProxy, 1);
+            var connection = _listener.Accept();
+            Console.WriteLine("Proxy Connected.");
             _listener.Dispose();
 
             return new PacketStream(connection);
@@ -119,7 +119,7 @@ namespace Login
                 else
                 {
                     loggedInUsers.Add(response.nickName);
-                    //_messenger.Send("GameServer", new Packet());
+                    _messenger.Send("GameServer", new Packet(new PlayerJoin(response.nickName)));
                 }
             }
             _messenger.Send("Proxy", new Packet(response));

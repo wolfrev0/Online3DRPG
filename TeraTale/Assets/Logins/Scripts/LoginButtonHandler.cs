@@ -3,9 +3,14 @@ using UnityEngine.UI;
 
 public class LoginButtonHandler : MonoBehaviour
 {
-    public LoginManager loginManager;
     public InputField id;
     public InputField pw;
+    LoginManager loginManager;
+
+    void Start()
+    {
+        loginManager = FindObjectOfType<LoginManager>();
+    }
 
     public void OnButtonClicked()
     {
