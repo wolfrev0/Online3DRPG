@@ -1,6 +1,4 @@
-﻿using LoboNet;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public class PlayerInfoRequest : IBody
     {
@@ -20,14 +18,19 @@ namespace TeraTaleNet
 
         public Header CreateHeader()
         {
-            return new Header(PacketType.PlayerInfoRequest, nickName.SerializedSizeUTF8());
+            return new Header(PacketType.PlayerInfoRequest, SerializedSize());
+        }
+
+        public int SerializedSize()
+        {
+            return Serializer.SerializedSize(_nickName);
         }
 
         public byte[] Serialize()
         {
-            var nickNameBytes = nickName.SerializeUTF8();
+            var nickNameBytes = Serializer.Serialize(nickName);
 
-            var ret = new byte[nickNameBytes.Length];
+            var ret = new byte[SerializedSize()];
 
             int offset = 0;
             nickNameBytes.CopyTo(ret, offset);
@@ -39,8 +42,8 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            _nickName = nickName.DeserializeUTF8(buffer, offset);
-            offset += nickName.SerializedSizeUTF8();
+            _nickName = Serializer.ToString(buffer, offset);
+            offset += Serializer.SerializedSize(nickName);
         }
     }
 }

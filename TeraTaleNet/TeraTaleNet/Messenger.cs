@@ -7,9 +7,9 @@ namespace TeraTaleNet
     public class Messenger<T>
     {
         //concurrent Dictionary?
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _sendQs = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _recvQs = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, PacketStream> _streams = new ConcurrentDictionary<T, PacketStream>();
+        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _sendQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
+        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _recvQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
+        ConcurrentDictionary<T, PacketStream> _streamByKey = new ConcurrentDictionary<T, PacketStream>();
         Thread _sender;
         Thread _receiver;
         bool _stopped = false;
@@ -18,7 +18,7 @@ namespace TeraTaleNet
         {
             get
             {
-                return _streams.Keys;
+                return _streamByKey.Keys;
             }
         }
 
@@ -36,15 +36,15 @@ namespace TeraTaleNet
 
         public void Register(T key, PacketStream stream)
         {
-            _streams.Add(key, stream);
-            _sendQs.Add(key, new ConcurrentQueue<Packet>());
-            _recvQs.Add(key, new ConcurrentQueue<Packet>());
+            _streamByKey.Add(key, stream);
+            _sendQByKey.Add(key, new ConcurrentQueue<Packet>());
+            _recvQByKey.Add(key, new ConcurrentQueue<Packet>());
         }
 
         public PacketStream Unregister(T key)
         {
-            var ret = _streams[key];
-            _streams.Remove(key);
+            var ret = _streamByKey[key];
+            _streamByKey.Remove(key);
             return ret;
         }
         
@@ -52,7 +52,7 @@ namespace TeraTaleNet
         {
             _stopped = true;
   
-            foreach(var stream in _streams.Values)
+            foreach(var stream in _streamByKey.Values)
             {
                 stream.Dispose();
             }
@@ -62,17 +62,17 @@ namespace TeraTaleNet
 
         public void Send(T key, Packet packet)
         {
-            _sendQs[key].Enqueue(packet);
+            _sendQByKey[key].Enqueue(packet);
         }
 
         public Packet Receive(T key)
         {
-            return _recvQs[key].Dequeue();
+            return _recvQByKey[key].Dequeue();
         }
 
         public bool CanReceive(T key)
         {
-            return _recvQs[key].Count > 0;
+            return _recvQByKey[key].Count > 0;
         }
 
         void Sender()
@@ -83,10 +83,10 @@ namespace TeraTaleNet
                 {
                     foreach(var key in Keys)
                     {
-                        if (_sendQs[key].Count > 0)
+                        if (_sendQByKey[key].Count > 0)
                         {
                             //Need ioLock?
-                            _streams[key].Write(_sendQs[key].Dequeue());
+                            _streamByKey[key].Write(_sendQByKey[key].Dequeue());
                         }
                     }
                     Thread.Sleep(10);
@@ -106,10 +106,10 @@ namespace TeraTaleNet
                 {
                     foreach (var key in Keys)
                     {
-                        if (_streams[key].HasPacket())
+                        if (_streamByKey[key].HasPacket())
                         {
                             //Need ioLock?
-                            _recvQs[key].Enqueue(_streams[key].Read());
+                            _recvQByKey[key].Enqueue(_streamByKey[key].Read());
                         }
                     }
                     Thread.Sleep(10);

@@ -20,14 +20,21 @@ namespace TeraTaleNet
         
         public Header CreateHeader()
         {
-            return new Header(PacketType.WriteConsoleRequest, text.SerializedSizeUTF8());
+            return new Header(PacketType.WriteConsoleRequest, SerializedSize());
+        }
+
+        public int SerializedSize()
+        {
+            int ret = 0;
+            ret += Serializer.SerializedSize(text);
+            return ret;
         }
 
         public byte[] Serialize()
         {
-            var textBytes = text.SerializeUTF8();
+            var textBytes = Serializer.Serialize(text);
 
-            var ret = new byte[textBytes.Length];
+            var ret = new byte[SerializedSize()];
 
             int offset = 0;
             textBytes.CopyTo(ret, offset);
@@ -39,8 +46,8 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            _text = text.DeserializeUTF8(buffer, offset);
-            offset += text.SerializedSizeUTF8();
+            _text = Serializer.ToString(buffer, offset);
+            offset += Serializer.SerializedSize(text);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using LoboNet;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public enum RejectedReason
     {
@@ -39,17 +35,27 @@ namespace TeraTaleNet
 
         public Header CreateHeader()
         {
-            return new Header(PacketType.LoginResponse, sizeof(bool) + sizeof(int) + nickName.SerializedSizeUTF8() + sizeof(int));
+            return new Header(PacketType.LoginResponse, SerializedSize());
+        }
+
+        public int SerializedSize()
+        {
+            int ret = 0;
+            ret += Serializer.SerializedSize(accepted);
+            ret += Serializer.SerializedSize((int)reason);
+            ret += Serializer.SerializedSize(nickName);
+            ret += Serializer.SerializedSize(confirmID);
+            return ret;
         }
 
         public byte[] Serialize()
         {
-            var acceptedBytes = accepted.Serialize();
-            var reasonBytes = ((int)reason).Serialize();
-            var nickNameBytes = nickName.SerializeUTF8();
-            var confirmIdBytes = confirmID.Serialize();
+            var acceptedBytes = Serializer.Serialize(accepted);
+            var reasonBytes = Serializer.Serialize((int)reason);
+            var nickNameBytes = Serializer.Serialize(nickName);
+            var confirmIdBytes = Serializer.Serialize(confirmID);
 
-            var ret = new byte[acceptedBytes.Length + reasonBytes.Length + nickNameBytes.Length + confirmIdBytes.Length];
+            var ret = new byte[SerializedSize()];
 
             int offset = 0;
             acceptedBytes.CopyTo(ret, offset);
@@ -67,14 +73,14 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            _accepted = BitConverter.ToBoolean(buffer, offset);
-            offset += sizeof(bool);
-            _reason = (RejectedReason)BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
-            _nickName = nickName.DeserializeUTF8(buffer, offset);
-            offset += nickName.SerializedSizeUTF8();
-            _confirmID = BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
+            _accepted = Serializer.ToBool(buffer, offset);
+            offset += Serializer.SerializedSize(accepted);
+            _reason = (RejectedReason)Serializer.ToInt(buffer, offset);
+            offset += Serializer.SerializedSize((int)reason);
+            _nickName = Serializer.ToString(buffer, offset);
+            offset += Serializer.SerializedSize(nickName);
+            _confirmID = Serializer.ToInt(buffer, offset);
+            offset += Serializer.SerializedSize(confirmID);
         }
     }
 }

@@ -109,7 +109,7 @@ namespace Proxy
                         switch (packet.header.type)
                         {
                             case PacketType.LoginRequest:
-                                OnLoginRequest(confirmID, (LoginRequest)packet.body);
+                                OnLoginRequest((LoginRequest)packet.body, confirmID);
                                 break;
                             default:
                                 throw new ArgumentException("Received invalid packet type.");
@@ -134,7 +134,7 @@ namespace Proxy
             }
         }
 
-        void OnLoginRequest(int confirmID, LoginRequest request)
+        void OnLoginRequest(LoginRequest request, int confirmID)
         {
             request.confirmID = confirmID;
             _serverMessenger.Send("Login", new Packet(request));

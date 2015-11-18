@@ -120,14 +120,13 @@ namespace Database
 
         void OnPlayerInfoRequest(PlayerInfoRequest request)
         {
-            //using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
-            //{
-            //    string pw = stream.ReadLine();
-            //    string nickName = stream.ReadLine();
+            using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
+            {
+                string world = stream.ReadLine();
 
-            //    PlayerInfoResponse response = new PlayerInfoResponse();
-            //    _messenger.Send("GameServer", new Packet(response));
-            //}
+                PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
+                _messenger.Send("GameServer", new Packet(response));
+            }
         }
     }
 }

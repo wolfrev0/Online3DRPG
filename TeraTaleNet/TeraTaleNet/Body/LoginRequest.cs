@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using LoboNet;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public class LoginRequest : IBody
     {
@@ -27,16 +23,25 @@ namespace TeraTaleNet
 
         public Header CreateHeader()
         {
-            return new Header(PacketType.LoginRequest, id.SerializedSizeUTF8() + pw.SerializedSizeUTF8() + sizeof(int));
+            return new Header(PacketType.LoginRequest, SerializedSize());
+        }
+
+        public int SerializedSize()
+        {
+            int ret = 0;
+            ret += Serializer.SerializedSize(id);
+            ret += Serializer.SerializedSize(pw);
+            ret += Serializer.SerializedSize(confirmID);
+            return ret;
         }
 
         public byte[] Serialize()
         {
-            var idBytes = id.SerializeUTF8();
-            var pwBytes = pw.SerializeUTF8();
-            var confirmIdBytes = confirmID.Serialize();
+            var idBytes = Serializer.Serialize(id);
+            var pwBytes = Serializer.Serialize(pw);
+            var confirmIdBytes = Serializer.Serialize(confirmID);
 
-            var ret = new byte[idBytes.Length + pwBytes.Length + confirmIdBytes.Length];
+            var ret = new byte[SerializedSize()];
 
             int offset = 0;
             idBytes.CopyTo(ret, offset);
@@ -52,12 +57,12 @@ namespace TeraTaleNet
         public void Deserialize(byte[] buffer)
         {
             int offset = 0;
-            _id = id.DeserializeUTF8(buffer, offset);
-            offset += id.SerializedSizeUTF8();
-            _pw = pw.DeserializeUTF8(buffer, offset);
-            offset += pw.SerializedSizeUTF8();
-            _confirmID = BitConverter.ToInt32(buffer, offset);
-            offset += sizeof(int);
+            _id = Serializer.ToString(buffer, offset);
+            offset += Serializer.SerializedSize(id);
+            _pw = Serializer.ToString(buffer, offset);
+            offset += Serializer.SerializedSize(pw);
+            _confirmID = Serializer.ToInt(buffer, offset);
+            offset += Serializer.SerializedSize(confirmID);
         }
     }
 }

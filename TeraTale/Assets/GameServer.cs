@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
 
 public class GameServer : MonoBehaviour
 {
     Messenger<string> _messenger = new Messenger<string>();
+    PlayerLogin lastestLogin = null;
+    Dictionary<string, HashSet<string>> playersByWorld;
 
     void Awake()
     {
@@ -70,14 +73,23 @@ public class GameServer : MonoBehaviour
             var packet = _messenger.Receive("Database");
             switch (packet.header.type)
             {
+                case PacketType.PlayerInfoResponse:
+                    OnPlayerInfoResponse((PlayerInfoResponse)packet.body);
+                    break;
                 default:
                     throw new ArgumentException("Received invalid packet type.");
             }
         }
     }
 
-    void OnPlayerLogin(PlayerLogin packet)
+    void OnPlayerLogin(PlayerLogin login)
     {
-        _messenger.Send("Database", new Packet(new PlayerInfoRequest(packet.nickName)));
+        lastestLogin = login;
+        _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+    }
+
+    void OnPlayerInfoResponse(PlayerInfoResponse info)
+    {
+
     }
 }
