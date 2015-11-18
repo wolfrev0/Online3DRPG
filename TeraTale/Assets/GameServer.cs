@@ -56,7 +56,16 @@ public class GameServer : MonoBehaviour
 
     void Update()
     {
-        if (_messenger.CanReceive("Login"))
+        while (_messenger.CanReceive("Database"))
+        {
+            var packet = _messenger.Receive("Database");
+            switch (packet.header.type)
+            {
+                default:
+                    throw new ArgumentException("Received invalid packet type.");
+            }
+        }
+        while (_messenger.CanReceive("Login"))
         {
             var packet = _messenger.Receive("Login");
             switch (packet.header.type)
@@ -68,14 +77,11 @@ public class GameServer : MonoBehaviour
                     throw new ArgumentException("Received invalid packet type.");
             }
         }
-        if (_messenger.CanReceive("Database"))
+        while (_messenger.CanReceive("Proxy"))
         {
-            var packet = _messenger.Receive("Database");
+            var packet = _messenger.Receive("Proxy");
             switch (packet.header.type)
             {
-                case PacketType.PlayerInfoResponse:
-                    OnPlayerInfoResponse((PlayerInfoResponse)packet.body);
-                    break;
                 default:
                     throw new ArgumentException("Received invalid packet type.");
             }
@@ -86,10 +92,11 @@ public class GameServer : MonoBehaviour
     {
         lastestLogin = login;
         _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+        //PlayerInfoResponse packet = (PlayerInfoResponse)_messenger.ReceiveSync("Database").body;
     }
 
     void OnPlayerInfoResponse(PlayerInfoResponse info)
     {
-
+        
     }
 }

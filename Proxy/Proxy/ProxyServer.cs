@@ -75,7 +75,7 @@ namespace Proxy
                         break;
                 }
 
-                if (_serverMessenger.CanReceive("Login"))
+                while (_serverMessenger.CanReceive("Login"))
                 {
                     var packet = _serverMessenger.Receive("Login");
                     switch (packet.header.type)
@@ -88,9 +88,19 @@ namespace Proxy
                     }
                 }
 
+                while (_serverMessenger.CanReceive("GameServer"))
+                {
+                    var packet = _serverMessenger.Receive("GameServer");
+                    switch (packet.header.type)
+                    {
+                        default:
+                            throw new ArgumentException("Received invalid packet type.");
+                    }
+                }
+
                 foreach (var key in _clientMessenger.Keys)
                 {
-                    if (_clientMessenger.CanReceive(key))
+                    while (_clientMessenger.CanReceive(key))
                     {
                         var packet = _clientMessenger.Receive(key);
                         switch (packet.header.type)
@@ -103,7 +113,7 @@ namespace Proxy
 
                 foreach (var confirmID in _confirmMessenger.Keys)
                 {
-                    if (_confirmMessenger.CanReceive(confirmID))
+                    while (_confirmMessenger.CanReceive(confirmID))
                     {
                         var packet = _confirmMessenger.Receive(confirmID);
                         switch (packet.header.type)

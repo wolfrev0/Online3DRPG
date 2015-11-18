@@ -63,7 +63,7 @@ namespace Database
                         break;
                 }
 
-                if (_messenger.CanReceive("Login"))
+                while (_messenger.CanReceive("Login"))
                 {
                     var packet = _messenger.Receive("Login");
                     switch (packet.header.type)
@@ -76,7 +76,7 @@ namespace Database
                     }
                 }
 
-                if (_messenger.CanReceive("GameServer"))
+                while (_messenger.CanReceive("GameServer"))
                 {
                     var packet = _messenger.Receive("GameServer");
                     switch (packet.header.type)

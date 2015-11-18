@@ -73,7 +73,7 @@ namespace Login
                         break;
                 }
 
-                if (_messenger.CanReceive("Database"))
+                while (_messenger.CanReceive("Database"))
                 {
                     var packet = _messenger.Receive("Database");
                     switch (packet.header.type)
@@ -86,7 +86,17 @@ namespace Login
                     }
                 }
 
-                if (_messenger.CanReceive("Proxy"))
+                while (_messenger.CanReceive("GameServer"))
+                {
+                    var packet = _messenger.Receive("GameServer");
+                    switch (packet.header.type)
+                    {
+                        default:
+                            throw new ArgumentException("Received invalid packet type.");
+                    }
+                }
+
+                while (_messenger.CanReceive("Proxy"))
                 {
                     var packet = _messenger.Receive("Proxy");
                     switch (packet.header.type)

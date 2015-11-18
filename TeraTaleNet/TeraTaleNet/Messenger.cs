@@ -70,6 +70,13 @@ namespace TeraTaleNet
             return _recvQByKey[key].Dequeue();
         }
 
+        public Packet ReceiveSync(T key)
+        {
+            while (CanReceive(key) == false)
+            { }
+            return _recvQByKey[key].Dequeue();
+        }
+
         public bool CanReceive(T key)
         {
             return _recvQByKey[key].Count > 0;
