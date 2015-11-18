@@ -1,21 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Threading.Tasks;
 using LoboNet;
 using TeraTaleNet;
+using TeraTaleNetEx;
 
 namespace Login
 {
-    class LoginServer
+    class LoginServer : Server
     {
-        Messenger<string> _messenger = new Messenger<string>();
         HashSet<string> loggedInUsers = new HashSet<string>();
 
         public LoginServer()
         {
-            _messenger.Register("Database", ConnectToDatabase());
-            _messenger.Register("GameServer", ListenGameServer());
-            _messenger.Register("Proxy", ListenProxy());
+            Register("Database", ConnectToDatabase());
+            Register("GameServer", ListenGameServer());
+            Register("Proxy", ListenProxy());
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
+                LoopAsync("Database", delegates);
+            });
+
+            Task.Run(() => 
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                LoopAsync("GameServer", delegates);
+            });
+
+            Task.Run(() => 
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
+                LoopAsync("Proxy", delegates);
+            });
         }
 
         PacketStream ConnectToDatabase()
@@ -48,77 +68,23 @@ namespace Login
             return new PacketStream(connection);
         }
 
-        public void Execute()
+        protected override void MainLoop()
         {
-            _messenger.Start();
-            try
+            if (Console.KeyAvailable)
             {
-                MainLoop();
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    Stop();
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-            }
-            _messenger.Join();
         }
 
-        void MainLoop()
+        void OnLoginRequest(Packet packet)
         {
-            while (true)
-            {
-                if(Console.KeyAvailable)
-                {
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        break;
-                }
-
-                while (_messenger.CanReceive("Database"))
-                {
-                    var packet = _messenger.Receive("Database");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.LoginResponse:
-                            OnLoginResponse((LoginResponse)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                while (_messenger.CanReceive("GameServer"))
-                {
-                    var packet = _messenger.Receive("GameServer");
-                    switch (packet.header.type)
-                    {
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                while (_messenger.CanReceive("Proxy"))
-                {
-                    var packet = _messenger.Receive("Proxy");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-            }
-            Thread.Sleep(10);
+            Send("Database", packet);
         }
 
-        void OnLoginRequest(LoginRequest request)
+        void OnLoginResponse(Packet packet)
         {
-            _messenger.Send("Database", new Packet(request));
-        }
-
-        void OnLoginResponse(LoginResponse response)
-        {
+            LoginResponse response = (LoginResponse)packet.body;
             if (response.accepted)
             {
                 if (loggedInUsers.Contains(response.nickName))
@@ -129,10 +95,10 @@ namespace Login
                 else
                 {
                     loggedInUsers.Add(response.nickName);
-                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
+                    Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
                 }
             }
-            _messenger.Send("Proxy", new Packet(response));
+            Send("Proxy", new Packet(response));
         }
     }
 }

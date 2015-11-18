@@ -1,21 +1,36 @@
 ﻿using System;
-using System.Threading;
 using System.IO;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
+using TeraTaleNetEx;
 
 namespace Database
 {
-    class Database
+    class Database : Server
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
-        Messenger<string> _messenger = new Messenger<string>();
 
         public Database()
-        {            
-            _messenger.Register("Login", ListenLogin());
-            _messenger.Register("GameServer", ListenGameServer());
+        {
+            Register("Login", ListenLogin());
+            Register("GameServer", ListenGameServer());
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
+                LoopAsync("Login", delegates);
+            });
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
+                LoopAsync("GameServer", delegates);
+            });
         }
 
         PacketStream ListenLogin()
@@ -38,62 +53,18 @@ namespace Database
             return new PacketStream(connection);
         }
 
-        public void Execute()
+        protected override void MainLoop()
         {
-            _messenger.Start();
-            try
+            if (Console.KeyAvailable)
             {
-                MainLoop();
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    Stop();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-            }
-            _messenger.Join();
         }
 
-        void MainLoop()
+        void OnLoginRequest(Packet packet)
         {
-            while (true)
-            {
-                if (Console.KeyAvailable)
-                {
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        break;
-                }
-
-                while (_messenger.CanReceive("Login"))
-                {
-                    var packet = _messenger.Receive("Login");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                while (_messenger.CanReceive("GameServer"))
-                {
-                    var packet = _messenger.Receive("GameServer");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.PlayerInfoRequest:
-                            OnPlayerInfoRequest((PlayerInfoRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-            }
-            Thread.Sleep(10);
-        }
-
-        void OnLoginRequest(LoginRequest request)
-        {
+            LoginRequest request = (LoginRequest)packet.body;
             LoginResponse response;
             try
             {
@@ -115,17 +86,18 @@ namespace Database
             {
                 response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
             }
-            _messenger.Send("Login", new Packet(response));
+            Send("Login", new Packet(response));
         }
 
-        void OnPlayerInfoRequest(PlayerInfoRequest request)
+        void OnPlayerInfoRequest(Packet packet)
         {
+            PlayerInfoRequest request = (PlayerInfoRequest)packet.body;
             using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
             {
                 string world = stream.ReadLine();
 
                 PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                _messenger.Send("GameServer", new Packet(response));
+                Send("GameServer", new Packet(response));
             }
         }
     }

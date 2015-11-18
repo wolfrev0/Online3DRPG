@@ -49,6 +49,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TeraTale\Assets\References\TeraTaleNet.dll</HintPath>
     </Reference>
+    <Reference Include="TeraTaleNetEx">
+      <HintPath>..\..\TeraTaleNetEx\TeraTaleNetEx\bin\Debug\TeraTaleNetEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginServer.cs" />

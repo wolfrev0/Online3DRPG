@@ -1,27 +1,41 @@
 ﻿using System;
-using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
+using TeraTaleNetEx;
 
 namespace Proxy
 {
-    class ProxyServer
+    class ProxyServer : Server
     {
         Accepter _accepter = new Accepter("0.0.0.0", (ushort)Port.Proxy, 4);
-        Messenger<string> _serverMessenger = new Messenger<string>();
         Messenger<string> _clientMessenger = new Messenger<string>();
         Messenger<int> _confirmMessenger = new Messenger<int>();
         int currentConfirmId = 0;
 
         public ProxyServer()
         {
-            _serverMessenger.Register("Login", ConnectToLogin());
-            _serverMessenger.Register("GameServer", ConnectToGameServer());
+            Register("Login", ConnectToLogin());
+            Register("GameServer", ConnectToGameServer());
             _accepter.onAccepted = (PacketStream stream) => 
             {
                 _confirmMessenger.Register(currentConfirmId++, stream);
                 Console.WriteLine("Client Accepted.");
             };
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
+                LoopAsync("Login", delegates);
+            });
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                LoopAsync("GameServer", delegates);
+            });
         }
 
         PacketStream ConnectToLogin()
@@ -44,94 +58,61 @@ namespace Proxy
             return new PacketStream(connection);
         }
 
-        public void Execute()
+        public override void Execute()
         {
             _accepter.Start();
-            _serverMessenger.Start();
             _clientMessenger.Start();
             _confirmMessenger.Start();
-            try
-            {
-                MainLoop();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-            }
+
+            base.Execute();
+
             _accepter.Join();
-            _serverMessenger.Join();
             _clientMessenger.Join();
             _confirmMessenger.Join();
         }
 
-        void MainLoop()
+        protected override void MainLoop()
         {
-            while (true)
+            if (Console.KeyAvailable)
             {
-                if (Console.KeyAvailable)
-                {
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        break;
-                }
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    Stop();
+            }
 
-                while (_serverMessenger.CanReceive("Login"))
+            foreach (var key in _clientMessenger.Keys)
+            {
+                while (_clientMessenger.CanReceive(key))
                 {
-                    var packet = _serverMessenger.Receive("Login");
+                    var packet = _clientMessenger.Receive(key);
                     switch (packet.header.type)
                     {
-                        case PacketType.LoginResponse:
-                            OnLoginResponse((LoginResponse)packet.body);
+                        default:
+                            throw new ArgumentException("Received invalid packet type.");
+                    }
+                }
+            }
+
+            foreach (var confirmID in _confirmMessenger.Keys)
+            {
+                while (_confirmMessenger.CanReceive(confirmID))
+                {
+                    var packet = _confirmMessenger.Receive(confirmID);
+                    switch (packet.header.type)
+                    {
+                        case PacketType.LoginRequest:
+                            OnLoginRequest((LoginRequest)packet.body, confirmID);
                             break;
                         default:
                             throw new ArgumentException("Received invalid packet type.");
                     }
                 }
-
-                while (_serverMessenger.CanReceive("GameServer"))
-                {
-                    var packet = _serverMessenger.Receive("GameServer");
-                    switch (packet.header.type)
-                    {
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                foreach (var key in _clientMessenger.Keys)
-                {
-                    while (_clientMessenger.CanReceive(key))
-                    {
-                        var packet = _clientMessenger.Receive(key);
-                        switch (packet.header.type)
-                        {
-                            default:
-                                throw new ArgumentException("Received invalid packet type.");
-                        }
-                    }
-                }
-
-                foreach (var confirmID in _confirmMessenger.Keys)
-                {
-                    while (_confirmMessenger.CanReceive(confirmID))
-                    {
-                        var packet = _confirmMessenger.Receive(confirmID);
-                        switch (packet.header.type)
-                        {
-                            case PacketType.LoginRequest:
-                                OnLoginRequest((LoginRequest)packet.body, confirmID);
-                                break;
-                            default:
-                                throw new ArgumentException("Received invalid packet type.");
-                        }
-                    }
-                }
-                Thread.Sleep(10);
             }
         }
 
-        void OnLoginResponse(LoginResponse response)
+        void OnLoginResponse(Packet packet)
         {
+            LoginResponse response = (LoginResponse)packet.body;
+
             if (response.accepted)
             {
                 PacketStream stream = _confirmMessenger.Unregister(response.confirmID);
@@ -147,7 +128,7 @@ namespace Proxy
         void OnLoginRequest(LoginRequest request, int confirmID)
         {
             request.confirmID = confirmID;
-            _serverMessenger.Send("Login", new Packet(request));
+            Send("Login", new Packet(request));
         }
     }
 }
