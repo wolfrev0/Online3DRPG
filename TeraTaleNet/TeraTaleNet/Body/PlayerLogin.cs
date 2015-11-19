@@ -1,53 +1,21 @@
-﻿using LoboNet;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
-    public class PlayerLogin : IBody
+    public class PlayerLogin : Body
     {
-        string _nickName;
-
-        public string nickName { get { return _nickName; } }
+        public string nickName;
 
         public PlayerLogin(string nickName)
         {
-            _nickName = nickName;
+            this.nickName = nickName;
         }
 
-        public PlayerLogin(byte[] buffer)
+        public PlayerLogin(byte[] bytes)
+            : base(bytes)
+        { }
+
+        protected override PacketType Type()
         {
-            Deserialize(buffer);
-        }
-
-        public Header CreateHeader()
-        {
-            return new Header(PacketType.PlayerLogin, SerializedSize());
-        }
-
-        public int SerializedSize()
-        {
-            int ret = 0;
-            ret += Serializer.SerializedSize(nickName);
-            return ret;
-        }
-
-        public byte[] Serialize()
-        {
-            var nickNameBytes = Serializer.Serialize(nickName);
-
-            var ret = new byte[SerializedSize()];
-
-            int offset = 0;
-            nickNameBytes.CopyTo(ret, offset);
-            offset += nickNameBytes.Length;
-
-            return ret;
-        }
-
-        public void Deserialize(byte[] buffer)
-        {
-            int offset = 0;
-            _nickName = Serializer.ToString(buffer, offset);
-            offset += Serializer.SerializedSize(nickName);
+            return PacketType.PlayerLogin;
         }
     }
 }

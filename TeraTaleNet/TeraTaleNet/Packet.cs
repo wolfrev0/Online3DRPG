@@ -8,14 +8,14 @@ namespace TeraTaleNet
     public class Packet
     {
         Header _header;
-        IBody _body;
+        Body _body;
 
         public Header header { get { return _header; } }
-        public IBody body { get { return _body; } }
+        public Body body { get { return _body; } }
 
         static public Packet Create(Header header, byte[] bytes)
         {
-            IBody body;
+            Body body;
             switch (header.type)
             {
                 case PacketType.WriteConsoleRequest:
@@ -42,13 +42,13 @@ namespace TeraTaleNet
             return new Packet(header, body);
         }
 
-        public Packet(Header header, IBody body)
+        public Packet(Header header, Body body)
         {
             _header = header;
             _body = body;
         }
 
-        public Packet(IBody body)
+        public Packet(Body body)
         {
             _header = body.CreateHeader();
             _body = body;

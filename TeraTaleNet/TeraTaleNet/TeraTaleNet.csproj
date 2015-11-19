@@ -51,7 +51,7 @@
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />
-    <Compile Include="IBody.cs" />
+    <Compile Include="Body.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="ISerializable.cs" />
     <Compile Include="Body\LoginRequest.cs" />
