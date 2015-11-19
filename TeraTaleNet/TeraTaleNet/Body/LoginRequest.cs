@@ -4,12 +4,13 @@
     {
         public string id;
         public string pw;
-        public int confirmID = -1;
+        public string confirmID;
 
-        public LoginRequest(string id, string pw)
+        public LoginRequest(string id, string pw, string confirmID)
         {
             this.id = id;
             this.pw = pw;
+            this.confirmID = confirmID;
         }
 
         public LoginRequest(byte[] data)

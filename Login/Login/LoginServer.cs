@@ -8,32 +8,33 @@ namespace Login
 {
     class LoginServer : Server
     {
+        Messenger _messenger = new Messenger();
         HashSet<string> loggedInUsers = new HashSet<string>();
 
         public LoginServer()
         {
-            Register("Database", ConnectToDatabase());
-            Register("GameServer", ListenGameServer());
-            Register("Proxy", ListenProxy());
+            _messenger.Register("Database", ConnectToDatabase());
+            _messenger.Register("GameServer", ListenGameServer());
+            _messenger.Register("Proxy", ListenProxy());
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                Dispatcher("Database", delegates);
+                _messenger.Dispatcher("Database", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                Dispatcher("GameServer", delegates);
+                _messenger.Dispatcher("GameServer", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                Dispatcher("Proxy", delegates);
+                _messenger.Dispatcher("Proxy", delegates);
             });
         }
 
@@ -72,13 +73,17 @@ namespace Login
             if (Console.KeyAvailable)
             {
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                {
+                    _messenger.Join();
                     Stop();
+                }
             }
         }
 
         void OnLoginRequest(Packet packet)
         {
-            Send("Database", packet);
+            Console.WriteLine(((LoginRequest)packet.body).confirmID);
+            _messenger.Send("Database", packet);
         }
 
         void OnLoginResponse(Packet packet)
@@ -94,10 +99,10 @@ namespace Login
                 else
                 {
                     loggedInUsers.Add(response.nickName);
-                    Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
+                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
                 }
             }
-            Send("Proxy", new Packet(response));
+            _messenger.Send("Proxy", new Packet(response));
         }
     }
 }

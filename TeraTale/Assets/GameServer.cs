@@ -7,7 +7,7 @@ using TeraTaleNet;
 
 public class GameServer : MonoBehaviour, IServer
 {
-    Messenger<string> _messenger = new Messenger<string>();
+    Messenger _messenger = new Messenger();
     bool stopped = false;
 
     Dictionary<string, HashSet<string>> playersByWorld;

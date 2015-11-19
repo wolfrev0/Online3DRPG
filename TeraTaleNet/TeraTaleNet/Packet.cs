@@ -33,6 +33,9 @@ namespace TeraTaleNet
                 case PacketType.PlayerInfoResponse:
                     body = new PlayerInfoResponse(bytes);
                     break;
+                case PacketType.ConfirmID:
+                    body = new ConfirmID(bytes);
+                    break;
                 default:
                     throw new ArgumentException("PacketType does not matched.");
             }

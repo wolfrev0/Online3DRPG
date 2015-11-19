@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public class Header : PacketData
     {

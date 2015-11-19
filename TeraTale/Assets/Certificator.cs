@@ -7,7 +7,8 @@ using TeraTaleNet;
 
 public class Certificator : MonoBehaviour, IServer
 {
-    Messenger<string> _messenger = new Messenger<string>();
+    Messenger _messenger = new Messenger();
+    string _confirmID = "INVALID";
     bool stopped = false;
 
     void Awake()
@@ -17,11 +18,11 @@ public class Certificator : MonoBehaviour, IServer
 
     void Start()
     {
-        Register("Proxy", ConnectToProxy());
-
+        _messenger.Register("Proxy", ConnectToProxy());
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.LoginResponse, OnLoginResponse);
+        delegates.Add(PacketType.ConfirmID, OnConfirmID);
         StartCoroutine(Dispatcher("Proxy", delegates));
 
         _messenger.Start();
@@ -35,16 +36,6 @@ public class Certificator : MonoBehaviour, IServer
     void OnDestroy()
     {
         _messenger.Join();
-    }
-
-    void Register(string key, PacketStream stream)
-    {
-        _messenger.Register(key, stream);
-    }
-
-    void Send(string key, Packet packet)
-    {
-        _messenger.Send(key, packet);
     }
 
     void OnUpdate()
@@ -106,8 +97,15 @@ public class Certificator : MonoBehaviour, IServer
         }
     }
 
+    void OnConfirmID(Packet packet)
+    {
+        ConfirmID id = (ConfirmID)packet.body;
+        _confirmID = id.confirmID;
+        Debug.Log(_confirmID);
+    }
+
     public void SendLoginRequest(string id, string pw)
     {
-        Send("Proxy", new Packet(new LoginRequest(id, pw)));
+        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw, _confirmID)));
     }
 }

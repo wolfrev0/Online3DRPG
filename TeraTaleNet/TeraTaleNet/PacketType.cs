@@ -8,5 +8,6 @@
         PlayerLogin,
         PlayerInfoRequest,
         PlayerInfoResponse,
+        ConfirmID,
     }
 }

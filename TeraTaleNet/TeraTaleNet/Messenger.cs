@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace TeraTaleNet
 {
-    public class Messenger<T>
+    public class Messenger
     {
         //concurrent Dictionary?
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _sendQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _recvQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, PacketStream> _streamByKey = new ConcurrentDictionary<T, PacketStream>();
+        Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
+        Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
+        Dictionary<string, PacketStream> _streamByKey = new Dictionary<string, PacketStream>();
         Thread _sender;
         Thread _receiver;
         bool _stopped = false;
 
-        public Dictionary<T, PacketStream>.KeyCollection Keys
+        public Dictionary<string, PacketStream>.KeyCollection Keys
         {
             get
             {
@@ -34,14 +34,34 @@ namespace TeraTaleNet
             _receiver.Start();
         }
 
-        public void Register(T key, PacketStream stream)
+        public void Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        {
+            try
+            {
+                while (_stopped == false)
+                {
+                    while (CanReceive(key))
+                    {
+                        var packet = Receive(key);
+                        delegateByPacketType[packet.header.type](packet);
+                    }
+                    Thread.Sleep(10);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void Register(string key, PacketStream stream)
         {
             _streamByKey.Add(key, stream);
             _sendQByKey.Add(key, new ConcurrentQueue<Packet>());
             _recvQByKey.Add(key, new ConcurrentQueue<Packet>());
         }
 
-        public PacketStream Unregister(T key)
+        public PacketStream Unregister(string key)
         {
             var ret = _streamByKey[key];
             _streamByKey.Remove(key);
@@ -60,24 +80,24 @@ namespace TeraTaleNet
             _receiver.Join();
         }
 
-        public void Send(T key, Packet packet)
+        public void Send(string key, Packet packet)
         {
             _sendQByKey[key].Enqueue(packet);
         }
 
-        public Packet Receive(T key)
+        public Packet Receive(string key)
         {
             return _recvQByKey[key].Dequeue();
         }
 
-        public Packet ReceiveSync(T key)
+        public Packet ReceiveSync(string key)
         {
             while (CanReceive(key) == false)
             { }
             return _recvQByKey[key].Dequeue();
         }
 
-        public bool CanReceive(T key)
+        public bool CanReceive(string key)
         {
             return _recvQByKey[key].Count > 0;
         }
@@ -93,7 +113,9 @@ namespace TeraTaleNet
                         if (_sendQByKey[key].Count > 0)
                         {
                             //Need ioLock?
-                            _streamByKey[key].Write(_sendQByKey[key].Dequeue());
+                            var packet = _sendQByKey[key].Dequeue();
+                            _streamByKey[key].Write(packet);
+                            Console.WriteLine(packet.header.type);
                         }
                     }
                     Thread.Sleep(10);
@@ -116,7 +138,9 @@ namespace TeraTaleNet
                         if (_streamByKey[key].HasPacket())
                         {
                             //Need ioLock?
-                            _recvQByKey[key].Enqueue(_streamByKey[key].Read());
+                            var packet = _streamByKey[key].Read();
+                            _recvQByKey[key].Enqueue(packet);
+                            Console.WriteLine(packet.header.type);
                         }
                     }
                     Thread.Sleep(10);
