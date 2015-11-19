@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TeraTaleNet
 {
@@ -42,7 +39,7 @@ namespace TeraTaleNet
             return new Packet(header, body);
         }
 
-        public Packet(Header header, Body body)
+        Packet(Header header, Body body)
         {
             _header = header;
             _body = body;

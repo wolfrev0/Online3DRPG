@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
-using TeraTaleNetEx;
 
 namespace Proxy
 {
@@ -28,13 +27,13 @@ namespace Proxy
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                LoopAsync("Login", delegates);
+                Loop("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                LoopAsync("GameServer", delegates);
+                Loop("GameServer", delegates);
             });
         }
 

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
-using TeraTaleNetEx;
 
 namespace Database
 {
@@ -22,14 +21,14 @@ namespace Database
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                LoopAsync("Login", delegates);
+                Loop("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
-                LoopAsync("GameServer", delegates);
+                Loop("GameServer", delegates);
             });
         }
 

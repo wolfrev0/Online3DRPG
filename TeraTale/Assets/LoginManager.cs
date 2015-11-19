@@ -66,6 +66,8 @@ public class LoginManager : MonoBehaviour
 
     public void SendLoginRequest(string id, string pw)
     {
-        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw)));
+        var p = new Packet(new LoginRequest(id, pw));
+        _messenger.Send("Proxy", p);
+        Debug.Log(p.header.type);
     }
 }

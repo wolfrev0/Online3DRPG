@@ -23,13 +23,8 @@
             this.confirmID = confirmID;
         }
 
-        public LoginResponse(byte[] bytes)
-            : base(bytes)
+        public LoginResponse(byte[] data)
+            : base(data)
         { }
-
-        protected override PacketType Type()
-        {
-            return PacketType.LoginResponse;
-        }
     }
 }

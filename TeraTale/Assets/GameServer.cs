@@ -92,7 +92,6 @@ public class GameServer : MonoBehaviour
     {
         lastestLogin = login;
         _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
-        //PlayerInfoResponse packet = (PlayerInfoResponse)_messenger.ReceiveSync("Database").body;
     }
 
     void OnPlayerInfoResponse(PlayerInfoResponse info)

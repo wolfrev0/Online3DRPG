@@ -11,13 +11,8 @@
             this.world = world;
         }
 
-        public PlayerInfoResponse(byte[] bytes)
-            : base(bytes)
+        public PlayerInfoResponse(byte[] data)
+            : base(data)
         { }
-
-        protected override PacketType Type()
-        {
-            return PacketType.PlayerInfoResponse;
-        }
     }
 }

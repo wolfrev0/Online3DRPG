@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public enum Port : ushort
     {
@@ -13,6 +8,6 @@ namespace TeraTaleNet
         LoginForGameServer,
         DatabaseForLogin,
         DatabaseForGameServer,
-        GameServer, 
+        GameServer,
     }
 }

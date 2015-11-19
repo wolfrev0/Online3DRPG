@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoboNet;
 using TeraTaleNet;
-using TeraTaleNetEx;
 
 namespace Login
 {
@@ -21,20 +20,20 @@ namespace Login
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                LoopAsync("Database", delegates);
+                Loop("Database", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                LoopAsync("GameServer", delegates);
+                Loop("GameServer", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                LoopAsync("Proxy", delegates);
+                Loop("Proxy", delegates);
             });
         }
 

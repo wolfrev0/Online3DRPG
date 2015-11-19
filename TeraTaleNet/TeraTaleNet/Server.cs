@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using TeraTaleNet;
 
-namespace TeraTaleNetEx
+namespace TeraTaleNet
 {
     public abstract class Server
     {
@@ -40,7 +39,7 @@ namespace TeraTaleNetEx
 
         protected abstract void MainLoop();
 
-        protected void LoopAsync(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        protected void Loop(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
         {
             try
             {

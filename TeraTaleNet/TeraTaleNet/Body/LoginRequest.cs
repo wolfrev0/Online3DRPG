@@ -12,13 +12,8 @@
             this.pw = pw;
         }
 
-        public LoginRequest(byte[] bytes)
-            : base(bytes)
+        public LoginRequest(byte[] data)
+            : base(data)
         { }
-
-        protected override PacketType Type()
-        {
-            return PacketType.LoginRequest;
-        }
     }
 }

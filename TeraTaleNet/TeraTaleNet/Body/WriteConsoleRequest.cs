@@ -9,13 +9,8 @@
             this.text = text;
         }
 
-        public WriteConsoleRequest(byte[] bytes)
-            : base(bytes)
+        public WriteConsoleRequest(byte[] data)
+            : base(data)
         { }
-
-        protected override PacketType Type()
-        {
-            return PacketType.WriteConsoleRequest;
-        }
     }
 }

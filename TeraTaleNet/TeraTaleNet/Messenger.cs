@@ -47,12 +47,12 @@ namespace TeraTaleNet
             _streamByKey.Remove(key);
             return ret;
         }
-        
+
         public void Join()
         {
             _stopped = true;
-  
-            foreach(var stream in _streamByKey.Values)
+
+            foreach (var stream in _streamByKey.Values)
             {
                 stream.Dispose();
             }
@@ -88,7 +88,7 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach(var key in Keys)
+                    foreach (var key in Keys)
                     {
                         if (_sendQByKey[key].Count > 0)
                         {

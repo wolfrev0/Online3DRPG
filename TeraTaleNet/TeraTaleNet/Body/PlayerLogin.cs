@@ -9,13 +9,8 @@
             this.nickName = nickName;
         }
 
-        public PlayerLogin(byte[] bytes)
-            : base(bytes)
+        public PlayerLogin(byte[] data)
+            : base(data)
         { }
-
-        protected override PacketType Type()
-        {
-            return PacketType.PlayerLogin;
-        }
     }
 }
