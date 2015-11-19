@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accepter.cs" />
-    <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\LoginResponse.cs" />
     <Compile Include="Body\PlayerInfoRequest.cs" />
     <Compile Include="Body\PlayerInfoResponse.cs" />

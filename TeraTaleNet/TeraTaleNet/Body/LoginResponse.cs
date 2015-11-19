@@ -13,9 +13,9 @@
         public bool accepted;
         public RejectedReason reason;
         public string nickName;
-        public string confirmID;
+        public int confirmID;
 
-        public LoginResponse(bool accepted, RejectedReason reason, string nickName, string confirmID)
+        public LoginResponse(bool accepted, RejectedReason reason, string nickName, int confirmID)
         {
             this.accepted = accepted;
             this.reason = reason;

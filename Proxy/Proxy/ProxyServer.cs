@@ -9,30 +9,17 @@ namespace Proxy
     class ProxyServer : Server
     {
         Accepter _accepter = new Accepter("0.0.0.0", (ushort)Port.Proxy, 4);
-        Messenger _serverMessenger = new Messenger();
-        Messenger _clientMessenger = new Messenger();
-        Messenger _confirmMessenger = new Messenger();
-        int confirmID = 0;
+        Messenger<string> _clientMessenger = new Messenger<string>();
+        Messenger<int> _confirmMessenger = new Messenger<int>();
+        int currentConfirmId = 0;
 
         public ProxyServer()
         {
-            _serverMessenger.Register("Login", ConnectToLogin());
-            _serverMessenger.Register("GameServer", ConnectToGameServer());
+            Register("Login", ConnectToLogin());
+            Register("GameServer", ConnectToGameServer());
             _accepter.onAccepted = (PacketStream stream) => 
             {
-                _confirmMessenger.Register(confirmID.ToString(), stream);
-                _confirmMessenger.Send(confirmID.ToString(), new Packet(new ConfirmID(confirmID.ToString())));
-
-                //int confirmCopy = confirmID;
-
-                //Task.Run(() =>
-                //{
-                //    var delegates = new Dictionary<PacketType, PacketDelegate>();
-                //    delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                //    _confirmMessenger.Dispatcher(confirmCopy.ToString(), delegates);
-                //});
-
-                confirmID++;
+                _confirmMessenger.Register(currentConfirmId++, stream);
                 Console.WriteLine("Client Accepted.");
             };
 
@@ -40,13 +27,13 @@ namespace Proxy
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                _serverMessenger.Dispatcher("Login", delegates);
+                Dispatcher("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                _serverMessenger.Dispatcher("GameServer", delegates);
+                Dispatcher("GameServer", delegates);
             });
         }
 
@@ -90,6 +77,7 @@ namespace Proxy
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                     Stop();
             }
+
             foreach (var key in _clientMessenger.Keys)
             {
                 while (_clientMessenger.CanReceive(key))
@@ -111,7 +99,7 @@ namespace Proxy
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
-                            OnLoginRequest(packet);
+                            OnLoginRequest((LoginRequest)packet.body, confirmID);
                             break;
                         default:
                             throw new ArgumentException("Received invalid packet type.");
@@ -123,29 +111,23 @@ namespace Proxy
         void OnLoginResponse(Packet packet)
         {
             LoginResponse response = (LoginResponse)packet.body;
-            Console.WriteLine(response.confirmID);
-
-            _confirmMessenger.Send(response.confirmID, packet);
 
             if (response.accepted)
             {
                 PacketStream stream = _confirmMessenger.Unregister(response.confirmID);
                 _clientMessenger.Register(response.nickName, stream);
-                //Task.Run(() =>
-                //{
-                //    var delegates = new Dictionary<PacketType, PacketDelegate>();
-                //    _clientMessenger.Dispatcher(response.confirmID.ToString(), delegates);
-                //});
+                _clientMessenger.Send(response.nickName, new Packet(response));
             }
             else
             {
+                _confirmMessenger.Send(response.confirmID, new Packet(response));
             }
         }
 
-        void OnLoginRequest(Packet packet)
+        void OnLoginRequest(LoginRequest request, int confirmID)
         {
-            Console.WriteLine(((LoginRequest)packet.body).confirmID);
-            _serverMessenger.Send("Login", packet);
+            request.confirmID = confirmID;
+            Send("Login", new Packet(request));
         }
     }
 }

@@ -11,25 +11,24 @@ namespace Database
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
-        Messenger _messenger = new Messenger();
 
         public Database()
         {
-            _messenger.Register("Login", ListenLogin());
-            _messenger.Register("GameServer", ListenGameServer());
+            Register("Login", ListenLogin());
+            Register("GameServer", ListenGameServer());
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                _messenger.Dispatcher("Login", delegates);
+                Dispatcher("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
-                _messenger.Dispatcher("GameServer", delegates);
+                Dispatcher("GameServer", delegates);
             });
         }
 
@@ -58,10 +57,7 @@ namespace Database
             if (Console.KeyAvailable)
             {
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                {
-                    _messenger.Join();
                     Stop();
-                }
             }
         }
 
@@ -89,7 +85,7 @@ namespace Database
             {
                 response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
             }
-            _messenger.Send("Login", new Packet(response));
+            Send("Login", new Packet(response));
         }
 
         void OnPlayerInfoRequest(Packet packet)
@@ -100,7 +96,7 @@ namespace Database
                 string world = stream.ReadLine();
 
                 PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                _messenger.Send("GameServer", new Packet(response));
+                Send("GameServer", new Packet(response));
             }
         }
     }

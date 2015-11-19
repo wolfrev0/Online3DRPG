@@ -6,7 +6,7 @@ using TeraTaleNet;
 public class NetworkManager : MonoBehaviour
 {
     public PacketStream stream;
-    Messenger _messenger = new Messenger();
+    Messenger<string> _messenger = new Messenger<string>();
 
     void Awake()
     {

@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class LoginButtonHandler : MonoBehaviour
 {
-    Certificator loginManager;
     public InputField id;
     public InputField pw;
+    Certificator loginManager;
 
     void Start()
     {
