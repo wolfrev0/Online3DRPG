@@ -4,15 +4,10 @@ using System.Threading;
 
 namespace TeraTaleNet
 {
-    public abstract class Server
+    public abstract class Server : IServer
     {
         Messenger<string> _messenger = new Messenger<string>();
         bool stopped = false;
-
-        protected void Register(string key, PacketStream stream)
-        {
-            _messenger.Register(key, stream);
-        }
 
         public virtual void Execute()
         {
@@ -21,7 +16,7 @@ namespace TeraTaleNet
             {
                 while (stopped == false)
                 {
-                    MainLoop();
+                    OnUpdate();
                     Thread.Sleep(10);
                 }
             }
@@ -32,14 +27,19 @@ namespace TeraTaleNet
             _messenger.Join();
         }
 
+        protected void Register(string key, PacketStream stream)
+        {
+            _messenger.Register(key, stream);
+        }
+
         protected void Send(string key, Packet packet)
         {
             _messenger.Send(key, packet);
         }
 
-        protected abstract void MainLoop();
+        protected abstract void OnUpdate();
 
-        protected void Loop(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        protected void Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
         {
             try
             {

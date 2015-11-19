@@ -20,20 +20,20 @@ namespace Login
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                Loop("Database", delegates);
+                Dispatcher("Database", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                Loop("GameServer", delegates);
+                Dispatcher("GameServer", delegates);
             });
 
             Task.Run(() => 
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                Loop("Proxy", delegates);
+                Dispatcher("Proxy", delegates);
             });
         }
 
@@ -67,7 +67,7 @@ namespace Login
             return new PacketStream(connection);
         }
 
-        protected override void MainLoop()
+        protected override void OnUpdate()
         {
             if (Console.KeyAvailable)
             {

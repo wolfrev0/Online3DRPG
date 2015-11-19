@@ -27,13 +27,13 @@ namespace Proxy
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                Loop("Login", delegates);
+                Dispatcher("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                Loop("GameServer", delegates);
+                Dispatcher("GameServer", delegates);
             });
         }
 
@@ -70,7 +70,7 @@ namespace Proxy
             _confirmMessenger.Join();
         }
 
-        protected override void MainLoop()
+        protected override void OnUpdate()
         {
             if (Console.KeyAvailable)
             {

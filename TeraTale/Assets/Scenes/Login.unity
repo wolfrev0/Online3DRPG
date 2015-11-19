@@ -364,13 +364,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 262187489}
   m_TextComponent: {fileID: 684030757}
   m_Placeholder: {fileID: 871037469}
-  m_ContentType: 0
+  m_ContentType: 6
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 7
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 5
   m_CharacterLimit: 0
   m_EndEdit:
     m_PersistentCalls:
@@ -704,8 +704,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 821400361}
   m_TextComponent: {fileID: 578876625}
   m_Placeholder: {fileID: 142633379}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1299,7 +1299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a697084e34ebe74492e8251111d3385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginManager: {fileID: 0}
   id: {fileID: 262187488}
   pw: {fileID: 821400360}
 --- !u!4 &2040446917

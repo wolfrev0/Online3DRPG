@@ -21,14 +21,14 @@ namespace Database
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                Loop("Login", delegates);
+                Dispatcher("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
-                Loop("GameServer", delegates);
+                Dispatcher("GameServer", delegates);
             });
         }
 
@@ -52,7 +52,7 @@ namespace Database
             return new PacketStream(connection);
         }
 
-        protected override void MainLoop()
+        protected override void OnUpdate()
         {
             if (Console.KeyAvailable)
             {

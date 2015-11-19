@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
 
-public class GameServer : MonoBehaviour
+public class GameServer : MonoBehaviour, IServer
 {
     Messenger<string> _messenger = new Messenger<string>();
-    PlayerLogin lastestLogin = null;
+    bool stopped = false;
+
     Dictionary<string, HashSet<string>> playersByWorld;
 
     void Awake()
@@ -17,11 +19,73 @@ public class GameServer : MonoBehaviour
 
     void Start()
     {
-        _messenger.Register("Database", ConnectToDatabase());
-        _messenger.Register("Login", ConnectToLogin());
-        _messenger.Register("Proxy", ListenProxy());
-        var login = FindObjectOfType<LoginManager>();
+        Register("Database", ConnectToDatabase());
+        Register("Login", ConnectToLogin());
+        Register("Proxy", ListenProxy());
+
+        var delegates = new Dictionary<PacketType, PacketDelegate>();
+        delegates.Add(PacketType.PlayerInfoResponse, OnPlayerInfoResponse);
+        StartCoroutine(Dispatcher("Database", delegates));
+
+        delegates = new Dictionary<PacketType, PacketDelegate>();
+        delegates.Add(PacketType.PlayerLogin, OnPlayerLogin);
+        StartCoroutine(Dispatcher("Login", delegates));
+
+        delegates = new Dictionary<PacketType, PacketDelegate>();
+        StartCoroutine(Dispatcher("Proxy", delegates));
+
+        var login = FindObjectOfType<Certificator>();
         login.enabled = true;
+
+        _messenger.Start();
+    }
+
+    //void OnApplicationQuit()
+    //{
+    //    _messenger.Join();
+    //}
+
+    void OnDestroy()
+    {
+        _messenger.Join();
+    }
+
+    void Register(string key, PacketStream stream)
+    {
+        _messenger.Register(key, stream);
+    }
+
+    void Send(string key, Packet packet)
+    {
+        _messenger.Send(key, packet);
+    }
+
+    void OnUpdate()
+    {
+        if (Console.KeyAvailable)
+        {
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                Stop();
+        }
+    }
+
+    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+    {
+        while (stopped == false)
+        {
+            while (_messenger.CanReceive(key))
+            {
+                var packet = _messenger.Receive(key);
+                delegateByPacketType[packet.header.type](packet);
+            }
+            yield return new WaitForSeconds(0);
+        }
+    }
+
+    void Stop()
+    {
+        stopped = true;
+        Application.Quit();
     }
 
     PacketStream ConnectToDatabase()
@@ -56,46 +120,18 @@ public class GameServer : MonoBehaviour
 
     void Update()
     {
-        while (_messenger.CanReceive("Database"))
-        {
-            var packet = _messenger.Receive("Database");
-            switch (packet.header.type)
-            {
-                default:
-                    throw new ArgumentException("Received invalid packet type.");
-            }
-        }
-        while (_messenger.CanReceive("Login"))
-        {
-            var packet = _messenger.Receive("Login");
-            switch (packet.header.type)
-            {
-                case PacketType.PlayerLogin:
-                    OnPlayerLogin((PlayerLogin)packet.body);
-                    break;
-                default:
-                    throw new ArgumentException("Received invalid packet type.");
-            }
-        }
-        while (_messenger.CanReceive("Proxy"))
-        {
-            var packet = _messenger.Receive("Proxy");
-            switch (packet.header.type)
-            {
-                default:
-                    throw new ArgumentException("Received invalid packet type.");
-            }
-        }
+        OnUpdate();
     }
 
-    void OnPlayerLogin(PlayerLogin login)
+    void OnPlayerLogin(Packet packet)
     {
-        lastestLogin = login;
-        _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+        PlayerLogin login = (PlayerLogin)packet.body;
+        Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+        //Sync Data Get
     }
 
-    void OnPlayerInfoResponse(PlayerInfoResponse info)
+    void OnPlayerInfoResponse(Packet packet)
     {
-        
+        PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
     }
 }

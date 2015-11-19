@@ -45,6 +45,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Certificator.cs" />
      <Compile Include="Assets\CostomizingScenes\ParsingData.cs" />
      <Compile Include="Assets\GameServer.cs" />
      <Compile Include="Assets\Games\Camera\CameraController.cs" />
@@ -57,7 +58,6 @@
      <Compile Include="Assets\Games\Entities\Entity.cs" />
      <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
      <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
-     <Compile Include="Assets\LoginManager.cs" />
      <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
      <Compile Include="Assets\NetworkManager.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
@@ -68,11 +68,17 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="LoboNet">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Assets/References/LoboNet.dll</HintPath>
