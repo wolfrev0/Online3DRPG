@@ -27,6 +27,7 @@ public class ServerClientSelectionHandler : MonoBehaviour
 
     public void OnClientClicked()
     {
+        FindObjectOfType<Certificator>().enabled = true;
         Application.LoadLevel("Login");
     }
 }

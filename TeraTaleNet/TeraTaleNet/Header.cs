@@ -2,7 +2,7 @@
 
 namespace TeraTaleNet
 {
-    public class Header : PacketData
+    public class Header : Serializable
     {
         static public int size = sizeof(PacketType) + sizeof(int);
 

@@ -28,8 +28,7 @@ public class GameServer : UnityServer
         delegates = new Dictionary<PacketType, PacketDelegate>();
         StartCoroutine(_messenger.DispatcherCoroutine("Proxy", delegates));
 
-        var login = FindObjectOfType<Certificator>();
-        login.enabled = true;
+        FindObjectOfType<Certificator>().enabled = true;
 
         _messenger.Start();
     }

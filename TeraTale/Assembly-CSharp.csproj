@@ -64,6 +64,7 @@
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />
      <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
+     <None Include="Assets\References\UnityEngine.xml" />
      <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>

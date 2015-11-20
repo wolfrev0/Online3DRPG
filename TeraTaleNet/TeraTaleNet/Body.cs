@@ -2,7 +2,7 @@
 
 namespace TeraTaleNet
 {
-    public abstract class Body : PacketData
+    public abstract class Body : Serializable
     {
         protected Body()
         { }

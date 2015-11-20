@@ -126,7 +126,7 @@ namespace TeraTaleNet
             return SerializedSize(obj.Length) + Encoding.UTF8.GetByteCount(obj);
         }
 
-        public static bool ToBool(byte[] buffer, int offset)
+        public static bool ToBoolean(byte[] buffer, int offset)
         {
             return BitConverter.ToBoolean(buffer, 0);
         }
@@ -141,44 +141,44 @@ namespace TeraTaleNet
             return BitConverter.ToDouble(buffer, offset);
         }
 
-        public static float ToFloat(byte[] buffer, int offset)
+        public static float ToSingle(byte[] buffer, int offset)
         {
             return BitConverter.ToSingle(buffer, offset);
         }
 
-        public static int ToInt(byte[] buffer, int offset)
+        public static int ToInt32(byte[] buffer, int offset)
         {
             return BitConverter.ToInt32(buffer, offset);
         }
 
-        public static long ToLong(byte[] buffer, int offset)
+        public static long ToInt64(byte[] buffer, int offset)
         {
             return BitConverter.ToInt64(buffer, offset);
         }
 
-        public static short ToShort(byte[] buffer, int offset)
+        public static short ToInt16(byte[] buffer, int offset)
         {
             return BitConverter.ToInt16(buffer, offset);
         }
 
-        public static uint ToUInt(byte[] buffer, int offset)
+        public static uint ToUInt32(byte[] buffer, int offset)
         {
             return BitConverter.ToUInt32(buffer, offset);
         }
 
-        public static ulong ToULong(byte[] buffer, int offset)
+        public static ulong ToUInt64(byte[] buffer, int offset)
         {
             return BitConverter.ToUInt64(buffer, offset);
         }
 
-        public static ushort ToUShort(byte[] buffer, int offset)
+        public static ushort ToUInt16(byte[] buffer, int offset)
         {
             return BitConverter.ToUInt16(buffer, offset);
         }
 
         public static string ToString(byte[] buffer, int offset)
         {
-            var len = ToInt(buffer, offset);
+            var len = ToInt32(buffer, offset);
             offset += sizeof(int);
             var obj = Encoding.UTF8.GetString(buffer, offset, len);
             offset += len;
