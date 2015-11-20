@@ -6,7 +6,15 @@ namespace TeraTaleNet
 {
     public abstract class Server : IServer
     {
+        TcpListener _listener;
         bool _stopped = false;
+
+        public void Bind(string ip, Port port, int backlog)
+        {
+            if (_listener != null)
+                _listener.Dispose();
+            _listener = new TcpListener(ip, (ushort)port, backlog);
+        }
 
         public void Execute()
         {
@@ -24,6 +32,8 @@ namespace TeraTaleNet
                 Console.WriteLine(e.ToString());
             }
             OnEnd();
+            if (_listener != null)
+                _listener.Dispose();
         }
 
         protected abstract void OnStart();
@@ -35,13 +45,18 @@ namespace TeraTaleNet
             _stopped = true;
         }
 
-        protected PacketStream Listen(string ip, Port port, int backlog)
+        protected bool HasConnectReq()
         {
-            var _listener = new TcpListener(ip, (ushort)port, backlog);
-            var connection = _listener.Accept();
-            _listener.Dispose();
+            if (_listener != null)
+                return _listener.HasConnectReq();
+            return false;
+        }
 
-            return new PacketStream(connection);
+        protected PacketStream Listen()
+        {
+            if (_listener != null)
+                return new PacketStream(_listener.Accept());
+            return null;
         }
 
         protected PacketStream Connect(string ip, Port port)

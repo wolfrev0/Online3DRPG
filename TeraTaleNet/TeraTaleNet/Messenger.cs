@@ -55,9 +55,7 @@ namespace TeraTaleNet
             _stopped = true;
 
             foreach (var stream in _streamByKey.Values)
-            {
                 stream.Dispose();
-            }
             _sender.Join();
             _receiver.Join();
         }

@@ -8,41 +8,49 @@ namespace Proxy
 {
     class ProxyServer : Server
     {
-        Accepter _accepter = new Accepter("0.0.0.0", (ushort)Port.Proxy, 4);
         Messenger _messenger = new Messenger();
         Messenger _clientMessenger = new Messenger();
         Messenger _confirmMessenger = new Messenger();
         int currentConfirmId = 0;
+        Task accepter;
+        Task login;
+        Task gameServer;
+        bool stopped = false;
 
-        public ProxyServer()
+        protected override void OnStart()
         {
             _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
             Console.WriteLine("Login connected.");
+
             _messenger.Register("GameServer", Connect("127.0.0.1", Port.GameServer));
             Console.WriteLine("GameServer connected.");
-            _accepter.onAccepted = (PacketStream stream) => 
-            {
-                _confirmMessenger.Register(currentConfirmId++.ToString(), stream);
-                Console.WriteLine("Client connected.");
-            };
 
-            Task.Run(() =>
+            accepter = Task.Run(() =>
+            {
+                Bind("0.0.0.0", Port.Proxy, 4);
+                while (stopped == false)
+                {
+                    if (HasConnectReq())
+                    {
+                        _confirmMessenger.Register(currentConfirmId++.ToString(), Listen());
+                        Console.WriteLine("Client connected.");
+                    }
+                }
+            });
+
+            login = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
                 _messenger.Dispatcher("Login", delegates);
             });
 
-            Task.Run(() =>
+            gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 _messenger.Dispatcher("GameServer", delegates);
             });
-        }
 
-        protected override void OnStart()
-        {
-            _accepter.Start();
             _messenger.Start();
             _clientMessenger.Start();
             _confirmMessenger.Start();
@@ -50,10 +58,13 @@ namespace Proxy
 
         protected override void OnEnd()
         {
-            _accepter.Join();
+            stopped = true;
+            accepter.Wait();
             _messenger.Join();
             _clientMessenger.Join();
             _confirmMessenger.Join();
+            login.Wait();
+            gameServer.Wait();
         }
 
         protected override void OnUpdate()

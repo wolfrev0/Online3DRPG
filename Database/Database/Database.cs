@@ -11,22 +11,27 @@ namespace Database
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
         Messenger _messenger = new Messenger();
+        Task login;
+        Task gameServer;
 
         protected override void OnStart()
         {
-            _messenger.Register("Login", Listen("127.0.0.1", Port.DatabaseForLogin, 1));
+            Bind("127.0.0.1", Port.DatabaseForLogin, 1);
+            _messenger.Register("Login", Listen());
             Console.WriteLine("Login connected.");
-            _messenger.Register("GameServer", Listen("127.0.0.1", Port.DatabaseForGameServer, 1));
+
+            Bind("127.0.0.1", Port.DatabaseForGameServer, 1);
+            _messenger.Register("GameServer", Listen());
             Console.WriteLine("GameServer connected.");
 
-            Task.Run(() =>
+            login = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
                 _messenger.Dispatcher("Login", delegates);
             });
 
-            Task.Run(() =>
+            gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
@@ -48,6 +53,8 @@ namespace Database
         protected override void OnEnd()
         {
             _messenger.Join();
+            login.Wait();
+            gameServer.Wait();
         }
 
         void OnLoginRequest(Packet packet)

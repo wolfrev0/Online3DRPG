@@ -9,31 +9,38 @@ namespace Login
     class LoginServer : Server
     {
         Messenger _messenger = new Messenger();
+        Task database;
+        Task gameServer;
+        Task proxy;
         HashSet<string> _loggedInUsers = new HashSet<string>();
 
         protected override void OnStart()
         {
             _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
             Console.WriteLine("Database connected.");
-            _messenger.Register("GameServer", Listen("127.0.0.1", Port.LoginForGameServer, 1));
+
+            Bind("127.0.0.1", Port.LoginForGameServer, 1);
+            _messenger.Register("GameServer", Listen());
             Console.WriteLine("GameServer connected.");
-            _messenger.Register("Proxy", Listen("127.0.0.1", Port.LoginForProxy, 1));
+
+            Bind("127.0.0.1", Port.LoginForProxy, 1);
+            _messenger.Register("Proxy", Listen());
             Console.WriteLine("Proxy connected.");
 
-            Task.Run(() =>
+            database = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
                 _messenger.Dispatcher("Database", delegates);
             });
 
-            Task.Run(() =>
+            gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 _messenger.Dispatcher("GameServer", delegates);
             });
 
-            Task.Run(() =>
+            proxy = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
@@ -55,6 +62,9 @@ namespace Login
         protected override void OnEnd()
         {
             _messenger.Join();
+            database.Wait();
+            gameServer.Wait();
+            proxy.Wait();
         }
 
         void OnLoginRequest(Packet packet)
