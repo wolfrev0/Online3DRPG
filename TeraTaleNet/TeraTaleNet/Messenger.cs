@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace TeraTaleNet
 {
@@ -99,6 +101,19 @@ namespace TeraTaleNet
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+        }
+
+        public IEnumerator DispatcherCoroutine(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        {
+            while (true)
+            {
+                while (CanReceive(key))
+                {
+                    var packet = Receive(key);
+                    delegateByPacketType[packet.header.type](packet);
+                }
+                yield return new WaitForSeconds(0);
             }
         }
 

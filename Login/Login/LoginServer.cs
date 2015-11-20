@@ -11,41 +11,14 @@ namespace Login
         Messenger _messenger = new Messenger();
         HashSet<string> _loggedInUsers = new HashSet<string>();
 
-        PacketStream ConnectToDatabase()
-        {
-            var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.DatabaseForLogin);
-            Console.WriteLine("Database Connected.");
-            _connecter.Dispose();
-
-            return new PacketStream(connection);
-        }
-
-        PacketStream ListenGameServer()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForGameServer, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("GameServer Connected.");
-            _listener.Dispose();
-
-            return new PacketStream(connection);
-        }
-
-        PacketStream ListenProxy()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.LoginForProxy, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("Proxy Connected.");
-            _listener.Dispose();
-
-            return new PacketStream(connection);
-        }
-
         protected override void OnStart()
         {
-            _messenger.Register("Database", ConnectToDatabase());
-            _messenger.Register("GameServer", ListenGameServer());
-            _messenger.Register("Proxy", ListenProxy());
+            _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
+            Console.WriteLine("Database connected.");
+            _messenger.Register("GameServer", Listen("127.0.0.1", Port.LoginForGameServer, 1));
+            Console.WriteLine("GameServer connected.");
+            _messenger.Register("Proxy", Listen("127.0.0.1", Port.LoginForProxy, 1));
+            Console.WriteLine("Proxy connected.");
 
             Task.Run(() =>
             {

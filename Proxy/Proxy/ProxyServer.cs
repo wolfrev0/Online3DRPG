@@ -16,12 +16,14 @@ namespace Proxy
 
         public ProxyServer()
         {
-            _messenger.Register("Login", ConnectToLogin());
-            _messenger.Register("GameServer", ConnectToGameServer());
+            _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
+            Console.WriteLine("Login connected.");
+            _messenger.Register("GameServer", Connect("127.0.0.1", Port.GameServer));
+            Console.WriteLine("GameServer connected.");
             _accepter.onAccepted = (PacketStream stream) => 
             {
                 _confirmMessenger.Register(currentConfirmId++.ToString(), stream);
-                Console.WriteLine("Client Accepted.");
+                Console.WriteLine("Client connected.");
             };
 
             Task.Run(() =>
@@ -36,26 +38,6 @@ namespace Proxy
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 _messenger.Dispatcher("GameServer", delegates);
             });
-        }
-
-        PacketStream ConnectToLogin()
-        {
-            var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.LoginForProxy);
-            Console.WriteLine("Login Connected.");
-            _connecter.Dispose();
-
-            return new PacketStream(connection);
-        }
-
-        PacketStream ConnectToGameServer()
-        {
-            var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect("127.0.0.1", (ushort)Port.GameServer);
-            Console.WriteLine("GameServer Connected.");
-            _connecter.Dispose();
-
-            return new PacketStream(connection);
         }
 
         protected override void OnStart()

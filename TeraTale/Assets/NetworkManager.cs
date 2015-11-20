@@ -29,17 +29,4 @@ public class NetworkManager : UnityServer
                 Stop();
         }
     }
-
-    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
-    {
-        while (true)
-        {
-            while (_messenger.CanReceive(key))
-            {
-                var packet = _messenger.Receive(key);
-                delegateByPacketType[packet.header.type](packet);
-            }
-            yield return new WaitForSeconds(0);
-        }
-    }
 }

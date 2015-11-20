@@ -13,30 +13,12 @@ namespace Database
         static string playerInfoLocation = "PlayerInfo\\";
         Messenger _messenger = new Messenger();
 
-        PacketStream ListenLogin()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.DatabaseForLogin, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("Login Connected.");
-            _listener.Dispose();
-
-            return new PacketStream(connection);
-        }
-
-        PacketStream ListenGameServer()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.DatabaseForGameServer, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("GameServer Connected.");
-            _listener.Dispose();
-
-            return new PacketStream(connection);
-        }
-
         protected override void OnStart()
         {
-            _messenger.Register("Login", ListenLogin());
-            _messenger.Register("GameServer", ListenGameServer());
+            _messenger.Register("Login", Listen("127.0.0.1", Port.DatabaseForLogin, 1));
+            Console.WriteLine("Login connected.");
+            _messenger.Register("GameServer", Listen("127.0.0.1", Port.DatabaseForGameServer, 1));
+            Console.WriteLine("GameServer connected.");
 
             Task.Run(() =>
             {

@@ -63,7 +63,6 @@
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />
-     <Compile Include="Assets\UnityServer.cs" />
      <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
      <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">

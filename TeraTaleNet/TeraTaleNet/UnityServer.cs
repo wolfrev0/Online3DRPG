@@ -1,38 +1,37 @@
-﻿using System;
-using System.Threading;
-using LoboNet;
+﻿using LoboNet;
+using UnityEngine;
 
 namespace TeraTaleNet
 {
-    public abstract class Server : IServer
+    public abstract class UnityServer : MonoBehaviour, IServer
     {
-        bool _stopped = false;
-
-        public void Execute()
-        {
-            OnStart();
-            try
-            {
-                while (_stopped == false)
-                {
-                    OnUpdate();
-                    Thread.Sleep(10);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            OnEnd();
-        }
-
         protected abstract void OnStart();
         protected abstract void OnUpdate();
         protected abstract void OnEnd();
 
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
+        void Start()
+        {
+            OnStart();
+        }
+
+        void Update()
+        {
+            OnUpdate();
+        }
+
+        void OnDestroy()
+        {
+            OnEnd();
+        }
+
         protected void Stop()
         {
-            _stopped = true;
+            Destroy(gameObject);
         }
 
         protected PacketStream Listen(string ip, Port port, int backlog)

@@ -41,6 +41,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accepter.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Body\WriteConsoleRequest.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="UnityServer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

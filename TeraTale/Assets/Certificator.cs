@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using LoboNet;
 using TeraTaleNet;
 
 public class Certificator : UnityServer
@@ -11,12 +9,12 @@ public class Certificator : UnityServer
 
     protected override void OnStart()
     {
-        _messenger.Register("Proxy", ConnectToProxy());
-
+        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        Debug.Log("Proxy connected.");
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-        StartCoroutine(Dispatcher("Proxy", delegates));
+        StartCoroutine(_messenger.DispatcherCoroutine("Proxy", delegates));
 
         _messenger.Start();
     }
@@ -34,29 +32,6 @@ public class Certificator : UnityServer
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 Stop();
         }
-    }
-
-    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
-    {
-        while (true)
-        {
-            while (_messenger.CanReceive(key))
-            {
-                var packet = _messenger.Receive(key);
-                delegateByPacketType[packet.header.type](packet);
-            }
-            yield return new WaitForSeconds(0);
-        }
-    }
-
-    PacketStream ConnectToProxy()
-    {
-        var _connecter = new TcpConnecter();
-        var connection = _connecter.Connect("127.0.0.1", (ushort)Port.Proxy);
-        Debug.Log("Proxy Connected.");
-        _connecter.Dispose();
-
-        return new PacketStream(connection);
     }
 
     void OnLoginResponse(Packet packet)
