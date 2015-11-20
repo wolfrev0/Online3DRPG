@@ -11,11 +11,19 @@ namespace Proxy
         Messenger _messenger = new Messenger();
         Messenger _clientMessenger = new Messenger();
         Messenger _confirmMessenger = new Messenger();
-        int currentConfirmId = 0;
-        Task accepter;
-        Task login;
-        Task gameServer;
-        bool stopped = false;
+        Task _accepter;
+        Task _login;
+        Task _gameServer;
+        Task _confirm;
+        Task _client;
+        int _currentConfirmId = 0;
+        object _lock = new object();
+
+        public Task Client
+        {
+            get { return _client; }
+            set { _client = value; }
+        }
 
         protected override void OnStart()
         {
@@ -25,30 +33,66 @@ namespace Proxy
             _messenger.Register("GameServer", Connect("127.0.0.1", Port.GameServer));
             Console.WriteLine("GameServer connected.");
 
-            accepter = Task.Run(() =>
+            _accepter = Task.Run(() =>
             {
                 Bind("0.0.0.0", Port.Proxy, 4);
                 while (stopped == false)
                 {
                     if (HasConnectReq())
                     {
-                        _confirmMessenger.Register(currentConfirmId++.ToString(), Listen());
+                        string stringID = _currentConfirmId.ToString();
+                        int ID = _currentConfirmId;
+                        lock (_lock)
+                        {
+                            _confirmMessenger.Register(stringID, Listen());
+                            _confirmMessenger.Send(stringID, new Packet(new ConfirmID(ID)));
+                        }
+                        _currentConfirmId++;
                         Console.WriteLine("Client connected.");
                     }
                 }
             });
 
-            login = Task.Run(() =>
+            _login = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                _messenger.Dispatcher("Login", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("Login", delegates);
             });
 
-            gameServer = Task.Run(() =>
+            _gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                _messenger.Dispatcher("GameServer", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("GameServer", delegates);
+            });
+
+            _confirm = Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
+                while (stopped == false)
+                {
+                    lock (_lock)
+                    {
+                        foreach (var key in _confirmMessenger.Keys)
+                            _confirmMessenger.Dispatch(key, delegates);
+                    }
+                }
+            });
+
+            _client = Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                while (stopped == false)
+                {
+                    lock (_lock)
+                    {
+                        foreach (var confirmID in _clientMessenger.Keys)
+                            _clientMessenger.Dispatch(confirmID, delegates);
+                    }
+                }
             });
 
             _messenger.Start();
@@ -58,13 +102,14 @@ namespace Proxy
 
         protected override void OnEnd()
         {
-            stopped = true;
-            accepter.Wait();
+            _accepter.Wait();
             _messenger.Join();
             _clientMessenger.Join();
             _confirmMessenger.Join();
-            login.Wait();
-            gameServer.Wait();
+            _login.Wait();
+            _gameServer.Wait();
+            _confirm.Wait();
+            _client.Wait();
         }
 
         protected override void OnUpdate()
@@ -74,35 +119,6 @@ namespace Proxy
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                     Stop();
             }
-
-            foreach (var key in _clientMessenger.Keys)
-            {
-                while (_clientMessenger.CanReceive(key))
-                {
-                    var packet = _clientMessenger.Receive(key);
-                    switch (packet.header.type)
-                    {
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-            }
-
-            foreach (var confirmID in _confirmMessenger.Keys)
-            {
-                while (_confirmMessenger.CanReceive(confirmID))
-                {
-                    var packet = _confirmMessenger.Receive(confirmID);
-                    switch (packet.header.type)
-                    {
-                        case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body, int.Parse(confirmID));
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-            }
         }
 
         void OnLoginResponse(Packet packet)
@@ -111,9 +127,12 @@ namespace Proxy
 
             if (response.accepted)
             {
-                PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
-                _clientMessenger.Register(response.nickName, stream);
-                _clientMessenger.Send(response.nickName, new Packet(response));
+                lock (_lock)
+                {
+                    PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
+                    _clientMessenger.Register(response.nickName, stream);
+                }
+                _clientMessenger.Send(response.nickName, packet);
             }
             else
             {
@@ -121,10 +140,9 @@ namespace Proxy
             }
         }
 
-        void OnLoginRequest(LoginRequest request, int confirmID)
+        void OnLoginRequest(Packet packet)
         {
-            request.confirmID = confirmID;
-            _messenger.Send("Login", new Packet(request));
+            _messenger.Send("Login", packet);
         }
     }
 }

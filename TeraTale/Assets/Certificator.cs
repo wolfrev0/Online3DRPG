@@ -6,6 +6,7 @@ using TeraTaleNet;
 public class Certificator : UnityServer
 {
     Messenger _messenger = new Messenger();
+    int _confirmID;
 
     protected override void OnStart()
     {
@@ -14,6 +15,7 @@ public class Certificator : UnityServer
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.LoginResponse, OnLoginResponse);
+        delegates.Add(PacketType.ConfirmID, OnConfirmID);
         StartCoroutine(_messenger.DispatcherCoroutine("Proxy", delegates));
 
         _messenger.Start();
@@ -50,8 +52,13 @@ public class Certificator : UnityServer
         }
     }
 
+    void OnConfirmID(Packet packet)
+    {
+        _confirmID = ((ConfirmID)packet.body).id;
+    }
+
     public void SendLoginRequest(string id, string pw)
     {
-        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw)));
+        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw, _confirmID)));
     }
 }

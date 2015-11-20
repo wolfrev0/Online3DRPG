@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using TeraTaleNet;
 
 public class NetworkManager : UnityServer

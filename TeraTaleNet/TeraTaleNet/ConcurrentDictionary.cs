@@ -5,11 +5,11 @@ namespace TeraTaleNet
     public class ConcurrentDictionary<TKey, TValue>
     {
         Dictionary<TKey, TValue> _dictionary = new Dictionary<TKey, TValue>();
-        object _lockObject = new object();
+        object _lock = new object();
 
         public void Add(TKey key, TValue value)
         {
-            lock (_lockObject)
+            lock (_lock)
             {
                 _dictionary.Add(key, value);
             }
@@ -19,14 +19,14 @@ namespace TeraTaleNet
         {
             get
             {
-                lock (_lockObject)
+                lock (_lock)
                 {
                     return _dictionary[key];
                 }
             }
             set
             {
-                lock (_lockObject)
+                lock (_lock)
                 {
                     _dictionary[key] = value;
                 }
@@ -37,7 +37,7 @@ namespace TeraTaleNet
         {
             get
             {
-                lock (_lockObject)
+                lock (_lock)
                 {
                     return _dictionary.Values;
                 }
@@ -48,7 +48,7 @@ namespace TeraTaleNet
         {
             get
             {
-                lock (_lockObject)
+                lock (_lock)
                 {
                     return _dictionary.Keys;
                 }

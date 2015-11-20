@@ -31,20 +31,23 @@ namespace Login
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                _messenger.Dispatcher("Database", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("Database", delegates);
             });
 
             gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                _messenger.Dispatcher("GameServer", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("GameServer", delegates);
             });
 
             proxy = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                _messenger.Dispatcher("Proxy", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("Proxy", delegates);
             });
 
             _messenger.Start();

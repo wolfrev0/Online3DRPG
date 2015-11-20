@@ -28,14 +28,16 @@ namespace Database
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                _messenger.Dispatcher("Login", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("Login", delegates);
             });
 
             gameServer = Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
-                _messenger.Dispatcher("GameServer", delegates);
+                while (stopped == false)
+                    _messenger.Dispatch("GameServer", delegates);
             });
 
             _messenger.Start();

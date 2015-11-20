@@ -82,24 +82,14 @@ namespace TeraTaleNet
             return _recvQByKey[key].Dequeue();
         }
 
-        public void Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        public void Dispatch(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
         {
-            try
+            while (CanReceive(key))
             {
-                while (_stopped == false)
-                {
-                    while (CanReceive(key))
-                    {
-                        var packet = Receive(key);
-                        delegateByPacketType[packet.header.type](packet);
-                    }
-                    Thread.Sleep(10);
-                }
+                var packet = Receive(key);
+                delegateByPacketType[packet.header.type](packet);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            Thread.Sleep(10);
         }
 
         public IEnumerator DispatcherCoroutine(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)

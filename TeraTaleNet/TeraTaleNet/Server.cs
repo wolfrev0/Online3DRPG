@@ -9,6 +9,8 @@ namespace TeraTaleNet
         TcpListener _listener;
         bool _stopped = false;
 
+        public bool stopped { get { return _stopped; } }
+
         public void Bind(string ip, Port port, int backlog)
         {
             if (_listener != null)
