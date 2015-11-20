@@ -11,26 +11,7 @@ namespace Database
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
-
-        public Database()
-        {
-            Register("Login", ListenLogin());
-            Register("GameServer", ListenGameServer());
-
-            Task.Run(() =>
-            {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                Dispatcher("Login", delegates);
-            });
-
-            Task.Run(() =>
-            {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
-                Dispatcher("GameServer", delegates);
-            });
-        }
+        Messenger _messenger = new Messenger();
 
         PacketStream ListenLogin()
         {
@@ -52,6 +33,28 @@ namespace Database
             return new PacketStream(connection);
         }
 
+        protected override void OnStart()
+        {
+            _messenger.Register("Login", ListenLogin());
+            _messenger.Register("GameServer", ListenGameServer());
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
+                _messenger.Dispatcher("Login", delegates);
+            });
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
+                _messenger.Dispatcher("GameServer", delegates);
+            });
+
+            _messenger.Start();
+        }
+
         protected override void OnUpdate()
         {
             if (Console.KeyAvailable)
@@ -59,6 +62,11 @@ namespace Database
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                     Stop();
             }
+        }
+
+        protected override void OnEnd()
+        {
+            _messenger.Join();
         }
 
         void OnLoginRequest(Packet packet)
@@ -85,7 +93,7 @@ namespace Database
             {
                 response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
             }
-            Send("Login", new Packet(response));
+            _messenger.Send("Login", new Packet(response));
         }
 
         void OnPlayerInfoRequest(Packet packet)
@@ -96,7 +104,7 @@ namespace Database
                 string world = stream.ReadLine();
 
                 PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                Send("GameServer", new Packet(response));
+                _messenger.Send("GameServer", new Packet(response));
             }
         }
     }

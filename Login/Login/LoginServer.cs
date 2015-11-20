@@ -8,34 +8,8 @@ namespace Login
 {
     class LoginServer : Server
     {
-        HashSet<string> loggedInUsers = new HashSet<string>();
-
-        public LoginServer()
-        {
-            Register("Database", ConnectToDatabase());
-            Register("GameServer", ListenGameServer());
-            Register("Proxy", ListenProxy());
-
-            Task.Run(() =>
-            {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                Dispatcher("Database", delegates);
-            });
-
-            Task.Run(() => 
-            {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                Dispatcher("GameServer", delegates);
-            });
-
-            Task.Run(() => 
-            {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
-                Dispatcher("Proxy", delegates);
-            });
-        }
+        Messenger _messenger = new Messenger();
+        HashSet<string> _loggedInUsers = new HashSet<string>();
 
         PacketStream ConnectToDatabase()
         {
@@ -67,6 +41,35 @@ namespace Login
             return new PacketStream(connection);
         }
 
+        protected override void OnStart()
+        {
+            _messenger.Register("Database", ConnectToDatabase());
+            _messenger.Register("GameServer", ListenGameServer());
+            _messenger.Register("Proxy", ListenProxy());
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
+                _messenger.Dispatcher("Database", delegates);
+            });
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                _messenger.Dispatcher("GameServer", delegates);
+            });
+
+            Task.Run(() =>
+            {
+                var delegates = new Dictionary<PacketType, PacketDelegate>();
+                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
+                _messenger.Dispatcher("Proxy", delegates);
+            });
+
+            _messenger.Start();
+        }
+
         protected override void OnUpdate()
         {
             if (Console.KeyAvailable)
@@ -76,9 +79,14 @@ namespace Login
             }
         }
 
+        protected override void OnEnd()
+        {
+            _messenger.Join();
+        }
+
         void OnLoginRequest(Packet packet)
         {
-            Send("Database", packet);
+            _messenger.Send("Database", packet);
         }
 
         void OnLoginResponse(Packet packet)
@@ -86,18 +94,18 @@ namespace Login
             LoginResponse response = (LoginResponse)packet.body;
             if (response.accepted)
             {
-                if (loggedInUsers.Contains(response.nickName))
+                if (_loggedInUsers.Contains(response.nickName))
                 {
                     response.accepted = false;
                     response.reason = RejectedReason.LoggedInAlready;
                 }
                 else
                 {
-                    loggedInUsers.Add(response.nickName);
-                    Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
+                    _loggedInUsers.Add(response.nickName);
+                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
                 }
             }
-            Send("Proxy", new Packet(response));
+            _messenger.Send("Proxy", new Packet(response));
         }
     }
 }

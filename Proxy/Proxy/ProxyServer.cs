@@ -9,17 +9,18 @@ namespace Proxy
     class ProxyServer : Server
     {
         Accepter _accepter = new Accepter("0.0.0.0", (ushort)Port.Proxy, 4);
-        Messenger<string> _clientMessenger = new Messenger<string>();
-        Messenger<int> _confirmMessenger = new Messenger<int>();
+        Messenger _messenger = new Messenger();
+        Messenger _clientMessenger = new Messenger();
+        Messenger _confirmMessenger = new Messenger();
         int currentConfirmId = 0;
 
         public ProxyServer()
         {
-            Register("Login", ConnectToLogin());
-            Register("GameServer", ConnectToGameServer());
+            _messenger.Register("Login", ConnectToLogin());
+            _messenger.Register("GameServer", ConnectToGameServer());
             _accepter.onAccepted = (PacketStream stream) => 
             {
-                _confirmMessenger.Register(currentConfirmId++, stream);
+                _confirmMessenger.Register(currentConfirmId++.ToString(), stream);
                 Console.WriteLine("Client Accepted.");
             };
 
@@ -27,13 +28,13 @@ namespace Proxy
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
                 delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-                Dispatcher("Login", delegates);
+                _messenger.Dispatcher("Login", delegates);
             });
 
             Task.Run(() =>
             {
                 var delegates = new Dictionary<PacketType, PacketDelegate>();
-                Dispatcher("GameServer", delegates);
+                _messenger.Dispatcher("GameServer", delegates);
             });
         }
 
@@ -57,15 +58,18 @@ namespace Proxy
             return new PacketStream(connection);
         }
 
-        public override void Execute()
+        protected override void OnStart()
         {
             _accepter.Start();
+            _messenger.Start();
             _clientMessenger.Start();
             _confirmMessenger.Start();
+        }
 
-            base.Execute();
-
+        protected override void OnEnd()
+        {
             _accepter.Join();
+            _messenger.Join();
             _clientMessenger.Join();
             _confirmMessenger.Join();
         }
@@ -99,7 +103,7 @@ namespace Proxy
                     switch (packet.header.type)
                     {
                         case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body, confirmID);
+                            OnLoginRequest((LoginRequest)packet.body, int.Parse(confirmID));
                             break;
                         default:
                             throw new ArgumentException("Received invalid packet type.");
@@ -114,20 +118,20 @@ namespace Proxy
 
             if (response.accepted)
             {
-                PacketStream stream = _confirmMessenger.Unregister(response.confirmID);
+                PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
                 _clientMessenger.Register(response.nickName, stream);
                 _clientMessenger.Send(response.nickName, new Packet(response));
             }
             else
             {
-                _confirmMessenger.Send(response.confirmID, new Packet(response));
+                _confirmMessenger.Send(response.confirmID.ToString(), new Packet(response));
             }
         }
 
         void OnLoginRequest(LoginRequest request, int confirmID)
         {
             request.confirmID = confirmID;
-            Send("Login", new Packet(request));
+            _messenger.Send("Login", new Packet(request));
         }
     }
 }

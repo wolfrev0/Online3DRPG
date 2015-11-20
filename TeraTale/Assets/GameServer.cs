@@ -5,23 +5,16 @@ using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
 
-public class GameServer : MonoBehaviour, IServer
+public class GameServer : UnityServer
 {
-    Messenger<string> _messenger = new Messenger<string>();
-    bool stopped = false;
-
+    Messenger _messenger = new Messenger();
     Dictionary<string, HashSet<string>> playersByWorld;
 
-    void Awake()
+    protected override void OnStart()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        Register("Database", ConnectToDatabase());
-        Register("Login", ConnectToLogin());
-        Register("Proxy", ListenProxy());
+        _messenger.Register("Database", ConnectToDatabase());
+        _messenger.Register("Login", ConnectToLogin());
+        _messenger.Register("Proxy", ListenProxy());
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.PlayerInfoResponse, OnPlayerInfoResponse);
@@ -40,27 +33,13 @@ public class GameServer : MonoBehaviour, IServer
         _messenger.Start();
     }
 
-    //void OnApplicationQuit()
-    //{
-    //    _messenger.Join();
-    //}
-
-    void OnDestroy()
+    protected override void OnEnd()
     {
+        StopAllCoroutines();
         _messenger.Join();
     }
 
-    void Register(string key, PacketStream stream)
-    {
-        _messenger.Register(key, stream);
-    }
-
-    void Send(string key, Packet packet)
-    {
-        _messenger.Send(key, packet);
-    }
-
-    void OnUpdate()
+    protected override void OnUpdate()
     {
         if (Console.KeyAvailable)
         {
@@ -71,7 +50,7 @@ public class GameServer : MonoBehaviour, IServer
 
     IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
     {
-        while (stopped == false)
+        while (true)
         {
             while (_messenger.CanReceive(key))
             {
@@ -80,12 +59,6 @@ public class GameServer : MonoBehaviour, IServer
             }
             yield return new WaitForSeconds(0);
         }
-    }
-
-    void Stop()
-    {
-        stopped = true;
-        Application.Quit();
     }
 
     PacketStream ConnectToDatabase()
@@ -118,15 +91,10 @@ public class GameServer : MonoBehaviour, IServer
         return new PacketStream(connection);
     }
 
-    void Update()
-    {
-        OnUpdate();
-    }
-
     void OnPlayerLogin(Packet packet)
     {
         PlayerLogin login = (PlayerLogin)packet.body;
-        Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+        _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
         //Sync Data Get
     }
 

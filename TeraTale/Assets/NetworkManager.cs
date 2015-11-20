@@ -1,39 +1,45 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using System;
-using LoboNet;
 using TeraTaleNet;
 
-public class NetworkManager : MonoBehaviour
+public class NetworkManager : UnityServer
 {
     public PacketStream stream;
-    Messenger<string> _messenger = new Messenger<string>();
+    Messenger _messenger = new Messenger();
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
+    protected override void OnStart()
     {
         _messenger.Register("", stream);
         _messenger.Start();
     }
 
-    void OnApplicationQuit()
+    protected override void OnEnd()
     {
+        StopAllCoroutines();
         _messenger.Join();
     }
 
-    void Update()
+    protected override void OnUpdate()
     {
-        if (_messenger.CanReceive(""))
+        if (Console.KeyAvailable)
         {
-            var packet = _messenger.Receive("");
-            switch (packet.header.type)
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                Stop();
+        }
+    }
+
+    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+    {
+        while (true)
+        {
+            while (_messenger.CanReceive(key))
             {
-                default:
-                    throw new ArgumentException("Received invalid packet type.");
+                var packet = _messenger.Receive(key);
+                delegateByPacketType[packet.header.type](packet);
             }
+            yield return new WaitForSeconds(0);
         }
     }
 }

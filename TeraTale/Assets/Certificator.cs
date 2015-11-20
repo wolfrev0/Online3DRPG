@@ -5,19 +5,13 @@ using System.Collections.Generic;
 using LoboNet;
 using TeraTaleNet;
 
-public class Certificator : MonoBehaviour, IServer
+public class Certificator : UnityServer
 {
-    Messenger<string> _messenger = new Messenger<string>();
-    bool stopped = false;
+    Messenger _messenger = new Messenger();
 
-    void Awake()
+    protected override void OnStart()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        Register("Proxy", ConnectToProxy());
+        _messenger.Register("Proxy", ConnectToProxy());
 
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
@@ -27,27 +21,13 @@ public class Certificator : MonoBehaviour, IServer
         _messenger.Start();
     }
 
-    //void OnApplicationQuit()
-    //{
-    //    _messenger.Join();
-    //}
-
-    void OnDestroy()
+    protected override void OnEnd()
     {
+        StopAllCoroutines();
         _messenger.Join();
     }
 
-    void Register(string key, PacketStream stream)
-    {
-        _messenger.Register(key, stream);
-    }
-
-    void Send(string key, Packet packet)
-    {
-        _messenger.Send(key, packet);
-    }
-
-    void OnUpdate()
+    protected override void OnUpdate()
     {
         if (Console.KeyAvailable)
         {
@@ -58,7 +38,7 @@ public class Certificator : MonoBehaviour, IServer
 
     IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
     {
-        while (stopped == false)
+        while (true)
         {
             while (_messenger.CanReceive(key))
             {
@@ -69,12 +49,6 @@ public class Certificator : MonoBehaviour, IServer
         }
     }
 
-    void Stop()
-    {
-        stopped = true;
-        Application.Quit();
-    }
-
     PacketStream ConnectToProxy()
     {
         var _connecter = new TcpConnecter();
@@ -83,11 +57,6 @@ public class Certificator : MonoBehaviour, IServer
         _connecter.Dispose();
 
         return new PacketStream(connection);
-    }
-
-    void Update()
-    {
-        OnUpdate();
     }
 
     void OnLoginResponse(Packet packet)
@@ -108,6 +77,6 @@ public class Certificator : MonoBehaviour, IServer
 
     public void SendLoginRequest(string id, string pw)
     {
-        Send("Proxy", new Packet(new LoginRequest(id, pw)));
+        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw)));
     }
 }
