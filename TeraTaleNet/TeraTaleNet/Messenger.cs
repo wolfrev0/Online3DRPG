@@ -115,7 +115,11 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                History.Log(e.ToString());
+            }
+            finally
+            {
+                History.Save();
             }
         }
 
@@ -138,7 +142,11 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                History.Log(e.ToString());
+            }
+            finally
+            {
+                History.Save();
             }
         }
 

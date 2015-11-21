@@ -21,9 +21,9 @@ namespace TeraTaleNet
 
         public void Execute()
         {
-            OnStart();
             try
             {
+                OnStart();
                 while (_stopped == false)
                 {
                     OnUpdate();
@@ -32,9 +32,13 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                History.Log(e.ToString());
             }
-            OnEnd();
+            finally
+            {
+                History.Save();
+                OnEnd();
+            }
         }
 
         protected abstract void OnStart();

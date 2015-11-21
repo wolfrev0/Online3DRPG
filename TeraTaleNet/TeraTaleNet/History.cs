@@ -7,7 +7,8 @@ namespace TeraTaleNet
     public static class History
     {
         static string _fileName = Process.GetCurrentProcess().ProcessName;
-        static StreamWriter writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
+        static StreamWriter _writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
+        static object _locker = new object();
 
         static History()
         {
@@ -20,13 +21,17 @@ namespace TeraTaleNet
         {
             string text = "[" + DateTime.Now + "] " + message;
             Console.WriteLine(text);
-            writer.WriteLine(text);
+            lock (_locker)
+                _writer.WriteLine(text);
         }
 
         public static void Save()
         {
-            writer.Close();
-            writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
+            lock (_locker)
+            {
+                _writer.Close();
+                _writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
+            }
         }
     }
 }
