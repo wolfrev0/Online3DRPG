@@ -40,8 +40,14 @@ namespace TeraTaleNet
 
         void OnDestroy()
         {
-            OnEnd();
-            Dispose();
+            try
+            {
+                OnEnd();
+                Dispose();
+            }
+            finally {
+                History.Save();
+            }
         }
 
         protected bool HasConnectReq()

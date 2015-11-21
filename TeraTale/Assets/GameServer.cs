@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
@@ -22,14 +23,14 @@ public class GameServer : UnityServer
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.PlayerInfoResponse, OnPlayerInfoResponse);
-        StartCoroutine(_messenger.DispatcherCoroutine("Database", delegates));
+        StartCoroutine(Dispatcher("Database", delegates));
+
+        delegates = new Dictionary<PacketType, PacketDelegate>();
+        StartCoroutine(Dispatcher("Login", delegates));
 
         delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.PlayerLogin, OnPlayerLogin);
-        StartCoroutine(_messenger.DispatcherCoroutine("Login", delegates));
-
-        delegates = new Dictionary<PacketType, PacketDelegate>();
-        StartCoroutine(_messenger.DispatcherCoroutine("Proxy", delegates));
+        StartCoroutine(Dispatcher("Proxy", delegates));
 
         FindObjectOfType<Certificator>().enabled = true;
 
@@ -40,6 +41,15 @@ public class GameServer : UnityServer
     {
         StopAllCoroutines();
         _messenger.Dispose();
+    }
+
+    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegates)
+    {
+        while (true)
+        {
+            _messenger.DispatcherCoroutine(key, delegates);
+            yield return new WaitForSeconds(0);
+        }
     }
 
     protected override void OnUpdate()

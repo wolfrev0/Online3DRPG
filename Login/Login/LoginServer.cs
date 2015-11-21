@@ -12,7 +12,6 @@ namespace Login
         Task database;
         Task gameServer;
         Task proxy;
-        HashSet<string> _loggedInUsers = new HashSet<string>();
         bool _disposed = false;
 
         protected override void OnStart()
@@ -77,21 +76,7 @@ namespace Login
 
         void OnLoginResponse(Packet packet)
         {
-            LoginResponse response = (LoginResponse)packet.body;
-            if (response.accepted)
-            {
-                if (_loggedInUsers.Contains(response.nickName))
-                {
-                    response.accepted = false;
-                    response.reason = RejectedReason.LoggedInAlready;
-                }
-                else
-                {
-                    _loggedInUsers.Add(response.nickName);
-                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
-                }
-            }
-            _messenger.Send("Proxy", new Packet(response));
+            _messenger.Send("Proxy", packet);
         }
 
         protected override void Dispose(bool disposing)

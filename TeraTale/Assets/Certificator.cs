@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
@@ -8,23 +9,36 @@ public class Certificator : UnityServer
     Messenger _messenger = new Messenger();
     int _confirmID;
     bool _disposed = false;
+    object _locker = new object();
 
     protected override void OnStart()
     {
-        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        lock (_locker)
+            _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
         Debug.Log("Proxy connected.");
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
         delegates.Add(PacketType.LoginResponse, OnLoginResponse);
         delegates.Add(PacketType.ConfirmID, OnConfirmID);
-        StartCoroutine(_messenger.DispatcherCoroutine("Proxy", delegates));
+        StartCoroutine(Dispatcher("Proxy", delegates));
 
         _messenger.Start();
+    }
+
+    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegates)
+    {
+        while (true)
+        {
+            lock (_locker)
+                _messenger.DispatcherCoroutine(key, delegates);
+            yield return new WaitForSeconds(0);
+        }
     }
 
     protected override void OnEnd()
     {
         StopAllCoroutines();
+        _messenger.Join();
     }
 
     protected override void OnUpdate()
@@ -42,7 +56,8 @@ public class Certificator : UnityServer
         if (response.accepted)
         {
             var net = FindObjectOfType<NetworkManager>();
-            net.stream = _messenger.Unregister("Proxy");
+            lock (_locker)
+                net.stream = _messenger.Unregister("Proxy");
             net.enabled = true;
             Application.LoadLevel("Town");
         }

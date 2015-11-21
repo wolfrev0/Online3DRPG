@@ -22,15 +22,20 @@ namespace TeraTaleNet
             string text = "[" + DateTime.Now + "] " + message;
             Console.WriteLine(text);
             lock (_locker)
+            {
+                if (_writer == null)
+                    _writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
                 _writer.WriteLine(text);
+            }
         }
 
         public static void Save()
         {
             lock (_locker)
             {
-                _writer.Close();
-                _writer = new StreamWriter(new FileStream(_fileName + ".history", FileMode.Append));
+                if (_writer != null)
+                    _writer.Close();
+                _writer = null;
             }
         }
     }

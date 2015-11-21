@@ -122,19 +122,28 @@ namespace Proxy
         void OnLoginResponse(Packet packet)
         {
             LoginResponse response = (LoginResponse)packet.body;
-
             if (response.accepted)
             {
-                lock (_lock)
+                var keys = (ICollection<string>)_clientMessenger.Keys;
+                if (keys.Contains(response.nickName))
                 {
-                    PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
-                    _clientMessenger.Register(response.nickName, stream);
+                    response.accepted = false;
+                    response.reason = RejectedReason.LoggedInAlready;
+
+                    _confirmMessenger.Send(response.confirmID.ToString(), new Packet(response));
                 }
-                _clientMessenger.Send(response.nickName, packet);
-            }
-            else
-            {
-                _confirmMessenger.Send(response.confirmID.ToString(), new Packet(response));
+                else
+                {
+                    lock (_lock)
+                    {
+                        PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
+                        _clientMessenger.Register(response.nickName, stream);
+                    }
+                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
+
+                    _clientMessenger.Send(response.nickName, new Packet(response));
+                    History.Log("Send "+response.nickName);
+                }
             }
         }
 

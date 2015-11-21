@@ -83,16 +83,12 @@ namespace TeraTaleNet
             Thread.Sleep(10);
         }
 
-        public IEnumerator DispatcherCoroutine(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        public void DispatcherCoroutine(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
         {
-            while (true)
+            while (CanReceive(key))
             {
-                while (CanReceive(key))
-                {
-                    var packet = Receive(key);
-                    delegateByPacketType[packet.header.type](packet);
-                }
-                yield return new WaitForSeconds(0);
+                var packet = Receive(key);
+                delegateByPacketType[packet.header.type](packet);
             }
         }
 
