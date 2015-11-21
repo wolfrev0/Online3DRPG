@@ -6,7 +6,7 @@ using TeraTaleNet;
 
 namespace Database
 {
-    class Database : Server, IDisposable
+    class Database : Server
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";

@@ -7,6 +7,7 @@ public class Certificator : UnityServer
 {
     Messenger _messenger = new Messenger();
     int _confirmID;
+    bool _disposed = false;
 
     protected override void OnStart()
     {
@@ -24,7 +25,6 @@ public class Certificator : UnityServer
     protected override void OnEnd()
     {
         StopAllCoroutines();
-        _messenger.Dispose();
     }
 
     protected override void OnUpdate()
@@ -60,5 +60,24 @@ public class Certificator : UnityServer
     public void SendLoginRequest(string id, string pw)
     {
         _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw, _confirmID)));
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _messenger.Join();
+                }
+                _disposed = true;
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
+        }
     }
 }

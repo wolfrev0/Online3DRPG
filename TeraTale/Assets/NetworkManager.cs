@@ -5,6 +5,7 @@ public class NetworkManager : UnityServer
 {
     public PacketStream stream;
     Messenger _messenger = new Messenger();
+    bool _disposed = false;
 
     protected override void OnStart()
     {
@@ -24,6 +25,25 @@ public class NetworkManager : UnityServer
         {
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 Stop();
+        }
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _messenger.Join();
+                }
+                _disposed = true;
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
     }
 }

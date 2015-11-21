@@ -7,6 +7,7 @@ public class GameServer : UnityServer
 {
     Messenger _messenger = new Messenger();
     Dictionary<string, HashSet<string>> playersByWorld;
+    bool _disposed = false;
 
     protected override void OnStart()
     {
@@ -14,7 +15,9 @@ public class GameServer : UnityServer
         Debug.Log("Database connected.");
         _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForGameServer));
         Debug.Log("Login connected.");
-        _messenger.Register("Proxy", Listen("127.0.0.1", Port.GameServer, 1));
+
+        Bind("127.0.0.1", Port.GameServer, 1);
+        _messenger.Register("Proxy", Listen());
         Debug.Log("Proxy connected.");
 
         var delegates = new Dictionary<PacketType, PacketDelegate>();
@@ -58,5 +61,24 @@ public class GameServer : UnityServer
     void OnPlayerInfoResponse(Packet packet)
     {
         PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    _messenger.Join();
+                }
+                _disposed = true;
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
+        }
     }
 }

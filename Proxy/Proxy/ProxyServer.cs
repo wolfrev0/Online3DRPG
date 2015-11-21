@@ -6,7 +6,7 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    class ProxyServer : Server, IDisposable
+    class ProxyServer : Server
     {
         Messenger _messenger = new Messenger();
         Messenger _clientMessenger = new Messenger();

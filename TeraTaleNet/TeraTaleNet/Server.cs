@@ -43,16 +43,12 @@ namespace TeraTaleNet
 
         protected bool HasConnectReq()
         {
-            if (_listener != null)
-                return _listener.HasConnectReq();
-            return false;
+            return _listener.HasConnectReq();
         }
 
         protected PacketStream Listen()
         {
-            if (_listener != null)
-                return new PacketStream(_listener.Accept());
-            return null;
+            return new PacketStream(_listener.Accept());
         }
 
         protected PacketStream Connect(string ip, Port port)
