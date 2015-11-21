@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TeraTaleNet;
 
 public class Certificator : UnityServer, MessageListener
@@ -14,8 +13,7 @@ public class Certificator : UnityServer, MessageListener
     protected override void OnStart()
     {
         _messenger = new Messenger(this);
-        lock (_locker)
-            _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
         Debug.Log("Proxy connected.");
         
         StartCoroutine(Dispatcher("Proxy"));

@@ -9,7 +9,6 @@ namespace Login
     class LoginServer : Server,MessageListener
     {
         Messenger _messenger;
-        Task database;
         Task gameServer;
         Task proxy;
         bool _disposed = false;
@@ -28,12 +27,6 @@ namespace Login
             Bind("127.0.0.1", Port.LoginForProxy, 1);
             _messenger.Register("Proxy", Listen());
             Console.WriteLine("Proxy connected.");
-
-            database = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Database");
-            });
 
             gameServer = Task.Run(() =>
             {
@@ -61,7 +54,6 @@ namespace Login
 
         protected override void OnEnd()
         {
-            database.Wait();
             gameServer.Wait();
             proxy.Wait();
         }
@@ -70,9 +62,9 @@ namespace Login
         void OnLoginRequest(Packet packet)
         {
             _messenger.Send("Database", packet);
+            OnLoginResponse(_messenger.ReceiveSync("Database"));
         }
-
-        [RPC]
+        
         void OnLoginResponse(Packet packet)
         {
             _messenger.Send("Proxy", packet);

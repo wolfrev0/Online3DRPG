@@ -9,5 +9,6 @@
         PlayerInfoRequest,
         PlayerInfoResponse,
         ConfirmID,
+        PlayerJoin,
     }
 }

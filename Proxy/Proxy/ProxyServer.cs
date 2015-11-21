@@ -141,7 +141,6 @@ namespace Proxy
                     _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
 
                     _clientMessenger.Send(response.nickName, new Packet(response));
-                    History.Log("Send "+response.nickName);
                 }
             }
         }
@@ -150,6 +149,14 @@ namespace Proxy
         void OnLoginRequest(Packet packet)
         {
             _messenger.Send("Login", packet);
+        }
+
+        [RPC]
+        void OnPlayerJoin(Packet packet)
+        {
+            PlayerJoin join = (PlayerJoin)packet.body;
+            History.Log(join.nickName);
+            _clientMessenger.Send(join.nickName, packet);
         }
 
         protected override void Dispose(bool disposing)

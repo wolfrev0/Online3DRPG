@@ -23,8 +23,6 @@ public class GameServer : UnityServer, MessageListener
         _messenger.Register("Proxy", Listen());
         Debug.Log("Proxy connected.");
         
-        StartCoroutine(Dispatcher("Database"));
-        
         StartCoroutine(Dispatcher("Login"));
         
         StartCoroutine(Dispatcher("Proxy"));
@@ -63,13 +61,13 @@ public class GameServer : UnityServer, MessageListener
     {
         PlayerLogin login = (PlayerLogin)packet.body;
         _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
-        //Sync Data Get
+        OnPlayerInfoResponse(_messenger.ReceiveSync("Database"));
     }
-
-    [TeraTaleNet.RPC]
+    
     void OnPlayerInfoResponse(Packet packet)
     {
         PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
+        _messenger.Send("Proxy", new Packet(new PlayerJoin(info.nickName, info.world)));
     }
 
     protected override void Dispose(bool disposing)

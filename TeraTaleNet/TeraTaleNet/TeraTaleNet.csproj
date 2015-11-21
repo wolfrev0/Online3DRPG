@@ -50,6 +50,7 @@
     <Compile Include="Body\LoginResponse.cs" />
     <Compile Include="Body\PlayerInfoRequest.cs" />
     <Compile Include="Body\PlayerInfoResponse.cs" />
+    <Compile Include="Body\PlayerJoin.cs" />
     <Compile Include="Body\PlayerLogin.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
