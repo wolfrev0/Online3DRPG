@@ -6,9 +6,9 @@ using TeraTaleNet;
 
 namespace Login
 {
-    class LoginServer : Server
+    class LoginServer : Server,MessageListener
     {
-        Messenger _messenger = new Messenger();
+        Messenger _messenger;
         Task database;
         Task gameServer;
         Task proxy;
@@ -16,6 +16,8 @@ namespace Login
 
         protected override void OnStart()
         {
+            _messenger = new Messenger(this);
+
             _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
             Console.WriteLine("Database connected.");
 
@@ -29,25 +31,20 @@ namespace Login
 
             database = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
                 while (stopped == false)
-                    _messenger.Dispatch("Database", delegates);
+                    _messenger.Dispatch("Database");
             });
 
             gameServer = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer", delegates);
+                    _messenger.Dispatch("GameServer");
             });
 
             proxy = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
                 while (stopped == false)
-                    _messenger.Dispatch("Proxy", delegates);
+                    _messenger.Dispatch("Proxy");
             });
 
             _messenger.Start();
@@ -69,11 +66,13 @@ namespace Login
             proxy.Wait();
         }
 
+        [RPC]
         void OnLoginRequest(Packet packet)
         {
             _messenger.Send("Database", packet);
         }
 
+        [RPC]
         void OnLoginResponse(Packet packet)
         {
             _messenger.Send("Proxy", packet);

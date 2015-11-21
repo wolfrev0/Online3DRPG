@@ -4,14 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public class GameServer : UnityServer
+public class GameServer : UnityServer, MessageListener
 {
-    Messenger _messenger = new Messenger();
+    Messenger _messenger;
     Dictionary<string, HashSet<string>> playersByWorld;
     bool _disposed = false;
 
     protected override void OnStart()
     {
+        _messenger = new Messenger(this);
+
         _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForGameServer));
         Debug.Log("Database connected.");
         _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForGameServer));
@@ -20,17 +22,12 @@ public class GameServer : UnityServer
         Bind("127.0.0.1", Port.GameServer, 1);
         _messenger.Register("Proxy", Listen());
         Debug.Log("Proxy connected.");
-
-        var delegates = new Dictionary<PacketType, PacketDelegate>();
-        delegates.Add(PacketType.PlayerInfoResponse, OnPlayerInfoResponse);
-        StartCoroutine(Dispatcher("Database", delegates));
-
-        delegates = new Dictionary<PacketType, PacketDelegate>();
-        StartCoroutine(Dispatcher("Login", delegates));
-
-        delegates = new Dictionary<PacketType, PacketDelegate>();
-        delegates.Add(PacketType.PlayerLogin, OnPlayerLogin);
-        StartCoroutine(Dispatcher("Proxy", delegates));
+        
+        StartCoroutine(Dispatcher("Database"));
+        
+        StartCoroutine(Dispatcher("Login"));
+        
+        StartCoroutine(Dispatcher("Proxy"));
 
         FindObjectOfType<Certificator>().enabled = true;
 
@@ -43,11 +40,11 @@ public class GameServer : UnityServer
         _messenger.Dispose();
     }
 
-    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegates)
+    IEnumerator Dispatcher(string key)
     {
         while (true)
         {
-            _messenger.DispatcherCoroutine(key, delegates);
+            _messenger.DispatcherCoroutine(key);
             yield return new WaitForSeconds(0);
         }
     }
@@ -61,6 +58,7 @@ public class GameServer : UnityServer
         }
     }
 
+    [TeraTaleNet.RPC]
     void OnPlayerLogin(Packet packet)
     {
         PlayerLogin login = (PlayerLogin)packet.body;
@@ -68,6 +66,7 @@ public class GameServer : UnityServer
         //Sync Data Get
     }
 
+    [TeraTaleNet.RPC]
     void OnPlayerInfoResponse(Packet packet)
     {
         PlayerInfoResponse info = (PlayerInfoResponse)packet.body;

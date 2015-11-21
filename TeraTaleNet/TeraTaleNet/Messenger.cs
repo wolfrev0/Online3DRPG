@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace TeraTaleNet
 {
@@ -14,8 +14,11 @@ namespace TeraTaleNet
         Dictionary<string, PacketStream> _streamByKey = new Dictionary<string, PacketStream>();
         Thread _sender;
         Thread _receiver;
+        MessageListener listener;
         bool _stopped = false;
         bool _disposed = false;
+
+        Dictionary<string, MethodInfo> rpcByName = new Dictionary<string, MethodInfo>();
 
         public Dictionary<string, PacketStream>.KeyCollection Keys
         {
@@ -25,8 +28,17 @@ namespace TeraTaleNet
             }
         }
 
-        public Messenger()
+        public Messenger(MessageListener listener)
         {
+            this.listener = listener;
+            foreach (var method in listener.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+            {
+                if (method.GetCustomAttributes(typeof(RPC), false).Length > 0)
+                {
+                    rpcByName.Add(method.Name, method);
+                }
+            }
+
             _sender = new Thread(Sender);
             _receiver = new Thread(Receiver);
         }
@@ -73,22 +85,22 @@ namespace TeraTaleNet
             return _recvQByKey[key].Dequeue();
         }
 
-        public void Dispatch(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        public void Dispatch(string key)
         {
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                delegateByPacketType[packet.header.type](packet);
+                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { packet });
             }
             Thread.Sleep(10);
         }
 
-        public void DispatcherCoroutine(string key, Dictionary<PacketType, PacketDelegate> delegateByPacketType)
+        public void DispatcherCoroutine(string key)
         {
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                delegateByPacketType[packet.header.type](packet);
+                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { packet });
             }
         }
 

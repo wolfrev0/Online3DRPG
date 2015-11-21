@@ -6,11 +6,11 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    class ProxyServer : Server
+    class ProxyServer : Server,MessageListener
     {
-        Messenger _messenger = new Messenger();
-        Messenger _clientMessenger = new Messenger();
-        Messenger _confirmMessenger = new Messenger();
+        Messenger _messenger;
+        Messenger _clientMessenger;
+        Messenger _confirmMessenger;
         Task _accepter;
         Task _login;
         Task _gameServer;
@@ -28,6 +28,10 @@ namespace Proxy
 
         protected override void OnStart()
         {
+            _messenger = new Messenger(this);
+            _clientMessenger = new Messenger(this);
+            _confirmMessenger = new Messenger(this);
+
             _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
             Console.WriteLine("Login connected.");
 
@@ -56,42 +60,36 @@ namespace Proxy
 
             _login = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginResponse, OnLoginResponse);
                 while (stopped == false)
-                    _messenger.Dispatch("Login", delegates);
+                    _messenger.Dispatch("Login");
             });
 
             _gameServer = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer", delegates);
+                    _messenger.Dispatch("GameServer");
             });
 
             _confirm = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
                 while (stopped == false)
                 {
                     lock (_lock)
                     {
                         foreach (var key in _confirmMessenger.Keys)
-                            _confirmMessenger.Dispatch(key, delegates);
+                            _confirmMessenger.Dispatch(key);
                     }
                 }
             });
 
             _client = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
                 while (stopped == false)
                 {
                     lock (_lock)
                     {
                         foreach (var confirmID in _clientMessenger.Keys)
-                            _clientMessenger.Dispatch(confirmID, delegates);
+                            _clientMessenger.Dispatch(confirmID);
                     }
                 }
             });
@@ -119,6 +117,7 @@ namespace Proxy
             }
         }
 
+        [RPC]
         void OnLoginResponse(Packet packet)
         {
             LoginResponse response = (LoginResponse)packet.body;
@@ -147,6 +146,7 @@ namespace Proxy
             }
         }
 
+        [RPC]
         void OnLoginRequest(Packet packet)
         {
             _messenger.Send("Login", packet);

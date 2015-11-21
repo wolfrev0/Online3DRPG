@@ -6,17 +6,19 @@ using TeraTaleNet;
 
 namespace Database
 {
-    class Database : Server
+    class Database : Server,MessageListener
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
-        Messenger _messenger = new Messenger();
+        Messenger _messenger;
         Task login;
         Task gameServer;
         bool _disposed = false;
 
         protected override void OnStart()
         {
+            _messenger = new Messenger(this);
+
             Bind("127.0.0.1", Port.DatabaseForLogin, 1);
             _messenger.Register("Login", Listen());
             Console.WriteLine("Login connected.");
@@ -27,18 +29,14 @@ namespace Database
 
             login = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.LoginRequest, OnLoginRequest);
                 while (stopped == false)
-                    _messenger.Dispatch("Login", delegates);
+                    _messenger.Dispatch("Login");
             });
 
             gameServer = Task.Run(() =>
             {
-                var delegates = new Dictionary<PacketType, PacketDelegate>();
-                delegates.Add(PacketType.PlayerInfoRequest, OnPlayerInfoRequest);
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer", delegates);
+                    _messenger.Dispatch("GameServer");
             });
 
             _messenger.Start();
@@ -59,6 +57,7 @@ namespace Database
             gameServer.Wait();
         }
 
+        [RPC]
         void OnLoginRequest(Packet packet)
         {
             LoginRequest request = (LoginRequest)packet.body;
@@ -86,6 +85,7 @@ namespace Database
             _messenger.Send("Login", new Packet(response));
         }
 
+        [RPC]
         void OnPlayerInfoRequest(Packet packet)
         {
             PlayerInfoRequest request = (PlayerInfoRequest)packet.body;

@@ -1,14 +1,16 @@
 ﻿using System;
 using TeraTaleNet;
 
-public class NetworkManager : UnityServer
+public class NetworkManager : UnityServer, MessageListener
 {
     public PacketStream stream;
-    Messenger _messenger = new Messenger();
+    Messenger _messenger;
     bool _disposed = false;
 
     protected override void OnStart()
     {
+        _messenger = new Messenger(this);
+
         _messenger.Register("", stream);
         _messenger.Start();
     }

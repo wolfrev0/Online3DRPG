@@ -4,33 +4,31 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public class Certificator : UnityServer
+public class Certificator : UnityServer, MessageListener
 {
-    Messenger _messenger = new Messenger();
+    Messenger _messenger;
     int _confirmID;
     bool _disposed = false;
     object _locker = new object();
 
     protected override void OnStart()
     {
+        _messenger = new Messenger(this);
         lock (_locker)
             _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
         Debug.Log("Proxy connected.");
-
-        var delegates = new Dictionary<PacketType, PacketDelegate>();
-        delegates.Add(PacketType.LoginResponse, OnLoginResponse);
-        delegates.Add(PacketType.ConfirmID, OnConfirmID);
-        StartCoroutine(Dispatcher("Proxy", delegates));
+        
+        StartCoroutine(Dispatcher("Proxy"));
 
         _messenger.Start();
     }
 
-    IEnumerator Dispatcher(string key, Dictionary<PacketType, PacketDelegate> delegates)
+    IEnumerator Dispatcher(string key)
     {
         while (true)
         {
             lock (_locker)
-                _messenger.DispatcherCoroutine(key, delegates);
+                _messenger.DispatcherCoroutine(key);
             yield return new WaitForSeconds(0);
         }
     }
@@ -50,6 +48,7 @@ public class Certificator : UnityServer
         }
     }
 
+    [TeraTaleNet.RPC]
     void OnLoginResponse(Packet packet)
     {
         LoginResponse response = (LoginResponse)packet.body;
@@ -67,6 +66,7 @@ public class Certificator : UnityServer
         }
     }
 
+    [TeraTaleNet.RPC]
     void OnConfirmID(Packet packet)
     {
         _confirmID = ((ConfirmID)packet.body).id;
