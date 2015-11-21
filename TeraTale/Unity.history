@@ -1,0 +1,63 @@
+[11/22/2015 12:09:22 AM] ...............................
+[11/22/2015 12:09:22 AM] ..........New History..........
+[11/22/2015 12:09:22 AM] ...............................
+[11/22/2015 12:09:22 AM] System.ArgumentNullException: Argument cannot be null.
+Parameter name: type
+  at System.Activator.CheckType (System.Type type) [0x00006] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:378 
+  at System.Activator.CreateInstance (System.Type type, BindingFlags bindingAttr, System.Reflection.Binder binder, System.Object[] args, System.Globalization.CultureInfo culture, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:280 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:268 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:263 
+  at TeraTaleNet.Packet.Create (TeraTaleNet.Header header, System.Byte[] bytes) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:09:41 AM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:12:33 AM] ...............................
+[11/22/2015 12:12:33 AM] ..........New History..........
+[11/22/2015 12:12:33 AM] ...............................
+[11/22/2015 12:12:33 AM] False
+[11/22/2015 12:12:33 AM] System.Byte[]
+[11/22/2015 12:12:33 AM] System.ArgumentNullException: Argument cannot be null.
+Parameter name: type
+  at System.Activator.CheckType (System.Type type) [0x00006] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:378 
+  at System.Activator.CreateInstance (System.Type type, BindingFlags bindingAttr, System.Reflection.Binder binder, System.Object[] args, System.Globalization.CultureInfo culture, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:280 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:268 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:263 
+  at TeraTaleNet.Packet.Create (TeraTaleNet.Header header, System.Byte[] bytes) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:12:50 AM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:13:25 AM] ...............................
+[11/22/2015 12:13:25 AM] ..........New History..........
+[11/22/2015 12:13:25 AM] ...............................
+[11/22/2015 12:13:25 AM] ConfirmID
+[11/22/2015 12:13:25 AM] System.Byte[]
+[11/22/2015 12:13:25 AM] System.ArgumentNullException: Argument cannot be null.
+Parameter name: type
+  at System.Activator.CheckType (System.Type type) [0x00006] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:378 
+  at System.Activator.CreateInstance (System.Type type, BindingFlags bindingAttr, System.Reflection.Binder binder, System.Object[] args, System.Globalization.CultureInfo culture, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:280 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args, System.Object[] activationAttributes) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:268 
+  at System.Activator.CreateInstance (System.Type type, System.Object[] args) [0x00000] in /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System/Activator.cs:263 
+  at TeraTaleNet.Packet.Create (TeraTaleNet.Header header, System.Byte[] bytes) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:14:43 AM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/22/2015 12:15:54 AM] ...............................
+[11/22/2015 12:15:54 AM] ..........New History..........
+[11/22/2015 12:15:54 AM] ...............................
+[11/22/2015 12:32:18 AM] ...............................
+[11/22/2015 12:32:18 AM] ..........New History..........
+[11/22/2015 12:32:18 AM] ...............................

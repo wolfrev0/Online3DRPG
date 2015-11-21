@@ -12,33 +12,7 @@ namespace TeraTaleNet
 
         static public Packet Create(Header header, byte[] bytes)
         {
-            Body body;
-            switch (header.type)
-            {
-                case PacketType.WriteConsoleRequest:
-                    body = new WriteConsoleRequest(bytes);
-                    break;
-                case PacketType.LoginRequest:
-                    body = new LoginRequest(bytes);
-                    break;
-                case PacketType.LoginResponse:
-                    body = new LoginResponse(bytes);
-                    break;
-                case PacketType.PlayerLogin:
-                    body = new PlayerLogin(bytes);
-                    break;
-                case PacketType.PlayerInfoRequest:
-                    body = new PlayerInfoRequest(bytes);
-                    break;
-                case PacketType.PlayerInfoResponse:
-                    body = new PlayerInfoResponse(bytes);
-                    break;
-                case PacketType.ConfirmID:
-                    body = new ConfirmID(bytes);
-                    break;
-                default:
-                    throw new ArgumentException("PacketType does not matched.");
-            }
+            Body body = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet." + header.type.ToString()), bytes);
             return new Packet(header, body);
         }
 

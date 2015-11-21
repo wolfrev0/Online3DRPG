@@ -1,0 +1,58 @@
+[2015-11-22 오전 12:09:25] ...............................
+[2015-11-22 오전 12:09:25] ..........New History..........
+[2015-11-22 오전 12:09:25] ...............................
+[2015-11-22 오전 12:09:25] System.ArgumentNullException: 값은 null일 수 없습니다.
+매개 변수 이름: type
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 15
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:12:37] ...............................
+[2015-11-22 오전 12:12:37] ..........New History..........
+[2015-11-22 오전 12:12:37] ...............................
+[2015-11-22 오전 12:12:37] False
+[2015-11-22 오전 12:12:37] System.Byte[]
+[2015-11-22 오전 12:12:37] System.ArgumentNullException: 값은 null일 수 없습니다.
+매개 변수 이름: type
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 17
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:13:27] ...............................
+[2015-11-22 오전 12:13:27] ..........New History..........
+[2015-11-22 오전 12:13:27] ...............................
+[2015-11-22 오전 12:13:27] LoginRequest
+[2015-11-22 오전 12:13:27] System.Byte[]
+[2015-11-22 오전 12:13:27] System.ArgumentNullException: 값은 null일 수 없습니다.
+매개 변수 이름: type
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 17
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:15:43] ...............................
+[2015-11-22 오전 12:15:43] ..........New History..........
+[2015-11-22 오전 12:15:43] ...............................
+[2015-11-22 오전 12:15:43] Send Guest1
+[2015-11-22 오전 12:15:54] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:15:54] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:32:13] ...............................
+[2015-11-22 오전 12:32:13] ..........New History..........
+[2015-11-22 오전 12:32:13] ...............................
+[2015-11-22 오전 12:32:13] Send Master
+[2015-11-22 오전 12:32:18] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
+[2015-11-22 오전 12:32:18] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 145
