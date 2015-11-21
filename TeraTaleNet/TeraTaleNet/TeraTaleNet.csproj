@@ -59,6 +59,7 @@
     <Compile Include="ISerializable.cs" />
     <Compile Include="Body\LoginRequest.cs" />
     <Compile Include="IServer.cs" />
+    <Compile Include="History.cs" />
     <Compile Include="Serializable.cs" />
     <Compile Include="PacketDelegate.cs" />
     <Compile Include="PacketType.cs" />

@@ -4,10 +4,11 @@ using LoboNet;
 
 namespace TeraTaleNet
 {
-    public abstract class Server : IServer
+    public abstract class Server : IServer, IDisposable
     {
         TcpListener _listener;
         bool _stopped = false;
+        bool _disposed = false;
 
         public bool stopped { get { return _stopped; } }
 
@@ -34,18 +35,11 @@ namespace TeraTaleNet
                 Console.WriteLine(e.ToString());
             }
             OnEnd();
-            if (_listener != null)
-                _listener.Dispose();
         }
 
         protected abstract void OnStart();
         protected abstract void OnUpdate();
         protected abstract void OnEnd();
-
-        protected void Stop()
-        {
-            _stopped = true;
-        }
 
         protected bool HasConnectReq()
         {
@@ -64,10 +58,37 @@ namespace TeraTaleNet
         protected PacketStream Connect(string ip, Port port)
         {
             var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect(ip, (ushort)port);
-            _connecter.Dispose();
+            return new PacketStream(_connecter.Connect(ip, (ushort)port));
+        }
 
-            return new PacketStream(connection);
+        public void Stop()
+        {
+            _stopped = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    if (_listener != null)
+                        _listener.Dispose();
+                }
+
+            }
+            _disposed = true;
+        }
+
+        ~Server()
+        {
+            Dispose(false);
         }
     }
 }

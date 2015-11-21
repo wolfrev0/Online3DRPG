@@ -15,7 +15,7 @@ public class NetworkManager : UnityServer
     protected override void OnEnd()
     {
         StopAllCoroutines();
-        _messenger.Join();
+        _messenger.Dispose();
     }
 
     protected override void OnUpdate()

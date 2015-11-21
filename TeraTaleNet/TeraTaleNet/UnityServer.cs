@@ -46,10 +46,7 @@ namespace TeraTaleNet
         protected PacketStream Connect(string ip, Port port)
         {
             var _connecter = new TcpConnecter();
-            var connection = _connecter.Connect(ip, (ushort)port);
-            _connecter.Dispose();
-
-            return new PacketStream(connection);
+            return new PacketStream(_connecter.Connect(ip, (ushort)port));
         }
     }
 }

@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Database server = new Database();
-            server.Execute();
+            using (Database server = new Database())
+                server.Execute();
         }
     }
 }

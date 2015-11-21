@@ -6,13 +6,14 @@ using TeraTaleNet;
 
 namespace Database
 {
-    class Database : Server
+    class Database : Server, IDisposable
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
         Messenger _messenger = new Messenger();
         Task login;
         Task gameServer;
+        bool _disposed = false;
 
         protected override void OnStart()
         {
@@ -54,7 +55,6 @@ namespace Database
 
         protected override void OnEnd()
         {
-            _messenger.Join();
             login.Wait();
             gameServer.Wait();
         }
@@ -95,6 +95,25 @@ namespace Database
 
                 PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
                 _messenger.Send("GameServer", new Packet(response));
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                try
+                {
+                    if (disposing)
+                    {
+                        _messenger.Join();
+                    }
+                    _disposed = true;
+                }
+                finally
+                {
+                    base.Dispose(disposing);
+                }
             }
         }
     }

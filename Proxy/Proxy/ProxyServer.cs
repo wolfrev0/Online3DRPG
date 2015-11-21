@@ -6,7 +6,7 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    class ProxyServer : Server
+    class ProxyServer : Server, IDisposable
     {
         Messenger _messenger = new Messenger();
         Messenger _clientMessenger = new Messenger();
@@ -18,6 +18,7 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
+        bool _disposed = false;
 
         public Task Client
         {
@@ -103,9 +104,6 @@ namespace Proxy
         protected override void OnEnd()
         {
             _accepter.Wait();
-            _messenger.Join();
-            _clientMessenger.Join();
-            _confirmMessenger.Join();
             _login.Wait();
             _gameServer.Wait();
             _confirm.Wait();
@@ -143,6 +141,27 @@ namespace Proxy
         void OnLoginRequest(Packet packet)
         {
             _messenger.Send("Login", packet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                try
+                {
+                    if (disposing)
+                    {
+                        _messenger.Join();
+                        _clientMessenger.Join();
+                        _confirmMessenger.Join();
+                    }
+                    _disposed = true;
+                }
+                finally
+                {
+                    base.Dispose(disposing);
+                }
+            }
         }
     }
 }

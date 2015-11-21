@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            ProxyServer server = new ProxyServer();
-            server.Execute();
+            using (ProxyServer server = new ProxyServer())
+                server.Execute();
         }
     }
 }

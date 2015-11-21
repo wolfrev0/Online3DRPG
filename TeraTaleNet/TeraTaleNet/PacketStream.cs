@@ -6,9 +6,9 @@ namespace TeraTaleNet
     public class PacketStream : IDisposable
     {
         const int _bufferSize = 1024;
-        bool disposed = false;
 
         Connection _connection;
+        bool _disposed = false;
 
         public PacketStream(Connection connection)
         {
@@ -35,27 +35,31 @@ namespace TeraTaleNet
 
         public bool HasPacket()
         {
-            return _connection.PollRead();
+            return _connection.CanRead();
         }
 
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed)
-                return;
-
-            if (disposing)
+            if (!_disposed)
             {
-                // Free any other managed objects here.
-                //
-            }
+                if (disposing)
+                {
+                    _connection.Dispose();
+                }
 
-            _connection.Dispose();
-            disposed = true;
+            }
+            _disposed = true;
+        }
+
+        ~PacketStream()
+        {
+            Dispose(false);
         }
     }
 }

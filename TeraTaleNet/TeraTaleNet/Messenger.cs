@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TeraTaleNet
 {
-    public class Messenger
+    public class Messenger : IDisposable
     {
         //concurrent Dictionary?
         Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
@@ -15,6 +15,7 @@ namespace TeraTaleNet
         Thread _sender;
         Thread _receiver;
         bool _stopped = false;
+        bool _disposed = false;
 
         public Dictionary<string, PacketStream>.KeyCollection Keys
         {
@@ -48,16 +49,6 @@ namespace TeraTaleNet
             var ret = _streamByKey[key];
             _streamByKey.Remove(key);
             return ret;
-        }
-
-        public void Join()
-        {
-            _stopped = true;
-
-            foreach (var stream in _streamByKey.Values)
-                stream.Dispose();
-            _sender.Join();
-            _receiver.Join();
         }
 
         public void Send(string key, Packet packet)
@@ -149,6 +140,39 @@ namespace TeraTaleNet
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public void Join()
+        {
+            _stopped = true;
+            _sender.Join();
+            _receiver.Join();
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    foreach (var stream in _streamByKey.Values)
+                        stream.Dispose();
+                }
+
+            }
+            _disposed = true;
+        }
+
+        ~Messenger()
+        {
+            Dispose(false);
         }
     }
 }

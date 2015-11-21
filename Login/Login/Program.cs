@@ -6,8 +6,8 @@ namespace Login
     {
         static void Main(string[] args)
         {
-            LoginServer server = new LoginServer();
-            server.Execute();
+            using (LoginServer server = new LoginServer())
+                server.Execute();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Login
         Task gameServer;
         Task proxy;
         HashSet<string> _loggedInUsers = new HashSet<string>();
+        bool _disposed = false;
 
         protected override void OnStart()
         {
@@ -64,7 +65,6 @@ namespace Login
 
         protected override void OnEnd()
         {
-            _messenger.Join();
             database.Wait();
             gameServer.Wait();
             proxy.Wait();
@@ -92,6 +92,25 @@ namespace Login
                 }
             }
             _messenger.Send("Proxy", new Packet(response));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                try
+                {
+                    if (disposing)
+                    {
+                        _messenger.Join();
+                    }
+                    _disposed = true;
+                }
+                finally
+                {
+                    base.Dispose(disposing);
+                }
+            }
         }
     }
 }
