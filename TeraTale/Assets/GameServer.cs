@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public class GameServer : UnityServer, MessageListener
+public class GameServer : UnityServer, MessageHandler
 {
     Messenger _messenger;
     Dictionary<string, HashSet<string>> playersByWorld;
@@ -56,20 +56,6 @@ public class GameServer : UnityServer, MessageListener
         }
     }
 
-    [TeraTaleNet.RPC]
-    void OnPlayerLogin(Messenger messenger, string key, Packet packet)
-    {
-        PlayerLogin login = (PlayerLogin)packet.body;
-        _messenger.Send("Database", new PlayerInfoRequest(login.nickName));
-        OnPlayerInfoResponse(_messenger.ReceiveSync("Database"));
-    }
-    
-    void OnPlayerInfoResponse(Packet packet)
-    {
-        PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
-        _messenger.Send("Proxy", new PlayerJoin(info.nickName, info.world));
-    }
-
     protected override void Dispose(bool disposing)
     {
         if (!_disposed)
@@ -87,5 +73,19 @@ public class GameServer : UnityServer, MessageListener
                 base.Dispose(disposing);
             }
         }
+    }
+
+    [TeraTaleNet.RPC]
+    void OnPlayerLogin(Messenger messenger, string key, Packet packet)
+    {
+        PlayerLogin login = (PlayerLogin)packet.body;
+        _messenger.Send("Database", new PlayerInfoRequest(login.nickName));
+        OnPlayerInfoResponse(_messenger.ReceiveSync("Database"));
+    }
+
+    void OnPlayerInfoResponse(Packet packet)
+    {
+        PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
+        _messenger.Send("Proxy", new PlayerJoin(info.nickName, info.world));
     }
 }

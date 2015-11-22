@@ -6,8 +6,9 @@ using TeraTaleNet;
 
 namespace Login
 {
-    class LoginServer : Server,MessageListener
+    class LoginServer : Server
     {
+        LoginHandler _handler = new LoginHandler();
         Messenger _messenger;
         Task gameServer;
         Task proxy;
@@ -15,7 +16,7 @@ namespace Login
 
         protected override void OnStart()
         {
-            _messenger = new Messenger(this);
+            _messenger = new Messenger(_handler);
 
             _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
             Console.WriteLine("Database connected.");
@@ -58,18 +59,6 @@ namespace Login
             proxy.Wait();
         }
 
-        [RPC]
-        void OnLoginRequest(Messenger messenger, string key, Packet packet)
-        {
-            _messenger.Send("Database", packet);
-            OnLoginResponse(_messenger.ReceiveSync("Database"));
-        }
-        
-        void OnLoginResponse(Packet packet)
-        {
-            _messenger.Send("Proxy", packet);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -87,6 +76,16 @@ namespace Login
                     base.Dispose(disposing);
                 }
             }
+        }
+    }
+
+    class LoginHandler : MessageHandler
+    {
+        [RPC]
+        void OnLoginRequest(Messenger messenger, string key, Packet packet)
+        {
+            messenger.Send("Database", packet);
+            messenger.Send("Proxy", messenger.ReceiveSync("Database"));
         }
     }
 }

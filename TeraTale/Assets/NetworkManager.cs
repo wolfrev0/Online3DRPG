@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class NetworkManager : UnityServer, MessageListener
+public class NetworkManager : UnityServer, MessageHandler
 {
     public Player pfPlayer;
 

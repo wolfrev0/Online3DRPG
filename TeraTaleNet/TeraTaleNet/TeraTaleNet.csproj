@@ -61,7 +61,7 @@
     <Compile Include="Body\LoginRequest.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="History.cs" />
-    <Compile Include="MessageListener.cs" />
+    <Compile Include="MessageHandler.cs" />
     <Compile Include="RPC.cs" />
     <Compile Include="Serializable.cs" />
     <Compile Include="PacketType.cs" />

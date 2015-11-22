@@ -5,7 +5,7 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    class ProxyServer : Server,MessageListener
+    class ProxyServer : Server, MessageHandler
     {
         Messenger _messenger;
         Messenger _clientMessenger;
@@ -116,6 +116,27 @@ namespace Proxy
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                try
+                {
+                    if (disposing)
+                    {
+                        _messenger.Join();
+                        _clientMessenger.Join();
+                        _confirmMessenger.Join();
+                    }
+                    _disposed = true;
+                }
+                finally
+                {
+                    base.Dispose(disposing);
+                }
+            }
+        }
+
         [RPC]
         void OnLoginResponse(Messenger messenger, string key, Packet packet)
         {
@@ -156,27 +177,6 @@ namespace Proxy
             PlayerJoin join = (PlayerJoin)packet.body;
             History.Log(join.nickName);
             _clientMessenger.Send(join.nickName, packet);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                try
-                {
-                    if (disposing)
-                    {
-                        _messenger.Join();
-                        _clientMessenger.Join();
-                        _confirmMessenger.Join();
-                    }
-                    _disposed = true;
-                }
-                finally
-                {
-                    base.Dispose(disposing);
-                }
-            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TeraTaleNet
         Dictionary<string, PacketStream> _streamByKey = new Dictionary<string, PacketStream>();
         Thread _sender;
         Thread _receiver;
-        MessageListener listener;
+        MessageHandler listener;
         bool _stopped = false;
         bool _disposed = false;
 
@@ -28,7 +28,7 @@ namespace TeraTaleNet
             }
         }
 
-        public Messenger(MessageListener listener)
+        public Messenger(MessageHandler listener)
         {
             this.listener = listener;
             foreach (var method in listener.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))

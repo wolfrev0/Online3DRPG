@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class Certificator : UnityServer, MessageListener
+public class Certificator : UnityServer, MessageHandler
 {
     Messenger _messenger;
     int _confirmID;
@@ -46,30 +46,6 @@ public class Certificator : UnityServer, MessageListener
         }
     }
 
-    [TeraTaleNet.RPC]
-    void OnLoginResponse(Messenger messenger, string key, Packet packet)
-    {
-        LoginResponse response = (LoginResponse)packet.body;
-        if (response.accepted)
-        {
-            var net = FindObjectOfType<NetworkManager>();
-            lock (_locker)
-                net.stream = _messenger.Unregister("Proxy");
-            net.enabled = true;
-            Application.LoadLevel("Town");
-        }
-        else
-        {
-
-        }
-    }
-
-    [TeraTaleNet.RPC]
-    void OnConfirmID(Messenger messenger, string key, Packet packet)
-    {
-        _confirmID = ((ConfirmID)packet.body).id;
-    }
-
     public void SendLoginRequest(string id, string pw)
     {
         _messenger.Send("Proxy", new LoginRequest(id, pw, _confirmID));
@@ -92,5 +68,28 @@ public class Certificator : UnityServer, MessageListener
                 base.Dispose(disposing);
             }
         }
+    }
+
+    [TeraTaleNet.RPC]
+    void LoginResponse(Messenger messenger, string key, Packet packet)
+    {
+        LoginResponse response = (LoginResponse)packet.body;
+        if (response.accepted)
+        {
+            var net = FindObjectOfType<NetworkManager>();
+            lock (_locker)
+                net.stream = _messenger.Unregister("Proxy");
+            net.enabled = true;
+        }
+        else
+        {
+
+        }
+    }
+
+    [TeraTaleNet.RPC]
+    void OnConfirmID(Messenger messenger, string key, Packet packet)
+    {
+        _confirmID = ((ConfirmID)packet.body).id;
     }
 }

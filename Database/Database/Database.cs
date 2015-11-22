@@ -6,7 +6,7 @@ namespace Database
 {
     class Database : Server
     {
-        DatabaseListener _listener = new DatabaseListener();
+        DatabaseHandler _handler = new DatabaseHandler();
         Messenger _messenger;
         Task login;
         Task gameServer;
@@ -14,7 +14,7 @@ namespace Database
 
         protected override void OnStart()
         {
-            _messenger = new Messenger(_listener);
+            _messenger = new Messenger(_handler);
 
             Bind("127.0.0.1", Port.DatabaseForLogin, 1);
             _messenger.Register("Login", Listen());

@@ -4,7 +4,7 @@ using TeraTaleNet;
 
 namespace Database
 {
-    class DatabaseListener : MessageListener
+    class DatabaseHandler : MessageHandler
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
