@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using LoboNet;
 using TeraTaleNet;
 
 namespace Proxy
@@ -50,7 +49,7 @@ namespace Proxy
                         lock (_lock)
                         {
                             _confirmMessenger.Register(stringID, Listen());
-                            _confirmMessenger.Send(stringID, new Packet(new ConfirmID(ID)));
+                            _confirmMessenger.Send(stringID, new ConfirmID(ID));
                         }
                         _currentConfirmId++;
                         Console.WriteLine("Client connected.");
@@ -129,7 +128,7 @@ namespace Proxy
                     response.accepted = false;
                     response.reason = RejectedReason.LoggedInAlready;
 
-                    _confirmMessenger.Send(response.confirmID.ToString(), new Packet(response));
+                    _confirmMessenger.Send(response.confirmID.ToString(), response);
                 }
                 else
                 {
@@ -138,9 +137,9 @@ namespace Proxy
                         PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
                         _clientMessenger.Register(response.nickName, stream);
                     }
-                    _messenger.Send("GameServer", new Packet(new PlayerLogin(response.nickName)));
+                    _messenger.Send("GameServer", new PlayerLogin(response.nickName));
 
-                    _clientMessenger.Send(response.nickName, new Packet(response));
+                    _clientMessenger.Send(response.nickName, response);
                 }
             }
         }

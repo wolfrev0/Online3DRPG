@@ -4,6 +4,8 @@ namespace TeraTaleNet
 {
     public class Packet
     {
+        static string bodyNamespace = typeof(Body).Namespace;
+
         Header _header;
         Body _body;
 
@@ -12,7 +14,7 @@ namespace TeraTaleNet
 
         static public Packet Create(Header header, byte[] bytes)
         {
-            Body body = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet." + header.type.ToString()), bytes);
+            Body body = (Body)Activator.CreateInstance(Type.GetType(bodyNamespace + "." + header.type.ToString()), bytes);
             return new Packet(header, body);
         }
 

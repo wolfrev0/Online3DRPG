@@ -72,7 +72,7 @@ public class Certificator : UnityServer, MessageListener
 
     public void SendLoginRequest(string id, string pw)
     {
-        _messenger.Send("Proxy", new Packet(new LoginRequest(id, pw, _confirmID)));
+        _messenger.Send("Proxy", new LoginRequest(id, pw, _confirmID));
     }
 
     protected override void Dispose(bool disposing)

@@ -60,14 +60,14 @@ public class GameServer : UnityServer, MessageListener
     void OnPlayerLogin(Packet packet)
     {
         PlayerLogin login = (PlayerLogin)packet.body;
-        _messenger.Send("Database", new Packet(new PlayerInfoRequest(login.nickName)));
+        _messenger.Send("Database", new PlayerInfoRequest(login.nickName));
         OnPlayerInfoResponse(_messenger.ReceiveSync("Database"));
     }
     
     void OnPlayerInfoResponse(Packet packet)
     {
         PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
-        _messenger.Send("Proxy", new Packet(new PlayerJoin(info.nickName, info.world)));
+        _messenger.Send("Proxy", new PlayerJoin(info.nickName, info.world));
     }
 
     protected override void Dispose(bool disposing)

@@ -82,7 +82,7 @@ namespace Database
             {
                 response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
             }
-            _messenger.Send("Login", new Packet(response));
+            _messenger.Send("Login", response);
         }
 
         [RPC]
@@ -94,7 +94,7 @@ namespace Database
                 string world = stream.ReadLine();
 
                 PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                _messenger.Send("GameServer", new Packet(response));
+                _messenger.Send("GameServer", response);
             }
         }
 

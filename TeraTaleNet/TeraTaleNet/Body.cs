@@ -17,5 +17,10 @@ namespace TeraTaleNet
             var type = (PacketType)Enum.Parse(typeof(PacketType), GetType().Name);
             return new Header(type, SerializedSize());
         }
+
+        public static implicit operator Packet(Body body)
+        {
+            return new Packet(body);
+        }
     }
 }
