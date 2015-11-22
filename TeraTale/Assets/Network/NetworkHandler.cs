@@ -9,8 +9,7 @@ public class NetworkHandler : MessageHandler
     {
         _net = net;
     }
-
-    [TeraTaleNet.RPC]
+    
     void PlayerJoin(Messenger messenger, string key, Packet packet)
     {
         PlayerJoin join = (PlayerJoin)packet.body;

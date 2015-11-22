@@ -11,8 +11,7 @@ public partial class Certificator : UnityServer
         {
            _certificator = certificator;
         }
-
-        [TeraTaleNet.RPC]
+        
         void LoginResponse(Messenger messenger, string key, Packet packet)
         {
             LoginResponse response = (LoginResponse)packet.body;
@@ -29,8 +28,7 @@ public partial class Certificator : UnityServer
 
             }
         }
-
-        [TeraTaleNet.RPC]
+        
         void ConfirmID(Messenger messenger, string key, Packet packet)
         {
             _certificator._confirmID = ((ConfirmID)packet.body).id;

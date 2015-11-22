@@ -18,7 +18,7 @@ namespace TeraTaleNet
         bool _stopped = false;
         bool _disposed = false;
 
-        Dictionary<string, MethodInfo> rpcByName = new Dictionary<string, MethodInfo>();
+        Dictionary<string, MethodInfo> handlerByName = new Dictionary<string, MethodInfo>();
 
         public Dictionary<string, PacketStream>.KeyCollection Keys
         {
@@ -32,12 +32,7 @@ namespace TeraTaleNet
         {
             this.listener = listener;
             foreach (var method in listener.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
-            {
-                if (method.GetCustomAttributes(typeof(RPC), false).Length > 0)
-                {
-                    rpcByName.Add(method.Name, method);
-                }
-            }
+                handlerByName.Add(method.Name, method);
 
             _sender = new Thread(Sender);
             _receiver = new Thread(Receiver);
@@ -90,7 +85,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                rpcByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
+                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
             }
             Thread.Sleep(10);
         }
@@ -100,7 +95,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                rpcByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
+                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
             }
         }
 

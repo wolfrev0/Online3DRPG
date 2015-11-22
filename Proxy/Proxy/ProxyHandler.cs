@@ -13,8 +13,7 @@ namespace Proxy
             {
                 _server = server;
             }
-
-            [RPC]
+            
             void LoginResponse(Messenger messenger, string key, Packet packet)
             {
                 LoginResponse response = (LoginResponse)packet.body;
@@ -41,14 +40,12 @@ namespace Proxy
                     }
                 }
             }
-
-            [RPC]
+            
             void LoginRequest(Messenger messenger, string key, Packet packet)
             {
                 _server._messenger.Send("Login", packet);
             }
-
-            [RPC]
+            
             void PlayerJoin(Messenger messenger, string key, Packet packet)
             {
                 PlayerJoin join = (PlayerJoin)packet.body;

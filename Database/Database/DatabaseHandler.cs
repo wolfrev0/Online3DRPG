@@ -8,8 +8,7 @@ namespace Database
     {
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
-
-        [RPC]
+        
         void LoginRequest(Messenger messenger, string key, Packet packet)
         {
             if (key != "Login")
@@ -39,8 +38,7 @@ namespace Database
             }
             messenger.Send(key, response);
         }
-
-        [RPC]
+        
         void PlayerInfoRequest(Messenger messenger, string key, Packet packet)
         {
             if (key != "GameServer")

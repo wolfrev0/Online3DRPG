@@ -3,7 +3,6 @@ using TeraTaleNet;
 
 public class GameServerHandler : MessageHandler
 {
-    [TeraTaleNet.RPC]
     void PlayerLogin(Messenger messenger, string key, Packet packet)
     {
         PlayerLogin login = (PlayerLogin)packet.body;
