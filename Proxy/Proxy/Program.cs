@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            using (ProxyServer server = new ProxyServer())
+            using (Proxy server = new Proxy())
                 server.Execute();
         }
     }

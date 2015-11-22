@@ -4,15 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public class GameServer : UnityServer, MessageHandler
+public class GameServer : UnityServer
 {
+    GameServerHandler _handler;
     Messenger _messenger;
     Dictionary<string, HashSet<string>> playersByWorld;
     bool _disposed = false;
 
     protected override void OnStart()
     {
-        _messenger = new Messenger(this);
+        _handler = new GameServerHandler();
+        _messenger = new Messenger(_handler);
 
         _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForGameServer));
         Debug.Log("Database connected.");
@@ -73,19 +75,5 @@ public class GameServer : UnityServer, MessageHandler
                 base.Dispose(disposing);
             }
         }
-    }
-
-    [TeraTaleNet.RPC]
-    void OnPlayerLogin(Messenger messenger, string key, Packet packet)
-    {
-        PlayerLogin login = (PlayerLogin)packet.body;
-        _messenger.Send("Database", new PlayerInfoRequest(login.nickName));
-        OnPlayerInfoResponse(_messenger.ReceiveSync("Database"));
-    }
-
-    void OnPlayerInfoResponse(Packet packet)
-    {
-        PlayerInfoResponse info = (PlayerInfoResponse)packet.body;
-        _messenger.Send("Proxy", new PlayerJoin(info.nickName, info.world));
     }
 }

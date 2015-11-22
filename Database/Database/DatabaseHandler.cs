@@ -10,7 +10,7 @@ namespace Database
         static string playerInfoLocation = "PlayerInfo\\";
 
         [RPC]
-        void OnLoginRequest(Messenger messenger, string key, Packet packet)
+        void LoginRequest(Messenger messenger, string key, Packet packet)
         {
             if (key != "Login")
                 throw new ArgumentException("Received from unexpected key.");
@@ -41,7 +41,7 @@ namespace Database
         }
 
         [RPC]
-        void OnPlayerInfoRequest(Messenger messenger, string key, Packet packet)
+        void PlayerInfoRequest(Messenger messenger, string key, Packet packet)
         {
             if (key != "GameServer")
                 throw new ArgumentException("Received from unexpected key.");

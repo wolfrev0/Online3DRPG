@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using TeraTaleNet;
 
 namespace Proxy
 {
-    class ProxyServer : Server, MessageHandler
+    partial class Proxy : Server
     {
+        ProxyHandler _handler;
         Messenger _messenger;
         Messenger _clientMessenger;
         Messenger _confirmMessenger;
@@ -27,9 +27,10 @@ namespace Proxy
 
         protected override void OnStart()
         {
-            _messenger = new Messenger(this);
-            _clientMessenger = new Messenger(this);
-            _confirmMessenger = new Messenger(this);
+            _handler = new ProxyHandler(this);
+            _messenger = new Messenger(_handler);
+            _clientMessenger = new Messenger(_handler);
+            _confirmMessenger = new Messenger(_handler);
 
             _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
             Console.WriteLine("Login connected.");
@@ -136,47 +137,7 @@ namespace Proxy
                 }
             }
         }
-
-        [RPC]
-        void OnLoginResponse(Messenger messenger, string key, Packet packet)
-        {
-            LoginResponse response = (LoginResponse)packet.body;
-            if (response.accepted)
-            {
-                var keys = (ICollection<string>)_clientMessenger.Keys;
-                if (keys.Contains(response.nickName))
-                {
-                    response.accepted = false;
-                    response.reason = RejectedReason.LoggedInAlready;
-
-                    _confirmMessenger.Send(response.confirmID.ToString(), response);
-                }
-                else
-                {
-                    lock (_lock)
-                    {
-                        PacketStream stream = _confirmMessenger.Unregister(response.confirmID.ToString());
-                        _clientMessenger.Register(response.nickName, stream);
-                    }
-                    _messenger.Send("GameServer", new PlayerLogin(response.nickName));
-
-                    _clientMessenger.Send(response.nickName, response);
-                }
-            }
-        }
-
-        [RPC]
-        void OnLoginRequest(Messenger messenger, string key, Packet packet)
-        {
-            _messenger.Send("Login", packet);
-        }
-
-        [RPC]
-        void OnPlayerJoin(Messenger messenger, string key, Packet packet)
-        {
-            PlayerJoin join = (PlayerJoin)packet.body;
-            History.Log(join.nickName);
-            _clientMessenger.Send(join.nickName, packet);
-        }
     }
+
+
 }

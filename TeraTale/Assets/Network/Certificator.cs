@@ -3,16 +3,18 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class Certificator : UnityServer, MessageHandler
+public partial class Certificator : UnityServer
 {
+    CertificatorHandler _handler;
     Messenger _messenger;
+    object _locker = new object();
     int _confirmID;
     bool _disposed = false;
-    object _locker = new object();
 
     protected override void OnStart()
     {
-        _messenger = new Messenger(this);
+        _handler = new CertificatorHandler(this);
+        _messenger = new Messenger(_handler);
         _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
         Debug.Log("Proxy connected.");
         
@@ -68,28 +70,5 @@ public class Certificator : UnityServer, MessageHandler
                 base.Dispose(disposing);
             }
         }
-    }
-
-    [TeraTaleNet.RPC]
-    void LoginResponse(Messenger messenger, string key, Packet packet)
-    {
-        LoginResponse response = (LoginResponse)packet.body;
-        if (response.accepted)
-        {
-            var net = FindObjectOfType<NetworkManager>();
-            lock (_locker)
-                net.stream = _messenger.Unregister("Proxy");
-            net.enabled = true;
-        }
-        else
-        {
-
-        }
-    }
-
-    [TeraTaleNet.RPC]
-    void OnConfirmID(Messenger messenger, string key, Packet packet)
-    {
-        _confirmID = ((ConfirmID)packet.body).id;
     }
 }

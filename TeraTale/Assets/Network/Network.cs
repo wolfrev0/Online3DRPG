@@ -3,17 +3,18 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class NetworkManager : UnityServer, MessageHandler
+public class Network : UnityServer
 {
     public Player pfPlayer;
-
     public PacketStream stream;
+    NetworkHandler _handler;
     Messenger _messenger;
     bool _disposed = false;
 
     protected override void OnStart()
     {
-        _messenger = new Messenger(this);
+        _handler = new NetworkHandler(this);
+        _messenger = new Messenger(_handler);
 
         _messenger.Register("Proxy", stream);
 
@@ -44,14 +45,6 @@ public class NetworkManager : UnityServer, MessageHandler
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 Stop();
         }
-    }
-
-    [TeraTaleNet.RPC]
-    void OnPlayerJoin(Messenger messenger, string key, Packet packet)
-    {
-        PlayerJoin join = (PlayerJoin)packet.body;
-        Player player = Instantiate(pfPlayer);
-        player.gameObject.name = join.nickName;
     }
 
     protected override void Dispose(bool disposing)

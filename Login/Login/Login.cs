@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using LoboNet;
 using TeraTaleNet;
 
 namespace Login
 {
-    class LoginServer : Server
+    class Login : Server
     {
         LoginHandler _handler = new LoginHandler();
         Messenger _messenger;
@@ -76,16 +74,6 @@ namespace Login
                     base.Dispose(disposing);
                 }
             }
-        }
-    }
-
-    class LoginHandler : MessageHandler
-    {
-        [RPC]
-        void OnLoginRequest(Messenger messenger, string key, Packet packet)
-        {
-            messenger.Send("Database", packet);
-            messenger.Send("Proxy", messenger.ReceiveSync("Database"));
         }
     }
 }

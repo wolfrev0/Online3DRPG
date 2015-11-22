@@ -52,6 +52,7 @@
     <Compile Include="Body\PlayerInfoResponse.cs" />
     <Compile Include="Body\PlayerJoin.cs" />
     <Compile Include="Body\PlayerLogin.cs" />
+    <Compile Include="Body\RemoteProcedureCall.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />
