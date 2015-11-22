@@ -47,7 +47,7 @@ public class NetworkManager : UnityServer, MessageListener
     }
 
     [TeraTaleNet.RPC]
-    void OnPlayerJoin(Packet packet)
+    void OnPlayerJoin(Messenger messenger, string key, Packet packet)
     {
         PlayerJoin join = (PlayerJoin)packet.body;
         Player player = Instantiate(pfPlayer);

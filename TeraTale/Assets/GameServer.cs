@@ -57,7 +57,7 @@ public class GameServer : UnityServer, MessageListener
     }
 
     [TeraTaleNet.RPC]
-    void OnPlayerLogin(Packet packet)
+    void OnPlayerLogin(Messenger messenger, string key, Packet packet)
     {
         PlayerLogin login = (PlayerLogin)packet.body;
         _messenger.Send("Database", new PlayerInfoRequest(login.nickName));

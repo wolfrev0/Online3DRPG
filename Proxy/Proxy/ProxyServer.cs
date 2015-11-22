@@ -117,7 +117,7 @@ namespace Proxy
         }
 
         [RPC]
-        void OnLoginResponse(Packet packet)
+        void OnLoginResponse(Messenger messenger, string key, Packet packet)
         {
             LoginResponse response = (LoginResponse)packet.body;
             if (response.accepted)
@@ -145,13 +145,13 @@ namespace Proxy
         }
 
         [RPC]
-        void OnLoginRequest(Packet packet)
+        void OnLoginRequest(Messenger messenger, string key, Packet packet)
         {
             _messenger.Send("Login", packet);
         }
 
         [RPC]
-        void OnPlayerJoin(Packet packet)
+        void OnPlayerJoin(Messenger messenger, string key, Packet packet)
         {
             PlayerJoin join = (PlayerJoin)packet.body;
             History.Log(join.nickName);

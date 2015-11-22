@@ -47,7 +47,7 @@ public class Certificator : UnityServer, MessageListener
     }
 
     [TeraTaleNet.RPC]
-    void OnLoginResponse(Packet packet)
+    void OnLoginResponse(Messenger messenger, string key, Packet packet)
     {
         LoginResponse response = (LoginResponse)packet.body;
         if (response.accepted)
@@ -65,7 +65,7 @@ public class Certificator : UnityServer, MessageListener
     }
 
     [TeraTaleNet.RPC]
-    void OnConfirmID(Packet packet)
+    void OnConfirmID(Messenger messenger, string key, Packet packet)
     {
         _confirmID = ((ConfirmID)packet.body).id;
     }

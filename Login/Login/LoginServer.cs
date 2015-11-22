@@ -59,7 +59,7 @@ namespace Login
         }
 
         [RPC]
-        void OnLoginRequest(Packet packet)
+        void OnLoginRequest(Messenger messenger, string key, Packet packet)
         {
             _messenger.Send("Database", packet);
             OnLoginResponse(_messenger.ReceiveSync("Database"));

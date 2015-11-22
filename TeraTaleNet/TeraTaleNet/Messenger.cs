@@ -90,7 +90,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { packet });
+                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
             }
             Thread.Sleep(10);
         }
@@ -100,7 +100,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { packet });
+                rpcByName["On" + packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
             }
         }
 

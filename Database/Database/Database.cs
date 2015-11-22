@@ -1,15 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using TeraTaleNet;
 
 namespace Database
 {
-    class Database : Server, MessageListener
+    class Database : Server
     {
-        static string accountLocation = "Accounts\\";
-        static string playerInfoLocation = "PlayerInfo\\";
+        DatabaseListener _listener = new DatabaseListener();
         Messenger _messenger;
         Task login;
         Task gameServer;
@@ -17,7 +14,7 @@ namespace Database
 
         protected override void OnStart()
         {
-            _messenger = new Messenger(this);
+            _messenger = new Messenger(_listener);
 
             Bind("127.0.0.1", Port.DatabaseForLogin, 1);
             _messenger.Register("Login", Listen());
@@ -55,47 +52,6 @@ namespace Database
         {
             login.Wait();
             gameServer.Wait();
-        }
-
-        [RPC]
-        void OnLoginRequest(Packet packet)
-        {
-            LoginRequest request = (LoginRequest)packet.body;
-            LoginResponse response;
-            try
-            {
-                using (var stream = new StreamReader(new FileStream(accountLocation + request.id, FileMode.Open)))
-                {
-                    string pw = stream.ReadLine();
-                    string nickName = stream.ReadLine();
-                    if (request.pw == pw)
-                    {
-                        response = new LoginResponse(true, RejectedReason.Accepted, nickName, request.confirmID);
-                    }
-                    else
-                    {
-                        response = new LoginResponse(false, RejectedReason.InvalidPW, "Login", request.confirmID);
-                    }
-                }
-            }
-            catch (IOException)
-            {
-                response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
-            }
-            _messenger.Send("Login", response);
-        }
-
-        [RPC]
-        void OnPlayerInfoRequest(Packet packet)
-        {
-            PlayerInfoRequest request = (PlayerInfoRequest)packet.body;
-            using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
-            {
-                string world = stream.ReadLine();
-
-                PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                _messenger.Send("GameServer", response);
-            }
         }
 
         protected override void Dispose(bool disposing)
