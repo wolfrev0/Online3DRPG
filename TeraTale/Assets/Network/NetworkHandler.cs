@@ -10,9 +10,8 @@ public class NetworkHandler : MessageHandler
         _net = net;
     }
     
-    void PlayerJoin(Messenger messenger, string key, Packet packet)
+    void PlayerJoin(Messenger messenger, string key, PlayerJoin join)
     {
-        PlayerJoin join = (PlayerJoin)packet.body;
         Player player = Object.Instantiate(_net.pfPlayer);
         player.gameObject.name = join.nickName;
     }

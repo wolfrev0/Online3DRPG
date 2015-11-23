@@ -14,9 +14,8 @@ namespace Proxy
                 _server = server;
             }
             
-            void LoginResponse(Messenger messenger, string key, Packet packet)
+            void LoginResponse(Messenger messenger, string key, LoginResponse response)
             {
-                LoginResponse response = (LoginResponse)packet.body;
                 if (response.accepted)
                 {
                     var keys = (ICollection<string>)_server._clientMessenger.Keys;
@@ -41,16 +40,15 @@ namespace Proxy
                 }
             }
             
-            void LoginRequest(Messenger messenger, string key, Packet packet)
+            void LoginRequest(Messenger messenger, string key, Body packet)
             {
                 _server._messenger.Send("Login", packet);
             }
             
-            void PlayerJoin(Messenger messenger, string key, Packet packet)
+            void PlayerJoin(Messenger messenger, string key, PlayerJoin join)
             {
-                PlayerJoin join = (PlayerJoin)packet.body;
                 History.Log(join.nickName);
-                _server._clientMessenger.Send(join.nickName, packet);
+                _server._clientMessenger.Send(join.nickName, join);
             }
         }
     }

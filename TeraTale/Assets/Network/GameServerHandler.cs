@@ -3,9 +3,8 @@ using TeraTaleNet;
 
 public class GameServerHandler : MessageHandler
 {
-    void PlayerLogin(Messenger messenger, string key, Packet packet)
+    void PlayerLogin(Messenger messenger, string key, PlayerLogin login)
     {
-        PlayerLogin login = (PlayerLogin)packet.body;
         messenger.Send("Database", new PlayerInfoRequest(login.nickName));
 
         PlayerInfoResponse info = (PlayerInfoResponse)messenger.ReceiveSync("Database").body;

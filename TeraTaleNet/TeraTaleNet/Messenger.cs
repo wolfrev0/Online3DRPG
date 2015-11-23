@@ -85,7 +85,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
+                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
             }
             Thread.Sleep(10);
         }
@@ -95,7 +95,7 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
-                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet });
+                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
             }
         }
 

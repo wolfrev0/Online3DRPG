@@ -12,9 +12,8 @@ public partial class Certificator : UnityServer
            _certificator = certificator;
         }
         
-        void LoginResponse(Messenger messenger, string key, Packet packet)
+        void LoginResponse(Messenger messenger, string key, LoginResponse response)
         {
-            LoginResponse response = (LoginResponse)packet.body;
             if (response.accepted)
             {
                 var net = FindObjectOfType<Network>();
@@ -29,9 +28,9 @@ public partial class Certificator : UnityServer
             }
         }
         
-        void ConfirmID(Messenger messenger, string key, Packet packet)
+        void ConfirmID(Messenger messenger, string key, ConfirmID confirmID)
         {
-            _certificator._confirmID = ((ConfirmID)packet.body).id;
+            _certificator._confirmID = confirmID.id;
         }
     }
 }

@@ -9,12 +9,11 @@ namespace Database
         static string accountLocation = "Accounts\\";
         static string playerInfoLocation = "PlayerInfo\\";
         
-        void LoginRequest(Messenger messenger, string key, Packet packet)
+        void LoginRequest(Messenger messenger, string key, LoginRequest request)
         {
             if (key != "Login")
                 throw new ArgumentException("Received from unexpected key.");
-
-            LoginRequest request = (LoginRequest)packet.body;
+            
             LoginResponse response;
             try
             {
@@ -39,12 +38,11 @@ namespace Database
             messenger.Send(key, response);
         }
         
-        void PlayerInfoRequest(Messenger messenger, string key, Packet packet)
+        void PlayerInfoRequest(Messenger messenger, string key, PlayerInfoRequest request)
         {
             if (key != "GameServer")
                 throw new ArgumentException("Received from unexpected key.");
-
-            PlayerInfoRequest request = (PlayerInfoRequest)packet.body;
+            
             using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
             {
                 string world = stream.ReadLine();
