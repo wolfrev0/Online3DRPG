@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeraTaleNet;
 
@@ -8,44 +9,54 @@ namespace Database
     {
         DatabaseHandler _handler = new DatabaseHandler();
         Messenger _messenger;
-        Task _login;
-        Task _town;
-        Task _forest;
+        Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         bool _disposed = false;
 
         protected override void OnStart()
         {
             _messenger = new Messenger(_handler);
 
-            Bind("127.0.0.1", Port.DatabaseForLogin, 1);
-            _messenger.Register("Login", Listen());
-            Console.WriteLine("Login connected.");
+            PacketStream stream;
+            ConnectorInfo info;
 
-            Bind("127.0.0.1", Port.DatabaseForTown, 1);
-            _messenger.Register("Town", Listen());
-            Console.WriteLine("Town connected.");
+            Bind("127.0.0.1", Port.Database, 1);
+            stream = Listen();
+            info = (ConnectorInfo)stream.Read().body;
+            _messenger.Register(info.name, stream);
+            Console.WriteLine(info.name + " connected.");
 
-            Bind("127.0.0.1", Port.DatabaseForForest, 1);
-            _messenger.Register("Forest", Listen());
-            Console.WriteLine("Forest connected.");
+            Bind("127.0.0.1", Port.Database, 1);
+            stream = Listen();
+            info = (ConnectorInfo)stream.Read().body;
+            _messenger.Register(info.name, stream);
+            Console.WriteLine(info.name + " connected.");
 
-            _login = Task.Run(() =>
+            Bind("127.0.0.1", Port.Database, 1);
+            stream = Listen();
+            info = (ConnectorInfo)stream.Read().body;
+            _messenger.Register(info.name, stream);
+            Console.WriteLine(info.name + " connected.");
+
+            Task dispatcher;
+
+            dispatcher = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Login");
             });
-
-            _town = Task.Run(() =>
+            _dispatchers.Add("Login", dispatcher);
+            dispatcher = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Town");
             });
-
-            _forest = Task.Run(() =>
+            _dispatchers.Add("Town", dispatcher);
+            dispatcher = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Forest");
             });
+            _dispatchers.Add("Forest", dispatcher);
 
             _messenger.Start();
         }
@@ -61,9 +72,8 @@ namespace Database
 
         protected override void OnEnd()
         {
-            _login.Wait();
-            _town.Wait();
-            _forest.Wait();
+            foreach(var task in _dispatchers.Values)
+                task.Wait();
         }
 
         protected override void Dispose(bool disposing)

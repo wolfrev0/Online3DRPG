@@ -16,14 +16,22 @@ public class Town : UnityServer
         _handler = new TownHandler();
         _messenger = new Messenger(_handler);
 
-        _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForTown));
-        Debug.Log("Database connected.");
+        PacketStream stream;
+        ConnectorInfo info;
 
-        Bind("127.0.0.1", Port.TownForProxy, 1);
-        _messenger.Register("Proxy", Listen());
-        Debug.Log("Proxy connected.");
+        stream = Connect("127.0.0.1", Port.Database);
+        stream.Write(new ConnectorInfo("Town"));
+        _messenger.Register("Database", stream);
+        Console.WriteLine("Database connected.");
 
-        StartCoroutine(Dispatcher("Proxy"));
+        Bind("127.0.0.1", Port.Town, 1);
+        stream = Listen();
+        info = (ConnectorInfo)stream.Read().body;
+        _messenger.Register(info.name, stream);
+        Console.WriteLine(info.name + " connected.");
+
+        foreach (var key in _messenger.Keys)
+            StartCoroutine(Dispatcher(key));
 
         _messenger.Start();
     }

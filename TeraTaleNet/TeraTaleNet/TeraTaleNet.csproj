@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
+    <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
     <Compile Include="ConcurrentDictionary.cs" />

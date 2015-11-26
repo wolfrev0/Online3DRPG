@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeraTaleNet;
 
@@ -10,10 +11,8 @@ namespace Proxy
         Messenger _messenger;
         Messenger _clientMessenger;
         Messenger _confirmMessenger;
+        Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         Task _accepter;
-        Task _login;
-        Task _town;
-        Task _forest;
         Task _confirm;
         Task _client;
         int _currentConfirmId = 0;
@@ -33,18 +32,58 @@ namespace Proxy
             _clientMessenger = new Messenger(_handler);
             _confirmMessenger = new Messenger(_handler);
 
-            _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
+
+
+            PacketStream stream;
+            ConnectorInfo info;
+
+            stream = Connect("127.0.0.1", Port.Login);
+            stream.Write(new ConnectorInfo("Proxy"));
+            _messenger.Register("Login", stream);
             Console.WriteLine("Login connected.");
 
-            _messenger.Register("Town", Connect("127.0.0.1", Port.TownForProxy));
+            stream = Connect("127.0.0.1", Port.Town);
+            stream.Write(new ConnectorInfo("Proxy"));
+            _messenger.Register("Town", stream);
             Console.WriteLine("Town connected.");
 
-            _messenger.Register("Forest", Connect("127.0.0.1", Port.ForestForProxy));
+            stream = Connect("127.0.0.1", Port.Forest);
+            stream.Write(new ConnectorInfo("Proxy"));
+            _messenger.Register("Forest", stream);
             Console.WriteLine("Forest connected.");
+
+            //Bind("127.0.0.1", Port.Login, 1);
+            //stream = Listen();
+            //info = (ConnectorInfo)stream.Read().body;
+            //_messenger.Register(info.name, stream);
+            //Console.WriteLine(info.name + " connected.");
+
+            Task dispatcher;
+
+            dispatcher = Task.Run(() =>
+            {
+                while (stopped == false)
+                    _messenger.Dispatch("Login");
+            });
+            _dispatchers.Add("Login", dispatcher);
+
+            dispatcher = Task.Run(() =>
+            {
+                while (stopped == false)
+                    _messenger.Dispatch("Town");
+            });
+            _dispatchers.Add("Town", dispatcher);
+
+            dispatcher = Task.Run(() =>
+            {
+                while (stopped == false)
+                    _messenger.Dispatch("Forest");
+            });
+            _dispatchers.Add("Forest", dispatcher);
 
             _accepter = Task.Run(() =>
             {
-                Bind("0.0.0.0", Port.ProxyForClient, 4);
+                Bind("0.0.0.0", Port.Proxy, 4);
                 while (stopped == false)
                 {
                     if (HasConnectReq())
@@ -60,24 +99,6 @@ namespace Proxy
                         Console.WriteLine("Client connected.");
                     }
                 }
-            });
-
-            _login = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Login");
-            });
-
-            _town = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Town");
-            });
-
-            _forest = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Forest");
             });
 
             _confirm = Task.Run(() =>
@@ -112,9 +133,8 @@ namespace Proxy
         protected override void OnEnd()
         {
             _accepter.Wait();
-            _login.Wait();
-            _town.Wait();
-            _forest.Wait();
+            foreach (var task in _dispatchers.Values)
+                task.Wait();
             _confirm.Wait();
             _client.Wait();
         }

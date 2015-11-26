@@ -15,10 +15,12 @@ public partial class Certificator : UnityServer
     {
         _handler = new CertificatorHandler(this);
         _messenger = new Messenger(_handler);
-        _messenger.Register("Proxy", Connect("127.0.0.1", Port.ProxyForClient));
-        Debug.Log("Proxy connected.");
         
-        StartCoroutine(Dispatcher("Proxy"));
+        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        Console.WriteLine("Proxy connected.");
+
+        foreach (var key in _messenger.Keys)
+            StartCoroutine(Dispatcher(key));
 
         _messenger.Start();
     }

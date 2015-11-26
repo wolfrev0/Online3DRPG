@@ -3,6 +3,7 @@
     public enum PacketType
     {
         ConfirmID,
+        ConnectorInfo,
         LoginQuery,
         LoginAnswer,
     }

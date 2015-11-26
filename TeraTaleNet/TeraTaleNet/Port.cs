@@ -2,12 +2,10 @@
 {
     public enum Port : ushort
     {
-        DatabaseForLogin = 9852,
-        DatabaseForTown,
-        DatabaseForForest,
-        LoginForProxy,
-        TownForProxy,
-        ForestForProxy,
-        ProxyForClient,
+        Database = 9852,
+        Login,
+        Town,
+        Forest,
+        Proxy,
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeraTaleNet;
 
@@ -8,32 +9,42 @@ namespace Login
     {
         LoginHandler _handler = new LoginHandler();
         Messenger _messenger;
-        Task _database;
-        Task _proxy;
+        Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         bool _disposed = false;
 
         protected override void OnStart()
         {
             _messenger = new Messenger(_handler);
 
-            _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
+            PacketStream stream;
+            ConnectorInfo info;
+
+            stream = Connect("127.0.0.1", Port.Database);
+            stream.Write(new ConnectorInfo("Login"));
+            _messenger.Register("Database", stream);
             Console.WriteLine("Database connected.");
 
-            Bind("127.0.0.1", Port.LoginForProxy, 1);
-            _messenger.Register("Proxy", Listen());
-            Console.WriteLine("Proxy connected.");
+            Bind("127.0.0.1", Port.Login, 1);
+            stream = Listen();
+            info = (ConnectorInfo)stream.Read().body;
+            _messenger.Register(info.name, stream);
+            Console.WriteLine(info.name + " connected.");
 
-            _database = Task.Run(() =>
+            Task dispatcher;
+
+            dispatcher = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Database");
             });
+            _dispatchers.Add("Database", dispatcher);
 
-            _proxy = Task.Run(() =>
+            dispatcher = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Proxy");
             });
+            _dispatchers.Add("Proxy", dispatcher);
 
             _messenger.Start();
         }
@@ -49,8 +60,8 @@ namespace Login
 
         protected override void OnEnd()
         {
-            _database.Wait();
-            _proxy.Wait();
+            foreach (var task in _dispatchers.Values)
+                task.Wait();
         }
 
         protected override void Dispose(bool disposing)
