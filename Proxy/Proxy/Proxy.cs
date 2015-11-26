@@ -32,55 +32,33 @@ namespace Proxy
             _clientMessenger = new Messenger(_handler);
             _confirmMessenger = new Messenger(_handler);
 
+            Action<Port> connector = (Port port) =>
+            {
+                var stream = Connect("127.0.0.1", port);
+                stream.Write(new ConnectorInfo("Proxy"));
+                _messenger.Register(port.ToString(), stream);
+                Console.WriteLine(port.ToString() + " connected.");
+            };
 
-
-            PacketStream stream;
-            ConnectorInfo info;
-
-            stream = Connect("127.0.0.1", Port.Login);
-            stream.Write(new ConnectorInfo("Proxy"));
-            _messenger.Register("Login", stream);
-            Console.WriteLine("Login connected.");
-
-            stream = Connect("127.0.0.1", Port.Town);
-            stream.Write(new ConnectorInfo("Proxy"));
-            _messenger.Register("Town", stream);
-            Console.WriteLine("Town connected.");
-
-            stream = Connect("127.0.0.1", Port.Forest);
-            stream.Write(new ConnectorInfo("Proxy"));
-            _messenger.Register("Forest", stream);
-            Console.WriteLine("Forest connected.");
+            connector(Port.Login);
+            connector(Port.Town);
+            connector(Port.Forest);
+            
+            foreach (var key in _messenger.Keys)
+            {
+                var dispatcher = Task.Run(() =>
+                {
+                    while (stopped == false)
+                        _messenger.Dispatch(key);
+                });
+                _dispatchers.Add(key, dispatcher);
+            }
 
             //Bind("127.0.0.1", Port.Login, 1);
             //stream = Listen();
             //info = (ConnectorInfo)stream.Read().body;
             //_messenger.Register(info.name, stream);
             //Console.WriteLine(info.name + " connected.");
-
-            Task dispatcher;
-
-            dispatcher = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Login");
-            });
-            _dispatchers.Add("Login", dispatcher);
-
-            dispatcher = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Town");
-            });
-            _dispatchers.Add("Town", dispatcher);
-
-            dispatcher = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Forest");
-            });
-            _dispatchers.Add("Forest", dispatcher);
-
             _accepter = Task.Run(() =>
             {
                 Bind("0.0.0.0", Port.Proxy, 4);

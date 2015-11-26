@@ -16,47 +16,29 @@ namespace Database
         {
             _messenger = new Messenger(_handler);
 
-            PacketStream stream;
-            ConnectorInfo info;
-
-            Bind("127.0.0.1", Port.Database, 1);
-            stream = Listen();
-            info = (ConnectorInfo)stream.Read().body;
-            _messenger.Register(info.name, stream);
-            Console.WriteLine(info.name + " connected.");
-
-            Bind("127.0.0.1", Port.Database, 1);
-            stream = Listen();
-            info = (ConnectorInfo)stream.Read().body;
-            _messenger.Register(info.name, stream);
-            Console.WriteLine(info.name + " connected.");
-
-            Bind("127.0.0.1", Port.Database, 1);
-            stream = Listen();
-            info = (ConnectorInfo)stream.Read().body;
-            _messenger.Register(info.name, stream);
-            Console.WriteLine(info.name + " connected.");
-
-            Task dispatcher;
-
-            dispatcher = Task.Run(() =>
+            Action listenner = () =>
             {
-                while (stopped == false)
-                    _messenger.Dispatch("Login");
-            });
-            _dispatchers.Add("Login", dispatcher);
-            dispatcher = Task.Run(() =>
+                Bind("127.0.0.1", Port.Database, 1);
+                var stream = Listen();
+                var info = (ConnectorInfo)stream.Read().body;
+                _messenger.Register(info.name, stream);
+                Console.WriteLine(info.name + " connected.");
+            };
+
+            //Listen Login, Town, Forest
+            listenner();
+            listenner();
+            listenner();
+
+            foreach (var key in _messenger.Keys)
             {
-                while (stopped == false)
-                    _messenger.Dispatch("Town");
-            });
-            _dispatchers.Add("Town", dispatcher);
-            dispatcher = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Forest");
-            });
-            _dispatchers.Add("Forest", dispatcher);
+                var dispatcher = Task.Run(() =>
+                {
+                    while (stopped == false)
+                        _messenger.Dispatch(key);
+                });
+                _dispatchers.Add(key, dispatcher);
+            }
 
             _messenger.Start();
         }

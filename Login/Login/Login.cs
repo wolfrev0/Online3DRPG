@@ -30,21 +30,15 @@ namespace Login
             _messenger.Register(info.name, stream);
             Console.WriteLine(info.name + " connected.");
 
-            Task dispatcher;
-
-            dispatcher = Task.Run(() =>
+            foreach (var key in _messenger.Keys)
             {
-                while (stopped == false)
-                    _messenger.Dispatch("Database");
-            });
-            _dispatchers.Add("Database", dispatcher);
-
-            dispatcher = Task.Run(() =>
-            {
-                while (stopped == false)
-                    _messenger.Dispatch("Proxy");
-            });
-            _dispatchers.Add("Proxy", dispatcher);
+                var dispatcher = Task.Run(() =>
+                {
+                    while (stopped == false)
+                        _messenger.Dispatch(key);
+                });
+                _dispatchers.Add(key, dispatcher);
+            }
 
             _messenger.Start();
         }
