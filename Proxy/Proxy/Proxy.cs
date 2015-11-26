@@ -12,7 +12,8 @@ namespace Proxy
         Messenger _confirmMessenger;
         Task _accepter;
         Task _login;
-        Task _gameServer;
+        Task _town;
+        Task _forest;
         Task _confirm;
         Task _client;
         int _currentConfirmId = 0;
@@ -35,12 +36,15 @@ namespace Proxy
             _messenger.Register("Login", Connect("127.0.0.1", Port.LoginForProxy));
             Console.WriteLine("Login connected.");
 
-            _messenger.Register("GameServer", Connect("127.0.0.1", Port.GameServer));
-            Console.WriteLine("GameServer connected.");
+            _messenger.Register("Town", Connect("127.0.0.1", Port.TownForProxy));
+            Console.WriteLine("Town connected.");
+
+            _messenger.Register("Forest", Connect("127.0.0.1", Port.ForestForProxy));
+            Console.WriteLine("Forest connected.");
 
             _accepter = Task.Run(() =>
             {
-                Bind("0.0.0.0", Port.Proxy, 4);
+                Bind("0.0.0.0", Port.ProxyForClient, 4);
                 while (stopped == false)
                 {
                     if (HasConnectReq())
@@ -64,10 +68,16 @@ namespace Proxy
                     _messenger.Dispatch("Login");
             });
 
-            _gameServer = Task.Run(() =>
+            _town = Task.Run(() =>
             {
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer");
+                    _messenger.Dispatch("Town");
+            });
+
+            _forest = Task.Run(() =>
+            {
+                while (stopped == false)
+                    _messenger.Dispatch("Forest");
             });
 
             _confirm = Task.Run(() =>
@@ -103,7 +113,8 @@ namespace Proxy
         {
             _accepter.Wait();
             _login.Wait();
-            _gameServer.Wait();
+            _town.Wait();
+            _forest.Wait();
             _confirm.Wait();
             _client.Wait();
         }

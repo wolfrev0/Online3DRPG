@@ -8,8 +8,9 @@ namespace Database
     {
         DatabaseHandler _handler = new DatabaseHandler();
         Messenger _messenger;
-        Task login;
-        Task gameServer;
+        Task _login;
+        Task _town;
+        Task _forest;
         bool _disposed = false;
 
         protected override void OnStart()
@@ -20,20 +21,30 @@ namespace Database
             _messenger.Register("Login", Listen());
             Console.WriteLine("Login connected.");
 
-            Bind("127.0.0.1", Port.DatabaseForGameServer, 1);
-            _messenger.Register("GameServer", Listen());
-            Console.WriteLine("GameServer connected.");
+            Bind("127.0.0.1", Port.DatabaseForTown, 1);
+            _messenger.Register("Town", Listen());
+            Console.WriteLine("Town connected.");
 
-            login = Task.Run(() =>
+            Bind("127.0.0.1", Port.DatabaseForForest, 1);
+            _messenger.Register("Forest", Listen());
+            Console.WriteLine("Forest connected.");
+
+            _login = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Login");
             });
 
-            gameServer = Task.Run(() =>
+            _town = Task.Run(() =>
             {
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer");
+                    _messenger.Dispatch("Town");
+            });
+
+            _forest = Task.Run(() =>
+            {
+                while (stopped == false)
+                    _messenger.Dispatch("Forest");
             });
 
             _messenger.Start();
@@ -50,8 +61,9 @@ namespace Database
 
         protected override void OnEnd()
         {
-            login.Wait();
-            gameServer.Wait();
+            _login.Wait();
+            _town.Wait();
+            _forest.Wait();
         }
 
         protected override void Dispose(bool disposing)

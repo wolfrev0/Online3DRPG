@@ -15,7 +15,7 @@ public partial class Certificator : UnityServer
     {
         _handler = new CertificatorHandler(this);
         _messenger = new Messenger(_handler);
-        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        _messenger.Register("Proxy", Connect("127.0.0.1", Port.ProxyForClient));
         Debug.Log("Proxy connected.");
         
         StartCoroutine(Dispatcher("Proxy"));
@@ -50,7 +50,7 @@ public partial class Certificator : UnityServer
 
     public void SendLoginRequest(string id, string pw)
     {
-        _messenger.Send("Proxy", new LoginRequest(id, pw, _confirmID));
+        _messenger.Send("Proxy", new LoginQuery(id, pw, _confirmID));
     }
 
     protected override void Dispose(bool disposing)

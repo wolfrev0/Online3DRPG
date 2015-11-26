@@ -59,10 +59,12 @@
      <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
      <Compile Include="Assets\Network\Certificator.cs" />
      <Compile Include="Assets\Network\CertificatorHandler.cs" />
-     <Compile Include="Assets\Network\GameServer.cs" />
-     <Compile Include="Assets\Network\GameServerHandler.cs" />
-     <Compile Include="Assets\Network\Network.cs" />
-     <Compile Include="Assets\Network\NetworkHandler.cs" />
+     <Compile Include="Assets\Network\Client.cs" />
+     <Compile Include="Assets\Network\ClientHandler.cs" />
+     <Compile Include="Assets\Network\Forest.cs" />
+     <Compile Include="Assets\Network\ForestHandler.cs" />
+     <Compile Include="Assets\Network\Town.cs" />
+     <Compile Include="Assets\Network\TownHandler.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />

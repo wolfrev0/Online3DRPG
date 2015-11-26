@@ -13,42 +13,36 @@ namespace Proxy
             {
                 _server = server;
             }
-            
-            void LoginResponse(Messenger messenger, string key, LoginResponse response)
+
+            void LoginQuery(Messenger messenger, string key, LoginQuery query)
             {
-                if (response.accepted)
+                _server._messenger.Send("Login", query);
+            }
+
+            void LoginAnswer(Messenger messenger, string key, LoginAnswer query)
+            {
+                if (query.accepted)
                 {
                     var keys = (ICollection<string>)_server._clientMessenger.Keys;
-                    if (keys.Contains(response.nickName))
+                    if (keys.Contains(query.name))
                     {
-                        response.accepted = false;
-                        response.reason = RejectedReason.LoggedInAlready;
-
-                        _server._confirmMessenger.Send(response.confirmID.ToString(), response);
+                        query.accepted = false;
+                        _server._confirmMessenger.Send(query.confirmID.ToString(), query);
                     }
                     else
                     {
                         lock (_server._lock)
                         {
-                            PacketStream stream = _server._confirmMessenger.Unregister(response.confirmID.ToString());
-                            _server._clientMessenger.Register(response.nickName, stream);
+                            PacketStream stream = _server._confirmMessenger.Unregister(query.confirmID.ToString());
+                            _server._clientMessenger.Register(query.name, stream);
                         }
-                        _server._messenger.Send("GameServer", new PlayerLogin(response.nickName));
-
-                        _server._clientMessenger.Send(response.nickName, response);
+                        _server._clientMessenger.Send(query.name, query);
                     }
                 }
-            }
-            
-            void LoginRequest(Messenger messenger, string key, Body packet)
-            {
-                _server._messenger.Send("Login", packet);
-            }
-            
-            void PlayerJoin(Messenger messenger, string key, PlayerJoin join)
-            {
-                History.Log(join.nickName);
-                _server._clientMessenger.Send(join.nickName, join);
+                else
+                {
+                    _server._confirmMessenger.Send(query.confirmID.ToString(), query);
+                }
             }
         }
     }

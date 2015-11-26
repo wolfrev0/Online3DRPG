@@ -2,13 +2,8 @@
 {
     public enum PacketType
     {
-        WriteConsoleRequest,
-        LoginRequest,
-        LoginResponse,
-        PlayerLogin,
-        PlayerInfoRequest,
-        PlayerInfoResponse,
         ConfirmID,
-        PlayerJoin,
+        LoginQuery,
+        LoginAnswer,
     }
 }

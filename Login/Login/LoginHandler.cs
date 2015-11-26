@@ -1,10 +1,15 @@
-﻿using TeraTaleNet;
+﻿using System.Collections.Generic;
+using TeraTaleNet;
 
 class LoginHandler : MessageHandler
 {
-    void LoginRequest(Messenger messenger, string key, Body body)
+    void LoginQuery(Messenger messenger, string key, LoginQuery query)
     {
-        messenger.Send("Database", body);
-        messenger.Send("Proxy", messenger.ReceiveSync("Database"));
+        messenger.Send("Database", query);
+    }
+
+    void LoginAnswer(Messenger messenger, string key, LoginAnswer query)
+    {
+        messenger.Send("Proxy", query);
     }
 }

@@ -8,8 +8,8 @@ namespace Login
     {
         LoginHandler _handler = new LoginHandler();
         Messenger _messenger;
-        Task gameServer;
-        Task proxy;
+        Task _database;
+        Task _proxy;
         bool _disposed = false;
 
         protected override void OnStart()
@@ -19,21 +19,17 @@ namespace Login
             _messenger.Register("Database", Connect("127.0.0.1", Port.DatabaseForLogin));
             Console.WriteLine("Database connected.");
 
-            Bind("127.0.0.1", Port.LoginForGameServer, 1);
-            _messenger.Register("GameServer", Listen());
-            Console.WriteLine("GameServer connected.");
-
             Bind("127.0.0.1", Port.LoginForProxy, 1);
             _messenger.Register("Proxy", Listen());
             Console.WriteLine("Proxy connected.");
 
-            gameServer = Task.Run(() =>
+            _database = Task.Run(() =>
             {
                 while (stopped == false)
-                    _messenger.Dispatch("GameServer");
+                    _messenger.Dispatch("Database");
             });
 
-            proxy = Task.Run(() =>
+            _proxy = Task.Run(() =>
             {
                 while (stopped == false)
                     _messenger.Dispatch("Proxy");
@@ -53,8 +49,8 @@ namespace Login
 
         protected override void OnEnd()
         {
-            gameServer.Wait();
-            proxy.Wait();
+            _database.Wait();
+            _proxy.Wait();
         }
 
         protected override void Dispose(bool disposing)

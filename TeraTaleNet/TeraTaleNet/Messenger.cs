@@ -110,7 +110,9 @@ namespace TeraTaleNet
                         if (_sendQByKey[key].Count > 0)
                         {
                             //Need ioLock?
-                            _streamByKey[key].Write(_sendQByKey[key].Dequeue());
+                            var packet = _sendQByKey[key].Dequeue();
+                            History.Log("Sended : " + packet.header.type.ToString());
+                            _streamByKey[key].Write(packet);
                         }
                     }
                     Thread.Sleep(10);
@@ -137,7 +139,9 @@ namespace TeraTaleNet
                         if (_streamByKey[key].HasPacket())
                         {
                             //Need ioLock?
-                            _recvQByKey[key].Enqueue(_streamByKey[key].Read());
+                            var packet = _streamByKey[key].Read();
+                            History.Log("Recieved : " + packet.header.type.ToString());
+                            _recvQByKey[key].Enqueue(packet);
                         }
                     }
                     Thread.Sleep(10);
