@@ -5,12 +5,12 @@ using TeraTaleNet;
 
 namespace Database
 {
-    class Database : Server
+    class Database : NetworkProgram, IDisposable
     {
         DatabaseHandler _handler = new DatabaseHandler();
+        NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
-        bool _disposed = false;
 
         protected override void OnStart()
         {
@@ -18,17 +18,16 @@ namespace Database
 
             Action listenner = () =>
             {
-                Bind("127.0.0.1", Port.Database, 1);
-                var stream = Listen();
+                _agent.Bind("127.0.0.1", Port.Database, 1);
+                var stream = _agent.Listen();
                 var info = (ConnectorInfo)stream.Read().body;
                 _messenger.Register(info.name, stream);
                 Console.WriteLine(info.name + " connected.");
             };
-
-            //Listen Login, Town, Forest
-            listenner();
-            listenner();
-            listenner();
+            
+            listenner();//Login
+            listenner();//Town
+            listenner();//Forest
 
             foreach (var key in _messenger.Keys)
             {
@@ -56,25 +55,14 @@ namespace Database
         {
             foreach(var task in _dispatchers.Values)
                 task.Wait();
+            Dispose();
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (!_disposed)
-            {
-                try
-                {
-                    if (disposing)
-                    {
-                        _messenger.Join();
-                    }
-                    _disposed = true;
-                }
-                finally
-                {
-                    base.Dispose(disposing);
-                }
-            }
+            _messenger.Join();
+            _agent.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

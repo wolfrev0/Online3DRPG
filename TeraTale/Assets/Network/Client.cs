@@ -3,13 +3,13 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class Client : UnityServer
+public partial class Client : NetworkScript
 {
     public Player pfPlayer;
     public PacketStream stream;
     ClientHandler _handler;
+    NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
-    bool _disposed = false;
 
     protected override void OnStart()
     {
@@ -47,22 +47,10 @@ public class Client : UnityServer
         }
     }
 
-    protected override void Dispose(bool disposing)
+    public void Dispose()
     {
-        if (!_disposed)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    _messenger.Join();
-                }
-                _disposed = true;
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
-        }
+        _messenger.Join();
+        _agent.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

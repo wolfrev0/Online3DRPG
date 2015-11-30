@@ -5,9 +5,10 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    partial class Proxy : Server
+    partial class Proxy : NetworkProgram, IDisposable
     {
         ProxyHandler _handler;
+        NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Messenger _clientMessenger;
         Messenger _confirmMessenger;
@@ -17,7 +18,6 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
-        bool _disposed = false;
 
         public Task Client
         {
@@ -34,7 +34,7 @@ namespace Proxy
 
             Action<Port> connector = (Port port) =>
             {
-                var stream = Connect("127.0.0.1", port);
+                var stream = _agent.Connect("127.0.0.1", port);
                 stream.Write(new ConnectorInfo("Proxy"));
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
@@ -43,7 +43,7 @@ namespace Proxy
             connector(Port.Login);
             connector(Port.Town);
             connector(Port.Forest);
-            
+
             foreach (var key in _messenger.Keys)
             {
                 var dispatcher = Task.Run(() =>
@@ -61,16 +61,16 @@ namespace Proxy
             //Console.WriteLine(info.name + " connected.");
             _accepter = Task.Run(() =>
             {
-                Bind("0.0.0.0", Port.Proxy, 4);
+                _agent.Bind("0.0.0.0", Port.Proxy, 4);
                 while (stopped == false)
                 {
-                    if (HasConnectReq())
+                    if (_agent.HasConnectReq())
                     {
                         string stringID = _currentConfirmId.ToString();
                         int ID = _currentConfirmId;
                         lock (_lock)
                         {
-                            _confirmMessenger.Register(stringID, Listen());
+                            _confirmMessenger.Register(stringID, _agent.Listen());
                             _confirmMessenger.Send(stringID, new ConfirmID(ID));
                         }
                         _currentConfirmId++;
@@ -115,6 +115,7 @@ namespace Proxy
                 task.Wait();
             _confirm.Wait();
             _client.Wait();
+            Dispose();
         }
 
         protected override void OnUpdate()
@@ -126,27 +127,13 @@ namespace Proxy
             }
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (!_disposed)
-            {
-                try
-                {
-                    if (disposing)
-                    {
-                        _messenger.Join();
-                        _clientMessenger.Join();
-                        _confirmMessenger.Join();
-                    }
-                    _disposed = true;
-                }
-                finally
-                {
-                    base.Dispose(disposing);
-                }
-            }
+            _messenger.Join();
+            _clientMessenger.Join();
+            _confirmMessenger.Join();
+            _agent.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
-
-
 }

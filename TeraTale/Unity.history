@@ -203,3 +203,9 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[11/30/2015 8:41:00 PM] ...............................
+[11/30/2015 8:41:00 PM] ..........New History..........
+[11/30/2015 8:41:00 PM] ...............................
+[11/30/2015 8:41:00 PM] Recieved : ConfirmID
+[11/30/2015 8:41:03 PM] Sended : LoginQuery
+[11/30/2015 8:41:03 PM] Recieved : LoginAnswer

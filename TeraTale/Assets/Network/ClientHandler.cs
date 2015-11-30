@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using TeraTaleNet;
 
-public class ClientHandler : MessageHandler
+public partial class Client : NetworkScript
 {
-    Client _net;
-
-    public ClientHandler(Client net)
+    public class ClientHandler : MessageHandler
     {
-        _net = net;
+        Client _body;
+
+        public ClientHandler(Client net)
+        {
+            _body = net;
+        }
     }
 }

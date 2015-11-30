@@ -2,7 +2,7 @@
 
 namespace TeraTaleNet
 {
-    public class RPC : Attribute
+    public class Remote : Attribute
     {
 
     }

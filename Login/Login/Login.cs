@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TeraTaleNet;
 
 namespace Login
 {
-    class Login : Server
+    class Login : NetworkProgram, IDisposable
     {
         LoginHandler _handler = new LoginHandler();
+        NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
-        bool _disposed = false;
 
         protected override void OnStart()
         {
@@ -19,13 +20,14 @@ namespace Login
             PacketStream stream;
             ConnectorInfo info;
 
-            stream = Connect("127.0.0.1", Port.Database);
+            stream = _agent.Connect("127.0.0.1", Port.Database);
             stream.Write(new ConnectorInfo("Login"));
             _messenger.Register("Database", stream);
             Console.WriteLine("Database connected.");
 
-            Bind("127.0.0.1", Port.Login, 1);
-            stream = Listen();
+            //Listen Proxy
+            _agent.Bind("127.0.0.1", Port.Login, 1);
+            stream = _agent.Listen();
             info = (ConnectorInfo)stream.Read().body;
             _messenger.Register(info.name, stream);
             Console.WriteLine(info.name + " connected.");
@@ -56,25 +58,14 @@ namespace Login
         {
             foreach (var task in _dispatchers.Values)
                 task.Wait();
+            Dispose();
         }
 
-        protected override void Dispose(bool disposing)
+        public void Dispose()
         {
-            if (!_disposed)
-            {
-                try
-                {
-                    if (disposing)
-                    {
-                        _messenger.Join();
-                    }
-                    _disposed = true;
-                }
-                finally
-                {
-                    base.Dispose(disposing);
-                }
-            }
+            _messenger.Join();
+            _agent.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

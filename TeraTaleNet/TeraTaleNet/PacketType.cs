@@ -6,5 +6,7 @@
         ConnectorInfo,
         LoginQuery,
         LoginAnswer,
+        PlayerJoin,
+        RPC,
     }
 }

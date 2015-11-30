@@ -4,28 +4,28 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public class Town : UnityServer
+public partial class Town : NetworkScript, IDisposable
 {
     TownHandler _handler;
+    NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
-    Dictionary<string, HashSet<string>> playersByWorld;
-    bool _disposed = false;
+    HashSet<string> players;
 
     protected override void OnStart()
     {
-        _handler = new TownHandler();
+        _handler = new TownHandler(this);
         _messenger = new Messenger(_handler);
 
         PacketStream stream;
         ConnectorInfo info;
 
-        stream = Connect("127.0.0.1", Port.Database);
+        stream = _agent.Connect("127.0.0.1", Port.Database);
         stream.Write(new ConnectorInfo("Town"));
         _messenger.Register("Database", stream);
         Console.WriteLine("Database connected.");
 
-        Bind("127.0.0.1", Port.Town, 1);
-        stream = Listen();
+        _agent.Bind("127.0.0.1", Port.Town, 1);
+        stream = _agent.Listen();
         info = (ConnectorInfo)stream.Read().body;
         _messenger.Register(info.name, stream);
         Console.WriteLine(info.name + " connected.");
@@ -39,7 +39,7 @@ public class Town : UnityServer
     protected override void OnEnd()
     {
         StopAllCoroutines();
-        _messenger.Dispose();
+        Dispose();
     }
 
     IEnumerator Dispatcher(string key)
@@ -60,22 +60,10 @@ public class Town : UnityServer
         }
     }
 
-    protected override void Dispose(bool disposing)
+    public void Dispose()
     {
-        if (!_disposed)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    _messenger.Join();
-                }
-                _disposed = true;
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
-        }
+        _messenger.Join();
+        _agent.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

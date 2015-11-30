@@ -3,7 +3,7 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    partial class Proxy : Server
+    partial class Proxy
     {
         class ProxyHandler : MessageHandler
         {
@@ -37,6 +37,7 @@ namespace Proxy
                             _server._clientMessenger.Register(query.name, stream);
                         }
                         _server._clientMessenger.Send(query.name, query);
+                        //_server._messenger.Send(query.world, new PlayerJoin());
                     }
                 }
                 else

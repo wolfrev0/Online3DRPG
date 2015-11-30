@@ -3,20 +3,20 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public partial class Certificator : UnityServer
+public partial class Certificator : NetworkScript, IDisposable
 {
     CertificatorHandler _handler;
+    NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     object _locker = new object();
     int _confirmID;
-    bool _disposed = false;
 
     protected override void OnStart()
     {
         _handler = new CertificatorHandler(this);
         _messenger = new Messenger(_handler);
         
-        _messenger.Register("Proxy", Connect("127.0.0.1", Port.Proxy));
+        _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
         foreach (var key in _messenger.Keys)
@@ -55,22 +55,10 @@ public partial class Certificator : UnityServer
         _messenger.Send("Proxy", new LoginQuery(id, pw, _confirmID));
     }
 
-    protected override void Dispose(bool disposing)
+    public void Dispose()
     {
-        if (!_disposed)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    _messenger.Join();
-                }
-                _disposed = true;
-            }
-            finally
-            {
-                base.Dispose(disposing);
-            }
-        }
+        _messenger.Join();
+        _agent.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
