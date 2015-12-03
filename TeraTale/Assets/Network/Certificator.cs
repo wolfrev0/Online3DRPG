@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public partial class Certificator : NetworkScript, IDisposable
+public class Certificator : NetworkScript, MessageHandler, IDisposable
 {
-    CertificatorHandler _handler;
+    public Player pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     object _locker = new object();
@@ -13,8 +13,7 @@ public partial class Certificator : NetworkScript, IDisposable
 
     protected override void OnStart()
     {
-        _handler = new CertificatorHandler(this);
-        _messenger = new Messenger(_handler);
+        _messenger = new Messenger(this);
         
         _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
         Console.WriteLine("Proxy connected.");
@@ -60,5 +59,27 @@ public partial class Certificator : NetworkScript, IDisposable
         _messenger.Join();
         _agent.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    void ConfirmID(Messenger messenger, string key, ConfirmID confirmID)
+    {
+        _confirmID = confirmID.id;
+    }
+
+    void LoginAnswer(Messenger messenger, string key, LoginAnswer answer)
+    {
+        //If failed, Show Failed Message.
+        if (answer.accepted)
+        {
+            var net = FindObjectOfType<Client>();
+            lock (_locker)
+                net.stream = messenger.Unregister("Proxy");
+            net.enabled = true;
+
+            Application.LoadLevel(answer.world);
+
+            Player player = Instantiate(pfPlayer);
+            DontDestroyOnLoad(player.gameObject);
+        }
     }
 }

@@ -5,9 +5,8 @@ using TeraTaleNet;
 
 namespace Proxy
 {
-    partial class Proxy : NetworkProgram, IDisposable
+    partial class Proxy : NetworkProgram, MessageHandler, IDisposable
     {
-        ProxyHandler _handler;
         NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Messenger _clientMessenger;
@@ -27,10 +26,9 @@ namespace Proxy
 
         protected override void OnStart()
         {
-            _handler = new ProxyHandler(this);
-            _messenger = new Messenger(_handler);
-            _clientMessenger = new Messenger(_handler);
-            _confirmMessenger = new Messenger(_handler);
+            _messenger = new Messenger(this);
+            _clientMessenger = new Messenger(this);
+            _confirmMessenger = new Messenger(this);
 
             Action<Port> connector = (Port port) =>
             {
@@ -134,6 +132,38 @@ namespace Proxy
             _confirmMessenger.Join();
             _agent.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        void LoginQuery(Messenger messenger, string key, LoginQuery query)
+        {
+            _messenger.Send("Login", query);
+        }
+
+        void LoginAnswer(Messenger messenger, string key, LoginAnswer answer)
+        {
+            if (answer.accepted)
+            {
+                var keys = (ICollection<string>)_clientMessenger.Keys;
+                if (keys.Contains(answer.name))
+                {
+                    answer.accepted = false;
+                    _confirmMessenger.Send(answer.confirmID.ToString(), answer);
+                }
+                else
+                {
+                    lock (_lock)
+                    {
+                        PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
+                        _clientMessenger.Register(answer.name, stream);
+                    }
+                    _clientMessenger.Send(answer.name, answer);
+                    _messenger.Send(answer.world, new PlayerJoin(answer.name));
+                }
+            }
+            else
+            {
+                _confirmMessenger.Send(answer.confirmID.ToString(), answer);
+            }
         }
     }
 }

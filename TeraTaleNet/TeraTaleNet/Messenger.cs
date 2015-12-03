@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Reflection;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace TeraTaleNet
@@ -31,8 +30,16 @@ namespace TeraTaleNet
         public Messenger(MessageHandler listener)
         {
             this.listener = listener;
+
             foreach (var method in listener.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
-                handlerByName.Add(method.Name, method);
+            {
+                try
+                {
+                    handlerByName.Add(method.Name, method);
+                }
+                catch (ArgumentException e)
+                { }
+            }
 
             _sender = new Thread(Sender);
             _receiver = new Thread(Receiver);

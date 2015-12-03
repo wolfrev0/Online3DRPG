@@ -7,6 +7,5 @@
         LoginQuery,
         LoginAnswer,
         PlayerJoin,
-        RPC,
     }
 }

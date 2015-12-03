@@ -128,7 +128,7 @@ namespace TeraTaleNet
 
         public static bool ToBoolean(byte[] buffer, int offset)
         {
-            return BitConverter.ToBoolean(buffer, 0);
+            return BitConverter.ToBoolean(buffer, offset);
         }
 
         public static char ToChar(byte[] buffer, int offset)

@@ -63,6 +63,9 @@
      <Compile Include="Assets\Network\ClientHandler.cs" />
      <Compile Include="Assets\Network\Forest.cs" />
      <Compile Include="Assets\Network\ForestHandler.cs" />
+     <Compile Include="Assets\Network\Server\Forest.cs" />
+     <Compile Include="Assets\Network\Server\GameServer.cs" />
+     <Compile Include="Assets\Network\Server\Town.cs" />
      <Compile Include="Assets\Network\Town.cs" />
      <Compile Include="Assets\Network\TownHandler.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
@@ -74,11 +77,17 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="LoboNet">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Assets/References/LoboNet.dll</HintPath>
