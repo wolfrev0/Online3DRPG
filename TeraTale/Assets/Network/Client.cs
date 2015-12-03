@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public partial class Client : NetworkScript, MessageHandler
+public class Client : NetworkScript, MessageHandler
 {
     public PacketStream stream;
     NetworkAgent _agent = new NetworkAgent();
