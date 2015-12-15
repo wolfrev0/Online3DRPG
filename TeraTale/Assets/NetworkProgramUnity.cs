@@ -50,7 +50,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void NetworkInstantiate<T>(T prefab) where T : MonoBehaviour
+    public void NetworkInstantiate(NetworkSignaller prefab)
     {
         int prefabIndex = -1;
         for (int i = 0; i < _prefabManager.prefabs.Length; i++)
@@ -59,7 +59,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour
                 prefabIndex = i;
         }
         if (prefabIndex < 0)
-            throw new ArgumentException("Tried not registered prefab. Please register prefab at PrefabManager.");
+            throw new ArgumentException("You tried instantiating not registered prefab. Please register prefab at PrefabManager.");
         Send(new NetworkInstantiateRequest(userName, prefabIndex));
     }
 

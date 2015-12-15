@@ -6,7 +6,6 @@ using TeraTaleNet;
 
 public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager, MessageHandler, IDisposable
 {
-    public NetworkSignaller pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     HashSet<string> users = new HashSet<string>();
@@ -81,7 +80,6 @@ public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager,
     public void PlayerJoin(Messenger messenger, string key, PlayerJoin info)
     {
         users.Add(info.name);
-        NetworkInstantiate(pfPlayer);
         Debug.Log("Player " + info.name + " Joined.");
         //NetworkInstantiate
     }

@@ -7,6 +7,7 @@ using TeraTaleNet;
 public class Client : NetworkProgramUnity, NetworkSignallerManager, MessageHandler
 {
     public PacketStream stream;
+    public NetworkSignaller pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     NetworkSignaller _signaller;
@@ -25,6 +26,8 @@ public class Client : NetworkProgramUnity, NetworkSignallerManager, MessageHandl
         _signaller = GetComponent<NetworkSignaller>();
         _signaller.Initialize(0, "server");
         _signallersByID.Add(0, _signaller);
+        
+        NetworkInstantiate(pfPlayer);
     }
 
     protected override void OnEnd()

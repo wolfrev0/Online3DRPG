@@ -87,3 +87,80 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 7:55:58 PM] ...............................
+[12/15/2015 7:55:58 PM] ..........New History..........
+[12/15/2015 7:55:58 PM] ...............................
+[12/15/2015 7:55:58 PM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:04:46 PM] ...............................
+[12/15/2015 8:04:46 PM] ..........New History..........
+[12/15/2015 8:04:46 PM] ...............................
+[12/15/2015 8:04:46 PM] Recieved : PlayerJoin
+[12/15/2015 8:04:58 PM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:06:43 PM] ...............................
+[12/15/2015 8:06:43 PM] ..........New History..........
+[12/15/2015 8:06:43 PM] ...............................
+[12/15/2015 8:06:43 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:11:39 PM] ...............................
+[12/15/2015 8:11:39 PM] ..........New History..........
+[12/15/2015 8:11:39 PM] ...............................
+[12/15/2015 8:11:39 PM] Recieved : PlayerJoin
+[12/15/2015 8:11:56 PM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:22:18 PM] ...............................
+[12/15/2015 8:22:18 PM] ..........New History..........
+[12/15/2015 8:22:18 PM] ...............................
+[12/15/2015 8:22:18 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:45:09 PM] ...............................
+[12/15/2015 8:45:09 PM] ..........New History..........
+[12/15/2015 8:45:09 PM] ...............................
+[12/15/2015 8:45:09 PM] Recieved : PlayerJoin
+[12/15/2015 8:45:09 PM] Recieved : NetworkInstantiateInfo
+[12/15/2015 8:45:15 PM] Recieved : PlayerJoin
+[12/15/2015 8:45:15 PM] Recieved : NetworkInstantiateInfo
+[12/15/2015 8:52:19 PM] ...............................
+[12/15/2015 8:52:19 PM] ..........New History..........
+[12/15/2015 8:52:19 PM] ...............................
+[12/15/2015 8:52:19 PM] Recieved : PlayerJoin
+[12/15/2015 8:52:19 PM] Recieved : NetworkInstantiateInfo
+[12/15/2015 8:52:27 PM] Recieved : PlayerJoin
+[12/15/2015 8:52:27 PM] Recieved : NetworkInstantiateInfo
+[12/15/2015 8:54:03 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/15/2015 8:59:42 PM] ...............................
+[12/15/2015 8:59:42 PM] ..........New History..........
+[12/15/2015 8:59:42 PM] ...............................
+[12/15/2015 8:59:42 PM] Recieved : PlayerJoin
+[12/15/2015 8:59:42 PM] Recieved : NetworkInstantiateInfo
+[12/15/2015 8:59:54 PM] Recieved : PlayerJoin
+[12/15/2015 8:59:54 PM] Recieved : NetworkInstantiateInfo

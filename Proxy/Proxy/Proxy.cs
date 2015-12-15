@@ -18,6 +18,7 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
+        HashSet<NetworkInstantiateInfo> _instantiationBuffer = new HashSet<NetworkInstantiateInfo>();
         int _curSignallerID = 1;
 
         public Task Client
@@ -162,9 +163,11 @@ namespace Proxy
                         PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
                         _clientMessenger.Register(answer.name, stream);
                     }
-                    _clientMessenger.Send(answer.name, answer);
-                    _messenger.Send(answer.world, new PlayerJoin(answer.name));
                     _worldByUser.Add(answer.name, answer.world);
+                    _messenger.Send(answer.world, new PlayerJoin(answer.name));
+                    _clientMessenger.Send(answer.name, answer);
+                    foreach (var instantiationInfo in _instantiationBuffer)
+                        _clientMessenger.Send(answer.name, instantiationInfo);
                 }
             }
             else
@@ -175,6 +178,7 @@ namespace Proxy
 
         void NetworkInstantiateRequest(Messenger messenger, string key, NetworkInstantiateRequest req)
         {
+            _instantiationBuffer.Add(new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             foreach(var user in _clientMessenger.Keys)
             {
@@ -182,7 +186,6 @@ namespace Proxy
                     _clientMessenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             }
             _curSignallerID++;
-            History.Log("NetworkInstantiateRequest End");
         }
     }
 }

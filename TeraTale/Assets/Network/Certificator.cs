@@ -5,7 +5,6 @@ using TeraTaleNet;
 
 public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
 {
-    public Player pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     object _locker = new object();
@@ -76,13 +75,15 @@ public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
         //If failed, Show Failed Message.
         if (answer.accepted)
         {
+            Application.LoadLevel(answer.world);
+
+            userName = answer.name;
+
             var net = FindObjectOfType<Client>();
             lock (_locker)
                 net.stream = messenger.Unregister("Proxy");
             net.userName = answer.name;
             net.enabled = true;
-
-            Application.LoadLevel(answer.world);
         }
     }
 }
