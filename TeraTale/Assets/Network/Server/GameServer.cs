@@ -4,15 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public abstract class GameServer : NetworkScript, MessageHandler, IDisposable
+public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager, MessageHandler, IDisposable
 {
-    public Player pfPlayer;
+    public NetworkSignaller pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
-    HashSet<string> players = new HashSet<string>();
+    HashSet<string> users = new HashSet<string>();
+    NetworkSignaller _signaller;
+    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
 
     protected override void OnStart()
     {
+        userName = GetType().Name;
         _messenger = new Messenger(this);
 
         PacketStream stream;
@@ -33,12 +36,21 @@ public abstract class GameServer : NetworkScript, MessageHandler, IDisposable
             StartCoroutine(Dispatcher(key));
 
         _messenger.Start();
+
+        _signaller = GetComponent<NetworkSignaller>();
+        _signaller.Initialize(0, userName);
+        _signallersByID.Add(0, _signaller);
     }
 
     protected override void OnEnd()
     {
         StopAllCoroutines();
         _messenger.Dispose();
+    }
+
+    protected override void Send(Packet packet)
+    {
+        _messenger.Send("Proxy", packet);
     }
 
     IEnumerator Dispatcher(string key)
@@ -68,8 +80,8 @@ public abstract class GameServer : NetworkScript, MessageHandler, IDisposable
 
     public void PlayerJoin(Messenger messenger, string key, PlayerJoin info)
     {
-        players.Add(info.name);
-        Instantiate(pfPlayer);
+        users.Add(info.name);
+        NetworkInstantiate(pfPlayer);
         Debug.Log("Player " + info.name + " Joined.");
         //NetworkInstantiate
     }

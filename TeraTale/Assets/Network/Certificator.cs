@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class Certificator : NetworkScript, MessageHandler, IDisposable
+public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
 {
     public Player pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
@@ -49,6 +49,11 @@ public class Certificator : NetworkScript, MessageHandler, IDisposable
         }
     }
 
+    protected override void Send(Packet packet)
+    {
+        _messenger.Send("Proxy", packet);
+    }
+
     public void SendLoginRequest(string id, string pw)
     {
         _messenger.Send("Proxy", new LoginQuery(id, pw, _confirmID));
@@ -74,12 +79,10 @@ public class Certificator : NetworkScript, MessageHandler, IDisposable
             var net = FindObjectOfType<Client>();
             lock (_locker)
                 net.stream = messenger.Unregister("Proxy");
+            net.userName = answer.name;
             net.enabled = true;
 
             Application.LoadLevel(answer.world);
-
-            Player player = Instantiate(pfPlayer);
-            DontDestroyOnLoad(player.gameObject);
         }
     }
 }

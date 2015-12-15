@@ -12,11 +12,13 @@ namespace Proxy
         Messenger _clientMessenger;
         Messenger _confirmMessenger;
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
+        Dictionary<string, string> _worldByUser = new Dictionary<string, string>();
         Task _accepter;
         Task _confirm;
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
+        int _curSignallerID = 1;
 
         public Task Client
         {
@@ -36,6 +38,7 @@ namespace Proxy
                 stream.Write(new ConnectorInfo("Proxy"));
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
+                _worldByUser.Add(port.ToString(), port.ToString());
             };
 
             connector(Port.Login);
@@ -83,8 +86,11 @@ namespace Proxy
                 {
                     lock (_lock)
                     {
-                        foreach (var key in _confirmMessenger.Keys)
-                            _confirmMessenger.Dispatch(key);
+                        foreach (var confirmID in _confirmMessenger.Keys)
+                        {
+                            History.Log(confirmID);
+                            _confirmMessenger.Dispatch(confirmID);
+                        }
                     }
                 }
             });
@@ -95,8 +101,8 @@ namespace Proxy
                 {
                     lock (_lock)
                     {
-                        foreach (var confirmID in _clientMessenger.Keys)
-                            _clientMessenger.Dispatch(confirmID);
+                        foreach (var key in _clientMessenger.Keys)
+                            _clientMessenger.Dispatch(key);
                     }
                 }
             });
@@ -158,12 +164,25 @@ namespace Proxy
                     }
                     _clientMessenger.Send(answer.name, answer);
                     _messenger.Send(answer.world, new PlayerJoin(answer.name));
+                    _worldByUser.Add(answer.name, answer.world);
                 }
             }
             else
             {
                 _confirmMessenger.Send(answer.confirmID.ToString(), answer);
             }
+        }
+
+        void NetworkInstantiateRequest(Messenger messenger, string key, NetworkInstantiateRequest req)
+        {
+            _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
+            foreach(var user in _clientMessenger.Keys)
+            {
+                if (_worldByUser[user] == _worldByUser[req.owner])
+                    _clientMessenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
+            }
+            _curSignallerID++;
+            History.Log("NetworkInstantiateRequest End");
         }
     }
 }

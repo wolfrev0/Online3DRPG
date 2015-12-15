@@ -6,6 +6,8 @@
         ConnectorInfo,
         LoginQuery,
         LoginAnswer,
+        NetworkInstantiateInfo,
+        NetworkInstantiateRequest,
         PlayerJoin,
     }
 }

@@ -1,0 +1,6 @@
+﻿namespace TeraTaleNet
+{
+    class NetworkUser
+    {
+    }
+}

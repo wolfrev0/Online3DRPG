@@ -1,6 +1,6 @@
 ﻿namespace TeraTaleNet
 {
-    public enum RPCType
+    public enum RPCTarget
     {
         Self = 0x1,
         Others = 0x2,
@@ -17,11 +17,13 @@
 
     public abstract class RPC : Body
     {
-        public RPCType type;
+        public RPCTarget target;
+        public int signallerID;
 
-        public RPC(RPCType type)
+        public RPC(RPCTarget target, int signallerID)
         {
-            this.type = type;
+            this.target = target;
+            this.signallerID = signallerID;
         }
 
         public RPC(byte[] data)

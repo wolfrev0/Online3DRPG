@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TeraTaleNet;
 
-public class Client : NetworkScript, MessageHandler
+public class Client : NetworkProgramUnity, NetworkSignallerManager, MessageHandler
 {
     public PacketStream stream;
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
+    NetworkSignaller _signaller;
+    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
 
     protected override void OnStart()
     {
@@ -18,12 +21,21 @@ public class Client : NetworkScript, MessageHandler
         StartCoroutine(Dispatcher("Proxy"));
 
         _messenger.Start();
+
+        _signaller = GetComponent<NetworkSignaller>();
+        _signaller.Initialize(0, "server");
+        _signallersByID.Add(0, _signaller);
     }
 
     protected override void OnEnd()
     {
         StopAllCoroutines();
         _messenger.Dispose();
+    }
+
+    protected override void Send(Packet packet)
+    {
+        _messenger.Send("Proxy", packet);
     }
 
     IEnumerator Dispatcher(string key)
