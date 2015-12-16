@@ -812,3 +812,36 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/16/2015 9:10:14 PM] ...............................
+[12/16/2015 9:10:14 PM] ..........New History..........
+[12/16/2015 9:10:14 PM] ...............................
+[12/16/2015 9:10:14 PM] Recieved : ConfirmID
+[12/16/2015 9:10:34 PM] Sended : LoginQuery
+[12/16/2015 9:10:34 PM] Recieved : LoginAnswer
+[12/16/2015 9:10:34 PM] Recieved : NetworkInstantiateInfo
+[12/16/2015 9:10:34 PM] Sended : NetworkInstantiateRequest
+[12/16/2015 9:10:34 PM] Recieved : NetworkInstantiateInfo
+[12/16/2015 9:12:05 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/16/2015 9:13:54 PM] ...............................
+[12/16/2015 9:13:54 PM] ..........New History..........
+[12/16/2015 9:13:54 PM] ...............................
+[12/16/2015 9:13:54 PM] Recieved : ConfirmID
+[12/16/2015 9:14:08 PM] Sended : LoginQuery
+[12/16/2015 9:14:08 PM] Recieved : LoginAnswer
+[12/16/2015 9:14:08 PM] Recieved : NetworkInstantiateInfo
+[12/16/2015 9:14:08 PM] Sended : NetworkInstantiateRequest
+[12/16/2015 9:14:08 PM] Recieved : NetworkInstantiateInfo
+[12/16/2015 9:17:52 PM] ...............................
+[12/16/2015 9:17:52 PM] ..........New History..........
+[12/16/2015 9:17:52 PM] ...............................
+[12/16/2015 9:17:52 PM] Recieved : ConfirmID
+[12/16/2015 9:18:07 PM] Sended : LoginQuery
+[12/16/2015 9:18:07 PM] Recieved : LoginAnswer
+[12/16/2015 9:18:07 PM] Recieved : NetworkInstantiateInfo
+[12/16/2015 9:18:07 PM] Sended : NetworkInstantiateRequest
+[12/16/2015 9:18:07 PM] Recieved : NetworkInstantiateInfo

@@ -8,7 +8,15 @@ public class NetworkSignaller : MonoBehaviour
 
     public void Initialize(int networID, string owner)
     {
+        var programs = FindObjectsOfType<NetworkProgramUnity>();
+        foreach(var s in programs)
+        {
+            if (s.enabled)
+                _script = s;
+        }
         _networkID = networID;
         _owner = owner;
     }
+
+    public bool isMine { get { return _script.userName == _owner; } }
 }

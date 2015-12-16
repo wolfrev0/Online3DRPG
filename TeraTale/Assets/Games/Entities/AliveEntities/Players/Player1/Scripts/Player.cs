@@ -5,11 +5,13 @@ public class Player : AliveEntity
     const float kRaycastDistance = 50.0f;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
+    NetworkSignaller _net;
 
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
+        _net = GetComponent<NetworkSignaller>();
     }
 
     void Update()
@@ -18,6 +20,9 @@ public class Player : AliveEntity
 
     public void HandleInput()
     {
+        if (!_net.isMine)
+            return;
+
         if (Input.GetButtonDown("Move"))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
