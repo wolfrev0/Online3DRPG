@@ -45,7 +45,8 @@ public class Client : NetworkProgramUnity, NetworkSignallerManager, MessageHandl
     {
         while (true)
         {
-            _messenger.DispatcherCoroutine(key);
+            while (_messenger.CanReceive(key))
+                _messenger.DispatcherCoroutine(key);
             yield return new WaitForSeconds(0);
         }
     }

@@ -13,7 +13,7 @@ public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
     protected override void OnStart()
     {
         _messenger = new Messenger(this);
-        
+
         _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
@@ -28,8 +28,15 @@ public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
         while (true)
         {
             lock (_locker)
-                _messenger.DispatcherCoroutine(key);
-            yield return new WaitForSeconds(0);
+            {
+                while (_messenger.CanReceive(key))
+                {
+                    _messenger.DispatcherCoroutine(key);
+                    while (Application.isLoadingLevel)
+                        yield return null;
+                }
+            }
+            yield return null;
         }
     }
 

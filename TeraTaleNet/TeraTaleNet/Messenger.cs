@@ -99,11 +99,8 @@ namespace TeraTaleNet
 
         public void DispatcherCoroutine(string key)
         {
-            while (CanReceive(key))
-            {
-                var packet = Receive(key);
-                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
-            }
+            var packet = Receive(key);
+            handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
         }
 
         void Sender()
