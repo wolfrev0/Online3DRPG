@@ -9,8 +9,8 @@ namespace Proxy
     {
         NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
-        Messenger _clientMessenger;
         Messenger _confirmMessenger;
+        List<string> _clientKeys = new List<string>();
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         Dictionary<string, string> _worldByUser = new Dictionary<string, string>();
         Task _accepter;
@@ -30,7 +30,6 @@ namespace Proxy
         protected override void OnStart()
         {
             _messenger = new Messenger(this);
-            _clientMessenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
             Action<Port> connector = (Port port) =>
@@ -56,11 +55,6 @@ namespace Proxy
                 _dispatchers.Add(key, dispatcher);
             }
 
-            //Bind("127.0.0.1", Port.Login, 1);
-            //stream = Listen();
-            //info = (ConnectorInfo)stream.Read().body;
-            //_messenger.Register(info.name, stream);
-            //Console.WriteLine(info.name + " connected.");
             _accepter = Task.Run(() =>
             {
                 _agent.Bind("0.0.0.0", Port.Proxy, 4);
@@ -99,14 +93,13 @@ namespace Proxy
                 {
                     lock (_lock)
                     {
-                        foreach (var key in _clientMessenger.Keys)
-                            _clientMessenger.Dispatch(key);
+                        foreach (var key in _clientKeys)
+                            _messenger.Dispatch(key);
                     }
                 }
             });
 
             _messenger.Start();
-            _clientMessenger.Start();
             _confirmMessenger.Start();
         }
 
@@ -132,7 +125,6 @@ namespace Proxy
         public void Dispose()
         {
             _messenger.Join();
-            _clientMessenger.Join();
             _confirmMessenger.Join();
             _agent.Dispose();
             GC.SuppressFinalize(this);
@@ -147,7 +139,7 @@ namespace Proxy
         {
             if (answer.accepted)
             {
-                var keys = (ICollection<string>)_clientMessenger.Keys;
+                var keys = (ICollection<string>)_clientKeys;
                 if (keys.Contains(answer.name))
                 {
                     answer.accepted = false;
@@ -158,13 +150,14 @@ namespace Proxy
                     lock (_lock)
                     {
                         PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
-                        _clientMessenger.Register(answer.name, stream);
+                        _messenger.Register(answer.name, stream);
+                        _clientKeys.Add(answer.name);
                     }
                     _worldByUser.Add(answer.name, answer.world);
                     _messenger.Send(answer.world, new PlayerJoin(answer.name));
-                    _clientMessenger.Send(answer.name, answer);
+                    _messenger.Send(answer.name, answer);
                     foreach (var instantiationInfo in _instantiationBuffer)
-                        _clientMessenger.Send(answer.name, instantiationInfo);
+                        _messenger.Send(answer.name, instantiationInfo);
                 }
             }
             else
@@ -177,10 +170,10 @@ namespace Proxy
         {
             _instantiationBuffer.Add(new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
-            foreach(var user in _clientMessenger.Keys)
+            foreach(var user in _clientKeys)
             {
                 if (_worldByUser[user] == _worldByUser[req.owner])
-                    _clientMessenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
+                    _messenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             }
             _curSignallerID++;
         }
@@ -188,12 +181,21 @@ namespace Proxy
         void MessageHandler.RPCHandler(RPC rpc)
         {
             if ((rpc.rpcType & RPCType.Self) == RPCType.Self)
-            {                
+            {
+                _messenger.Send(rpc.sender, rpc);
             }
             if ((rpc.rpcType & RPCType.Server) == RPCType.Server)
-            { }
+            {
+                _messenger.Send(_worldByUser[rpc.sender], rpc);
+            }
             if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
-            { }
+            {
+                foreach(var target in _clientKeys)
+                {
+                    if (target != rpc.sender)
+                        _messenger.Send(target, rpc);
+                }
+            }
             if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
             { }
         }

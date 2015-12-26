@@ -1037,3 +1037,114 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 7:05:16 PM] ...............................
+[12/26/2015 7:05:16 PM] ..........New History..........
+[12/26/2015 7:05:16 PM] ...............................
+[12/26/2015 7:05:16 PM] Recieved : ConfirmID
+[12/26/2015 7:06:08 PM] ...............................
+[12/26/2015 7:06:08 PM] ..........New History..........
+[12/26/2015 7:06:08 PM] ...............................
+[12/26/2015 7:06:08 PM] Recieved : ConfirmID
+[12/26/2015 7:06:11 PM] Sended : LoginQuery
+[12/26/2015 7:06:11 PM] Recieved : LoginAnswer
+[12/26/2015 7:06:11 PM] Sended : NetworkInstantiateRequest
+[12/26/2015 7:06:49 PM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 7:10:27 PM] ...............................
+[12/26/2015 7:10:27 PM] ..........New History..........
+[12/26/2015 7:10:27 PM] ...............................
+[12/26/2015 7:10:27 PM] Recieved : ConfirmID
+[12/26/2015 7:10:30 PM] Sended : LoginQuery
+[12/26/2015 7:10:30 PM] Recieved : LoginAnswer
+[12/26/2015 7:10:30 PM] Sended : NetworkInstantiateRequest
+[12/26/2015 7:10:30 PM] Recieved : NetworkInstantiateInfo
+[12/26/2015 7:10:32 PM] Sended : Navigate
+[12/26/2015 7:10:32 PM] Recieved : Navigate
+[12/26/2015 7:10:42 PM] Sended : Navigate
+[12/26/2015 7:10:42 PM] Sended : Navigate
+[12/26/2015 7:10:42 PM] Sended : Navigate
+[12/26/2015 7:10:43 PM] Sended : Navigate
+[12/26/2015 7:12:54 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 7:42:41 PM] ...............................
+[12/26/2015 7:42:41 PM] ..........New History..........
+[12/26/2015 7:42:41 PM] ...............................
+[12/26/2015 7:42:41 PM] Recieved : ConfirmID
+[12/26/2015 7:42:44 PM] Sended : LoginQuery
+[12/26/2015 7:42:44 PM] Recieved : LoginAnswer
+[12/26/2015 7:42:44 PM] Sended : NetworkInstantiateRequest
+[12/26/2015 7:42:44 PM] Recieved : NetworkInstantiateInfo
+[12/26/2015 7:42:45 PM] Sended : Navigate
+[12/26/2015 7:42:46 PM] Recieved : Navigate
+[12/26/2015 7:42:47 PM] Sended : Navigate
+[12/26/2015 7:42:47 PM] Recieved : Navigate
+[12/26/2015 7:42:47 PM] Sended : Navigate
+[12/26/2015 7:42:47 PM] Recieved : Navigate
+[12/26/2015 7:42:56 PM] Recieved : NetworkInstantiateInfo
+[12/26/2015 7:42:57 PM] Recieved : Navigate
+[12/26/2015 7:42:58 PM] Recieved : Navigate
+[12/26/2015 7:42:58 PM] Recieved : Navigate
+[12/26/2015 7:43:01 PM] Sended : Navigate
+[12/26/2015 7:43:01 PM] Recieved : Navigate
+[12/26/2015 7:43:02 PM] Sended : Navigate
+[12/26/2015 7:43:02 PM] Recieved : Navigate
+[12/26/2015 7:43:02 PM] Sended : Navigate
+[12/26/2015 7:43:02 PM] Recieved : Navigate
+[12/26/2015 7:43:07 PM] Recieved : Navigate
+[12/26/2015 7:43:07 PM] Recieved : Navigate
+[12/26/2015 7:43:10 PM] Sended : Navigate
+[12/26/2015 7:43:10 PM] Recieved : Navigate
+[12/26/2015 7:43:15 PM] Recieved : Navigate
+[12/26/2015 7:43:22 PM] Sended : Navigate
+[12/26/2015 7:43:22 PM] Recieved : Navigate
+[12/26/2015 7:43:25 PM] Sended : Navigate
+[12/26/2015 7:43:25 PM] Recieved : Navigate
+[12/26/2015 7:43:25 PM] Sended : Navigate
+[12/26/2015 7:43:25 PM] Recieved : Navigate
+[12/26/2015 7:43:27 PM] Sended : Navigate
+[12/26/2015 7:43:27 PM] Recieved : Navigate
+[12/26/2015 7:43:29 PM] Recieved : Navigate
+[12/26/2015 7:43:31 PM] Recieved : Navigate
+[12/26/2015 7:43:33 PM] Recieved : Navigate
+[12/26/2015 7:43:37 PM] Recieved : Navigate
+[12/26/2015 7:43:38 PM] Recieved : Navigate
+[12/26/2015 7:43:38 PM] Recieved : Navigate
+[12/26/2015 7:43:39 PM] Recieved : Navigate
+[12/26/2015 7:43:39 PM] Recieved : Navigate
+[12/26/2015 7:43:39 PM] Recieved : Navigate
+[12/26/2015 7:43:39 PM] Recieved : Navigate
+[12/26/2015 7:43:40 PM] Recieved : Navigate
+[12/26/2015 7:43:40 PM] Recieved : Navigate
+[12/26/2015 7:43:40 PM] Recieved : Navigate
+[12/26/2015 7:43:41 PM] Recieved : Navigate
+[12/26/2015 7:43:41 PM] Recieved : Navigate
+[12/26/2015 7:43:41 PM] Recieved : Navigate
+[12/26/2015 7:43:42 PM] Recieved : Navigate
+[12/26/2015 7:43:42 PM] Recieved : Navigate
+[12/26/2015 7:43:42 PM] Recieved : Navigate
+[12/26/2015 7:43:43 PM] Recieved : Navigate
+[12/26/2015 7:43:43 PM] Recieved : Navigate
+[12/26/2015 7:43:44 PM] Recieved : Navigate
+[12/26/2015 7:43:45 PM] Recieved : Navigate
+[12/26/2015 7:43:47 PM] Recieved : Navigate
+[12/26/2015 7:43:49 PM] Recieved : Navigate
+[12/26/2015 7:43:50 PM] Recieved : Navigate
+[12/26/2015 7:43:51 PM] Recieved : Navigate
+[12/26/2015 7:43:52 PM] Recieved : Navigate
+[12/26/2015 7:43:53 PM] Recieved : Navigate
+[12/26/2015 7:43:53 PM] Recieved : Navigate
+[12/26/2015 7:44:01 PM] Recieved : Navigate
+[12/26/2015 7:44:03 PM] Recieved : Navigate
+[12/26/2015 7:44:05 PM] Recieved : Navigate
+[12/26/2015 7:44:44 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 

@@ -100,7 +100,8 @@ namespace TeraTaleNet
                 var rpc = packet.body as RPC;
                 if (rpc != null)
                     listener.RPCHandler(rpc);
-                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
+                else
+                    handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
             }
             Thread.Sleep(10);
         }
@@ -111,7 +112,8 @@ namespace TeraTaleNet
             var rpc = packet.body as RPC;
             if (rpc != null)
                 listener.RPCHandler(rpc);
-            handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
+            else
+                handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
         }
 
         void Sender()
