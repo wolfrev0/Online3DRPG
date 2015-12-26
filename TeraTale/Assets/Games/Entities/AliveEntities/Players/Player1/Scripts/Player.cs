@@ -36,14 +36,14 @@ public class Player : AliveEntity
 
         if (Input.GetButtonDown("Attack"))
         {
-    //        _net.SendRPC(new Attack(RPCType.All));
+            _net.SendRPC(new Attack(RPCType.All));
         }
     }
 
-    //public void Attack(Attack info)
-    //{
-    //    _animator.SetTrigger("Attacking");
-    //}
+    public void Attack(Attack info)
+    {
+        _animator.SetTrigger("Attacking");
+    }
 
     void Die()
     {
