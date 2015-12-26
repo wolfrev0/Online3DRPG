@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TeraTaleNet;
 
 public class NetworkSignaller : MonoBehaviour
 {
@@ -19,4 +20,11 @@ public class NetworkSignaller : MonoBehaviour
     }
 
     public bool isMine { get { return _script.userName == _owner; } }
+
+    public void SendRPC(TeraTaleNet.RPC rpc)
+    {
+        rpc.signallerID = _networkID;
+        rpc.sender = _script.userName;
+        _script.Send(rpc);
+    }
 }

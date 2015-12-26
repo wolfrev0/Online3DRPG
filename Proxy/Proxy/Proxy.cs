@@ -88,10 +88,7 @@ namespace Proxy
                     lock (_lock)
                     {
                         foreach (var confirmID in _confirmMessenger.Keys)
-                        {
-                            History.Log(confirmID);
                             _confirmMessenger.Dispatch(confirmID);
-                        }
                     }
                 }
             });
@@ -186,6 +183,19 @@ namespace Proxy
                     _clientMessenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
             }
             _curSignallerID++;
+        }
+
+        void MessageHandler.RPCHandler(RPC rpc)
+        {
+            if ((rpc.rpcType & RPCType.Self) == RPCType.Self)
+            {                
+            }
+            if ((rpc.rpcType & RPCType.Server) == RPCType.Server)
+            { }
+            if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
+            { }
+            if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
+            { }
         }
     }
 }

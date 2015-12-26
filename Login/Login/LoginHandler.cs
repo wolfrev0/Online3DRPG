@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using TeraTaleNet;
 
 class LoginHandler : MessageHandler
@@ -11,5 +11,10 @@ class LoginHandler : MessageHandler
     void LoginAnswer(Messenger messenger, string key, LoginAnswer query)
     {
         messenger.Send("Proxy", query);
+    }
+
+    void MessageHandler.RPCHandler(RPC rpc)
+    {
+        throw new NotImplementedException();
     }
 }

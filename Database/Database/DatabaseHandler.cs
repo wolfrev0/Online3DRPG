@@ -47,5 +47,10 @@ namespace Database
                 messenger.Send("Login", new LoginAnswer(query.confirmID, false, "", ""));
             }         
         }
+
+        void MessageHandler.RPCHandler(RPC rpc)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

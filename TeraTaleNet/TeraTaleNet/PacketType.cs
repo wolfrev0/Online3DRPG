@@ -2,6 +2,7 @@
 {
     public enum PacketType
     {
+        Navigate,
         ConfirmID,
         ConnectorInfo,
         LoginQuery,

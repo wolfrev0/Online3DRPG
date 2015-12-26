@@ -4,13 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager, MessageHandler, IDisposable
+public abstract class GameServer : NetworkProgramUnity, IDisposable
 {
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
     HashSet<string> users = new HashSet<string>();
-    NetworkSignaller _signaller;
-    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
 
     protected override void OnStart()
     {
@@ -35,10 +33,6 @@ public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager,
             StartCoroutine(Dispatcher(key));
 
         _messenger.Start();
-
-        _signaller = GetComponent<NetworkSignaller>();
-        _signaller.Initialize(0, userName);
-        _signallersByID.Add(0, _signaller);
     }
 
     protected override void OnEnd()
@@ -47,7 +41,7 @@ public abstract class GameServer : NetworkProgramUnity, NetworkSignallerManager,
         _messenger.Dispose();
     }
 
-    protected override void Send(Packet packet)
+    public override void Send(Packet packet)
     {
         _messenger.Send("Proxy", packet);
     }

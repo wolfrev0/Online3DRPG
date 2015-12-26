@@ -16,6 +16,7 @@ namespace TeraTaleNet
         MessageHandler listener;
         bool _stopped = false;
         bool _disposed = false;
+        object _locker = new object();
 
         Dictionary<string, MethodInfo> handlerByName = new Dictionary<string, MethodInfo>();
 
@@ -53,16 +54,20 @@ namespace TeraTaleNet
 
         public void Register(string key, PacketStream stream)
         {
-            _streamByKey.Add(key, stream);
+            lock(_locker)
+                _streamByKey.Add(key, stream);
             _sendQByKey.Add(key, new ConcurrentQueue<Packet>());
             _recvQByKey.Add(key, new ConcurrentQueue<Packet>());
         }
 
         public PacketStream Unregister(string key)
         {
-            var ret = _streamByKey[key];
-            _streamByKey.Remove(key);
-            return ret;
+            lock(_locker)
+            {
+                var ret = _streamByKey[key];
+                _streamByKey.Remove(key);
+                return ret;
+            }
         }
 
         public void Send(string key, Packet packet)
@@ -92,6 +97,9 @@ namespace TeraTaleNet
             while (CanReceive(key))
             {
                 var packet = Receive(key);
+                var rpc = packet.body as RPC;
+                if (rpc != null)
+                    listener.RPCHandler(rpc);
                 handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
             }
             Thread.Sleep(10);
@@ -100,6 +108,9 @@ namespace TeraTaleNet
         public void DispatcherCoroutine(string key)
         {
             var packet = Receive(key);
+            var rpc = packet.body as RPC;
+            if (rpc != null)
+                listener.RPCHandler(rpc);
             handlerByName[packet.header.type.ToString()].Invoke(listener, new object[] { this, key, packet.body });
         }
 
@@ -109,14 +120,17 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach (var key in Keys)
+                    lock(_locker)
                     {
-                        if (_sendQByKey[key].Count > 0)
+                        foreach (var key in Keys)
                         {
-                            //Need ioLock?
-                            var packet = _sendQByKey[key].Dequeue();
-                            History.Log("Sended : " + packet.header.type.ToString());
-                            _streamByKey[key].Write(packet);
+                            if (_sendQByKey[key].Count > 0)
+                            {
+                                //Need ioLock?
+                                var packet = _sendQByKey[key].Dequeue();
+                                History.Log("Sended : " + packet.header.type.ToString());
+                                _streamByKey[key].Write(packet);
+                            }
                         }
                     }
                     Thread.Sleep(10);
@@ -138,14 +152,17 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach (var key in Keys)
+                    lock (_locker)
                     {
-                        if (_streamByKey[key].HasPacket())
+                        foreach (var key in Keys)
                         {
-                            //Need ioLock?
-                            var packet = _streamByKey[key].Read();
-                            History.Log("Recieved : " + packet.header.type.ToString());
-                            _recvQByKey[key].Enqueue(packet);
+                            if (_streamByKey[key].HasPacket())
+                            {
+                                //Need ioLock?
+                                var packet = _streamByKey[key].Read();
+                                History.Log("Recieved : " + packet.header.type.ToString());
+                                _recvQByKey[key].Enqueue(packet);
+                            }
                         }
                     }
                     Thread.Sleep(10);
@@ -181,8 +198,11 @@ namespace TeraTaleNet
             {
                 if (disposing)
                 {
-                    foreach (var stream in _streamByKey.Values)
-                        stream.Dispose();
+                    lock (_locker)
+                    {
+                        foreach (var stream in _streamByKey.Values)
+                            stream.Dispose();
+                    }
                 }
 
             }

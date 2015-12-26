@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TeraTaleNet;
 
 public class Player : AliveEntity
 {
@@ -29,7 +30,7 @@ public class Player : AliveEntity
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
             {
-                Navigate(hit.point);
+                _net.SendRPC(new Navigate(RPCType.All, hit.point.x, hit.point.y, hit.point.z));
             }
         }
 
@@ -57,10 +58,10 @@ public class Player : AliveEntity
         return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
     }
 
-    public void Navigate(Vector3 destination)
+    public void Navigate(Navigate info)
     {
         _navMeshAgent.enabled = true;
-        _navMeshAgent.destination = destination;
+        _navMeshAgent.destination = new Vector3(info.x, info.y, info.z);
         _animator.SetBool("Running", true);
     }
 

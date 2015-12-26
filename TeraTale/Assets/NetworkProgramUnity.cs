@@ -1,11 +1,14 @@
 ﻿using System;
 using TeraTaleNet;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class NetworkProgramUnity : MonoBehaviour
+public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 {
     public string userName;
     NetworkPrefabManager _prefabManager;
+    NetworkSignaller _signaller;
+    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
     bool _stopped = false;
 
     public bool stopped { get { return _stopped; } }
@@ -14,7 +17,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour
     protected abstract void OnUpdate();
     protected abstract void OnEnd();
 
-    protected abstract void Send(Packet packet);
+    public abstract void Send(Packet packet);
 
     void Awake()
     {
@@ -24,7 +27,12 @@ public abstract class NetworkProgramUnity : MonoBehaviour
     void Start()
     {
         _prefabManager = FindObjectOfType<NetworkPrefabManager>();
+
         OnStart();
+
+        _signaller = GetComponent<NetworkSignaller>();
+        _signaller.Initialize(0, userName);
+        _signallersByID.Add(0, _signaller);
     }
 
     void Update()
@@ -50,6 +58,11 @@ public abstract class NetworkProgramUnity : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void MessageHandler.RPCHandler(TeraTaleNet.RPC rpc)
+    {
+        _signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
+    }
+
     public void NetworkInstantiate(NetworkSignaller prefab)
     {
         int prefabIndex = -1;
@@ -67,7 +80,6 @@ public abstract class NetworkProgramUnity : MonoBehaviour
     {
         var instance = Instantiate(_prefabManager.prefabs[info.prefabIndex]);
         instance.Initialize(info.signallerID, info.owner);
-        //Player player = Instantiate(pfPlayer);
-        //DontDestroyOnLoad(player.gameObject);
+        _signallersByID.Add(info.signallerID, instance);
     }
 }

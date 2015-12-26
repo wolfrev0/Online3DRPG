@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using TeraTaleNet;
 
-public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
+public class Certificator : NetworkProgramUnity
 {
     NetworkAgent _agent = new NetworkAgent();
     Messenger _messenger;
@@ -55,7 +55,7 @@ public class Certificator : NetworkProgramUnity, MessageHandler, IDisposable
         }
     }
 
-    protected override void Send(Packet packet)
+    public override void Send(Packet packet)
     {
         _messenger.Send("Proxy", packet);
     }

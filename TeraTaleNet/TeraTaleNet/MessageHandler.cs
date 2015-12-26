@@ -1,3 +1,7 @@
-﻿public interface MessageHandler
+﻿namespace TeraTaleNet
 {
+    public interface MessageHandler
+    {
+        void RPCHandler(RPC rpc);
+    }
 }
