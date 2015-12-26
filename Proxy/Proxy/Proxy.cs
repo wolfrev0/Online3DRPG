@@ -139,8 +139,7 @@ namespace Proxy
         {
             if (answer.accepted)
             {
-                var keys = (ICollection<string>)_clientKeys;
-                if (keys.Contains(answer.name))
+                if (IsLoggedIn(answer.name))
                 {
                     answer.accepted = false;
                     _confirmMessenger.Send(answer.confirmID.ToString(), answer);
@@ -150,8 +149,7 @@ namespace Proxy
                     lock (_lock)
                     {
                         PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
-                        _messenger.Register(answer.name, stream);
-                        _clientKeys.Add(answer.name);
+                        AddClient(answer.name, stream);
                     }
                     _worldByUser.Add(answer.name, answer.world);
                     _messenger.Send(answer.world, new PlayerJoin(answer.name));
@@ -164,6 +162,18 @@ namespace Proxy
             {
                 _confirmMessenger.Send(answer.confirmID.ToString(), answer);
             }
+        }
+
+        bool IsLoggedIn(string user)
+        {
+            var keys = (ICollection<string>)_clientKeys;
+            return keys.Contains(user);
+        }
+
+        void AddClient(string name, PacketStream stream)
+        {
+            _messenger.Register(name, stream);
+            _clientKeys.Add(name);
         }
 
         void NetworkInstantiateRequest(Messenger messenger, string key, NetworkInstantiateRequest req)

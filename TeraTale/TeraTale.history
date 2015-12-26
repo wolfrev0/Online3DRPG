@@ -325,3 +325,59 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 10:27:51 PM] ...............................
+[12/26/2015 10:27:51 PM] ..........New History..........
+[12/26/2015 10:27:51 PM] ...............................
+[12/26/2015 10:27:51 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 10:33:59 PM] ...............................
+[12/26/2015 10:33:59 PM] ..........New History..........
+[12/26/2015 10:33:59 PM] ...............................
+[12/26/2015 10:33:59 PM] Recieved : 5
+[12/26/2015 10:33:59 PM] Recieved : 4
+[12/26/2015 10:34:01 PM] Recieved : 8
+[12/26/2015 10:34:01 PM] Recieved : 8
+[12/26/2015 10:34:01 PM] Recieved : 8
+[12/26/2015 10:34:10 PM] Recieved : 5
+[12/26/2015 10:34:10 PM] Recieved : 4
+[12/26/2015 10:34:13 PM] Recieved : 8
+[12/26/2015 10:34:17 PM] Recieved : 8
+[12/26/2015 10:34:18 PM] Recieved : 8
+[12/26/2015 10:34:18 PM] Recieved : 8
+[12/26/2015 10:34:18 PM] Recieved : 8
+[12/26/2015 10:34:19 PM] Recieved : 8
+[12/26/2015 10:34:20 PM] Recieved : 8
+[12/26/2015 10:34:20 PM] Recieved : 8
+[12/26/2015 10:34:20 PM] Recieved : 8
+[12/26/2015 10:34:21 PM] Recieved : 8
+[12/26/2015 10:34:22 PM] Recieved : 8
+[12/26/2015 10:34:22 PM] Recieved : 8
+[12/26/2015 10:34:23 PM] Recieved : 8
+[12/26/2015 10:34:23 PM] Recieved : 8
+[12/26/2015 10:34:24 PM] Recieved : 8
+[12/26/2015 10:34:24 PM] Recieved : 8
+[12/26/2015 10:34:27 PM] Recieved : 8
+[12/26/2015 10:34:31 PM] Recieved : 8
+[12/26/2015 10:34:41 PM] Recieved : 8
+[12/26/2015 10:34:44 PM] Recieved : 8
+[12/26/2015 10:34:44 PM] Recieved : 8
+[12/26/2015 10:34:45 PM] Recieved : 8
+[12/26/2015 10:34:48 PM] Recieved : 8
+[12/26/2015 10:34:49 PM] Recieved : 8
+[12/26/2015 10:34:49 PM] Recieved : 8
+[12/26/2015 10:34:50 PM] Recieved : 8
+[12/26/2015 10:34:51 PM] Recieved : 8
+[12/26/2015 10:34:54 PM] Recieved : 8
+[12/26/2015 10:34:58 PM] Recieved : 8
+[12/26/2015 10:35:04 PM] Recieved : 8
+[12/26/2015 10:35:09 PM] Recieved : 8
+[12/26/2015 10:35:10 PM] Recieved : 8
+[12/26/2015 10:35:11 PM] Recieved : 8
+[12/26/2015 10:35:11 PM] Recieved : 8

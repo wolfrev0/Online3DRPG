@@ -4,12 +4,12 @@ namespace TeraTaleNet
 {
     public class Header : Serializable
     {
-        static public int size = sizeof(PacketType) + sizeof(int);
+        static public int size = sizeof(int) + sizeof(int);
 
-        public PacketType type;
+        public int type;
         public int bodySize;
 
-        public Header(PacketType type, int bodySize)
+        public Header(int type, int bodySize)
         {
             this.type = type;
             this.bodySize = bodySize;

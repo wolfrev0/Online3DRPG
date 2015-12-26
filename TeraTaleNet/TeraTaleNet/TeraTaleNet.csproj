@@ -53,6 +53,7 @@
     <Compile Include="Body\NetworkInstantiateInfo.cs" />
     <Compile Include="Body\PlayerJoin.cs" />
     <Compile Include="Body\NetworkInstantiateRequest.cs" />
+    <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="NetworkAgent.cs" />
     <Compile Include="NetworkUser.cs" />
     <Compile Include="Serializable.cs" />
-    <Compile Include="PacketType.cs" />
     <Compile Include="Messenger.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketStream.cs" />

@@ -14,7 +14,7 @@ namespace TeraTaleNet
 
         static public Packet Create(Header header, byte[] bytes)
         {
-            Body body = (Body)Activator.CreateInstance(Type.GetType(bodyNamespace + "." + header.type.ToString()), bytes);
+            Body body = (Body)Activator.CreateInstance(Type.GetType(bodyNamespace + "." + Body.GetNameByIndex(header.type)), bytes);
             return new Packet(header, body);
         }
 

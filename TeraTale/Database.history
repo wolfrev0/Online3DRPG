@@ -470,3 +470,105 @@
    위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
    위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
    위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 159
+[2015-12-26 오후 7:56:49] ...............................
+[2015-12-26 오후 7:56:49] ..........New History..........
+[2015-12-26 오후 7:56:49] ...............................
+[2015-12-26 오후 7:56:49] Recieved : LoginQuery
+[2015-12-26 오후 7:56:49] Sended : LoginAnswer
+[2015-12-26 오후 7:57:03] Recieved : LoginQuery
+[2015-12-26 오후 7:57:03] Sended : LoginAnswer
+[2015-12-26 오후 9:15:15] ...............................
+[2015-12-26 오후 9:15:15] ..........New History..........
+[2015-12-26 오후 9:15:15] ...............................
+[2015-12-26 오후 9:15:15] System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.ArgumentOutOfRangeException: 인덱스 및 개수는 버퍼 내의 위치를 참조해야 합니다.
+매개 변수 이름: bytes
+   위치: System.Text.UTF8Encoding.GetString(Byte[] bytes, Int32 index, Int32 count)
+   위치: TeraTaleNet.Serializer.ToString(Byte[] buffer, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializer.cs:줄 183
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   위치: System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: TeraTaleNet.Serializable.Deserialize(Byte[] buffer) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializable.cs:줄 54
+   위치: TeraTaleNet.LoginAnswer..ctor(Byte[] data) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Body\LoginAnswer.cs:줄 19
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 17
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: Database.Database.<OnStart>b__4_0() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 23
+   위치: Database.Database.OnStart() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 29
+   위치: TeraTaleNet.NetworkProgram.Execute() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\NetworkProgram.cs:줄 20
+[2015-12-26 오후 9:16:32] ...............................
+[2015-12-26 오후 9:16:32] ..........New History..........
+[2015-12-26 오후 9:16:32] ...............................
+[2015-12-26 오후 9:16:32] System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.ArgumentOutOfRangeException: 인덱스 및 개수는 버퍼 내의 위치를 참조해야 합니다.
+매개 변수 이름: bytes
+   위치: System.Text.UTF8Encoding.GetString(Byte[] bytes, Int32 index, Int32 count)
+   위치: TeraTaleNet.Serializer.ToString(Byte[] buffer, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializer.cs:줄 183
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   위치: System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: TeraTaleNet.Serializable.Deserialize(Byte[] buffer) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializable.cs:줄 54
+   위치: TeraTaleNet.LoginAnswer..ctor(Byte[] data) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Body\LoginAnswer.cs:줄 19
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 17
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: Database.Database.<OnStart>b__4_0() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 23
+   위치: Database.Database.OnStart() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 29
+   위치: TeraTaleNet.NetworkProgram.Execute() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\NetworkProgram.cs:줄 20
+[2015-12-26 오후 9:31:34] ...............................
+[2015-12-26 오후 9:31:34] ..........New History..........
+[2015-12-26 오후 9:31:34] ...............................
+[2015-12-26 오후 9:31:34] TeraTaleNet.ConnectorInfo
+[2015-12-26 오후 9:31:45] TeraTaleNet.LoginAnswer
+[2015-12-26 오후 9:31:45] System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.Reflection.TargetInvocationException: 호출 대상이 예외를 Throw했습니다. ---> System.ArgumentOutOfRangeException: 인덱스 및 개수는 버퍼 내의 위치를 참조해야 합니다.
+매개 변수 이름: bytes
+   위치: System.Text.UTF8Encoding.GetString(Byte[] bytes, Int32 index, Int32 count)
+   위치: TeraTaleNet.Serializer.ToString(Byte[] buffer, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializer.cs:줄 183
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   위치: System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: TeraTaleNet.Serializable.Deserialize(Byte[] buffer) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Serializable.cs:줄 54
+   위치: TeraTaleNet.LoginAnswer..ctor(Byte[] data) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Body\LoginAnswer.cs:줄 19
+   --- 내부 예외 스택 추적의 끝 ---
+   위치: System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   위치: System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   위치: System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   위치: System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   위치: System.Activator.CreateInstance(Type type, Object[] args)
+   위치: TeraTaleNet.Packet.Create(Header header, Byte[] bytes) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Packet.cs:줄 18
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 24
+   위치: Database.Database.<OnStart>b__4_0() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 23
+   위치: Database.Database.OnStart() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\Database\Database\Database.cs:줄 29
+   위치: TeraTaleNet.NetworkProgram.Execute() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\NetworkProgram.cs:줄 20
+[2015-12-26 오후 9:35:30] ...............................
+[2015-12-26 오후 9:35:30] ..........New History..........
+[2015-12-26 오후 9:35:30] ...............................
+[2015-12-26 오후 9:35:30] TeraTaleNet.ConnectorInfo
+[2015-12-26 오후 9:35:35] TeraTaleNet.ConnectorInfo
+[2015-12-26 오후 10:25:26] TeraTaleNet.ConnectorInfo
+[2015-12-26 오후 10:27:55] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 10:33:59] ...............................
+[2015-12-26 오후 10:33:59] ..........New History..........
+[2015-12-26 오후 10:33:59] ...............................
+[2015-12-26 오후 10:33:59] Recieved : 3
+[2015-12-26 오후 10:33:59] Sended : 2
+[2015-12-26 오후 10:34:10] Recieved : 3
+[2015-12-26 오후 10:34:10] Sended : 2
+[2015-12-26 오후 10:35:30] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
