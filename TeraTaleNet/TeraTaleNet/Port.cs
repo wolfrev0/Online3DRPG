@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
     public enum Port : ushort
     {
-        Client = 9852,
+        Database = 9852,
+        Login,
+        Town,
+        Forest,
         Proxy,
-        LoginForProxy,
-        LoginForGameServer,
-        DatabaseForLogin,
-        DatabaseForGameServer,
-        GameServer, 
     }
 }

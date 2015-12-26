@@ -1,132 +1,68 @@
 ﻿using System;
-using System.Threading;
-using System.IO;
-using LoboNet;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using TeraTaleNet;
 
 namespace Database
 {
-    class Database
+    class Database : NetworkProgram, IDisposable
     {
-        static string accountLocation = "Accounts\\";
-        static string playerInfoLocation = "PlayerInfo\\";
-        Messenger<string> _messenger = new Messenger<string>();
+        DatabaseHandler _handler = new DatabaseHandler();
+        NetworkAgent _agent = new NetworkAgent();
+        Messenger _messenger;
+        Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
 
-        public Database()
-        {            
-            _messenger.Register("Login", ListenLogin());
-            _messenger.Register("GameServer", ListenGameServer());
-        }
-
-        PacketStream ListenLogin()
+        protected override void OnStart()
         {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.DatabaseForLogin, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("Login Connected.");
-            _listener.Dispose();
+            _messenger = new Messenger(_handler);
 
-            return new PacketStream(connection);
-        }
+            Action listenner = () =>
+            {
+                _agent.Bind("127.0.0.1", Port.Database, 1);
+                var stream = _agent.Listen();
+                var info = (ConnectorInfo)stream.Read().body;
+                _messenger.Register(info.name, stream);
+                Console.WriteLine(info.name + " connected.");
+            };
+            
+            listenner();//Login
+            listenner();//Town
+            listenner();//Forest
 
-        PacketStream ListenGameServer()
-        {
-            var _listener = new TcpListener("127.0.0.1", (ushort)Port.DatabaseForGameServer, 1);
-            var connection = _listener.Accept();
-            Console.WriteLine("GameServer Connected.");
-            _listener.Dispose();
+            foreach (var key in _messenger.Keys)
+            {
+                var dispatcher = Task.Run(() =>
+                {
+                    while (stopped == false)
+                        _messenger.Dispatch(key);
+                });
+                _dispatchers.Add(key, dispatcher);
+            }
 
-            return new PacketStream(connection);
-        }
-
-        public void Execute()
-        {
             _messenger.Start();
-            try
+        }
+
+        protected override void OnUpdate()
+        {
+            if (Console.KeyAvailable)
             {
-                MainLoop();
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    Stop();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-            }
+        }
+
+        protected override void OnEnd()
+        {
+            foreach(var task in _dispatchers.Values)
+                task.Wait();
+            Dispose();
+        }
+
+        public void Dispose()
+        {
             _messenger.Join();
-        }
-
-        void MainLoop()
-        {
-            while (true)
-            {
-                if (Console.KeyAvailable)
-                {
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-                        break;
-                }
-
-                if (_messenger.CanReceive("Login"))
-                {
-                    var packet = _messenger.Receive("Login");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.LoginRequest:
-                            OnLoginRequest((LoginRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-
-                if (_messenger.CanReceive("GameServer"))
-                {
-                    var packet = _messenger.Receive("GameServer");
-                    switch (packet.header.type)
-                    {
-                        case PacketType.PlayerInfoRequest:
-                            OnPlayerInfoRequest((PlayerInfoRequest)packet.body);
-                            break;
-                        default:
-                            throw new ArgumentException("Received invalid packet type.");
-                    }
-                }
-            }
-            Thread.Sleep(10);
-        }
-
-        void OnLoginRequest(LoginRequest request)
-        {
-            LoginResponse response;
-            try
-            {
-                using (var stream = new StreamReader(new FileStream(accountLocation + request.id, FileMode.Open)))
-                {
-                    string pw = stream.ReadLine();
-                    string nickName = stream.ReadLine();
-                    if (request.pw == pw)
-                    {
-                        response = new LoginResponse(true, RejectedReason.Accepted, nickName, request.confirmID);
-                    }
-                    else
-                    {
-                        response = new LoginResponse(false, RejectedReason.InvalidPW, "Login", request.confirmID);
-                    }
-                }
-            }
-            catch (IOException)
-            {
-                response = new LoginResponse(false, RejectedReason.InvalidID, "Login", request.confirmID);
-            }
-            _messenger.Send("Login", new Packet(response));
-        }
-
-        void OnPlayerInfoRequest(PlayerInfoRequest request)
-        {
-            using (var stream = new StreamReader(new FileStream(playerInfoLocation + request.nickName, FileMode.Open)))
-            {
-                string world = stream.ReadLine();
-
-                PlayerInfoResponse response = new PlayerInfoResponse(request.nickName, world);
-                _messenger.Send("GameServer", new Packet(response));
-            }
+            _agent.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

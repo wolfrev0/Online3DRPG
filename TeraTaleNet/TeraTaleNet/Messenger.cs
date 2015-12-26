@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Threading;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace TeraTaleNet
 {
-    public class Messenger<T>
+    public class Messenger : IDisposable
     {
         //concurrent Dictionary?
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _sendQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, ConcurrentQueue<Packet>> _recvQByKey = new ConcurrentDictionary<T, ConcurrentQueue<Packet>>();
-        ConcurrentDictionary<T, PacketStream> _streamByKey = new ConcurrentDictionary<T, PacketStream>();
+        Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
+        Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
+        Dictionary<string, PacketStream> _streamByKey = new Dictionary<string, PacketStream>();
         Thread _sender;
         Thread _receiver;
+        MessageHandler listener;
         bool _stopped = false;
+        bool _disposed = false;
+        object _locker = new object();
 
-        public Dictionary<T, PacketStream>.KeyCollection Keys
+        Dictionary<string, MethodInfo> handlerByName = new Dictionary<string, MethodInfo>();
+
+        public Dictionary<string, PacketStream>.KeyCollection Keys
         {
             get
             {
@@ -22,8 +28,20 @@ namespace TeraTaleNet
             }
         }
 
-        public Messenger()
+        public Messenger(MessageHandler listener)
         {
+            this.listener = listener;
+
+            foreach (var method in listener.GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+            {
+                try
+                {
+                    handlerByName.Add(method.Name, method);
+                }
+                catch (ArgumentException e)
+                { }
+            }
+
             _sender = new Thread(Sender);
             _receiver = new Thread(Receiver);
         }
@@ -34,45 +52,68 @@ namespace TeraTaleNet
             _receiver.Start();
         }
 
-        public void Register(T key, PacketStream stream)
+        public void Register(string key, PacketStream stream)
         {
-            _streamByKey.Add(key, stream);
+            lock(_locker)
+                _streamByKey.Add(key, stream);
             _sendQByKey.Add(key, new ConcurrentQueue<Packet>());
             _recvQByKey.Add(key, new ConcurrentQueue<Packet>());
         }
 
-        public PacketStream Unregister(T key)
+        public PacketStream Unregister(string key)
         {
-            var ret = _streamByKey[key];
-            _streamByKey.Remove(key);
-            return ret;
-        }
-        
-        public void Join()
-        {
-            _stopped = true;
-  
-            foreach(var stream in _streamByKey.Values)
+            lock(_locker)
             {
-                stream.Dispose();
+                var ret = _streamByKey[key];
+                _streamByKey.Remove(key);
+                return ret;
             }
-            _sender.Join();
-            _receiver.Join();
         }
 
-        public void Send(T key, Packet packet)
+        public void Send(string key, Packet packet)
         {
             _sendQByKey[key].Enqueue(packet);
         }
 
-        public Packet Receive(T key)
+        public Packet Receive(string key)
         {
             return _recvQByKey[key].Dequeue();
         }
 
-        public bool CanReceive(T key)
+        public bool CanReceive(string key)
         {
             return _recvQByKey[key].Count > 0;
+        }
+
+        public Packet ReceiveSync(string key)
+        {
+            while (CanReceive(key) == false)
+            { }
+            return _recvQByKey[key].Dequeue();
+        }
+
+        public void Dispatch(string key)
+        {
+            while (CanReceive(key))
+            {
+                var packet = Receive(key);
+                var rpc = packet.body as RPC;
+                if (rpc != null)
+                    listener.RPCHandler(rpc);
+                else
+                    handlerByName[Body.GetNameByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
+            }
+            Thread.Sleep(10);
+        }
+
+        public void DispatcherCoroutine(string key)
+        {
+            var packet = Receive(key);
+            var rpc = packet.body as RPC;
+            if (rpc != null)
+                listener.RPCHandler(rpc);
+            else
+                handlerByName[Body.GetNameByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
         }
 
         void Sender()
@@ -81,12 +122,17 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach(var key in Keys)
+                    lock(_locker)
                     {
-                        if (_sendQByKey[key].Count > 0)
+                        foreach (var key in Keys)
                         {
-                            //Need ioLock?
-                            _streamByKey[key].Write(_sendQByKey[key].Dequeue());
+                            if (_sendQByKey[key].Count > 0)
+                            {
+                                //Need ioLock?
+                                var packet = _sendQByKey[key].Dequeue();
+                                History.Log("Sended : " + packet.header.type.ToString());
+                                _streamByKey[key].Write(packet);
+                            }
                         }
                     }
                     Thread.Sleep(10);
@@ -94,7 +140,11 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                History.Log(e.ToString());
+            }
+            finally
+            {
+                History.Save();
             }
         }
 
@@ -104,12 +154,17 @@ namespace TeraTaleNet
             {
                 while (_stopped == false)
                 {
-                    foreach (var key in Keys)
+                    lock (_locker)
                     {
-                        if (_streamByKey[key].HasPacket())
+                        foreach (var key in Keys)
                         {
-                            //Need ioLock?
-                            _recvQByKey[key].Enqueue(_streamByKey[key].Read());
+                            if (_streamByKey[key].HasPacket())
+                            {
+                                //Need ioLock?
+                                var packet = _streamByKey[key].Read();
+                                History.Log("Recieved : " + packet.header.type.ToString());
+                                _recvQByKey[key].Enqueue(packet);
+                            }
                         }
                     }
                     Thread.Sleep(10);
@@ -117,8 +172,48 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                History.Log(e.ToString());
             }
+            finally
+            {
+                History.Save();
+            }
+        }
+
+        public void Join()
+        {
+            _stopped = true;
+            _sender.Join();
+            _receiver.Join();
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    lock (_locker)
+                    {
+                        foreach (var stream in _streamByKey.Values)
+                            stream.Dispose();
+                    }
+                }
+
+            }
+            _disposed = true;
+        }
+
+        ~Messenger()
+        {
+            Dispose(false);
         }
     }
 }

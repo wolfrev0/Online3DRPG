@@ -5,15 +5,15 @@ public class LoginButtonHandler : MonoBehaviour
 {
     public InputField id;
     public InputField pw;
-    LoginManager loginManager;
+    Certificator _certificator;
 
     void Start()
     {
-        loginManager = FindObjectOfType<LoginManager>();
+        _certificator = FindObjectOfType<Certificator>();
     }
 
     public void OnButtonClicked()
     {
-        loginManager.SendLoginRequest(id.text, pw.text);
+        _certificator.SendLoginRequest(id.text, pw.text);
     }
 }

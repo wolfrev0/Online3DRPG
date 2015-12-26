@@ -41,29 +41,40 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accepter.cs" />
-    <Compile Include="Body\LoginResponse.cs" />
-    <Compile Include="Body\PlayerInfoRequest.cs" />
-    <Compile Include="Body\PlayerInfoResponse.cs" />
-    <Compile Include="Body\PlayerLogin.cs" />
+    <Compile Include="Body\ConfirmID.cs" />
+    <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\LoginAnswer.cs" />
+    <Compile Include="Body\LoginQuery.cs" />
+    <Compile Include="Body\NetworkInstantiateInfo.cs" />
+    <Compile Include="Body\PlayerJoin.cs" />
+    <Compile Include="Body\NetworkInstantiateRequest.cs" />
+    <Compile Include="Body\RPC\Attack.cs" />
+    <Compile Include="Body\RPC\Navigate.cs" />
+    <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />
-    <Compile Include="IBody.cs" />
+    <Compile Include="Body\Body.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="ISerializable.cs" />
-    <Compile Include="Body\LoginRequest.cs" />
-    <Compile Include="PacketType.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="MessageHandler.cs" />
+    <Compile Include="Attributes\Remote.cs" />
+    <Compile Include="NetworkAgent.cs" />
+    <Compile Include="NetworkUser.cs" />
+    <Compile Include="Serializable.cs" />
     <Compile Include="Messenger.cs" />
-    <Compile Include="NetworkManager.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketStream.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Body\WriteConsoleRequest.cs" />
     <Compile Include="Serializer.cs" />
+    <Compile Include="NetworkProgram.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

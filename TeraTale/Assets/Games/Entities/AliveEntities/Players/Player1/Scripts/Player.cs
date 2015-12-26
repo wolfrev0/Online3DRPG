@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
+using TeraTaleNet;
 
 public class Player : AliveEntity
 {
     const float kRaycastDistance = 50.0f;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
+    NetworkSignaller _net;
 
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
+        _net = GetComponent<NetworkSignaller>();
     }
 
     void Update()
@@ -18,23 +21,26 @@ public class Player : AliveEntity
 
     public void HandleInput()
     {
+        if (!_net.isMine)
+            return;
+
         if (Input.GetButtonDown("Move"))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
             {
-                Navigate(hit.point);
+                _net.SendRPC(new Navigate(RPCType.All, hit.point.x, hit.point.y, hit.point.z));
             }
         }
 
         if (Input.GetButtonDown("Attack"))
         {
-            Attack();
+            _net.SendRPC(new Attack(RPCType.All));
         }
     }
 
-    void Attack()
+    public void Attack(Attack info)
     {
         _animator.SetTrigger("Attacking");
     }
@@ -52,10 +58,10 @@ public class Player : AliveEntity
         return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
     }
 
-    public void Navigate(Vector3 destination)
+    public void Navigate(Navigate info)
     {
         _navMeshAgent.enabled = true;
-        _navMeshAgent.destination = destination;
+        _navMeshAgent.destination = new Vector3(info.x, info.y, info.z);
         _animator.SetBool("Running", true);
     }
 

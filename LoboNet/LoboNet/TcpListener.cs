@@ -7,7 +7,7 @@ namespace LoboNet
     public class TcpListener : IDisposable
     {
         Socket _listener;
-        bool disposed = false;
+        bool _disposed = false;
 
         public TcpListener(string ip, ushort port, int backlogSize)
         {
@@ -29,21 +29,25 @@ namespace LoboNet
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed)
-                return;
-
-            if (disposing)
+            if (!_disposed)
             {
-                // Free any other managed objects here.
-                //
-            }
+                if (disposing)
+                {
+                    _listener.Close();
+                }
 
-            _listener.Close();
-            disposed = true;
+            }
+            _disposed = true;
+        }
+
+        ~TcpListener()
+        {
+            Dispose(false);
         }
     }
 }

@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CostomizingScenes\ParsingData.cs" />
-     <Compile Include="Assets\GameServer.cs" />
      <Compile Include="Assets\Games\Camera\CameraController.cs" />
      <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
      <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
@@ -57,13 +56,21 @@
      <Compile Include="Assets\Games\Entities\Entity.cs" />
      <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
      <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
-     <Compile Include="Assets\LoginManager.cs" />
      <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
-     <Compile Include="Assets\NetworkManager.cs" />
+     <Compile Include="Assets\Network\Certificator.cs" />
+     <Compile Include="Assets\Network\Client.cs" />
+     <Compile Include="Assets\Network\Network.cs" />
+     <Compile Include="Assets\Network\Server\Forest.cs" />
+     <Compile Include="Assets\Network\Server\GameServer.cs" />
+     <Compile Include="Assets\Network\Server\Town.cs" />
+     <Compile Include="Assets\NetworkPrefabManager.cs" />
+     <Compile Include="Assets\NetworkProgramUnity.cs" />
+     <Compile Include="Assets\NetworkSignaller.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />
      <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
+     <None Include="Assets\References\UnityEngine.xml" />
      <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>

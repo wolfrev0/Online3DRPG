@@ -4,5 +4,6 @@
     {
         byte[] Serialize();
         void Deserialize(byte[] buffer);
+        int SerializedSize();
     }
 }

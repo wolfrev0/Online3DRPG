@@ -13,6 +13,8 @@ Bin/
 ._*
 .Spotlight-V100
 .Trashes
+.history
 Icon?
 ehthumbs.db
 Thumbs.db
+*.history

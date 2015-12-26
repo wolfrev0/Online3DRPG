@@ -7,7 +7,7 @@ namespace LoboNet
     {
         Socket _socket;
         NetworkStream _stream;
-        bool disposed = false;
+        bool _disposed = false;
 
         public Connection(Socket socket)
         {
@@ -22,6 +22,8 @@ namespace LoboNet
                 int readLen = _stream.Read(buffer, offset, size);
                 offset += readLen;
                 size -= readLen;
+                if (readLen <= 0)
+                    throw new Exception("Disconnected.");
             } while (size > 0);
         }
 
@@ -30,7 +32,7 @@ namespace LoboNet
             _stream.Write(buffer, offset, size);
         }
 
-        public bool PollRead()
+        public bool CanRead()
         {
             return _socket.Poll(0, SelectMode.SelectRead);
         }
@@ -38,22 +40,26 @@ namespace LoboNet
         public void Dispose()
         {
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed)
-                return;
-
-            if (disposing)
+            if (!_disposed)
             {
-                // Free any other managed objects here.
-                //
-            }
+                if (disposing)
+                {
+                    _socket.Shutdown(SocketShutdown.Both);
+                    _stream.Close();
+                }
 
-            _socket.Shutdown(SocketShutdown.Both);
-            _stream.Close();
-            disposed = true;
+            }
+            _disposed = true;
+        }
+
+        ~Connection()
+        {
+            Dispose(false);
         }
     }
 }
