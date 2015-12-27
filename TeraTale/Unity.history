@@ -1342,3 +1342,177 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:36:53 PM] ...............................
+[12/26/2015 11:36:53 PM] ..........New History..........
+[12/26/2015 11:36:53 PM] ...............................
+[12/26/2015 11:38:28 PM] ...............................
+[12/26/2015 11:38:28 PM] ..........New History..........
+[12/26/2015 11:38:28 PM] ...............................
+[12/26/2015 11:38:28 PM] Recieved : 0
+[12/26/2015 11:38:31 PM] Sended : 3
+[12/26/2015 11:38:31 PM] Recieved : 2
+[12/26/2015 11:38:31 PM] Sended : 6
+[12/26/2015 11:38:31 PM] Recieved : 4
+[12/26/2015 11:38:32 PM] Sended : 8
+[12/26/2015 11:38:32 PM] Recieved : 8
+[12/26/2015 11:38:43 PM] Recieved : 4
+[12/26/2015 11:38:45 PM] Recieved : 8
+[12/26/2015 11:38:47 PM] Sended : 8
+[12/26/2015 11:38:47 PM] Recieved : 8
+[12/26/2015 11:39:06 PM] Recieved : 8
+[12/26/2015 11:39:07 PM] Recieved : 8
+[12/26/2015 11:39:14 PM] System.Exception: Disconnected.
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:40:02 PM] ...............................
+[12/26/2015 11:40:02 PM] ..........New History..........
+[12/26/2015 11:40:02 PM] ...............................
+[12/26/2015 11:40:02 PM] Recieved : 0
+[12/26/2015 11:40:04 PM] Sended : 3
+[12/26/2015 11:40:04 PM] Recieved : 2
+[12/26/2015 11:40:04 PM] Sended : 6
+[12/26/2015 11:40:04 PM] Recieved : 4
+[12/26/2015 11:40:18 PM] Recieved : 4
+[12/26/2015 11:40:19 PM] Recieved : 8
+[12/26/2015 11:40:21 PM] Sended : 8
+[12/26/2015 11:40:21 PM] Recieved : 8
+[12/26/2015 11:40:34 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:41:13 PM] ...............................
+[12/26/2015 11:41:13 PM] ..........New History..........
+[12/26/2015 11:41:13 PM] ...............................
+[12/26/2015 11:41:13 PM] Recieved : 5
+[12/26/2015 11:41:13 PM] Recieved : 4
+[12/26/2015 11:41:15 PM] Recieved : 8
+[12/26/2015 11:41:24 PM] Recieved : 8
+[12/26/2015 11:41:24 PM] Recieved : 8
+[12/26/2015 11:41:24 PM] Recieved : 8
+[12/26/2015 11:41:27 PM] Recieved : 8
+[12/26/2015 11:43:55 PM] ...............................
+[12/26/2015 11:43:55 PM] ..........New History..........
+[12/26/2015 11:43:55 PM] ...............................
+[12/26/2015 11:43:55 PM] Recieved : 0
+[12/26/2015 11:43:59 PM] Sended : 3
+[12/26/2015 11:43:59 PM] Recieved : 2
+[12/26/2015 11:43:59 PM] Recieved : 4
+[12/26/2015 11:43:59 PM] Sended : 6
+[12/26/2015 11:43:59 PM] Recieved : 4
+[12/26/2015 11:44:04 PM] Sended : 8
+[12/26/2015 11:44:04 PM] Recieved : 8
+[12/26/2015 11:44:08 PM] Recieved : 8
+[12/26/2015 11:44:20 PM] Sended : 8
+[12/26/2015 11:44:20 PM] Recieved : 8
+[12/26/2015 11:44:20 PM] Sended : 8
+[12/26/2015 11:44:20 PM] Recieved : 8
+[12/26/2015 11:44:20 PM] Sended : 8
+[12/26/2015 11:44:20 PM] Recieved : 8
+[12/26/2015 11:44:38 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:46:22 PM] ...............................
+[12/26/2015 11:46:22 PM] ..........New History..........
+[12/26/2015 11:46:22 PM] ...............................
+[12/26/2015 11:46:56 PM] ...............................
+[12/26/2015 11:46:56 PM] ..........New History..........
+[12/26/2015 11:46:56 PM] ...............................
+[12/26/2015 11:46:56 PM] Recieved : 5
+[12/26/2015 11:46:56 PM] Recieved : 4
+[12/26/2015 11:47:02 PM] Recieved : 8
+[12/26/2015 11:47:02 PM] Recieved : 8
+[12/26/2015 11:47:03 PM] Recieved : 8
+[12/26/2015 11:47:05 PM] Recieved : 8
+[12/26/2015 11:47:06 PM] Recieved : 8
+[12/26/2015 11:47:06 PM] Recieved : 8
+[12/26/2015 11:47:07 PM] Recieved : 8
+[12/26/2015 11:47:08 PM] Recieved : 8
+[12/26/2015 11:47:38 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:49:07 PM] ...............................
+[12/26/2015 11:49:07 PM] ..........New History..........
+[12/26/2015 11:49:07 PM] ...............................
+[12/26/2015 11:49:07 PM] Recieved : 0
+[12/26/2015 11:49:10 PM] Sended : 3
+[12/26/2015 11:49:10 PM] Recieved : 2
+[12/26/2015 11:49:10 PM] Sended : 6
+[12/26/2015 11:49:10 PM] Recieved : 4
+[12/26/2015 11:49:12 PM] Sended : 8
+[12/26/2015 11:49:12 PM] Recieved : 8
+[12/26/2015 11:49:16 PM] Sended : 8
+[12/26/2015 11:49:16 PM] Recieved : 8
+[12/26/2015 11:49:46 PM] Recieved : 4
+[12/26/2015 11:49:48 PM] Recieved : 8
+[12/26/2015 11:49:50 PM] Sended : 8
+[12/26/2015 11:49:50 PM] Recieved : 8
+[12/26/2015 11:49:51 PM] Sended : 8
+[12/26/2015 11:49:51 PM] Recieved : 8
+[12/26/2015 11:49:51 PM] Sended : 8
+[12/26/2015 11:49:51 PM] Recieved : 8
+[12/26/2015 11:50:02 PM] Recieved : 8
+[12/26/2015 11:50:04 PM] Recieved : 8
+[12/26/2015 11:50:05 PM] Recieved : 8
+[12/26/2015 11:50:06 PM] Recieved : 8
+[12/26/2015 11:50:06 PM] Recieved : 8
+[12/26/2015 11:50:06 PM] Recieved : 8
+[12/26/2015 11:50:09 PM] Recieved : 8
+[12/26/2015 11:50:09 PM] Recieved : 8
+[12/26/2015 11:50:17 PM] Recieved : 8
+[12/26/2015 11:50:17 PM] Recieved : 8
+[12/26/2015 11:50:17 PM] Recieved : 8
+[12/26/2015 11:50:19 PM] Sended : 8
+[12/26/2015 11:50:19 PM] Recieved : 8
+[12/26/2015 11:50:20 PM] Sended : 8
+[12/26/2015 11:50:20 PM] Recieved : 8
+[12/26/2015 11:50:20 PM] Sended : 8
+[12/26/2015 11:50:20 PM] Recieved : 8
+[12/26/2015 11:50:21 PM] Sended : 8
+[12/26/2015 11:50:21 PM] Recieved : 8
+[12/26/2015 11:50:21 PM] Sended : 8
+[12/26/2015 11:50:21 PM] Recieved : 8
+[12/26/2015 11:50:26 PM] Recieved : 8
+[12/26/2015 11:50:26 PM] Recieved : 8
+[12/26/2015 11:50:27 PM] Recieved : 8
+[12/26/2015 11:50:27 PM] Recieved : 8
+[12/26/2015 11:50:27 PM] Recieved : 8
+[12/26/2015 11:50:28 PM] Recieved : 8
+[12/26/2015 11:50:28 PM] Recieved : 8
+[12/26/2015 11:50:35 PM] Recieved : 8
+[12/26/2015 11:50:36 PM] Recieved : 8
+[12/26/2015 11:50:41 PM] Sended : 8
+[12/26/2015 11:50:41 PM] Recieved : 8
+[12/26/2015 11:50:42 PM] Sended : 8
+[12/26/2015 11:50:42 PM] Recieved : 8
+[12/26/2015 11:50:42 PM] Sended : 8
+[12/26/2015 11:50:42 PM] Recieved : 8
+[12/26/2015 11:50:45 PM] Sended : 8
+[12/26/2015 11:50:45 PM] Recieved : 8
+[12/26/2015 11:50:45 PM] Sended : 8
+[12/26/2015 11:50:45 PM] Recieved : 8
+[12/26/2015 11:50:45 PM] Sended : 8
+[12/26/2015 11:50:46 PM] Recieved : 8
+[12/26/2015 11:50:46 PM] Sended : 8
+[12/26/2015 11:50:46 PM] Recieved : 8
+[12/26/2015 11:50:52 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[12/26/2015 11:52:18 PM] ...............................
+[12/26/2015 11:52:18 PM] ..........New History..........
+[12/26/2015 11:52:18 PM] ...............................
+[12/26/2015 11:52:18 PM] Recieved : 0

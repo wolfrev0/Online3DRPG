@@ -583,3 +583,83 @@
    위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
    위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
    위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:38:31] ...............................
+[2015-12-26 오후 11:38:31] ..........New History..........
+[2015-12-26 오후 11:38:31] ...............................
+[2015-12-26 오후 11:38:31] Recieved : 3
+[2015-12-26 오후 11:38:31] Sended : 2
+[2015-12-26 오후 11:38:36] Recieved : 3
+[2015-12-26 오후 11:38:36] Sended : 2
+[2015-12-26 오후 11:38:42] Recieved : 3
+[2015-12-26 오후 11:38:42] Sended : 2
+[2015-12-26 오후 11:40:04] ...............................
+[2015-12-26 오후 11:40:04] ..........New History..........
+[2015-12-26 오후 11:40:04] ...............................
+[2015-12-26 오후 11:40:04] Recieved : 3
+[2015-12-26 오후 11:40:04] Sended : 2
+[2015-12-26 오후 11:40:17] Recieved : 3
+[2015-12-26 오후 11:40:17] Sended : 2
+[2015-12-26 오후 11:40:34] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:41:13] ...............................
+[2015-12-26 오후 11:41:13] ..........New History..........
+[2015-12-26 오후 11:41:13] ...............................
+[2015-12-26 오후 11:41:13] Recieved : 3
+[2015-12-26 오후 11:41:13] Sended : 2
+[2015-12-26 오후 11:41:49] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:43:47] ...............................
+[2015-12-26 오후 11:43:47] ..........New History..........
+[2015-12-26 오후 11:43:47] ...............................
+[2015-12-26 오후 11:43:47] Recieved : 3
+[2015-12-26 오후 11:43:47] Sended : 2
+[2015-12-26 오후 11:43:59] Recieved : 3
+[2015-12-26 오후 11:43:59] Sended : 2
+[2015-12-26 오후 11:44:38] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:46:05] ...............................
+[2015-12-26 오후 11:46:05] ..........New History..........
+[2015-12-26 오후 11:46:05] ...............................
+[2015-12-26 오후 11:46:05] Recieved : 3
+[2015-12-26 오후 11:46:05] Sended : 2
+[2015-12-26 오후 11:46:16] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:46:55] ...............................
+[2015-12-26 오후 11:46:55] ..........New History..........
+[2015-12-26 오후 11:46:55] ...............................
+[2015-12-26 오후 11:46:55] Recieved : 3
+[2015-12-26 오후 11:46:55] Sended : 2
+[2015-12-26 오후 11:47:43] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:49:10] ...............................
+[2015-12-26 오후 11:49:10] ..........New History..........
+[2015-12-26 오후 11:49:10] ...............................
+[2015-12-26 오후 11:49:10] Recieved : 3
+[2015-12-26 오후 11:49:10] Sended : 2
+[2015-12-26 오후 11:49:46] Recieved : 3
+[2015-12-26 오후 11:49:46] Sended : 2
+[2015-12-26 오후 11:50:54] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
+[2015-12-26 오후 11:51:58] ...............................
+[2015-12-26 오후 11:51:58] ..........New History..........
+[2015-12-26 오후 11:51:58] ...............................
+[2015-12-26 오후 11:51:58] Recieved : 3
+[2015-12-26 오후 11:51:58] Sended : 2
+[2015-12-26 오후 11:53:05] Recieved : 3
+[2015-12-26 오후 11:53:05] Sended : 2
+[2015-12-26 오후 11:53:32] System.Exception: Disconnected.
+   위치: LoboNet.Connection.Read(Byte[] buffer, Int32 size, Int32 offset) 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\LoboNet\LoboNet\Connection.cs:줄 26
+   위치: TeraTaleNet.PacketStream.Read() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\PacketStream.cs:줄 22
+   위치: TeraTaleNet.Messenger.Receiver() 파일 C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTaleNet\TeraTaleNet\Messenger.cs:줄 161
