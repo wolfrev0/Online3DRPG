@@ -1342,3 +1342,38 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[1/1/2016 6:25:40 PM] ...............................
+[1/1/2016 6:25:40 PM] ..........New History..........
+[1/1/2016 6:25:40 PM] ...............................
+[1/1/2016 6:25:40 PM] Recieved : 0
+[1/1/2016 6:25:45 PM] Sended : 3
+[1/1/2016 6:25:45 PM] Recieved : 2
+[1/1/2016 6:25:45 PM] Recieved : 4
+[1/1/2016 6:25:45 PM] Sended : 6
+[1/1/2016 6:25:45 PM] Recieved : 4
+[1/1/2016 6:25:47 PM] Sended : 8
+[1/1/2016 6:25:47 PM] Recieved : 8
+[1/1/2016 6:25:48 PM] Sended : 8
+[1/1/2016 6:25:48 PM] Recieved : 8
+[1/1/2016 6:25:51 PM] Recieved : 8
+[1/1/2016 6:25:52 PM] Recieved : 8
+[1/1/2016 6:25:52 PM] Recieved : 8
+[1/1/2016 6:25:52 PM] Recieved : 8
+[1/1/2016 6:25:57 PM] Sended : 8
+[1/1/2016 6:25:57 PM] Sended : 8
+[1/1/2016 6:25:57 PM] Recieved : 8
+[1/1/2016 6:25:57 PM] Recieved : 8
+[1/1/2016 6:25:58 PM] Sended : 8
+[1/1/2016 6:25:58 PM] Recieved : 8
+[1/1/2016 6:25:59 PM] Sended : 8
+[1/1/2016 6:25:59 PM] Recieved : 8
+[1/1/2016 6:25:59 PM] Sended : 8
+[1/1/2016 6:25:59 PM] Sended : 8
+[1/1/2016 6:25:59 PM] Recieved : 8
+[1/1/2016 6:25:59 PM] Recieved : 8
+[1/1/2016 6:26:03 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
