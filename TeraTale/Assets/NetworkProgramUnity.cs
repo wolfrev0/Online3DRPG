@@ -5,9 +5,9 @@ using UnityEngine;
 
 public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 {
+    static public NetworkProgramUnity currentInstance;
     public string userName;
     NetworkPrefabManager _prefabManager;
-    NetworkSignaller _signaller;
     Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
     bool _stopped = false;
 
@@ -26,13 +26,10 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     void Start()
     {
+        currentInstance = this;
+
         _prefabManager = FindObjectOfType<NetworkPrefabManager>();
-
         OnStart();
-
-        _signaller = GetComponent<NetworkSignaller>();
-        _signaller.Initialize(0, userName);
-        _signallersByID.Add(0, _signaller);
     }
 
     void Update()
@@ -78,8 +75,15 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     public void NetworkInstantiateInfo(Messenger messenger, string key, NetworkInstantiateInfo info)
     {
+        _prefabManager.prefabs[info.prefabIndex].enabled = false;
         var instance = Instantiate(_prefabManager.prefabs[info.prefabIndex]);
-        instance.Initialize(info.signallerID, info.owner);
-        _signallersByID.Add(info.signallerID, instance);
+        instance._networkID = info.signallerID;
+        instance._owner = info.owner;
+        instance.enabled = true;
+    }
+
+    public void RegisterSignaller(NetworkSignaller signaller)
+    {
+        _signallersByID.Add(signaller._networkID, signaller);
     }
 }

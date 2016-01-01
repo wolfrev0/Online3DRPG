@@ -170,6 +170,7 @@ GameObject:
   - 222: {fileID: 89527901}
   - 114: {fileID: 89527900}
   - 114: {fileID: 89527899}
+  - 114: {fileID: 89527903}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -219,7 +220,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: .800000012
-  m_Text: asdf
+  m_Text: 
 --- !u!222 &89527901
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -243,6 +244,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 15}
   m_SizeDelta: {x: 400, y: 170}
   m_Pivot: {x: .5, y: .5}
+--- !u!114 &89527903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 89527898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkID: -1
+  _owner: Forest
 --- !u!1 &349942896
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +804,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 89527899}
-        m_MethodName: PushChat
+        m_MethodName: SendChat
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
