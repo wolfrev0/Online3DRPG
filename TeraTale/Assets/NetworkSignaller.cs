@@ -1,30 +1,21 @@
 ﻿using UnityEngine;
-using TeraTaleNet;
 
 public class NetworkSignaller : MonoBehaviour
 {
-    NetworkProgramUnity _script;
-    int _networkID = -1;
-    string _owner = null;
+    public int _networkID = 0;
+    public string _owner = null;
 
-    public void Initialize(int networID, string owner)
+    public bool isMine { get { return NetworkProgramUnity.currentInstance.userName == _owner; } }
+
+    void Start()
     {
-        var programs = FindObjectsOfType<NetworkProgramUnity>();
-        foreach(var s in programs)
-        {
-            if (s.enabled)
-                _script = s;
-        }
-        _networkID = networID;
-        _owner = owner;
+        NetworkProgramUnity.currentInstance.RegisterSignaller(this);
     }
-
-    public bool isMine { get { return _script.userName == _owner; } }
 
     public void SendRPC(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = _networkID;
-        rpc.sender = _script.userName;
-        _script.Send(rpc);
+        rpc.sender = NetworkProgramUnity.currentInstance.userName;
+        NetworkProgramUnity.currentInstance.Send(rpc);
     }
 }

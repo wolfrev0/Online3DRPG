@@ -67,6 +67,7 @@
      <Compile Include="Assets\NetworkProgramUnity.cs" />
      <Compile Include="Assets\NetworkSignaller.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
+     <Compile Include="Assets\UIs\Scripts\ChattingView.cs" />
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />
      <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />

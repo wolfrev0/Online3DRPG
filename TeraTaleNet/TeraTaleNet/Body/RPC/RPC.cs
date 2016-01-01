@@ -2,12 +2,11 @@
 {
     public enum RPCType
     {
-        Self = 0x1,
-        Others = 0x2,
-        Server = 0x4,
-        Buffered = 0x8,
-        All = Self | Others | Server,
-        AllBuffered = Self | Others | Server | Buffered,
+        Self = 1,
+        Others = 2,
+        Buffered = 4,
+        All = Self | Others,
+        AllBuffered = Self | Others | Buffered,
     }
 
     public abstract class RPC : Body

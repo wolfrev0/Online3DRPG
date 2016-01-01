@@ -400,7 +400,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 326514392}
   - 114: {fileID: 326514391}
-  - 114: {fileID: 326514393}
   m_Layer: 0
   m_Name: Town
   m_TagString: Untagged
@@ -432,17 +431,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1645358032}
   m_RootOrder: 0
---- !u!114 &326514393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 326514390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &357467195
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +500,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 447090859}
   - 114: {fileID: 447090858}
-  - 114: {fileID: 447090860}
   m_Layer: 0
   m_Name: Certificator
   m_TagString: Untagged
@@ -544,17 +531,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 530028941}
   m_RootOrder: 1
---- !u!114 &447090860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 447090857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &530028940
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +655,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 599371545}
   - 114: {fileID: 599371544}
-  - 114: {fileID: 599371546}
   m_Layer: 0
   m_Name: Forest
   m_TagString: Untagged
@@ -711,17 +686,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1645358032}
   m_RootOrder: 1
---- !u!114 &599371546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 599371543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &775296908
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +836,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 881560870}
   - 114: {fileID: 881560869}
-  - 114: {fileID: 881560872}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -905,17 +868,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 530028941}
   m_RootOrder: 0
---- !u!114 &881560872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 881560868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1225605209
 GameObject:
   m_ObjectHideFlags: 0

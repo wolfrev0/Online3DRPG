@@ -194,15 +194,15 @@ namespace Proxy
             {
                 _messenger.Send(rpc.sender, rpc);
             }
-            if ((rpc.rpcType & RPCType.Server) == RPCType.Server)
-            {
-                _messenger.Send(_worldByUser[rpc.sender], rpc);
-            }
+            //if ((rpc.rpcType & RPCType.Server) == RPCType.Server)
+            //{
+            //    _messenger.Send(_worldByUser[rpc.sender], rpc);
+            //}
             if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
             {
                 foreach(var target in _clientKeys)
                 {
-                    if (target != rpc.sender)
+                    if (target != rpc.sender && _worldByUser[target] == _worldByUser[rpc.sender])
                         _messenger.Send(target, rpc);
                 }
             }
