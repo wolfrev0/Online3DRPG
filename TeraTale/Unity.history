@@ -1377,3 +1377,40 @@
   at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
   at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
   at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[1/1/2016 10:47:10 PM] ...............................
+[1/1/2016 10:47:10 PM] ..........New History..........
+[1/1/2016 10:47:10 PM] ...............................
+[1/1/2016 10:47:10 PM] System.IO.IOException: Read failure ---> System.Net.Sockets.SocketException: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다.
+
+  at System.Net.Sockets.Socket.Receive (System.Byte[] buffer, Int32 offset, Int32 size, SocketFlags flags) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
+[1/1/2016 10:47:48 PM] ...............................
+[1/1/2016 10:47:48 PM] ..........New History..........
+[1/1/2016 10:47:48 PM] ...............................
+[1/1/2016 10:47:48 PM] Recieved : 0
+[1/1/2016 10:47:54 PM] Sended : 3
+[1/1/2016 10:47:55 PM] Recieved : 2
+[1/1/2016 10:47:55 PM] Recieved : 4
+[1/1/2016 10:47:55 PM] Sended : 6
+[1/1/2016 10:47:55 PM] Recieved : 4
+[1/1/2016 10:47:56 PM] Sended : 8
+[1/1/2016 10:47:56 PM] Recieved : 8
+[1/1/2016 10:47:59 PM] Recieved : 8
+[1/1/2016 10:47:59 PM] Recieved : 8
+[1/1/2016 10:48:00 PM] Recieved : 8
+[1/1/2016 10:48:00 PM] Recieved : 8
+[1/1/2016 10:48:02 PM] Recieved : 8
+[1/1/2016 10:48:05 PM] Recieved : 9
+[1/1/2016 10:48:14 PM] Sended : 9
+[1/1/2016 10:48:14 PM] Recieved : 9
+[1/1/2016 10:48:31 PM] System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.NetworkStream.CheckDisposed () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at LoboNet.Connection.Read (System.Byte[] buffer, Int32 size, Int32 offset) [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.PacketStream.Read () [0x00000] in <filename unknown>:0 
+  at TeraTaleNet.Messenger.Receiver () [0x00000] in <filename unknown>:0 
