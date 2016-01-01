@@ -8,10 +8,10 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     static public NetworkProgramUnity currentInstance;
     public string userName;
     NetworkPrefabManager _prefabManager;
-    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
     bool _stopped = false;
 
     public bool stopped { get { return _stopped; } }
+    public Dictionary<int, NetworkSignaller> signallersByID { get; set; }
 
     protected abstract void OnStart();
     protected abstract void OnUpdate();
@@ -21,6 +21,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     void Awake()
     {
+        signallersByID = new Dictionary<int, NetworkSignaller>();//must locate in Awake()
         DontDestroyOnLoad(gameObject.transform.root);
     }
 
@@ -57,7 +58,12 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     void MessageHandler.RPCHandler(TeraTaleNet.RPC rpc)
     {
-        _signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
+        signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
+    }
+
+    public void RegisterSignaller(NetworkSignaller signaller)
+    {
+        signallersByID.Add(signaller._networkID, signaller);
     }
 
     public void NetworkInstantiate(NetworkSignaller prefab)
@@ -80,10 +86,5 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
         instance._networkID = info.signallerID;
         instance._owner = info.owner;
         instance.enabled = true;
-    }
-
-    public void RegisterSignaller(NetworkSignaller signaller)
-    {
-        _signallersByID.Add(signaller._networkID, signaller);
     }
 }

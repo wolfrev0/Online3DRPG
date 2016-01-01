@@ -19,7 +19,7 @@ namespace Proxy
         int _currentConfirmId = 0;
         object _lock = new object();
         HashSet<NetworkInstantiateInfo> _instantiationBuffer = new HashSet<NetworkInstantiateInfo>();
-        int _curSignallerID = 1;
+        int _currentNetworkID = 1;
 
         public Task Client
         {
@@ -31,6 +31,12 @@ namespace Proxy
         {
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
+
+            _messenger.onReceive = (Packet packet) => 
+            {
+                if (packet.header.type == Body.GetIndexByName("NetworkInstantiate"))
+                    ((NetworkInstantiate)packet.body).networkID = _currentNetworkID++;
+            };
 
             Action<Port> connector = (Port port) =>
             {
@@ -178,14 +184,14 @@ namespace Proxy
 
         void NetworkInstantiateRequest(Messenger messenger, string key, NetworkInstantiateRequest req)
         {
-            _instantiationBuffer.Add(new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
-            _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
+            _instantiationBuffer.Add(new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
+            _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
             foreach(var user in _clientKeys)
             {
                 if (_worldByUser[user] == _worldByUser[req.owner])
-                    _messenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _curSignallerID));
+                    _messenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
             }
-            _curSignallerID++;
+            _currentNetworkID++;
         }
 
         void MessageHandler.RPCHandler(RPC rpc)

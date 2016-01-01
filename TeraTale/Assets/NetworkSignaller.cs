@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class NetworkSignaller : MonoBehaviour
 {
@@ -7,8 +8,10 @@ public class NetworkSignaller : MonoBehaviour
 
     public bool isMine { get { return NetworkProgramUnity.currentInstance.userName == _owner; } }
 
-    void Start()
+    IEnumerator Start()
     {
+        while (NetworkProgramUnity.currentInstance == null)
+            yield return new WaitForSeconds(0);
         NetworkProgramUnity.currentInstance.RegisterSignaller(this);
     }
 
