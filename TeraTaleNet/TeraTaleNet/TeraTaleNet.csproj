@@ -50,9 +50,7 @@
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
-    <Compile Include="Body\NetworkInstantiateInfo.cs" />
     <Compile Include="Body\PlayerJoin.cs" />
-    <Compile Include="Body\NetworkInstantiateRequest.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />

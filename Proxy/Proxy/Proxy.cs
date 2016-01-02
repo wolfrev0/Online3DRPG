@@ -18,7 +18,7 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
-        HashSet<NetworkInstantiateInfo> _instantiationBuffer = new HashSet<NetworkInstantiateInfo>();
+        List<RPC> _rpcBuffer = new List<RPC>();
         int _currentNetworkID = 1;
 
         public Task Client
@@ -160,8 +160,8 @@ namespace Proxy
                     _worldByUser.Add(answer.name, answer.world);
                     _messenger.Send(answer.world, new PlayerJoin(answer.name));
                     _messenger.Send(answer.name, answer);
-                    foreach (var instantiationInfo in _instantiationBuffer)
-                        _messenger.Send(answer.name, instantiationInfo);
+                    foreach (var rpc in _rpcBuffer)
+                        _messenger.Send(answer.name, rpc);
                 }
             }
             else
@@ -180,18 +180,6 @@ namespace Proxy
         {
             _messenger.Register(name, stream);
             _clientKeys.Add(name);
-        }
-
-        void NetworkInstantiateRequest(Messenger messenger, string key, NetworkInstantiateRequest req)
-        {
-            _instantiationBuffer.Add(new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
-            _messenger.Send(_worldByUser[req.owner], new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
-            foreach(var user in _clientKeys)
-            {
-                if (_worldByUser[user] == _worldByUser[req.owner])
-                    _messenger.Send(user, new NetworkInstantiateInfo(req.owner, req.prefabIndex, _currentNetworkID));
-            }
-            _currentNetworkID++;
         }
 
         void MessageHandler.RPCHandler(RPC rpc)
@@ -213,7 +201,9 @@ namespace Proxy
                 }
             }
             if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
-            { }
+            {
+                _rpcBuffer.Add(rpc);
+            }
         }
     }
 }
