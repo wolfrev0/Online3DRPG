@@ -6,14 +6,11 @@ using TeraTaleNet;
 public class Certificator : NetworkProgramUnity
 {
     NetworkAgent _agent = new NetworkAgent();
-    Messenger _messenger;
     object _locker = new object();
     int _confirmID;
 
     protected override void OnStart()
     {
-        _messenger = new Messenger(this);
-
         _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
@@ -41,10 +38,7 @@ public class Certificator : NetworkProgramUnity
     }
 
     protected override void OnEnd()
-    {
-        StopAllCoroutines();
-        _messenger.Join();
-    }
+    { }
 
     protected override void OnUpdate()
     {
@@ -53,11 +47,6 @@ public class Certificator : NetworkProgramUnity
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 Stop();
         }
-    }
-
-    public override void Send(Packet packet)
-    {
-        _messenger.Send("Proxy", packet);
     }
 
     public void SendLoginRequest(string id, string pw)

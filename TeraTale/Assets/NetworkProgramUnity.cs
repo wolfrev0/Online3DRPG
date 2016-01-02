@@ -7,6 +7,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 {
     static public NetworkProgramUnity currentInstance;
     public string userName;
+    protected Messenger _messenger;
     NetworkPrefabManager _prefabManager;
     bool _stopped = false;
 
@@ -17,7 +18,10 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     protected abstract void OnUpdate();
     protected abstract void OnEnd();
 
-    public abstract void Send(Packet packet);
+    public void Send(Packet packet)
+    {
+        _messenger.Send("Proxy", packet);
+    }
 
     void Awake()
     {
@@ -30,6 +34,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
         currentInstance = this;
 
         _prefabManager = FindObjectOfType<NetworkPrefabManager>();
+        _messenger = new Messenger(this);
         OnStart();
     }
 
@@ -43,6 +48,8 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
         try
         {
             OnEnd();
+            StopAllCoroutines();
+            _messenger.Dispose();
         }
         finally
         {
