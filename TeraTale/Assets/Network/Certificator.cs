@@ -90,6 +90,7 @@ public class Certificator : NetworkProgramUnity
             lock (_locker)
                 net.stream = messenger.Unregister("Proxy");
             net.userName = answer.name;
+            net.signallersByID = signallersByID;
             net.enabled = true;
         }
     }

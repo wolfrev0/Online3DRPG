@@ -7,6 +7,8 @@ namespace TeraTaleNet
 {
     public class Messenger : IDisposable
     {
+        public delegate void OnReceive(Packet packet);
+        public OnReceive onReceive = (Packet packet) => { };
         //concurrent Dictionary?
         Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
         Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
@@ -162,6 +164,7 @@ namespace TeraTaleNet
                             {
                                 //Need ioLock?
                                 var packet = _streamByKey[key].Read();
+                                onReceive(packet);
                                 History.Log("Recieved : " + Body.GetNameByIndex(packet.header.type));
                                 _recvQByKey[key].Enqueue(packet);
                             }

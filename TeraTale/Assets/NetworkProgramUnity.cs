@@ -8,10 +8,10 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     static public NetworkProgramUnity currentInstance;
     public string userName;
     NetworkPrefabManager _prefabManager;
-    Dictionary<int, NetworkSignaller> _signallersByID = new Dictionary<int, NetworkSignaller>();
     bool _stopped = false;
 
     public bool stopped { get { return _stopped; } }
+    public Dictionary<int, NetworkSignaller> signallersByID { get; set; }
 
     protected abstract void OnStart();
     protected abstract void OnUpdate();
@@ -21,6 +21,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     void Awake()
     {
+        signallersByID = new Dictionary<int, NetworkSignaller>();//must locate in Awake()
         DontDestroyOnLoad(gameObject.transform.root);
     }
 
@@ -57,33 +58,11 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
 
     void MessageHandler.RPCHandler(TeraTaleNet.RPC rpc)
     {
-        _signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
-    }
-
-    public void NetworkInstantiate(NetworkSignaller prefab)
-    {
-        int prefabIndex = -1;
-        for (int i = 0; i < _prefabManager.prefabs.Length; i++)
-        {
-            if (_prefabManager.prefabs[i] == prefab)
-                prefabIndex = i;
-        }
-        if (prefabIndex < 0)
-            throw new ArgumentException("You tried instantiating not registered prefab. Please register prefab at PrefabManager.");
-        Send(new NetworkInstantiateRequest(userName, prefabIndex));
-    }
-
-    public void NetworkInstantiateInfo(Messenger messenger, string key, NetworkInstantiateInfo info)
-    {
-        _prefabManager.prefabs[info.prefabIndex].enabled = false;
-        var instance = Instantiate(_prefabManager.prefabs[info.prefabIndex]);
-        instance._networkID = info.signallerID;
-        instance._owner = info.owner;
-        instance.enabled = true;
+        signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
     }
 
     public void RegisterSignaller(NetworkSignaller signaller)
     {
-        _signallersByID.Add(signaller._networkID, signaller);
+        signallersByID.Add(signaller._networkID, signaller);
     }
 }

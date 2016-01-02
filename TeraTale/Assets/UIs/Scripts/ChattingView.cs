@@ -30,7 +30,7 @@ public class ChattingView : MonoBehaviour
 
     public void SendChat(string chat)
     {
-        _net.SendRPC(new PushChat(RPCType.All, chat));
+        _net.SendRPC(new PushChat(RPCType.AllBuffered, chat));
     }
 
     void PushChat(PushChat info)

@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -1
+  _networkID: -2
   _owner: Forest
 --- !u!1 &349942896
 GameObject:
