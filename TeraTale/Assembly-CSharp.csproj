@@ -45,6 +45,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Billboard.cs" />
      <Compile Include="Assets\CostomizingScenes\ParsingData.cs" />
      <Compile Include="Assets\Games\Camera\CameraController.cs" />
      <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\NetworkProgramUnity.cs" />
      <Compile Include="Assets\NetworkSignaller.cs" />
      <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
+     <Compile Include="Assets\SpeechBubble.cs" />
      <Compile Include="Assets\UIs\Scripts\ChattingView.cs" />
      <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
      <Compile Include="Assets\Unaligned\ReadData.cs" />
@@ -76,11 +78,17 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="LoboNet">
  <HintPath>C:/Users/Lobo/Desktop/Projects/TeraTale/TeraTale/Assets/References/LoboNet.dll</HintPath>

@@ -1,22 +1,33 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using TeraTaleNet;
 
 public class Player : AliveEntity
 {
+    static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
+
+    public Text nameView;
+    public SpeechBubble _speechBubble;
+
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     NetworkSignaller _net;
+
+    static public Player FindPlayerByName(string name)
+    {
+        return _playersByName[name];
+    }
 
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
         _net = GetComponent<NetworkSignaller>();
-    }
-
-    void Update()
-    {
+        name = _net._owner;
+        nameView.text = name;
+        _playersByName.Add(name, this);
     }
 
     public void HandleInput()
@@ -69,5 +80,10 @@ public class Player : AliveEntity
     {
         _navMeshAgent.enabled = false;
         _animator.SetBool("Running", false);
+    }
+
+    public void Speak(string chat)
+    {
+        _speechBubble.Show(chat);
     }
 }
