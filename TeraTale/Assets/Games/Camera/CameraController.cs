@@ -4,14 +4,14 @@ using System.Runtime.Serialization;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform _target;
+    public Transform target;
     Vector3 relativeAtTargetPos = new Vector3(0, 6, -6);
 
     void Update()
     {
-        if (_target != null)
+        if (target != null)
         {
-            transform.position = _target.transform.position + relativeAtTargetPos;
+            transform.position = target.transform.position + relativeAtTargetPos;
 
             Vector3 pos = transform.position;
             if (3 > relativeAtTargetPos.magnitude)

@@ -28,6 +28,8 @@ public class Player : AliveEntity
         name = _net._owner;
         nameView.text = name;
         _playersByName.Add(name, this);
+        if (name == NetworkProgramUnity.currentInstance.userName)
+            FindObjectOfType<CameraController>().target = transform;
     }
 
     public void HandleInput()
