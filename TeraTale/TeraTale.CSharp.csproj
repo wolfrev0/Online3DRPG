@@ -89,6 +89,7 @@
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
+    <Compile Include="Assets\GlobalOption.cs" />
     <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\NetworkPrefabManager.cs" />
     <Compile Include="Assets\NetworkProgramUnity.cs" />
     <Compile Include="Assets\NetworkSignaller.cs" />
+    <Compile Include="Assets\Portal.cs" />
     <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
     <Compile Include="Assets\SpeechBubble.cs" />
     <Compile Include="Assets\UIs\Scripts\ChattingView.cs" />

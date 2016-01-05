@@ -20,11 +20,15 @@ public class Player : AliveEntity
         return _playersByName[name];
     }
 
-    void Start()
+    void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
         _net = GetComponent<NetworkSignaller>();
+    }
+
+    void Start()
+    {
         name = _net._owner;
         nameView.text = name;
         _playersByName.Add(name, this);
@@ -71,7 +75,7 @@ public class Player : AliveEntity
         return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
     }
 
-    public void Navigate(Navigate info)
+    void Navigate(Navigate info)
     {
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = new Vector3(info.x, info.y, info.z);
@@ -87,5 +91,14 @@ public class Player : AliveEntity
     public void Speak(string chat)
     {
         _speechBubble.Show(chat);
+    }
+
+    public void SwitchWorld(string world)
+    {
+        if (_net.isMine)
+        {
+            Debug.Log(NetworkProgramUnity.currentInstance.userName + "가 " + world + "로 이동합니다.");
+            //TODO : 패킷을 보내서 SwitchWorld 시키기
+        }
     }
 }

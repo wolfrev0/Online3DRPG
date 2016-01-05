@@ -7,7 +7,7 @@ public class ChattingView : MonoBehaviour
     NetworkSignaller _net;
     Text _text;
 
-    void Start()
+    void Awake()
     {
         _net = GetComponent<NetworkSignaller>();
         _text = GetComponent<Text>();

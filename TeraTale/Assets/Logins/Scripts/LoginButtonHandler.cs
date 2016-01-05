@@ -7,7 +7,7 @@ public class LoginButtonHandler : MonoBehaviour
     public InputField pw;
     Certificator _certificator;
 
-    void Start()
+    void Awake()
     {
         _certificator = FindObjectOfType<Certificator>();
     }

@@ -11,7 +11,7 @@ public class Certificator : NetworkProgramUnity
 
     protected override void OnStart()
     {
-        _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
+        _messenger.Register("Proxy", _agent.Connect("221.159.191.81", Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
         foreach (var key in _messenger.Keys)

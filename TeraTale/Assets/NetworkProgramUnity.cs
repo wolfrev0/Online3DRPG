@@ -22,19 +22,18 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     {
         _messenger.Send("Proxy", packet);
     }
-
+    
     void Awake()
     {
-        signallersByID = new Dictionary<int, NetworkSignaller>();//must locate in Awake()
-        DontDestroyOnLoad(gameObject.transform.root);
+        signallersByID = new Dictionary<int, NetworkSignaller>();
+        _prefabManager = FindObjectOfType<NetworkPrefabManager>();
+        _messenger = new Messenger(this);
     }
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject.transform.root);
         currentInstance = this;
-
-        _prefabManager = FindObjectOfType<NetworkPrefabManager>();
-        _messenger = new Messenger(this);
         OnStart();
     }
 

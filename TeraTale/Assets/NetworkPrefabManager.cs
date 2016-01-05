@@ -37,6 +37,7 @@ public class NetworkPrefabManager : MonoBehaviour
         var instance = Instantiate(prefabs[info.index]);
         instance._networkID = info.networkID;
         instance._owner = info.sender;
+        instance.RegisterToProgram();
         instance.enabled = true;
     }
 }
