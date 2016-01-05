@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\TeraTale\Assets\</OutputPath>
+    <OutputPath>..\..\TeraTale\Assets\References\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,7 +50,6 @@
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
-    <Compile Include="Body\PlayerJoin.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />

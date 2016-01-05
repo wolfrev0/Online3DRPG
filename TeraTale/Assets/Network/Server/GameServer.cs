@@ -61,11 +61,4 @@ public abstract class GameServer : NetworkProgramUnity, IDisposable
         _agent.Dispose();
         GC.SuppressFinalize(this);
     }
-
-    public void PlayerJoin(Messenger messenger, string key, PlayerJoin info)
-    {
-        users.Add(info.name);
-        Debug.Log("Player " + info.name + " Joined.");
-        //NetworkInstantiate
-    }
 }

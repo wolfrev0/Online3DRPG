@@ -15,7 +15,7 @@ public class ChattingView : MonoBehaviour
 
     public void SendChat(string chat)
     {
-        _net.SendRPC(new PushChat(RPCType.AllBuffered, chat));
+        _net.SendRPC(new PushChat(RPCType.All, chat));
     }
 
     void PushChat(PushChat info)
@@ -25,6 +25,7 @@ public class ChattingView : MonoBehaviour
             _text.text = _text.text.Remove(0, _text.text.IndexOf('\n') + 1);
         }
         _text.text = _text.text + info.sender + " : " + info.chat + "\n";
-        Player.FindPlayerByName(info.sender).Speak(info.chat);
+        var speaker = Player.FindPlayerByName(info.sender);
+        speaker.Speak(info.chat);
     }
 }

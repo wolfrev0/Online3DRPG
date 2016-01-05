@@ -33,8 +33,8 @@ public class NetworkPrefabManager : MonoBehaviour
 
     public void NetworkInstantiate(NetworkInstantiate info)
     {
-        _instance.prefabs[info.index].enabled = false;
-        var instance = Instantiate(_instance.prefabs[info.index]);
+        prefabs[info.index].enabled = false;
+        var instance = Instantiate(prefabs[info.index]);
         instance._networkID = info.networkID;
         instance._owner = info.sender;
         instance.enabled = true;

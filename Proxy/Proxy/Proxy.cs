@@ -10,7 +10,7 @@ namespace Proxy
         NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Messenger _confirmMessenger;
-        List<string> _clientKeys = new List<string>();
+        List<string> _serverKeys = new List<string>();
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         Dictionary<string, string> _worldByUser = new Dictionary<string, string>();
         Task _accepter;
@@ -45,6 +45,7 @@ namespace Proxy
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
                 _worldByUser.Add(port.ToString(), port.ToString());
+                _serverKeys.Add(port.ToString());
             };
 
             connector(Port.Login);
@@ -99,8 +100,11 @@ namespace Proxy
                 {
                     lock (_lock)
                     {
-                        foreach (var key in _clientKeys)
-                            _messenger.Dispatch(key);
+                        foreach (var key in _messenger.Keys)
+                        {
+                            if (_serverKeys.Contains(key) == false)
+                                _messenger.Dispatch(key);
+                        }
                     }
                 }
             });
@@ -158,7 +162,6 @@ namespace Proxy
                         AddClient(answer.name, stream);
                     }
                     _worldByUser.Add(answer.name, answer.world);
-                    _messenger.Send(answer.world, new PlayerJoin(answer.name));
                     _messenger.Send(answer.name, answer);
                     foreach (var rpc in _rpcBuffer)
                         _messenger.Send(answer.name, rpc);
@@ -172,14 +175,13 @@ namespace Proxy
 
         bool IsLoggedIn(string user)
         {
-            var keys = (ICollection<string>)_clientKeys;
+            var keys = (ICollection<string>)_messenger.Keys;
             return keys.Contains(user);
         }
 
         void AddClient(string name, PacketStream stream)
         {
             _messenger.Register(name, stream);
-            _clientKeys.Add(name);
         }
 
         void MessageHandler.RPCHandler(RPC rpc)
@@ -194,7 +196,7 @@ namespace Proxy
             //}
             if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
             {
-                foreach(var target in _clientKeys)
+                foreach(var target in _messenger.Keys)
                 {
                     if (target != rpc.sender && _worldByUser[target] == _worldByUser[rpc.sender])
                         _messenger.Send(target, rpc);
