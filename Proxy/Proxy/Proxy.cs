@@ -213,9 +213,23 @@ namespace Proxy
             var buffer = _rpcBufferByWorld[_worldByUser[packet.caller]];
             for (int i = 0; i < buffer.Count; i++)
             {
-                NetworkInstantiate ni = buffer[i] as NetworkInstantiate;
-                if (ni != null && ni.networkID == packet.networkID)
-                    buffer.RemoveAt(i);
+                if (buffer[i].GetType().Name == packet.typeName)
+                {
+                    NetworkInstantiate ni = (NetworkInstantiate)buffer[i];
+                    if (ni != null && ni.networkID == packet.networkID)
+                        buffer.RemoveAt(i);
+                }
+            }
+        }
+
+        void SwitchWorld(Messenger messenger, string key, SwitchWorld packet)
+        {
+            _worldByUser[packet.user] = packet.world;
+            History.Log("SwitchWorld");
+            foreach (var rpc in _rpcBufferByWorld[packet.world])
+            {
+                _messenger.Send(packet.user, rpc);
+                History.Log(rpc.GetType().Name);
             }
         }
     }

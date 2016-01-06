@@ -35,6 +35,11 @@ public class Player : AliveEntity
             FindObjectOfType<CameraController>().target = transform;
     }
 
+    void OnDestroy()
+    {
+        _playersByName.Remove(name);
+    }
+
     public void HandleInput()
     {
         if (!isMine)
@@ -97,6 +102,7 @@ public class Player : AliveEntity
         if (isMine)
         {
             Debug.Log(NetworkProgramUnity.currentInstance.userName + "가 " + world + "로 이동합니다.");
+            NetworkScript.SwitchWorld(world);
             //TODO : 패킷을 보내서 SwitchWorld 시키기
         }
     }

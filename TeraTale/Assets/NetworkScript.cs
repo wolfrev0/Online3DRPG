@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using TeraTaleNet;
+using UnityEngine.SceneManagement;
 
 public abstract class NetworkScript : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public abstract class NetworkScript : MonoBehaviour
     public string owner = null;
 
     bool registered = false;
+    bool destroyed = false;
 
-    protected string userName { get { return NetworkProgramUnity.currentInstance.userName; } }
-    protected bool isMine { get { return userName == owner; } }
+    public bool isMine { get { return userName == owner; } }
+    static protected string userName { get { return NetworkProgramUnity.currentInstance.userName; } }
 
     protected IEnumerator Start()
     {
@@ -27,7 +29,13 @@ public abstract class NetworkScript : MonoBehaviour
         registered = true;
     }
 
-    protected void Send(Packet packet)
+    void OnDestroy()
+    {
+        if (destroyed == false)
+            NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
+    }
+
+    static protected void Send(Packet packet)
     {
         NetworkProgramUnity.currentInstance.Send(packet);
     }
@@ -63,14 +71,30 @@ public abstract class NetworkScript : MonoBehaviour
         instance.enabled = true;
     }
 
-    public void NetworkDestroy()
+    protected void NetworkDestroy(NetworkScript instance)
     {
+        instance.Destroy();
+    }
+
+    public void Destroy()
+    {
+        destroyed = true;
         Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
-        Send(new NetworkDestroy(RPCType.All, networkID));
+        Send(new NetworkDestroy(RPCType.Others, networkID));
+        Destroy(gameObject);
+        NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
     }
 
     public void NetworkDestroy(NetworkDestroy info)
     {
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
+    }
+
+    static public void SwitchWorld(string world)
+    {
+        Player.FindPlayerByName(userName).Destroy();
+        Send(new SwitchWorld(userName, world));
+        SceneManager.LoadScene(world);
+        NetworkPrefabManager.instance.NetworkInstantiate(NetworkPrefabManager.instance.prefabs[0]);
     }
 }

@@ -2,7 +2,7 @@
 
 public class Portal : MonoBehaviour
 {
-    string targetWorld;
+    public string targetWorld;
 
     void Awake()
     {
@@ -18,7 +18,8 @@ public class Portal : MonoBehaviour
         if(coll.tag == "Player")
         {
             var player = coll.GetComponent<Player>();
-            player.NetworkDestroy();
+            if (player.isMine)
+                player.SwitchWorld(targetWorld);
         }
     }
 }

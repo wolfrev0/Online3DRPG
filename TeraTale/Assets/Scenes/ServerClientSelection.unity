@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4381d3ddffd843944ba1af383438c83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -4
+  networkID: -2
   owner: 
   userName: 
 --- !u!4 &326514392
@@ -528,7 +528,7 @@ MonoBehaviour:
   networkID: -1
   owner: 
   userName: 
-  serverIP: 127.0.0.1
+  serverIP: 14.55.93.198
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa2ba20a7896641a117e2290a5e413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -3
+  networkID: -2
   owner: 
   userName: 
 --- !u!4 &599371545
