@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using TeraTaleNet;
 
 public abstract class NetworkScript : MonoBehaviour
 {
@@ -29,5 +31,18 @@ public abstract class NetworkScript : MonoBehaviour
         rpc.signallerID = _networkID;
         rpc.sender = NetworkProgramUnity.currentInstance.userName;
         NetworkProgramUnity.currentInstance.Send(rpc);
+    }
+
+    static public void NetworkInstantiate(NetworkScript prefab)
+    {
+        int prefabIndex = -1;
+        for (int i = 0; i < NetworkPrefabManager.instance.prefabs.Length; i++)
+        {
+            if (NetworkPrefabManager.instance.prefabs[i] == prefab)
+                prefabIndex = i;
+        }
+        if (prefabIndex < 0)
+            throw new ArgumentException("You tried instantiating not registered prefab. Please register prefab at PrefabManager.");
+        NetworkPrefabManager.instance.SendRPC(new NetworkInstantiate(RPCType.AllBuffered, prefabIndex));
     }
 }
