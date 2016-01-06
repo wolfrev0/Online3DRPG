@@ -21,14 +21,4 @@ public class NetworkPrefabManager : NetworkScript
     {
         DontDestroyOnLoad(gameObject.transform.root);
     }
-
-    public void NetworkInstantiate(NetworkInstantiate info)
-    {
-        prefabs[info.index].enabled = false;
-        var instance = Instantiate(prefabs[info.index]);
-        instance._networkID = info.networkID;
-        instance._owner = info.sender;
-        instance.RegisterToProgram();
-        instance.enabled = true;
-    }
 }
