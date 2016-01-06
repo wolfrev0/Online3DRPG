@@ -17,7 +17,7 @@ public class Client : NetworkProgramUnity
 
         _messenger.Start();
         
-        NetworkPrefabManager.NetworkInstantiate(pfPlayer);
+        NetworkInstantiate(pfPlayer);
     }
 
     protected override void OnEnd()

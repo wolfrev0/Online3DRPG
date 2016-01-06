@@ -13,7 +13,7 @@ public class ChattingView : NetworkScript
 
     public void SendChat(string chat)
     {
-        SendRPC(new PushChat(RPCType.All, chat));
+        Send(new PushChat(RPCType.All, chat));
     }
 
     void PushChat(PushChat info)

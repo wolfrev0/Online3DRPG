@@ -3,7 +3,7 @@ using TeraTaleNet;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
+public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
 {
     static public NetworkProgramUnity currentInstance;
     public string userName;
@@ -17,7 +17,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     protected abstract void OnUpdate();
     protected abstract void OnEnd();
 
-    public void Send(Packet packet)
+    public new void Send(Packet packet)
     {
         _messenger.Send("Proxy", packet);
     }
@@ -28,8 +28,9 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
         _messenger = new Messenger(this);
     }
 
-    void Start()
+    protected new void Start()
     {
+        StartCoroutine(base.Start());
         DontDestroyOnLoad(gameObject.transform.root);
         currentInstance = this;
         OnStart();
