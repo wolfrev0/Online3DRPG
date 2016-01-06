@@ -18,7 +18,7 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
-        List<RPC> _rpcBuffer = new List<RPC>();
+        Dictionary<string, List<RPC>> _rpcBufferByWorld = new Dictionary<string, List<RPC>>();
         int _currentNetworkID = 1;
 
         public Task Client
@@ -157,7 +157,7 @@ namespace Proxy
                     }
                     _worldByUser.Add(answer.name, answer.world);
                     _messenger.Send(answer.name, answer);
-                    foreach (var rpc in _rpcBuffer)
+                    foreach (var rpc in _rpcBufferByWorld[answer.world])
                         _messenger.Send(answer.name, rpc);
                 }
             }
@@ -198,7 +198,7 @@ namespace Proxy
             }
             if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
             {
-                _rpcBuffer.Add(rpc);
+                _rpcBufferByWorld[_worldByUser[rpc.sender]].Add(rpc);
             }
         }
 
