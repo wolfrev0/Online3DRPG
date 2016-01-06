@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 public class ParsingData : MonoBehaviour
@@ -79,6 +78,6 @@ public class ParsingData : MonoBehaviour
     }
     public void LoadData()
     {
-        Application.LoadLevel(5);
+       SceneManager.LoadScene(5);
     }
 }

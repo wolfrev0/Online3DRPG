@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Diagnostics;
+using UnityEngine.SceneManagement;
 
 public class ServerClientSelectionHandler : MonoBehaviour
 {
@@ -23,13 +24,13 @@ public class ServerClientSelectionHandler : MonoBehaviour
     public void OnTown()
     {
         town.enabled = true;
-        Application.LoadLevel("Town");
+        SceneManager.LoadScene("Town");
     }
 
     public void OnForest()
     {
         forest.enabled = true;
-        Application.LoadLevel("Forest");
+        SceneManager.LoadScene("Forest");
     }
 
     public void OnProxy()
@@ -42,6 +43,6 @@ public class ServerClientSelectionHandler : MonoBehaviour
     public void OnClient()
     {
         FindObjectOfType<Certificator>().enabled = true;
-        Application.LoadLevel("Login");
+        SceneManager.LoadScene("Login");
     }
 }

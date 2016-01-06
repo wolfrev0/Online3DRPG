@@ -8,11 +8,10 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     static public NetworkProgramUnity currentInstance;
     public string userName;
     protected Messenger _messenger;
-    NetworkPrefabManager _prefabManager;
     bool _stopped = false;
 
     public bool stopped { get { return _stopped; } }
-    public Dictionary<int, NetworkSignaller> signallersByID { get; set; }
+    public Dictionary<int, NetworkScript> signallersByID { get; set; }
 
     protected abstract void OnStart();
     protected abstract void OnUpdate();
@@ -25,8 +24,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
     
     void Awake()
     {
-        signallersByID = new Dictionary<int, NetworkSignaller>();
-        _prefabManager = FindObjectOfType<NetworkPrefabManager>();
+        signallersByID = new Dictionary<int, NetworkScript>();
         _messenger = new Messenger(this);
     }
 
@@ -67,7 +65,7 @@ public abstract class NetworkProgramUnity : MonoBehaviour, MessageHandler
         signallersByID[rpc.signallerID].SendMessage(rpc.GetType().Name, rpc);
     }
 
-    public void RegisterSignaller(NetworkSignaller signaller)
+    public void RegisterSignaller(NetworkScript signaller)
     {
         signallersByID.Add(signaller._networkID, signaller);
     }

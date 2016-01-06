@@ -206,7 +206,5 @@ namespace Proxy
         {
             rpc.networkID = _currentNetworkID++;
         }
-
-        void 
     }
 }

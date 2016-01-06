@@ -7,7 +7,6 @@ using TeraTaleNet;
 public abstract class GameServer : NetworkProgramUnity, IDisposable
 {
     NetworkAgent _agent = new NetworkAgent();
-    HashSet<string> users = new HashSet<string>();
 
     protected override void OnStart()
     {

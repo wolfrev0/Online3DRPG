@@ -12,8 +12,7 @@ public class CameraController : MonoBehaviour
         if (target != null)
         {
             transform.position = target.transform.position + relativeAtTargetPos;
-
-            Vector3 pos = transform.position;
+            
             if (3 > relativeAtTargetPos.magnitude)
             {
                 relativeAtTargetPos = relativeAtTargetPos.normalized * 3;

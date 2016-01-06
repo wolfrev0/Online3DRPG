@@ -13,7 +13,6 @@ public class Player : AliveEntity
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    NetworkSignaller _net;
 
     static public Player FindPlayerByName(string name)
     {
@@ -24,12 +23,12 @@ public class Player : AliveEntity
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
-        _net = GetComponent<NetworkSignaller>();
     }
 
-    void Start()
+    new void Start()
     {
-        name = _net._owner;
+        base.Start();
+        name = _owner;
         nameView.text = name;
         _playersByName.Add(name, this);
         if (name == NetworkProgramUnity.currentInstance.userName)
@@ -38,7 +37,7 @@ public class Player : AliveEntity
 
     public void HandleInput()
     {
-        if (!_net.isMine)
+        if (!isMine)
             return;
 
         if (Input.GetButtonDown("Move"))
@@ -47,13 +46,13 @@ public class Player : AliveEntity
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
             {
-                _net.SendRPC(new Navigate(RPCType.All, hit.point.x, hit.point.y, hit.point.z));
+                SendRPC(new Navigate(RPCType.All, hit.point.x, hit.point.y, hit.point.z));
             }
         }
 
         if (Input.GetButtonDown("Attack"))
         {
-            _net.SendRPC(new Attack(RPCType.All));
+            SendRPC(new Attack(RPCType.All));
         }
     }
 
@@ -95,7 +94,7 @@ public class Player : AliveEntity
 
     public void SwitchWorld(string world)
     {
-        if (_net.isMine)
+        if (isMine)
         {
             Debug.Log(NetworkProgramUnity.currentInstance.userName + "가 " + world + "로 이동합니다.");
             //TODO : 패킷을 보내서 SwitchWorld 시키기

@@ -171,7 +171,6 @@ GameObject:
   - 222: {fileID: 89527901}
   - 114: {fileID: 89527900}
   - 114: {fileID: 89527899}
-  - 114: {fileID: 89527903}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -190,6 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595cd7ab5ae4a4748ac82a2ed0807bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _networkID: -3
+  _owner: 
 --- !u!114 &89527900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,19 +247,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 15}
   m_SizeDelta: {x: 400, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &89527903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 89527898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkID: -2
-  _owner: 
 --- !u!1 &349942896
 GameObject:
   m_ObjectHideFlags: 0

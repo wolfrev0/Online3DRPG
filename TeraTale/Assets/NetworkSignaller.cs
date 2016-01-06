@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkSignaller : MonoBehaviour
+public abstract class NetworkScript : MonoBehaviour
 {
     public int _networkID = 0;
     public string _owner = null;
@@ -10,7 +10,7 @@ public class NetworkSignaller : MonoBehaviour
 
     public bool isMine { get { return NetworkProgramUnity.currentInstance.userName == _owner; } }
 
-    IEnumerator Start()
+    protected IEnumerator Start()
     {
         while (NetworkProgramUnity.currentInstance == null)
             yield return new WaitForSeconds(0);
@@ -24,7 +24,7 @@ public class NetworkSignaller : MonoBehaviour
         registered = true;
     }
 
-    public void SendRPC(TeraTaleNet.RPC rpc)
+    protected void SendRPC(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = _networkID;
         rpc.sender = NetworkProgramUnity.currentInstance.userName;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using TeraTaleNet;
@@ -72,7 +73,7 @@ public class Certificator : NetworkProgramUnity
         //If failed, Show Failed Message.
         if (answer.accepted)
         {
-            Application.LoadLevel(answer.world);
+            SceneManager.LoadScene(answer.world);
 
             userName = answer.name;
 

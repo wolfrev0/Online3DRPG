@@ -2,20 +2,18 @@
 using UnityEngine.UI;
 using TeraTaleNet;
 
-public class ChattingView : MonoBehaviour
+public class ChattingView : NetworkScript
 {
-    NetworkSignaller _net;
     Text _text;
 
     void Awake()
     {
-        _net = GetComponent<NetworkSignaller>();
         _text = GetComponent<Text>();
     }
 
     public void SendChat(string chat)
     {
-        _net.SendRPC(new PushChat(RPCType.All, chat));
+        SendRPC(new PushChat(RPCType.All, chat));
     }
 
     void PushChat(PushChat info)

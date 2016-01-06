@@ -5,8 +5,9 @@ public abstract class KineticEntity : Entity
     protected Animator _animator;
     public float disappearTime;
 
-    void Start()
+    protected new void Start()
     {
+        base.Start();
         _animator = GetComponent<Animator>();
         Appear();
         Invoke("Disappear", disappearTime);

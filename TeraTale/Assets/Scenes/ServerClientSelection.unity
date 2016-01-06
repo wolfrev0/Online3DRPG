@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 58410017}
   - 114: {fileID: 58410018}
-  - 114: {fileID: 58410019}
   m_Layer: 0
   m_Name: PrefabManager
   m_TagString: Untagged
@@ -125,21 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4331e050c2b4f664aa0f8c170e5fcc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 11457708, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
---- !u!114 &58410019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58410016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a68071f8f551534c9f4faa73712c0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _networkID: -1
+  _networkID: -2
   _owner: 
+  prefabs:
+  - {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
 --- !u!1 &183674901
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userName: 
+  serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -872,7 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userName: 
-  pfPlayer: {fileID: 11457708, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
+  pfPlayer: {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
 --- !u!4 &881560870
 Transform:
   m_ObjectHideFlags: 0

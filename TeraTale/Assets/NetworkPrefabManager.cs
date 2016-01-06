@@ -2,20 +2,18 @@
 using UnityEngine;
 using TeraTaleNet;
 
-public class NetworkPrefabManager : MonoBehaviour
+public class NetworkPrefabManager : NetworkScript
 {
     static NetworkPrefabManager _instance;
 
-    public NetworkSignaller[] prefabs;
-    NetworkSignaller _signaller;
+    public NetworkScript[] prefabs;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject.transform.root);
-        _signaller = GetComponent<NetworkSignaller>();
     }
 
-    static public void NetworkInstantiate(NetworkSignaller prefab)
+    static public void NetworkInstantiate(NetworkScript prefab)
     {
         if (_instance == null)
             _instance = FindObjectOfType<NetworkPrefabManager>();
@@ -28,7 +26,7 @@ public class NetworkPrefabManager : MonoBehaviour
         }
         if (prefabIndex < 0)
             throw new ArgumentException("You tried instantiating not registered prefab. Please register prefab at PrefabManager.");
-        _instance._signaller.SendRPC(new NetworkInstantiate(RPCType.AllBuffered, prefabIndex));
+        _instance.SendRPC(new NetworkInstantiate(RPCType.AllBuffered, prefabIndex));
     }
 
     public void NetworkInstantiate(NetworkInstantiate info)
