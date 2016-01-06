@@ -28,7 +28,7 @@ public class Player : AliveEntity
     new void Start()
     {
         base.Start();
-        name = _owner;
+        name = owner;
         nameView.text = name;
         _playersByName.Add(name, this);
         if (name == NetworkProgramUnity.currentInstance.userName)

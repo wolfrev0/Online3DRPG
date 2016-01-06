@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4331e050c2b4f664aa0f8c170e5fcc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -5
-  _owner: 
+  networkID: -5
+  owner: 
   prefabs:
   - {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
 --- !u!1 &183674901
@@ -422,8 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4381d3ddffd843944ba1af383438c83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -4
-  _owner: 
+  networkID: -4
+  owner: 
   userName: 
 --- !u!4 &326514392
 Transform:
@@ -525,8 +525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2661960f520f44388b02661feebabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -1
-  _owner: 
+  networkID: -1
+  owner: 
   userName: 
   serverIP: 127.0.0.1
 --- !u!4 &447090859
@@ -683,8 +683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa2ba20a7896641a117e2290a5e413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -3
-  _owner: 
+  networkID: -3
+  owner: 
   userName: 
 --- !u!4 &599371545
 Transform:
@@ -866,8 +866,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f76ee9e4c6974eb4410e5778f3894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -2
-  _owner: 
+  networkID: -2
+  owner: 
   userName: 
   pfPlayer: {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
 --- !u!4 &881560870

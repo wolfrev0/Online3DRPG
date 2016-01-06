@@ -40,6 +40,7 @@ namespace Proxy
                 Console.WriteLine(port.ToString() + " connected.");
                 _worldByUser.Add(port.ToString(), port.ToString());
                 _serverKeys.Add(port.ToString());
+                _rpcBufferByWorld.Add(port.ToString(), new List<RPC>());
             };
 
             connector(Port.Login);
@@ -205,6 +206,17 @@ namespace Proxy
         void NetworkInstantiate(NetworkInstantiate rpc)
         {
             rpc.networkID = _currentNetworkID++;
+        }
+
+        void RemoveBufferedRPC(Messenger messenger, string key, RemoveBufferedRPC packet)
+        {
+            var buffer = _rpcBufferByWorld[_worldByUser[packet.caller]];
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                NetworkInstantiate ni = buffer[i] as NetworkInstantiate;
+                if (ni != null && ni.networkID == packet.networkID)
+                    buffer.RemoveAt(i);
+            }
         }
     }
 }

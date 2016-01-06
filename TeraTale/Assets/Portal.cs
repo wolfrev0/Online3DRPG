@@ -18,7 +18,7 @@ public class Portal : MonoBehaviour
         if(coll.tag == "Player")
         {
             var player = coll.GetComponent<Player>();
-            player.SwitchWorld(targetWorld);
+            player.NetworkDestroy();
         }
     }
 }

@@ -68,6 +68,6 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
 
     public void RegisterSignaller(NetworkScript signaller)
     {
-        signallersByID.Add(signaller._networkID, signaller);
+        signallersByID.Add(signaller.networkID, signaller);
     }
 }

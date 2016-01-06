@@ -5,12 +5,13 @@ using TeraTaleNet;
 
 public abstract class NetworkScript : MonoBehaviour
 {
-    public int _networkID = 0;
-    public string _owner = null;
+    public int networkID;
+    public string owner = null;
 
     bool registered = false;
 
-    public bool isMine { get { return NetworkProgramUnity.currentInstance.userName == _owner; } }
+    protected string userName { get { return NetworkProgramUnity.currentInstance.userName; } }
+    protected bool isMine { get { return userName == owner; } }
 
     protected IEnumerator Start()
     {
@@ -33,7 +34,7 @@ public abstract class NetworkScript : MonoBehaviour
 
     protected void Send(TeraTaleNet.RPC rpc)
     {
-        rpc.signallerID = _networkID;
+        rpc.signallerID = networkID;
         rpc.sender = NetworkProgramUnity.currentInstance.userName;
         NetworkProgramUnity.currentInstance.Send(rpc);
     }
@@ -56,9 +57,20 @@ public abstract class NetworkScript : MonoBehaviour
         var pf = NetworkPrefabManager.instance.prefabs[info.index];
         pf.enabled = false;
         var instance = Instantiate(pf);
-        instance._networkID = info.networkID;
-        instance._owner = info.sender;
+        instance.networkID = info.networkID;
+        instance.owner = info.sender;
         instance.RegisterToProgram();
         instance.enabled = true;
+    }
+
+    public void NetworkDestroy()
+    {
+        Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
+        Send(new NetworkDestroy(RPCType.All, networkID));
+    }
+
+    public void NetworkDestroy(NetworkDestroy info)
+    {
+        Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
     }
 }
