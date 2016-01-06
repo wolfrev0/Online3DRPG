@@ -5,13 +5,14 @@ using TeraTaleNet;
 
 public class Certificator : NetworkProgramUnity
 {
+    public string serverIP = "127.0.0.1";
     NetworkAgent _agent = new NetworkAgent();
     object _locker = new object();
     int _confirmID;
 
     protected override void OnStart()
     {
-        _messenger.Register("Proxy", _agent.Connect("221.159.191.81", Port.Proxy));
+        _messenger.Register("Proxy", _agent.Connect(serverIP, Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
         foreach (var key in _messenger.Keys)

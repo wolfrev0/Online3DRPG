@@ -52,6 +52,7 @@
     <Compile Include="Body\LoginQuery.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
+    <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RPC.cs" />

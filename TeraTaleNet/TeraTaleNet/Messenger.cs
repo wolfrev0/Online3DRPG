@@ -7,8 +7,6 @@ namespace TeraTaleNet
 {
     public class Messenger : IDisposable
     {
-        public delegate void OnReceive(Packet packet);
-        public OnReceive onReceive = (Packet packet) => { };
         //concurrent Dictionary?
         Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
         Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
@@ -101,7 +99,12 @@ namespace TeraTaleNet
                 var packet = Receive(key);
                 var rpc = packet.body as RPC;
                 if (rpc != null)
+                {
+                    MethodInfo method;
+                    if (handlerByName.TryGetValue(Body.GetNameByIndex(packet.header.type), out method))
+                        method.Invoke(listener, new object[] { packet.body });
                     listener.RPCHandler(rpc);
+                }
                 else
                     handlerByName[Body.GetNameByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
             }
@@ -164,7 +167,6 @@ namespace TeraTaleNet
                             {
                                 //Need ioLock?
                                 var packet = _streamByKey[key].Read();
-                                onReceive(packet);
                                 History.Log("Recieved : " + Body.GetNameByIndex(packet.header.type));
                                 _recvQByKey[key].Enqueue(packet);
                             }

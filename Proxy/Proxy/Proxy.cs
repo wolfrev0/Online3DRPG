@@ -32,12 +32,6 @@ namespace Proxy
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
-            _messenger.onReceive = (Packet packet) => 
-            {
-                if (packet.header.type == Body.GetIndexByName("NetworkInstantiate"))
-                    ((NetworkInstantiate)packet.body).networkID = _currentNetworkID++;
-            };
-
             Action<Port> connector = (Port port) =>
             {
                 var stream = _agent.Connect("127.0.0.1", port);
@@ -207,5 +201,12 @@ namespace Proxy
                 _rpcBuffer.Add(rpc);
             }
         }
+
+        void NetworkInstantiate(NetworkInstantiate rpc)
+        {
+            rpc.networkID = _currentNetworkID++;
+        }
+
+        void 
     }
 }
