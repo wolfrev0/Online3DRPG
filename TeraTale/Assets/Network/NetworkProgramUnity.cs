@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
 {
     static public NetworkProgramUnity currentInstance;
-    public string userName;
     protected Messenger _messenger;
     bool _stopped = false;
 
@@ -41,8 +40,9 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
         OnUpdate();
     }
 
-    void OnDestroy()
+    new void OnDestroy()
     {
+        base.OnDestroy();
         try
         {
             OnEnd();

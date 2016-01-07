@@ -71,8 +71,8 @@
     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Games\Items\Hand painted bottle\readme.txt" />
-    <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
+    <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
+    <None Include="Assets\Games\Entities\Weapons\Sword\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
   </ItemGroup>

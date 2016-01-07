@@ -50,8 +50,8 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 3
     m_Resolution: 2
@@ -824,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &581117887
 Light:
   m_ObjectHideFlags: 0
@@ -1238,6 +1238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae21221bed3a1744b976148dbf004f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkID: 0
+  owner: 
   targetWorld: Town
 --- !u!23 &2054267139
 MeshRenderer:

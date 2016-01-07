@@ -80,7 +80,7 @@ public class Certificator : NetworkProgramUnity
             var net = FindObjectOfType<Client>();
             lock (_locker)
                 net.stream = messenger.Unregister("Proxy");
-            net.userName = answer.name;
+            userName = answer.name;
             net.signallersByID = signallersByID;
             net.enabled = true;
         }

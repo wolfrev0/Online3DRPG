@@ -87,11 +87,14 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\PlayerStaying.cs" />
     <Compile Include="Assets\Games\Entities\Entity.cs" />
+    <Compile Include="Assets\Games\Entities\Items\HpPotion\HpPotion.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Item.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
+    <Compile Include="Assets\ItemSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkPrefabManager.cs" />
@@ -107,8 +110,8 @@
     <Compile Include="Assets\Unaligned\ReadData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Games\Items\Hand painted bottle\readme.txt" />
-    <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
+    <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
+    <None Include="Assets\Games\Entities\Weapons\Sword\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
   </ItemGroup>

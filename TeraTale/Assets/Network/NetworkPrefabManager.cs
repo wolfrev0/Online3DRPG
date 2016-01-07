@@ -15,6 +15,7 @@ public class NetworkPrefabManager : NetworkScript
         }
     }
 
+    public NetworkScript pfPlayer;
     public NetworkScript[] prefabs;
 
     void Awake()

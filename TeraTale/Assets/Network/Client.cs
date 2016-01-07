@@ -6,7 +6,6 @@ using TeraTaleNet;
 public class Client : NetworkProgramUnity
 {
     public PacketStream stream;
-    public NetworkScript pfPlayer;
     NetworkAgent _agent = new NetworkAgent();
 
     protected override void OnStart()
@@ -17,7 +16,7 @@ public class Client : NetworkProgramUnity
 
         _messenger.Start();
         
-        NetworkInstantiate(pfPlayer);
+        NetworkInstantiate(NetworkPrefabManager.instance.pfPlayer);
     }
 
     protected override void OnEnd()

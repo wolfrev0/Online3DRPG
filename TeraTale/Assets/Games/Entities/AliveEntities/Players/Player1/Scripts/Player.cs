@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TeraTaleNet;
 
 public class Player : AliveEntity
@@ -31,11 +32,11 @@ public class Player : AliveEntity
         name = owner;
         nameView.text = name;
         _playersByName.Add(name, this);
-        if (name == NetworkProgramUnity.currentInstance.userName)
+        if (name == userName)
             FindObjectOfType<CameraController>().target = transform;
     }
 
-    void OnDestroy()
+    new void OnDestroy()
     {
         base.OnDestroy();
         _playersByName.Remove(name);
@@ -102,9 +103,10 @@ public class Player : AliveEntity
     {
         if (isMine)
         {
-            Debug.Log(NetworkProgramUnity.currentInstance.userName + "가 " + world + "로 이동합니다.");
-            NetworkScript.SwitchWorld(world);
-            //TODO : 패킷을 보내서 SwitchWorld 시키기
+            Destroy();
+            Send(new SwitchWorld(userName, world));
+            SceneManager.LoadScene(world);
+            NetworkPrefabManager.instance.NetworkInstantiate(NetworkPrefabManager.instance.pfPlayer);
         }
     }
 }

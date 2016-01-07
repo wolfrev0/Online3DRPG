@@ -2,18 +2,27 @@
 using System;
 using System.Collections;
 using TeraTaleNet;
-using UnityEngine.SceneManagement;
 
 public abstract class NetworkScript : MonoBehaviour
 {
     public int networkID;
     public string owner = null;
 
-    bool registered = false;
-    bool destroyed = false;
+    static protected bool? _isServer;
+    bool _registered = false;
+    bool _destroyed = false;
 
     public bool isMine { get { return userName == owner; } }
-    static protected string userName { get { return NetworkProgramUnity.currentInstance.userName; } }
+    static protected bool isServer
+    {
+        get
+        {
+            if (_isServer == null)
+                _isServer = NetworkProgramUnity.currentInstance is Client == false;
+            return _isServer == true;
+        }
+    }
+    static protected string userName { get; set; }
 
     protected IEnumerator Start()
     {
@@ -24,15 +33,16 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void RegisterToProgram()
     {
-        if (registered == false)
+        if (_registered == false)
             NetworkProgramUnity.currentInstance.RegisterSignaller(this);
-        registered = true;
+        _registered = true;
     }
 
     protected void OnDestroy()
     {
-        if (destroyed == false)
+        if (_destroyed == false)
             NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
+        _destroyed = true;
     }
 
     static protected void Send(Packet packet)
@@ -43,11 +53,11 @@ public abstract class NetworkScript : MonoBehaviour
     protected void Send(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = networkID;
-        rpc.sender = NetworkProgramUnity.currentInstance.userName;
+        rpc.sender = userName;
         NetworkProgramUnity.currentInstance.Send(rpc);
     }
 
-    protected void NetworkInstantiate(NetworkScript prefab)
+    public void NetworkInstantiate(NetworkScript prefab)
     {
         int prefabIndex = -1;
         for (int i = 0; i < NetworkPrefabManager.instance.prefabs.Length; i++)
@@ -78,22 +88,14 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void Destroy()
     {
-        destroyed = true;
         Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
-        Send(new NetworkDestroy(RPCType.All, networkID));
-        NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
+        Send(new NetworkDestroy(RPCType.Others, networkID));
+        Destroy(gameObject);
+        OnDestroy();
     }
 
     public void NetworkDestroy(NetworkDestroy info)
     {
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
-    }
-
-    static public void SwitchWorld(string world)
-    {
-        Player.FindPlayerByName(userName).Destroy();
-        Send(new SwitchWorld(userName, world));
-        SceneManager.LoadScene(world);
-        NetworkPrefabManager.instance.NetworkInstantiate(NetworkPrefabManager.instance.prefabs[0]);
     }
 }

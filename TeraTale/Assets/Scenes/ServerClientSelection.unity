@@ -126,8 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -5
   owner: 
+  pfPlayer: {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
   prefabs:
   - {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
+  - {fileID: 11491574, guid: dd2faeddf4cf31a45aaba1ba0a1a3da8, type: 2}
 --- !u!1 &183674901
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  userName: 
 --- !u!4 &326514392
 Transform:
   m_ObjectHideFlags: 0
@@ -527,8 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -1
   owner: 
-  userName: 
-  serverIP: 14.55.93.198
+  serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -685,7 +685,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  userName: 
 --- !u!4 &599371545
 Transform:
   m_ObjectHideFlags: 0
@@ -868,8 +867,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  userName: 
-  pfPlayer: {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
 --- !u!4 &881560870
 Transform:
   m_ObjectHideFlags: 0
