@@ -126,9 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -5
   owner: 
-  pfPlayer: {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
+  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
   prefabs:
-  - {fileID: 11423630, guid: 2309745ae51e46d4c89a0f72b3c23847, type: 2}
+  - {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
   - {fileID: 11491574, guid: dd2faeddf4cf31a45aaba1ba0a1a3da8, type: 2}
 --- !u!1 &183674901
 GameObject:

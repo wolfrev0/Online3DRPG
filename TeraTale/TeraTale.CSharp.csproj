@@ -82,10 +82,10 @@
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\Player.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\PlayerAttacking.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\PlayerRunning.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player1\Scripts\PlayerStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\Items\HpPotion\HpPotion.cs" />
     <Compile Include="Assets\Games\Entities\Items\Item.cs" />
