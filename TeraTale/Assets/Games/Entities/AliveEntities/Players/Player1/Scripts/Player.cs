@@ -37,6 +37,7 @@ public class Player : AliveEntity
 
     void OnDestroy()
     {
+        base.OnDestroy();
         _playersByName.Remove(name);
     }
 

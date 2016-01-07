@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,8 +77,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Billboard.cs" />
-    <Compile Include="Assets\CostomizingScenes\ParsingData.cs" />
+    <Compile Include="Assets\Common\Billboard.cs" />
+    <Compile Include="Assets\Common\GlobalOption.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
@@ -91,24 +89,25 @@
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
-    <Compile Include="Assets\GlobalOption.cs" />
-    <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
+    <Compile Include="Assets\Games\Portal.cs" />
+    <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
+    <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
+    <Compile Include="Assets\Network\NetworkPrefabManager.cs" />
+    <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
+    <Compile Include="Assets\Network\NetworkScript.cs" />
     <Compile Include="Assets\Network\Server\Forest.cs" />
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
-    <Compile Include="Assets\NetworkPrefabManager.cs" />
-    <Compile Include="Assets\NetworkProgramUnity.cs" />
-    <Compile Include="Assets\NetworkScript.cs" />
-    <Compile Include="Assets\Portal.cs" />
-    <Compile Include="Assets\ServerClientSelections\ServerClientSelectionHandler.cs" />
-    <Compile Include="Assets\SpeechBubble.cs" />
-    <Compile Include="Assets\UIs\Scripts\ChattingView.cs" />
+    <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />
+    <Compile Include="Assets\UIs\Logins\Scripts\LoginButtonHandler.cs" />
+    <Compile Include="Assets\UIs\ServerClientSelections\ServerClientSelectionHandler.cs" />
     <Compile Include="Assets\Unaligned\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\Unaligned\ReadData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Games\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Weapons\Sword\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
