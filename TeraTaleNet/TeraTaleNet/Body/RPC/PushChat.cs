@@ -4,8 +4,8 @@
     {
         public string chat;
 
-        public PushChat(RPCType rpcType, string chat)
-            : base(rpcType)
+        public PushChat(string chat)
+            : base(RPCType.All)
         {
             this.chat = chat;
         }

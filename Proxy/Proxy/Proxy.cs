@@ -181,7 +181,7 @@ namespace Proxy
 
         void MessageHandler.RPCHandler(RPC rpc)
         {
-            if ((rpc.rpcType & RPCType.Self) == RPCType.Self)
+            if ((rpc.rpcType & RPCType.Self) != 0)
             {
                 _messenger.Send(rpc.sender, rpc);
             }
@@ -189,7 +189,7 @@ namespace Proxy
             //{
             //    _messenger.Send(_worldByUser[rpc.sender], rpc);
             //}
-            if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
+            if ((rpc.rpcType & RPCType.Others) != 0)
             {
                 foreach(var target in _messenger.Keys)
                 {
@@ -197,9 +197,13 @@ namespace Proxy
                         _messenger.Send(target, rpc);
                 }
             }
-            if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
+            if ((rpc.rpcType & RPCType.Buffered) != 0)
             {
                 _rpcBufferByWorld[_worldByUser[rpc.sender]].Add(rpc);
+            }
+            if ((rpc.rpcType & RPCType.Specific) != 0)
+            {
+                _messenger.Send(rpc.receiver, rpc);
             }
         }
 

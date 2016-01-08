@@ -10,6 +10,11 @@ namespace TeraTaleNet
             return BitConverter.GetBytes(obj);
         }
 
+        public static byte[] Serialize(byte obj)
+        {
+            return new[] { obj };
+        }
+
         public static byte[] Serialize(char obj)
         {
             return BitConverter.GetBytes(obj);
@@ -76,6 +81,11 @@ namespace TeraTaleNet
             return sizeof(bool);
         }
 
+        public static int SerializedSize(byte obj)
+        {
+            return sizeof(byte);
+        }
+
         public static int SerializedSize(char obj)
         {
             return sizeof(char);
@@ -129,6 +139,11 @@ namespace TeraTaleNet
         public static bool ToBoolean(byte[] buffer, int offset)
         {
             return BitConverter.ToBoolean(buffer, offset);
+        }
+
+        public static byte ToByte(byte[] buffer, int offset)
+        {
+            return buffer[offset];
         }
 
         public static char ToChar(byte[] buffer, int offset)

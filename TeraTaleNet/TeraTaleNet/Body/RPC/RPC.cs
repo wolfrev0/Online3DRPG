@@ -1,13 +1,16 @@
-﻿namespace TeraTaleNet
+﻿using System;
+
+namespace TeraTaleNet
 {
-    public enum RPCType
+    [Flags]
+    public enum RPCType : byte
     {
-        Self = 1,
-        Others = 2,
-        Buffered = 4,
+        Self = 0x1,
+        Others = 0x2,
         All = Self | Others,
-        AllBuffered = Self | Others | Buffered,
-        Specific = 8,
+        Buffered = 0x4,
+        AllBuffered = All | Buffered,
+        Specific = 0x8,
     }
 
     public abstract class RPC : Body
@@ -15,10 +18,18 @@
         public RPCType rpcType;
         public int signallerID;
         public string sender;
+        public string receiver = "";
 
         public RPC(RPCType rpcType)
         {
             this.rpcType = rpcType;
+            GetType();
+        }
+
+        public RPC(RPCType rpcType, string receiver)
+        {
+            this.rpcType = rpcType;
+            this.receiver = receiver;
             GetType();
         }
 

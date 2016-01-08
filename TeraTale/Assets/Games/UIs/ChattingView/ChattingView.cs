@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using TeraTaleNet;
 
 public class ChattingView : NetworkScript
@@ -13,7 +12,7 @@ public class ChattingView : NetworkScript
 
     public void SendChat(string chat)
     {
-        Send(new PushChat(RPCType.All, chat));
+        Send(new PushChat(chat));
     }
 
     void PushChat(PushChat info)

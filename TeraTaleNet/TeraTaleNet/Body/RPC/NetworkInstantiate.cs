@@ -5,8 +5,8 @@
         public string pfName;
         public int networkID;
 
-        public NetworkInstantiate(RPCType rpcType, string pfName)
-            : base(rpcType)
+        public NetworkInstantiate(string pfName)
+            : base(RPCType.AllBuffered)
         {
             this.pfName = pfName;
         }

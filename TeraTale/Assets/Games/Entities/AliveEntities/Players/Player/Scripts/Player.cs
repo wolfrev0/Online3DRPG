@@ -53,13 +53,13 @@ public class Player : AliveEntity
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
             {
-                Send(new Navigate(RPCType.All, hit.point.x, hit.point.y, hit.point.z));
+                Send(new Navigate(hit.point.x, hit.point.y, hit.point.z));
             }
         }
 
         if (Input.GetButtonDown("Attack"))
         {
-            Send(new Attack(RPCType.All));
+            Send(new Attack());
         }
     }
 

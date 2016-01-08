@@ -45,7 +45,7 @@ public abstract class NetworkScript : MonoBehaviour
         _destroyed = true;
     }
 
-    static protected void Send(Packet packet)
+    protected void Send(Packet packet)
     {
         NetworkProgramUnity.currentInstance.Send(packet);
     }
@@ -59,7 +59,7 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void NetworkInstantiate(NetworkScript prefab)
     {
-        Send(new NetworkInstantiate(RPCType.AllBuffered, prefab.name));
+        Send(new NetworkInstantiate(prefab.name));
     }
 
     public void NetworkInstantiate(NetworkInstantiate info)
@@ -78,7 +78,7 @@ public abstract class NetworkScript : MonoBehaviour
     public void Destroy()
     {
         Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
-        Send(new NetworkDestroy(RPCType.Others, networkID));
+        Send(new NetworkDestroy(networkID));
         Destroy(gameObject);
         OnDestroy();
     }

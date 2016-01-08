@@ -4,8 +4,8 @@
     {
         public int networkID;
 
-        public NetworkDestroy(RPCType rpcType, int networkID)
-            : base(rpcType)
+        public NetworkDestroy(int networkID)
+            : base(RPCType.Others)
         {
             this.networkID = networkID;
         }

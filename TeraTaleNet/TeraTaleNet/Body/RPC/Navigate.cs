@@ -4,8 +4,8 @@
     {
         public float x, y, z;
 
-        public Navigate(RPCType rpcType, float x, float y, float z)
-            : base(rpcType)
+        public Navigate(float x, float y, float z)
+            : base(RPCType.All)
         {
             this.x = x;
             this.y = y;
