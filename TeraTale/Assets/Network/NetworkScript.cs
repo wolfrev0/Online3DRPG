@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using TeraTaleNet;
 
@@ -86,5 +85,9 @@ public abstract class NetworkScript : MonoBehaviour
     public void NetworkDestroy(NetworkDestroy info)
     {
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
+    }
+
+    protected void Sync(ref object obj)
+    {
     }
 }

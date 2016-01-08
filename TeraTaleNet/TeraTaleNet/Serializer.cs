@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using UnityEngine;
 
 namespace TeraTaleNet
 {
@@ -76,6 +77,15 @@ namespace TeraTaleNet
             return ret;
         }
 
+        public static byte[] Serialize(Vector3 obj)
+        {
+            var ret = new byte[12];
+            BitConverter.GetBytes(obj.x).CopyTo(ret, 0);
+            BitConverter.GetBytes(obj.y).CopyTo(ret, 4);
+            BitConverter.GetBytes(obj.z).CopyTo(ret, 8);
+            return ret;
+        }
+
         public static int SerializedSize(bool obj)
         {
             return sizeof(bool);
@@ -134,6 +144,11 @@ namespace TeraTaleNet
         public static int SerializedSize(string obj)
         {
             return SerializedSize(obj.Length) + Encoding.UTF8.GetByteCount(obj);
+        }
+
+        public static int SerializedSize(Vector3 obj)
+        {
+            return sizeof(float) * 3;
         }
 
         public static bool ToBoolean(byte[] buffer, int offset)
@@ -199,6 +214,18 @@ namespace TeraTaleNet
             offset += len;
 
             return obj;
+        }
+
+        public static Vector3 ToVector3(byte[] buffer, int offset)
+        {
+            var x = ToSingle(buffer, offset);
+            offset += SerializedSize(x);
+            var y = ToSingle(buffer, offset);
+            offset += SerializedSize(y);
+            var z = ToSingle(buffer, offset);
+            offset += SerializedSize(z);
+
+            return new Vector3(x, y, z);
         }
     }
 }

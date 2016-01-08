@@ -53,7 +53,7 @@ public class Player : AliveEntity
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
             {
-                Send(new Navigate(hit.point.x, hit.point.y, hit.point.z));
+                Send(new Navigate(hit.point));
             }
         }
 
@@ -84,7 +84,7 @@ public class Player : AliveEntity
     void Navigate(Navigate info)
     {
         _navMeshAgent.enabled = true;
-        _navMeshAgent.destination = new Vector3(info.x, info.y, info.z);
+        _navMeshAgent.destination = info.destination;
         _animator.SetBool("Running", true);
     }
 

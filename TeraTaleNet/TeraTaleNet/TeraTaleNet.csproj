@@ -57,6 +57,7 @@
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
+    <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\SwitchWorld.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
