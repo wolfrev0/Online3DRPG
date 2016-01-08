@@ -19,14 +19,12 @@ namespace TeraTaleNet
             foreach (var field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
                 byte[] buffer;
-                if (field.FieldType.IsEnum)
-                    buffer = Serializer.Serialize((int)field.GetValue(this));
-                else
-                {
-                    if(!serializersCache.ContainsKey(field.FieldType))
-                        serializersCache.Add(field.FieldType, typeof(Serializer).GetMethod("Serialize", new[] { field.FieldType }));
-                    buffer = (byte[])serializersCache[field.FieldType].Invoke(null, new[] { field.GetValue(this) });
-                }
+                var fieldType = field.FieldType;
+                if (fieldType.IsEnum)
+                    fieldType = Enum.GetUnderlyingType(fieldType);
+                if (!serializersCache.ContainsKey(fieldType))
+                    serializersCache.Add(fieldType, typeof(Serializer).GetMethod("Serialize", new[] { fieldType }));
+                buffer = (byte[])serializersCache[fieldType].Invoke(null, new[] { Convert.ChangeType(field.GetValue(this), fieldType) });
                 totalBufferSize += buffer.Length;
                 buffers.Add(buffer);
             }
@@ -48,10 +46,10 @@ namespace TeraTaleNet
             foreach (var field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public))
             {
                 object value;
-                if (field.FieldType.IsEnum)
-                    value = Serializer.ToInt32(buffer, offset);
-                else
-                    value = typeof(Serializer).GetMethod("To" + field.FieldType.Name, new [] { typeof(byte[]), typeof(int) }).Invoke(null, new object[] { buffer, offset });
+                var fieldType = field.FieldType;
+                if (fieldType.IsEnum)
+                    fieldType = Enum.GetUnderlyingType(fieldType);
+                value = typeof(Serializer).GetMethod("To" + fieldType.Name, new [] { typeof(byte[]), typeof(int) }).Invoke(null, new object[] { buffer, offset });
                 field.SetValue(this, value);
                 offset += SerializedSize(field);
             }
@@ -68,14 +66,12 @@ namespace TeraTaleNet
         int SerializedSize(FieldInfo field)
         {
             int ret = 0;
-            if (field.FieldType.IsEnum)
-                ret += sizeof(int);
-            else
-            {
-                if (!serializedSizesCache.ContainsKey(field.FieldType))
-                    serializedSizesCache.Add(field.FieldType, typeof(Serializer).GetMethod("SerializedSize", new[] { field.FieldType }));
-                ret += (int)serializedSizesCache[field.FieldType].Invoke(null, new[] { field.GetValue(this) });
-            }
+            var fieldType = field.FieldType;
+            if (fieldType.IsEnum)
+                fieldType = Enum.GetUnderlyingType(fieldType);
+            if (!serializedSizesCache.ContainsKey(fieldType))
+                serializedSizesCache.Add(fieldType, typeof(Serializer).GetMethod("SerializedSize", new[] { fieldType }));
+            ret += (int)serializedSizesCache[fieldType].Invoke(null, new[] { Convert.ChangeType(field.GetValue(this), fieldType) });
             return ret;
         }
     }
