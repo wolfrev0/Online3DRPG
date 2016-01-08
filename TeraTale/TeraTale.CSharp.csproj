@@ -87,8 +87,10 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
     <Compile Include="Assets\Games\Entities\Entity.cs" />
-    <Compile Include="Assets\Games\Entities\Items\HpPotion\HpPotion.cs" />
+    <Compile Include="Assets\Games\Entities\Items\HpPotion\Scripts\HpPotion.cs" />
+    <Compile Include="Assets\Games\Entities\Items\HpPotion\Scripts\HpPotionMeta.cs" />
     <Compile Include="Assets\Games\Entities\Items\Item.cs" />
+    <Compile Include="Assets\Games\Entities\Items\ItemMeta.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
@@ -97,7 +99,6 @@
     <Compile Include="Assets\ItemSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
-    <Compile Include="Assets\Network\NetworkPrefabManager.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
     <Compile Include="Assets\Network\NetworkScript.cs" />
     <Compile Include="Assets\Network\Server\Forest.cs" />

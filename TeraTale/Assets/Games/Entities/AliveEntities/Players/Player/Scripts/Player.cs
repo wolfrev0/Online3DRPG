@@ -106,7 +106,8 @@ public class Player : AliveEntity
             Destroy();
             Send(new SwitchWorld(userName, world));
             SceneManager.LoadScene(world);
-            NetworkPrefabManager.instance.NetworkInstantiate(NetworkPrefabManager.instance.pfPlayer);
+            var programInst = NetworkProgramUnity.currentInstance;
+            programInst.NetworkInstantiate(programInst.pfPlayer);
         }
     }
 }

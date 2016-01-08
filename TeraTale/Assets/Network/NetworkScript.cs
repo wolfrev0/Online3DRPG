@@ -59,26 +59,15 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void NetworkInstantiate(NetworkScript prefab)
     {
-        int prefabIndex = -1;
-        for (int i = 0; i < NetworkPrefabManager.instance.prefabs.Length; i++)
-        {
-            if (NetworkPrefabManager.instance.prefabs[i] == prefab)
-                prefabIndex = i;
-        }
-        if (prefabIndex < 0)
-            throw new ArgumentException("You tried instantiating not registered prefab. Please register prefab at PrefabManager.");
-        Send(new NetworkInstantiate(RPCType.AllBuffered, prefabIndex));
+        Send(new NetworkInstantiate(RPCType.AllBuffered, prefab.name));
     }
 
     public void NetworkInstantiate(NetworkInstantiate info)
     {
-        var pf = NetworkPrefabManager.instance.prefabs[info.index];
-        pf.enabled = false;
-        var instance = Instantiate(pf);
+        var instance = Instantiate(Resources.Load<NetworkScript>("Prefabs/" + info.pfName));
         instance.networkID = info.networkID;
         instance.owner = info.sender;
         instance.RegisterToProgram();
-        instance.enabled = true;
     }
 
     protected void NetworkDestroy(NetworkScript instance)

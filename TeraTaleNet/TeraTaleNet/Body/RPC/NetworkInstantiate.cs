@@ -2,13 +2,13 @@
 {
     public class NetworkInstantiate : RPC
     {
-        public int index;
+        public string pfName;
         public int networkID;
 
-        public NetworkInstantiate(RPCType rpcType, int index)
+        public NetworkInstantiate(RPCType rpcType, string pfName)
             : base(rpcType)
         {
-            this.index = index;
+            this.pfName = pfName;
         }
 
         public NetworkInstantiate(byte[] data)

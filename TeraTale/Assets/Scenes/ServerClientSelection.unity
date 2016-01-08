@@ -85,51 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &58410016
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 58410017}
-  - 114: {fileID: 58410018}
-  m_Layer: 0
-  m_Name: PrefabManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &58410017
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58410016}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
---- !u!114 &58410018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58410016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4331e050c2b4f664aa0f8c170e5fcc02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkID: -5
-  owner: 
-  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
-  prefabs:
-  - {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
-  - {fileID: 11491574, guid: dd2faeddf4cf31a45aaba1ba0a1a3da8, type: 2}
 --- !u!1 &183674901
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
+  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
 --- !u!4 &326514392
 Transform:
   m_ObjectHideFlags: 0
@@ -528,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -1
   owner: 
+  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
   serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
@@ -685,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
+  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
 --- !u!4 &599371545
 Transform:
   m_ObjectHideFlags: 0
@@ -867,6 +825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
+  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
 --- !u!4 &881560870
 Transform:
   m_ObjectHideFlags: 0
@@ -1739,7 +1698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &1973890217
 GameObject:
   m_ObjectHideFlags: 0
