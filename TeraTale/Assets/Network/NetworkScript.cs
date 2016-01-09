@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TeraTaleNet;
+using System;
 
 public abstract class NetworkScript : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public abstract class NetworkScript : MonoBehaviour
             return _isServer == true;
         }
     }
+    static protected bool isLocal { get { return !isServer; } }
     static protected string userName { get; set; }
 
     protected IEnumerator Start()
@@ -87,7 +89,24 @@ public abstract class NetworkScript : MonoBehaviour
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
     }
 
-    protected void Sync(ref object obj)
+    protected void Sync(string fieldName)
     {
+        Send(new Sync(Application.loadedLevelName, fieldName));
+    }
+
+    public void Sync(Sync sync)
+    {
+        if(isServer)
+        {
+            sync.receiver = sync.sender;
+            var field = GetType().GetField(sync.field);
+            sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(this));
+            Send(sync);
+        }
+        else
+        {
+            var field = GetType().GetField(sync.field);
+            field.SetValue(this, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body));
+        }
     }
 }

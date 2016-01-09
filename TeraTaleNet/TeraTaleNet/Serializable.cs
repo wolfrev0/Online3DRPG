@@ -75,4 +75,5 @@ namespace TeraTaleNet
             return ret;
         }
     }
+    /*bool byte byte[] char double float int long short uint ulong ushort string Vector3 Packet*/
 }

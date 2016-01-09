@@ -81,7 +81,6 @@
   <ItemGroup>
     <Compile Include="Assets\Common\Billboard.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />
-    <Compile Include="Assets\Common\SyncAttribute.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />

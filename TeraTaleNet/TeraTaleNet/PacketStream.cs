@@ -27,9 +27,7 @@ namespace TeraTaleNet
 
         public void Write(Packet packet)
         {
-            byte[] bytes = packet.header.Serialize();
-            _connection.Write(bytes, bytes.Length);
-            bytes = packet.body.Serialize();
+            byte[] bytes = packet.Serialize();
             _connection.Write(bytes, bytes.Length);
         }
 

@@ -12,6 +12,8 @@ public class Player : AliveEntity
     public Text nameView;
     public SpeechBubble _speechBubble;
 
+    public float test = 0.0f;
+
     NavMeshAgent _navMeshAgent;
     Animator _animator;
 
@@ -40,6 +42,15 @@ public class Player : AliveEntity
     {
         base.OnDestroy();
         _playersByName.Remove(name);
+    }
+
+    void Update()
+    {
+        if (isLocal)
+        {
+            Sync("test");
+            Debug.Log(test);
+        }
     }
 
     public void HandleInput()
