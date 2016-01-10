@@ -2,6 +2,7 @@
 using System.Collections;
 using TeraTaleNet;
 using System;
+using System.Reflection;
 
 public abstract class NetworkScript : MonoBehaviour
 {
@@ -89,9 +90,9 @@ public abstract class NetworkScript : MonoBehaviour
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
     }
 
-    protected void Sync(string fieldName)
+    protected void Sync(string member)
     {
-        Send(new Sync(Application.loadedLevelName, fieldName));
+        Send(new Sync(Application.loadedLevelName, member));
     }
 
     public void Sync(Sync sync)
@@ -99,14 +100,88 @@ public abstract class NetworkScript : MonoBehaviour
         if(isServer)
         {
             sync.receiver = sync.sender;
-            var field = GetType().GetField(sync.field);
-            sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(this));
-            Send(sync);
+
+            var tokens = sync.member.Split(new[] { '.' });
+            object instance = null;
+            FieldInfo field = null;
+            PropertyInfo property = null;
+            foreach (var token in tokens)
+            {
+                if (field == null && property == null)
+                {
+                    instance = this;
+                    field = GetType().GetField(token);
+                    property = GetType().GetProperty(token);
+                }
+                else
+                {
+                    if (field != null)
+                    {
+                        instance = field.GetValue(instance);
+                        field = field.FieldType.GetField(token);
+                        property = field.FieldType.GetProperty(token);
+                    }
+                    else
+                    {
+                        instance = property.GetValue(instance, null);
+                        field = property.PropertyType.GetField(token);
+                        property = property.PropertyType.GetProperty(token);
+                    }
+                }
+            }
+            if (field != null)
+            {
+                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
+                Send(sync);
+            }
+            else
+            {
+                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
+                Send(sync);
+            }
         }
         else
         {
-            var field = GetType().GetField(sync.field);
-            field.SetValue(this, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body));
+            var tokens = sync.member.Split(new[] { '.' });
+            object instance = null;
+            FieldInfo field = null;
+            PropertyInfo property = null;
+            foreach (var token in tokens)
+            {
+                if (field == null && property == null)
+                {
+                    instance = this;
+                    field = GetType().GetField(token);
+                    property = GetType().GetProperty(token);
+                }
+                else
+                {
+                    if (field != null)
+                    {
+                        instance = field.GetValue(instance);
+                        field = field.FieldType.GetField(token);
+                        property = field.FieldType.GetProperty(token);
+                    }
+                    else
+                    {
+                        instance = property.GetValue(instance, null);
+                        field = property.PropertyType.GetField(token);
+                        property = property.PropertyType.GetProperty(token);
+                    }
+                }
+            }
+            if(field != null)
+            {
+                field.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body));
+                OnSynced(sync);
+            }
+            else
+            {
+                property.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body), null);
+                OnSynced(sync);
+            }
         }
     }
+
+    protected virtual void OnSynced(Sync sync) { }
 }

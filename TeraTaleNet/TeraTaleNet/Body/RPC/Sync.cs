@@ -2,13 +2,13 @@
 {
     public class Sync : RPC
     {
-        public string field;
+        public string member;
         public Packet packet = new NullPacket();
 
-        public Sync(string receiver, string field)
+        public Sync(string receiver, string member)
             : base(RPCType.Specific, receiver)
         {
-            this.field = field;
+            this.member = member;
         }
 
         public Sync(byte[] data)

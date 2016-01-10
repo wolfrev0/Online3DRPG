@@ -308,9 +308,38 @@ namespace TeraTaleNet
             return new SerializableVector3(value);
         }
 
-        public static implicit operator Vector3 (SerializableVector3 value)
+        public static implicit operator Vector3(SerializableVector3 value)
         {
             return value.value;
+        }
+    }
+
+    public class SerializableTransform : Body
+    {
+        public string name;
+        public Vector3 position;
+        public Vector3 rotation;
+        public Vector3 scale;
+
+        public SerializableTransform(Transform value)
+        {
+            name = value.name;
+            position = value.position;
+            rotation = value.eulerAngles;
+            scale = value.lossyScale;
+        }
+
+        public SerializableTransform(byte[] data)
+            : base(data)
+        { }
+
+        public static implicit operator Transform(SerializableTransform value)
+        {
+            var tr = GameObject.Find(value.name).transform;
+            tr.position = value.position;
+            tr.eulerAngles = value.rotation;
+            tr.localScale = value.scale;
+            return tr;
         }
     }
 }
