@@ -92,7 +92,8 @@ public abstract class NetworkScript : MonoBehaviour
 
     protected void Sync(string member)
     {
-        Send(new Sync(Application.loadedLevelName, member));
+        if (isLocal)
+            Send(new Sync(Application.loadedLevelName, member));
     }
 
     public void Sync(Sync sync)
