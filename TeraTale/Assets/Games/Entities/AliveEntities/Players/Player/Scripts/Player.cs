@@ -14,6 +14,12 @@ public class Player : AliveEntity
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
+    List<ItemStack> _itemStacks = new List<ItemStack>(30);
+
+    public List<ItemStack> itemStacks
+    {
+        get { return _itemStacks; }
+    }
 
     static public Player FindPlayerByName(string name)
     {
@@ -22,6 +28,8 @@ public class Player : AliveEntity
 
     void Awake()
     {
+        for(int i=0;i<30;i++)
+            _itemStacks.Add(new ItemStack());
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -53,15 +61,11 @@ public class Player : AliveEntity
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, kRaycastDistance))
-            {
                 Send(new Navigate(hit.point));
-            }
         }
 
         if (Input.GetButtonDown("Attack"))
-        {
             Send(new Attack());
-        }
     }
 
     public void Attack(Attack info)
@@ -110,5 +114,17 @@ public class Player : AliveEntity
             var programInst = NetworkProgramUnity.currentInstance;
             programInst.NetworkInstantiate(programInst.pfPlayer);
         }
+    }
+
+    public void AddItem(Item item)
+    {
+        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
+        Send(new AddItem(name, item));
+    }
+
+    public void AddItem(AddItem rpc)
+    {
+        Item item = (Item)rpc.item.body;
+        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 }

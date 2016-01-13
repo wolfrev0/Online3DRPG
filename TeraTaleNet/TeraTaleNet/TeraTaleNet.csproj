@@ -48,10 +48,14 @@
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\Item\HpPotion.cs" />
+    <Compile Include="Body\Item\Item.cs" />
+    <Compile Include="Body\Item\Rock.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
     <Compile Include="Body\NullPacket.cs" />
     <Compile Include="Body\RemoveBufferedRPC.cs" />
+    <Compile Include="Body\RPC\AddItem.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />

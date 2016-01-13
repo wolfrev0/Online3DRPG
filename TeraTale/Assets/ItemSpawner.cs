@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
+using TeraTaleNet;
+using System;
 
 public class ItemSpawner : Entity
 {
-    public NetworkScript pfItem;
+    public string itemName;
 
     void OnTriggerEnter(Collider coll)
     {
-        if(coll.tag == "Player")
+        if(isServer&&coll.tag == "Player")
         {
-            if(isServer)
-                NetworkInstantiate(pfItem);
+            Item item;
+            if (itemName == "HpPotion")
+                item = new HpPotion();
+            else
+                item = new Rock();
+            NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item);
         }
     }
 }

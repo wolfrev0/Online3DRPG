@@ -4,6 +4,7 @@
     {
         public string pfName;
         public int networkID;
+        public Packet callbackArg;
 
         public NetworkInstantiate(string pfName)
             : base(RPCType.AllBuffered)

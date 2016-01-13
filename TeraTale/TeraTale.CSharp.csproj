@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -80,7 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Common\Billboard.cs" />
+    <Compile Include="Assets\Common\Floater.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />
+    <Compile Include="Assets\Common\ItemFunctions.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
@@ -89,14 +89,14 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
     <Compile Include="Assets\Games\Entities\Entity.cs" />
-    <Compile Include="Assets\Games\Entities\Items\HpPotion\Scripts\HpPotion.cs" />
-    <Compile Include="Assets\Games\Entities\Items\HpPotion\Scripts\HpPotionMeta.cs" />
-    <Compile Include="Assets\Games\Entities\Items\Item.cs" />
-    <Compile Include="Assets\Games\Entities\Items\ItemMeta.cs" />
+    <Compile Include="Assets\Games\Entities\Items\ItemSolid.cs" />
+    <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
+    <Compile Include="Assets\Games\UIs\Inventory\Cell.cs" />
+    <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\ItemSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />

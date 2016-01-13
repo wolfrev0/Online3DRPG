@@ -1,13 +1,15 @@
 fileFormatVersion: 2
-guid: 2dd67fdcd4fb50041853ad2eabfe54ae
+guid: d49c56f15b83d264ca58e3ecace8d6ad
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: bottle
+    100000: Group001
+    100002: //RootNode
+    400000: Group001
+    400002: //RootNode
+    2300000: Group001
+    3300000: Group001
+    4300000: Group001
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -50,9 +52,9 @@ ModelImporter:
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
-    tangentImportMode: 3
-  importAnimation: 1
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
@@ -69,7 +71,7 @@ ModelImporter:
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   humanoidOversampling: 1
-  additionalBone: 1
+  additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

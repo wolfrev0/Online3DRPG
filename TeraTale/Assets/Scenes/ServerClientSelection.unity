@@ -485,7 +485,7 @@ MonoBehaviour:
   networkID: -1
   owner: 
   pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
-  serverIP: 14.55.93.198
+  serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -838,6 +838,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 530028941}
   m_RootOrder: 0
+--- !u!1 &1070198283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1070198285}
+  - 114: {fileID: 1070198284}
+  m_Layer: 0
+  m_Name: ItemFunctionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1070198284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1070198283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be6b29ee02fd7943aae1fff157dff58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkID: -11
+  owner: 
+--- !u!4 &1070198285
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1070198283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.2997956, y: 5.5977955, z: -5.8124847}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1225605209
 GameObject:
   m_ObjectHideFlags: 0

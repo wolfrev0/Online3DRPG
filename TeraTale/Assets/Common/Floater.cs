@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class HpPotion : Item
+public class Floater : MonoBehaviour
 {
     public float amplitude = 1;
     public float frequency = 1;
@@ -8,13 +8,12 @@ public class HpPotion : Item
     float elapsed = 0;
     float prevSin;
 
-    new void Start ()
+    void Start()
     {
-        base.Start();
         prevSin = Mathf.Sin(elapsed * frequency);
     }
-	
-	void Update ()
+
+    void Update()
     {
         elapsed += Time.deltaTime * frequency;
         var y = (Mathf.Sin(elapsed) - prevSin) * amplitude;
@@ -22,19 +21,5 @@ public class HpPotion : Item
         prevSin = Mathf.Sin(elapsed);
 
         transform.Rotate(0, rotationSpeed, 0, Space.World);
-    }
-
-    void OnTriggerEnter(Collider coll)
-    {
-        if(coll.tag == "Player")
-            Affect();
-    }
-
-    void Affect()
-    {
-        //플레이어 두명이 동시에 접촉하는경우를 생각하자. 서버에서 처리하도록 isServer써야되겠다.
-        Debug.Log("HP 포션 Affect()");
-        if (isServer)// Remove when the test ended.
-            NetworkDestroy(this);
     }
 }
