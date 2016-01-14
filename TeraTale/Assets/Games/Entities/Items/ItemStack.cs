@@ -14,8 +14,8 @@ public class ItemStack
     int _count = 0;
 
     public int count { get { return _count; } }
-
     public Sprite sprite { get { return _item.sprite; } }
+    public Item item { get { return _item; } }
 
     public ItemStack()
     { }

@@ -171,4 +171,24 @@ public class Player : AliveEntity
                 break;
         }
     }
+
+    public bool IsEquiping(Equipment equipment)
+    {
+        switch (equipment.type)
+        {
+            case Equipment.Type.Coat:
+                break;
+            case Equipment.Type.Gloves:
+                break;
+            case Equipment.Type.Hat:
+                break;
+            case Equipment.Type.Pants:
+                break;
+            case Equipment.Type.Shoes:
+                break;
+            case Equipment.Type.Weapon:
+                return weapon == (Weapon)equipment;
+        }
+        return false;
+    }
 }

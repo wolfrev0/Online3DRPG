@@ -13,7 +13,11 @@ public class ItemFunctions : NetworkScript
         Equipment.onUse += (Item item) =>
         {
             var player = Player.FindPlayerByName(userName);
-            player.Equip((Equipment)item);
+            if (player.IsEquiping((Equipment)item))
+                player.Equip(new WeaponNull());
+            else
+                player.Equip((Equipment)item);
+
         };
     }
 }

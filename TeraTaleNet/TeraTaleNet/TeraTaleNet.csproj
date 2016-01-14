@@ -50,6 +50,7 @@
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
     <Compile Include="Body\Item\Consumable\HpPotion.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Sword.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\WeaponNull.cs" />
     <Compile Include="Body\Item\Item.cs" />
     <Compile Include="Body\Item\ItemNull.cs" />

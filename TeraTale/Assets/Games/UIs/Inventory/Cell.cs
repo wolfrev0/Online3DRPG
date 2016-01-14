@@ -7,28 +7,30 @@ public class Cell : MonoBehaviour, IPointerClickHandler
 {
     ItemStack _itemStack;
     Image _image;
-    Text _text;
+    [SerializeField] Text _count;
+    [SerializeField] Text _equipState;
 
     void Awake()
     {
         _image = GetComponent<Image>();
-        _text = GetComponentInChildren<Text>();
     }
 
     public void SetItemStack(ItemStack itemStack)
     {
-        if(_image == null)
-            _image = GetComponent<Image>();
-        if(_text == null)
-            _text = GetComponentInChildren<Text>();
+        Awake();//이상한 null 버그 땜빵..
         _itemStack = itemStack;
-        Renew();
     }
 
-    public void Renew()
+    void Update()
     {
         _image.sprite = _itemStack.sprite;
-        _text.text = _itemStack.count.ToString();
+        _count.text = _itemStack.count.ToString();
+        if (_itemStack.count <= 1)
+            _count.text = "";
+
+        var equipment = _itemStack.item as Equipment;
+        if (equipment != null)
+            _equipState.gameObject.SetActive(Player.FindPlayerByName(NetworkScript.userName).IsEquiping(equipment));
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -36,7 +38,6 @@ public class Cell : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             _itemStack.Use();
-            Renew();
         }
     }
 }
