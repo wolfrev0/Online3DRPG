@@ -127,4 +127,9 @@ public class Player : AliveEntity
         Item item = (Item)rpc.item.body;
         _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
+
+    public void Equip(Equipment equipment)
+    {
+
+    }
 }

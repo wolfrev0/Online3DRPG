@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace TeraTaleNet
+﻿namespace TeraTaleNet
 {
-    public class Rock : Item
+    public class Rock : Sundry
     {
         public Rock()
         { }

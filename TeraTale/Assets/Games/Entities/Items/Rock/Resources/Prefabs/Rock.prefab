@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 466592}
   - 33: {fileID: 3377850}
   - 23: {fileID: 2385012}
-  - 114: {fileID: 11431218}
   - 114: {fileID: 11475152}
   - 135: {fileID: 13574246}
   m_Layer: 0
@@ -65,20 +64,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179828}
   m_Mesh: {fileID: 4300000, guid: d49c56f15b83d264ca58e3ecace8d6ad, type: 3}
---- !u!114 &11431218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 179828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 136aa75d7bbecc14bb5737bebae54ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amplitude: 0.2
-  frequency: 2
-  rotationSpeed: 1.5
 --- !u!114 &11475152
 MonoBehaviour:
   m_ObjectHideFlags: 1

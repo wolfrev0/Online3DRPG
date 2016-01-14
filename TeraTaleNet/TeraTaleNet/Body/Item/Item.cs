@@ -26,8 +26,8 @@ namespace TeraTaleNet
             }
         }
 
-        public virtual int maxCount { get { return 100; } }
-        public virtual bool isConsumables { get { return true; } }
+        public abstract int maxCount { get; }
+        public bool isConsumables { get { return GetType().IsSubclassOf(typeof(Consumable)); } }
 
         public Item()
         { }

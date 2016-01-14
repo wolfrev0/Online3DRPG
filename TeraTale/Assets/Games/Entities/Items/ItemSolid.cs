@@ -8,6 +8,11 @@ public class ItemSolid : Entity
     public void OnNetInstantiate(Item item)
     {
         _item = item;
+
+        var floater = gameObject.AddComponent<Floater>();
+        floater.amplitude = 0.2f;
+        floater.frequency = 2;
+        floater.rotationSpeed = 1.5f;
     }
 
     void OnTriggerEnter(Collider coll)

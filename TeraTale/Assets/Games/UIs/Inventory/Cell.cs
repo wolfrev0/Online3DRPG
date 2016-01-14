@@ -30,6 +30,9 @@ public class Cell : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
+        {
             _itemStack.Use();
+            Renew();
+        }
     }
 }

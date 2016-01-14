@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
-    <None Include="Assets\Games\Entities\Weapons\Sword\ReadMe.txt" />
+    <None Include="Assets\Games\Entities\Items\Weapons\Sword\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
   </ItemGroup>

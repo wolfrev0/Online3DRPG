@@ -13,8 +13,10 @@ public class ItemSpawner : Entity
             Item item;
             if (itemName == "HpPotion")
                 item = new HpPotion();
-            else
+            else if(itemName == "Rock")
                 item = new Rock();
+            else
+                item = new Dagger();
             NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item);
         }
     }
