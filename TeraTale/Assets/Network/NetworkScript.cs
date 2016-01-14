@@ -61,15 +61,19 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void NetworkInstantiate(NetworkScript prefab)
     {
-        var ni = new NetworkInstantiate(prefab.name);
-        ni.callbackArg = new NullPacket();
+        var ni = new NetworkInstantiate(prefab.name, new NullPacket(), "");
         Send(ni);
     }
 
     public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg)
     {
-        var ni = new NetworkInstantiate(prefab.name);
-        ni.callbackArg = callbackArg;
+        var ni = new NetworkInstantiate(prefab.name, callbackArg, "");
+        Send(ni);
+    }
+
+    public void NetworkInstantiate(NetworkScript prefab, string callback)
+    {
+        var ni = new NetworkInstantiate(prefab.name, new NullPacket(), callback);
         Send(ni);
     }
 
@@ -79,12 +83,16 @@ public abstract class NetworkScript : MonoBehaviour
         instance.networkID = info.networkID;
         instance.owner = info.sender;
         instance.RegisterToProgram();
-        instance.SendMessage("OnNetInstantiate", info.callbackArg.body, SendMessageOptions.DontRequireReceiver);
+        if (info.callbackArg.body.GetType() != typeof(NullPacket))
+            instance.SendMessage("OnNetInstantiate", info.callbackArg.body, SendMessageOptions.DontRequireReceiver);
+        if (info.callback != "")
+            SendMessage(info.callback, instance);
     }
 
     protected void NetworkDestroy(NetworkScript instance)
     {
-        instance.Destroy();
+        if (instance)
+            instance.Destroy();
     }
 
     public void Destroy()

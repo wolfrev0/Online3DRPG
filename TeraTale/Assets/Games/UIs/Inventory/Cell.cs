@@ -17,6 +17,10 @@ public class Cell : MonoBehaviour, IPointerClickHandler
 
     public void SetItemStack(ItemStack itemStack)
     {
+        if(_image == null)
+            _image = GetComponent<Image>();
+        if(_text == null)
+            _text = GetComponentInChildren<Text>();
         _itemStack = itemStack;
         Renew();
     }

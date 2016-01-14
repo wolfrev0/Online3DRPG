@@ -607,7 +607,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151982}
-  m_LocalRotation: {x: 0.005027954, y: -0.6972602, z: 0.71297336, w: -0.07397224}
+  m_LocalRotation: {x: 0.0050279545, y: -0.69726026, z: 0.7129734, w: -0.07397225}
   m_LocalPosition: {x: 0.04257455, y: -0.41833785, z: 0.25673655}
   m_LocalScale: {x: 0.9999998, y: 1, z: 0.9999998}
   m_Children:
@@ -839,7 +839,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199322}
-  m_LocalRotation: {x: 0.005237844, y: 0.6844747, z: 0.7252909, w: 0.073620975}
+  m_LocalRotation: {x: 0.0052378443, y: 0.68447477, z: 0.72529095, w: 0.07362098}
   m_LocalPosition: {x: 0.0425744, y: 0.41833797, z: 0.25673673}
   m_LocalScale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
   m_Children:
@@ -1025,8 +1025,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: 0
   owner: 
+  rightHand: {fileID: 430128}
   nameView: {fileID: 11496466}
-  _speechBubble: {fileID: 11400658}
+  speechBubble: {fileID: 11400658}
 --- !u!114 &11426782
 MonoBehaviour:
   m_ObjectHideFlags: 1

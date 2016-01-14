@@ -28,6 +28,7 @@ namespace TeraTaleNet
 
         public abstract int maxCount { get; }
         public bool isConsumables { get { return GetType().IsSubclassOf(typeof(Consumable)); } }
+        public virtual bool isNull { get { return false; } }
 
         public Item()
         { }
@@ -39,8 +40,6 @@ namespace TeraTaleNet
         public virtual void Use() { }
 
         public bool IsSameType(Item other)
-        {
-            return GetType() == other.GetType();
-        }
+        { return GetType() == other.GetType(); }
     }
 }

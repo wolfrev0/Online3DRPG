@@ -50,12 +50,14 @@
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
     <Compile Include="Body\Item\Consumable\HpPotion.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\WeaponNull.cs" />
     <Compile Include="Body\Item\Item.cs" />
+    <Compile Include="Body\Item\ItemNull.cs" />
     <Compile Include="Body\Item\Sundry\Rock.cs" />
     <Compile Include="Body\Item\Sundry\Sundry.cs" />
-    <Compile Include="Body\Item\Weapon\Weapon\Dagger.cs" />
-    <Compile Include="Body\Item\Weapon\Equipment.cs" />
-    <Compile Include="Body\Item\Weapon\Weapon\Weapon.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Dagger.cs" />
+    <Compile Include="Body\Item\Equipment\Equipment.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Weapon.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
     <Compile Include="Body\NullPacket.cs" />

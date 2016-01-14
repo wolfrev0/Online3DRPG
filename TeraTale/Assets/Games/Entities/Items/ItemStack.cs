@@ -10,28 +10,21 @@ public class ItemTypeMismatch : Exception
 
 public class ItemStack
 {
-    Item _item = null;
+    Item _item = new ItemNull();
     int _count = 0;
 
     public int count { get { return _count; } }
 
-    public Sprite sprite
-    {
-        get
-        {
-            if (_item == null)
-                return new Sprite();
-            return _item.sprite;
-        }
-    }
+    public Sprite sprite { get { return _item.sprite; } }
 
     public ItemStack()
     { }
 
     public void Push(Item item)
     {
-        if (_item == null)
+        if (_item.isNull)
             _item = item;
+
         if (_item.IsSameType(item))
         {
             if (IsFull() == false)
@@ -50,23 +43,18 @@ public class ItemStack
 
     public bool IsPushable(Item item)
     {
-        if (_item == null)
-            return true;
-        return IsFull() == false && _item.IsSameType(item);
+        return _item.isNull || (IsFull() == false && _item.IsSameType(item));
     }
 
     public void Use()
     {
-        if (_item == null)
-            return;
-
         _item.Use();
 
         if (_item.isConsumables)
         {
             _count--;
             if (count <= 0)
-                _item = null;
+                _item = new ItemNull();
         }
     }
 }

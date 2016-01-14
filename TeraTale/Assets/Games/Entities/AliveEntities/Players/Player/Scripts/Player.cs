@@ -9,13 +9,16 @@ public class Player : AliveEntity
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
+    public Transform rightHand;
     public Text nameView;
-    public SpeechBubble _speechBubble;
+    public SpeechBubble speechBubble;
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     List<ItemStack> _itemStacks = new List<ItemStack>(30);
-
+    Weapon _weapon;
+    ItemSolid _weaponSolid;
+    
     public List<ItemStack> itemStacks
     {
         get { return _itemStacks; }
@@ -26,9 +29,30 @@ public class Player : AliveEntity
         return _playersByName[name];
     }
 
+    public Weapon weapon
+    {
+        get { return _weapon; }
+
+        private set
+        {
+            NetworkDestroy(_weaponSolid);
+            _weapon = value;
+            NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), "OnWeaponInstantiate");
+        }
+    }
+
+    void OnWeaponInstantiate(ItemSolid itemSolid)
+    {
+        _weaponSolid = itemSolid;
+        _weaponSolid.transform.parent = rightHand;
+        _weaponSolid.transform.localPosition = Vector3.zero;
+        _weaponSolid.transform.localRotation = Quaternion.identity;
+        _weaponSolid.transform.localScale = Vector3.one;
+    }
+
     void Awake()
     {
-        for(int i=0;i<30;i++)
+        for (int i = 0; i < 30; i++)
             _itemStacks.Add(new ItemStack());
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
@@ -101,7 +125,7 @@ public class Player : AliveEntity
 
     public void Speak(string chat)
     {
-        _speechBubble.Show(chat);
+        speechBubble.Show(chat);
     }
 
     public void SwitchWorld(string world)
@@ -130,6 +154,21 @@ public class Player : AliveEntity
 
     public void Equip(Equipment equipment)
     {
-
+        switch(equipment.type)
+        {
+            case Equipment.Type.Coat:
+                break;
+            case Equipment.Type.Gloves:
+                break;
+            case Equipment.Type.Hat:
+                break;
+            case Equipment.Type.Pants:
+                break;
+            case Equipment.Type.Shoes:
+                break;
+            case Equipment.Type.Weapon:
+                weapon = (Weapon)equipment;
+                break;
+        }
     }
 }
