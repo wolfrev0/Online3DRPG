@@ -16,8 +16,11 @@ public class Player : AliveEntity
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     List<ItemStack> _itemStacks = new List<ItemStack>(30);
-    Weapon _weapon;
+    Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
+    //StreamingSkill (Base Attack) Management
+    float _attackStackTimer = 0;
+    int _attackStack = 0;
     
     public List<ItemStack> itemStacks
     {
@@ -35,9 +38,12 @@ public class Player : AliveEntity
 
         private set
         {
-            NetworkDestroy(_weaponSolid);
             _weapon = value;
-            NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), "OnWeaponInstantiate");
+            if (isServer)
+            {
+                NetworkDestroy(_weaponSolid);
+                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), _weapon, "OnWeaponInstantiate");
+            }
         }
     }
 
@@ -48,6 +54,7 @@ public class Player : AliveEntity
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
+        _weaponSolid.GetComponent<Floater>().enabled = false;
     }
 
     void Awake()
@@ -67,6 +74,13 @@ public class Player : AliveEntity
         if (name == userName)
             FindObjectOfType<CameraController>().target = transform;
         Sync("transform.position");
+    }
+
+    void Update()
+    {
+        _attackStackTimer -= Time.deltaTime;
+        if (_attackStackTimer < 0)
+            _attackStack = 0;
     }
 
     new void OnDestroy()
@@ -95,6 +109,16 @@ public class Player : AliveEntity
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attacking");
+        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
+        _animator.SetInteger("BaseAttackStack", _attackStack++);
+        _attackStackTimer = 3;
+
+        //Stack Overflow
+        if (_attackStack > 2)
+        {
+            _attackStack = 0;
+            _attackStackTimer = 0;
+        }
     }
 
     void Die()
@@ -154,7 +178,13 @@ public class Player : AliveEntity
 
     public void Equip(Equipment equipment)
     {
-        switch(equipment.type)
+        Send(new Equip(equipment));
+    }
+
+    public void Equip(Equip rpc)
+    {
+        var equipment = (Equipment)rpc.equipment.body;
+        switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
                 break;
@@ -174,7 +204,7 @@ public class Player : AliveEntity
 
     public bool IsEquiping(Equipment equipment)
     {
-        switch (equipment.type)
+        switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
                 break;
@@ -187,7 +217,7 @@ public class Player : AliveEntity
             case Equipment.Type.Shoes:
                 break;
             case Equipment.Type.Weapon:
-                return weapon == (Weapon)equipment;
+                return weapon == equipment;
         }
         return false;
     }

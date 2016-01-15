@@ -77,6 +77,12 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
+    public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg, string callback)
+    {
+        var ni = new NetworkInstantiate(prefab.name, callbackArg, callback);
+        Send(ni);
+    }
+
     public void NetworkInstantiate(NetworkInstantiate info)
     {
         var instance = Instantiate(Resources.Load<NetworkScript>("Prefabs/" + info.pfName));

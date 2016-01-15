@@ -15,7 +15,7 @@
         public delegate void OnUse(Item item);
         static public OnUse onUse;
 
-        public abstract Type type { get; }
+        public abstract Type equipmentType { get; }
 
         public sealed override int maxCount { get { return 1; } }
 

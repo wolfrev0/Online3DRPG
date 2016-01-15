@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TeraTaleNet;
 using System;
+using System.Collections.Generic;
 
 public class ItemStackOverflow : Exception
 { }
@@ -10,25 +11,26 @@ public class ItemTypeMismatch : Exception
 
 public class ItemStack
 {
-    Item _item = new ItemNull();
-    int _count = 0;
+    Stack<Item> _stack = new Stack<Item>(new[] { new ItemNull() });
 
-    public int count { get { return _count; } }
-    public Sprite sprite { get { return _item.sprite; } }
-    public Item item { get { return _item; } }
+    public int count { get { return _stack.Count; } }
+    public Sprite sprite { get { return _stack.Peek().sprite; } }
+    public Item item { get { return _stack.Peek(); } }
 
     public ItemStack()
     { }
 
     public void Push(Item item)
     {
-        if (_item.isNull)
-            _item = item;
-
-        if (_item.IsSameType(item))
+        Item i = _stack.Peek();
+        if (i.isNull || i.IsSameType(item))
         {
             if (IsFull() == false)
-                _count++;
+            {
+                if (i.isNull)
+                    _stack.Pop();
+                _stack.Push(item);
+            }
             else
                 throw new ItemStackOverflow();
         }
@@ -38,23 +40,28 @@ public class ItemStack
 
     bool IsFull()
     {
-        return _item.maxCount == _count;
+        return _stack.Peek().maxCount <= _stack.Count;
     }
 
     public bool IsPushable(Item item)
     {
-        return _item.isNull || (IsFull() == false && _item.IsSameType(item));
+        Item i = _stack.Peek();
+
+        if (i.isNull)
+            return true;
+        return IsFull() == false && i.IsSameType(item);
     }
 
     public void Use()
     {
-        _item.Use();
+        Item item = _stack.Peek();
+        item.Use();
 
-        if (_item.isConsumables)
+        if (item.isConsumables)
         {
-            _count--;
-            if (count <= 0)
-                _item = new ItemNull();
+            _stack.Pop();
+            if (_stack.Count == 0)
+                _stack.Push(new ItemNull());
         }
     }
 }

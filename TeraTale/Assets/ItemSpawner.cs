@@ -8,14 +8,14 @@ public class ItemSpawner : Entity
 
     void OnTriggerEnter(Collider coll)
     {
-        if(isServer&&coll.tag == "Player")
+        if (isServer && coll.tag == "Player")
         {
             Item item;
             if (itemName == "HpPotion")
                 item = new HpPotion();
-            else if(itemName == "Rock")
+            else if (itemName == "Rock")
                 item = new Rock();
-            else if(itemName == "Dagger")
+            else if (itemName == "Dagger")
                 item = new Dagger();
             else
                 item = new Sword();

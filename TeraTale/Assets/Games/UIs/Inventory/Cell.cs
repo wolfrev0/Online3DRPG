@@ -7,8 +7,8 @@ public class Cell : MonoBehaviour, IPointerClickHandler
 {
     ItemStack _itemStack;
     Image _image;
-    [SerializeField] Text _count;
-    [SerializeField] Text _equipState;
+    public Text _count;
+    public Text _equipState;
 
     void Awake()
     {
