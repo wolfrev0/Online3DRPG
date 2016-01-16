@@ -73,7 +73,6 @@ public class Player : AliveEntity
         _playersByName.Add(name, this);
         if (name == userName)
             FindObjectOfType<CameraController>().target = transform;
-        Sync("transform.position");
     }
 
     void Update()
@@ -98,7 +97,7 @@ public class Player : AliveEntity
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, kRaycastDistance))
+            if (Physics.Raycast(ray, out hit, kRaycastDistance, 1 << LayerMask.NameToLayer("Terrain")))
                 Send(new Navigate(hit.point));
         }
 

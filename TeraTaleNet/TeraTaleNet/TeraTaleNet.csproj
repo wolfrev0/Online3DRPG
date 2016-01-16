@@ -65,6 +65,7 @@
     <Compile Include="Body\RemoveBufferedRPC.cs" />
     <Compile Include="Body\RPC\AddItem.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
+    <Compile Include="Body\RPC\Chase.cs" />
     <Compile Include="Body\RPC\Equip.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />

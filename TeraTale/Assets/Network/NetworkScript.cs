@@ -14,7 +14,7 @@ public abstract class NetworkScript : MonoBehaviour
     bool _destroyed = false;
 
     public bool isMine { get { return userName == owner; } }
-    static protected bool isServer
+    static public bool isServer
     {
         get
         {

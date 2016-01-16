@@ -83,7 +83,13 @@
     <Compile Include="Assets\Common\ItemFunctions.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Demon\Scripts\Demon.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyAttacking.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyChasing.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
@@ -99,6 +105,7 @@
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\ItemSpawner.cs" />
+    <Compile Include="Assets\MonsterSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
