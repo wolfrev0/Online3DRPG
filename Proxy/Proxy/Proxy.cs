@@ -10,7 +10,7 @@ namespace Proxy
         NetworkAgent _agent = new NetworkAgent();
         Messenger _messenger;
         Messenger _confirmMessenger;
-        List<string> _clientKeys = new List<string>();
+        List<string> _serverKeys = new List<string>();
         Dictionary<string, Task> _dispatchers = new Dictionary<string, Task>();
         Dictionary<string, string> _worldByUser = new Dictionary<string, string>();
         Task _accepter;
@@ -18,7 +18,7 @@ namespace Proxy
         Task _client;
         int _currentConfirmId = 0;
         object _lock = new object();
-        List<RPC> _rpcBuffer = new List<RPC>();
+        Dictionary<string, List<RPC>> _rpcBufferByWorld = new Dictionary<string, List<RPC>>();
         int _currentNetworkID = 1;
 
         public Task Client
@@ -32,12 +32,6 @@ namespace Proxy
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
-            _messenger.onReceive = (Packet packet) => 
-            {
-                if (packet.header.type == Body.GetIndexByName("NetworkInstantiate"))
-                    ((NetworkInstantiate)packet.body).networkID = _currentNetworkID++;
-            };
-
             Action<Port> connector = (Port port) =>
             {
                 var stream = _agent.Connect("127.0.0.1", port);
@@ -45,6 +39,8 @@ namespace Proxy
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
                 _worldByUser.Add(port.ToString(), port.ToString());
+                _serverKeys.Add(port.ToString());
+                _rpcBufferByWorld.Add(port.ToString(), new List<RPC>());
             };
 
             connector(Port.Login);
@@ -99,8 +95,11 @@ namespace Proxy
                 {
                     lock (_lock)
                     {
-                        foreach (var key in _clientKeys)
-                            _messenger.Dispatch(key);
+                        foreach (var key in _messenger.Keys)
+                        {
+                            if (_serverKeys.Contains(key) == false)
+                                _messenger.Dispatch(key);
+                        }
                     }
                 }
             });
@@ -158,9 +157,8 @@ namespace Proxy
                         AddClient(answer.name, stream);
                     }
                     _worldByUser.Add(answer.name, answer.world);
-                    _messenger.Send(answer.world, new PlayerJoin(answer.name));
                     _messenger.Send(answer.name, answer);
-                    foreach (var rpc in _rpcBuffer)
+                    foreach (var rpc in _rpcBufferByWorld[answer.world])
                         _messenger.Send(answer.name, rpc);
                 }
             }
@@ -172,19 +170,18 @@ namespace Proxy
 
         bool IsLoggedIn(string user)
         {
-            var keys = (ICollection<string>)_clientKeys;
+            var keys = (ICollection<string>)_messenger.Keys;
             return keys.Contains(user);
         }
 
         void AddClient(string name, PacketStream stream)
         {
             _messenger.Register(name, stream);
-            _clientKeys.Add(name);
         }
 
         void MessageHandler.RPCHandler(RPC rpc)
         {
-            if ((rpc.rpcType & RPCType.Self) == RPCType.Self)
+            if ((rpc.rpcType & RPCType.Self) != 0)
             {
                 _messenger.Send(rpc.sender, rpc);
             }
@@ -192,17 +189,51 @@ namespace Proxy
             //{
             //    _messenger.Send(_worldByUser[rpc.sender], rpc);
             //}
-            if ((rpc.rpcType & RPCType.Others) == RPCType.Others)
+            if ((rpc.rpcType & RPCType.Others) != 0)
             {
-                foreach(var target in _clientKeys)
+                foreach(var target in _messenger.Keys)
                 {
                     if (target != rpc.sender && _worldByUser[target] == _worldByUser[rpc.sender])
                         _messenger.Send(target, rpc);
                 }
             }
-            if ((rpc.rpcType & RPCType.Buffered) == RPCType.Buffered)
+            if ((rpc.rpcType & RPCType.Buffered) != 0)
             {
-                _rpcBuffer.Add(rpc);
+                _rpcBufferByWorld[_worldByUser[rpc.sender]].Add(rpc);
+            }
+            if ((rpc.rpcType & RPCType.Specific) != 0)
+            {
+                _messenger.Send(rpc.receiver, rpc);
+            }
+        }
+
+        void NetworkInstantiate(NetworkInstantiate rpc)
+        {
+            rpc.networkID = _currentNetworkID++;
+        }
+
+        void RemoveBufferedRPC(Messenger messenger, string key, RemoveBufferedRPC packet)
+        {
+            var buffer = _rpcBufferByWorld[_worldByUser[packet.caller]];
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                if (buffer[i].GetType().Name == packet.typeName)
+                {
+                    NetworkInstantiate ni = (NetworkInstantiate)buffer[i];
+                    if (ni != null && ni.networkID == packet.networkID)
+                        buffer.RemoveAt(i);
+                }
+            }
+        }
+
+        void SwitchWorld(Messenger messenger, string key, SwitchWorld packet)
+        {
+            _worldByUser[packet.user] = packet.world;
+            History.Log("SwitchWorld");
+            foreach (var rpc in _rpcBufferByWorld[packet.world])
+            {
+                _messenger.Send(packet.user, rpc);
+                History.Log(rpc.GetType().Name);
             }
         }
     }

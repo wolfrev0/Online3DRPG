@@ -60,7 +60,6 @@
      <Compile Include="Assets\Logins\Scripts\LoginButtonHandler.cs" />
      <Compile Include="Assets\Network\Certificator.cs" />
      <Compile Include="Assets\Network\Client.cs" />
-     <Compile Include="Assets\Network\Network.cs" />
      <Compile Include="Assets\Network\Server\Forest.cs" />
      <Compile Include="Assets\Network\Server\GameServer.cs" />
      <Compile Include="Assets\Network\Server\Town.cs" />

@@ -2,13 +2,17 @@
 {
     public class NetworkInstantiate : RPC
     {
-        public int index;
         public int networkID;
+        public string pfName;
+        public Packet callbackArg;
+        public string callback;
 
-        public NetworkInstantiate(RPCType rpcType, int index)
-            : base(rpcType)
+        public NetworkInstantiate(string pfName, Packet callbackArg, string callback)
+            : base(RPCType.AllBuffered)
         {
-            this.index = index;
+            this.pfName = pfName;
+            this.callbackArg = callbackArg;
+            this.callback = callback;
         }
 
         public NetworkInstantiate(byte[] data)

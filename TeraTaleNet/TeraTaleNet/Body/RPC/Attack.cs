@@ -2,8 +2,8 @@
 {
     public class Attack : RPC
     {
-        public Attack(RPCType rpcType)
-            : base(rpcType)
+        public Attack()
+            : base(RPCType.All)
         { }
 
         public Attack(byte[] data)

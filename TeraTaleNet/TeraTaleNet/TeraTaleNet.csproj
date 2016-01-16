@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\TeraTale\Assets\</OutputPath>
+    <OutputPath>..\..\TeraTale\Assets\References\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -48,14 +48,33 @@
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\Item\Consumable\Consumable.cs" />
+    <Compile Include="Body\Item\Consumable\HpPotion.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Sword.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\WeaponNull.cs" />
+    <Compile Include="Body\Item\Item.cs" />
+    <Compile Include="Body\Item\ItemNull.cs" />
+    <Compile Include="Body\Item\Sundry\Rock.cs" />
+    <Compile Include="Body\Item\Sundry\Sundry.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Dagger.cs" />
+    <Compile Include="Body\Item\Equipment\Equipment.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Weapon.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
     <Compile Include="Body\LoginQuery.cs" />
-    <Compile Include="Body\PlayerJoin.cs" />
+    <Compile Include="Body\NullPacket.cs" />
+    <Compile Include="Body\RemoveBufferedRPC.cs" />
+    <Compile Include="Body\RPC\AddItem.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
+    <Compile Include="Body\RPC\Chase.cs" />
+    <Compile Include="Body\RPC\Equip.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
+    <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
+    <Compile Include="Body\RPC\Sync.cs" />
+    <Compile Include="Body\SerializableType.cs" />
+    <Compile Include="Body\SwitchWorld.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />

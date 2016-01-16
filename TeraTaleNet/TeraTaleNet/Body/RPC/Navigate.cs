@@ -1,15 +1,15 @@
-﻿namespace TeraTaleNet
+﻿using UnityEngine;
+
+namespace TeraTaleNet
 {
     public class Navigate : RPC
     {
-        public float x, y, z;
+        public Vector3 destination;
 
-        public Navigate(RPCType rpcType, float x, float y, float z)
-            : base(rpcType)
+        public Navigate(Vector3 destination)
+            : base(RPCType.All)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.destination = destination;
         }
 
         public Navigate(byte[] data)

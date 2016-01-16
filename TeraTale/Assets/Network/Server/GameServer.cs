@@ -7,13 +7,10 @@ using TeraTaleNet;
 public abstract class GameServer : NetworkProgramUnity, IDisposable
 {
     NetworkAgent _agent = new NetworkAgent();
-    Messenger _messenger;
-    HashSet<string> users = new HashSet<string>();
 
     protected override void OnStart()
     {
         userName = GetType().Name;
-        _messenger = new Messenger(this);
 
         PacketStream stream;
         ConnectorInfo info;
@@ -36,15 +33,7 @@ public abstract class GameServer : NetworkProgramUnity, IDisposable
     }
 
     protected override void OnEnd()
-    {
-        StopAllCoroutines();
-        _messenger.Dispose();
-    }
-
-    public override void Send(Packet packet)
-    {
-        _messenger.Send("Proxy", packet);
-    }
+    { }
 
     IEnumerator Dispatcher(string key)
     {
@@ -70,12 +59,5 @@ public abstract class GameServer : NetworkProgramUnity, IDisposable
         _messenger.Join();
         _agent.Dispose();
         GC.SuppressFinalize(this);
-    }
-
-    public void PlayerJoin(Messenger messenger, string key, PlayerJoin info)
-    {
-        users.Add(info.name);
-        Debug.Log("Player " + info.name + " Joined.");
-        //NetworkInstantiate
     }
 }

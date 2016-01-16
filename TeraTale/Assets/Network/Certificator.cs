@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using TeraTaleNet;
 
 public class Certificator : NetworkProgramUnity
 {
+    public string serverIP = "127.0.0.1";
     NetworkAgent _agent = new NetworkAgent();
-    Messenger _messenger;
     object _locker = new object();
     int _confirmID;
 
     protected override void OnStart()
     {
-        _messenger = new Messenger(this);
-
-        _messenger.Register("Proxy", _agent.Connect("127.0.0.1", Port.Proxy));
+        _messenger.Register("Proxy", _agent.Connect(serverIP, Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
         foreach (var key in _messenger.Keys)
@@ -41,10 +40,7 @@ public class Certificator : NetworkProgramUnity
     }
 
     protected override void OnEnd()
-    {
-        StopAllCoroutines();
-        _messenger.Join();
-    }
+    { }
 
     protected override void OnUpdate()
     {
@@ -53,11 +49,6 @@ public class Certificator : NetworkProgramUnity
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                 Stop();
         }
-    }
-
-    public override void Send(Packet packet)
-    {
-        _messenger.Send("Proxy", packet);
     }
 
     public void SendLoginRequest(string id, string pw)
@@ -82,14 +73,14 @@ public class Certificator : NetworkProgramUnity
         //If failed, Show Failed Message.
         if (answer.accepted)
         {
-            Application.LoadLevel(answer.world);
+            SceneManager.LoadScene(answer.world);
 
             userName = answer.name;
 
             var net = FindObjectOfType<Client>();
             lock (_locker)
                 net.stream = messenger.Unregister("Proxy");
-            net.userName = answer.name;
+            userName = answer.name;
             net.signallersByID = signallersByID;
             net.enabled = true;
         }

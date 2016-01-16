@@ -4,6 +4,7 @@ Build/
 Obj/
 UnityGenerated/
 Bin/
+.vs/
 *.svd
 *.userprefs
 *.pidb
