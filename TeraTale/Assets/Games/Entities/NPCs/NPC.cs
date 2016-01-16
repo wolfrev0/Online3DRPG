@@ -29,7 +29,7 @@ public abstract class NPC : Entity
                     angles.x = 0;
                     npcCam.transform.eulerAngles = angles;
                     npcCam.enabled = true;
-                    npcDialog.GetComponent<GraphicRaycaster>().enabled = true;
+                    npcCam.depth = Camera.main.depth + 1;
                     npcDialog.text.text = "내 안의 흑염룡이 날뛰는군. 크크큭...";
                 }
             }
