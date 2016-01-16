@@ -1,0 +1,286 @@
+fileFormatVersion: 2
+guid: 137e29f9d861fe343b3f0282f14f7552
+labels:
+- character
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Ac
+    100002: Bip001
+    100004: Bip001 B Hair
+    100006: Bip001 Footsteps
+    100008: Bip001 HairNub
+    100010: Bip001 Head
+    100012: Bip001 HeadNub
+    100014: Bip001 L Armor
+    100016: Bip001 L ArmorNub
+    100018: Bip001 L ArmorOppNub
+    100020: Bip001 L B Lower Cloth
+    100022: Bip001 L B Lower ClothNub
+    100024: Bip001 L B Lower ClothOpp
+    100026: Bip001 L B Lower ClothOppNub
+    100028: Bip001 L Calf
+    100030: Bip001 L Clavicle
+    100032: Bip001 L Ear
+    100034: Bip001 L EarNub
+    100036: Bip001 L F Lower Cloth
+    100038: Bip001 L F Lower ClothNub
+    100040: Bip001 L Finger0
+    100042: Bip001 L Finger01
+    100044: Bip001 L Finger02
+    100046: Bip001 L Finger0Nub
+    100048: Bip001 L Finger1
+    100050: Bip001 L Finger11
+    100052: Bip001 L Finger12
+    100054: Bip001 L Finger1Nub
+    100056: Bip001 L Finger2
+    100058: Bip001 L Finger21
+    100060: Bip001 L Finger22
+    100062: Bip001 L Finger2Nub
+    100064: Bip001 L Finger3
+    100066: Bip001 L Finger31
+    100068: Bip001 L Finger32
+    100070: Bip001 L Finger3Nub
+    100072: Bip001 L Foot
+    100074: Bip001 L Forearm
+    100076: Bip001 L Hand
+    100078: Bip001 L Thigh
+    100080: Bip001 L Toe0
+    100082: Bip001 L Toe0Nub
+    100084: Bip001 L UpperArm
+    100086: Bip001 Neck
+    100088: Bip001 Pelvis
+    100090: Bip001 R Armor
+    100092: Bip001 R Calf
+    100094: Bip001 R Clavicle
+    100096: Bip001 R Ear
+    100098: Bip001 R EarNub
+    100100: Bip001 R F Lower Cloth
+    100102: Bip001 R F Lower ClothNub
+    100104: Bip001 R Finger0
+    100106: Bip001 R Finger01
+    100108: Bip001 R Finger02
+    100110: Bip001 R Finger0Nub
+    100112: Bip001 R Finger1
+    100114: Bip001 R Finger11
+    100116: Bip001 R Finger12
+    100118: Bip001 R Finger1Nub
+    100120: Bip001 R Finger2
+    100122: Bip001 R Finger21
+    100124: Bip001 R Finger22
+    100126: Bip001 R Finger2Nub
+    100128: Bip001 R Finger3
+    100130: Bip001 R Finger31
+    100132: Bip001 R Finger32
+    100134: Bip001 R Finger3Nub
+    100136: Bip001 R Foot
+    100138: Bip001 R Forearm
+    100140: Bip001 R Hand
+    100142: Bip001 R Thigh
+    100144: Bip001 R Toe0
+    100146: Bip001 R Toe0Nub
+    100148: Bip001 R UpperArm
+    100150: Bip001 Spine
+    100152: Bip001 Spine1
+    100154: Bip001 Spine2
+    100156: Bip001 Tail01
+    100158: Bip001 Tail02
+    100160: Bip001 Tail03
+    100162: Bip001 Tail04
+    100164: Bip001 Tail05
+    100166: Bip001 TailNub
+    100168: Camera001
+    100170: Camera001.Target
+    100172: //RootNode
+    100174: ear
+    100176: face01
+    100178: Hair01
+    100180: Hand
+    100182: Lower
+    100184: Shoe
+    100186: Spot001
+    100188: Spot001.Target
+    100190: Tail
+    100192: Upper
+    100194: Bip001 R B Lower Cloth
+    400000: Ac
+    400002: Bip001
+    400004: Bip001 B Hair
+    400006: Bip001 Footsteps
+    400008: Bip001 HairNub
+    400010: Bip001 Head
+    400012: Bip001 HeadNub
+    400014: Bip001 L Armor
+    400016: Bip001 L ArmorNub
+    400018: Bip001 L ArmorOppNub
+    400020: Bip001 L B Lower Cloth
+    400022: Bip001 L B Lower ClothNub
+    400024: Bip001 L B Lower ClothOpp
+    400026: Bip001 L B Lower ClothOppNub
+    400028: Bip001 L Calf
+    400030: Bip001 L Clavicle
+    400032: Bip001 L Ear
+    400034: Bip001 L EarNub
+    400036: Bip001 L F Lower Cloth
+    400038: Bip001 L F Lower ClothNub
+    400040: Bip001 L Finger0
+    400042: Bip001 L Finger01
+    400044: Bip001 L Finger02
+    400046: Bip001 L Finger0Nub
+    400048: Bip001 L Finger1
+    400050: Bip001 L Finger11
+    400052: Bip001 L Finger12
+    400054: Bip001 L Finger1Nub
+    400056: Bip001 L Finger2
+    400058: Bip001 L Finger21
+    400060: Bip001 L Finger22
+    400062: Bip001 L Finger2Nub
+    400064: Bip001 L Finger3
+    400066: Bip001 L Finger31
+    400068: Bip001 L Finger32
+    400070: Bip001 L Finger3Nub
+    400072: Bip001 L Foot
+    400074: Bip001 L Forearm
+    400076: Bip001 L Hand
+    400078: Bip001 L Thigh
+    400080: Bip001 L Toe0
+    400082: Bip001 L Toe0Nub
+    400084: Bip001 L UpperArm
+    400086: Bip001 Neck
+    400088: Bip001 Pelvis
+    400090: Bip001 R Armor
+    400092: Bip001 R Calf
+    400094: Bip001 R Clavicle
+    400096: Bip001 R Ear
+    400098: Bip001 R EarNub
+    400100: Bip001 R F Lower Cloth
+    400102: Bip001 R F Lower ClothNub
+    400104: Bip001 R Finger0
+    400106: Bip001 R Finger01
+    400108: Bip001 R Finger02
+    400110: Bip001 R Finger0Nub
+    400112: Bip001 R Finger1
+    400114: Bip001 R Finger11
+    400116: Bip001 R Finger12
+    400118: Bip001 R Finger1Nub
+    400120: Bip001 R Finger2
+    400122: Bip001 R Finger21
+    400124: Bip001 R Finger22
+    400126: Bip001 R Finger2Nub
+    400128: Bip001 R Finger3
+    400130: Bip001 R Finger31
+    400132: Bip001 R Finger32
+    400134: Bip001 R Finger3Nub
+    400136: Bip001 R Foot
+    400138: Bip001 R Forearm
+    400140: Bip001 R Hand
+    400142: Bip001 R Thigh
+    400144: Bip001 R Toe0
+    400146: Bip001 R Toe0Nub
+    400148: Bip001 R UpperArm
+    400150: Bip001 Spine
+    400152: Bip001 Spine1
+    400154: Bip001 Spine2
+    400156: Bip001 Tail01
+    400158: Bip001 Tail02
+    400160: Bip001 Tail03
+    400162: Bip001 Tail04
+    400164: Bip001 Tail05
+    400166: Bip001 TailNub
+    400168: Camera001
+    400170: Camera001.Target
+    400172: //RootNode
+    400174: ear
+    400176: face01
+    400178: Hair01
+    400180: Hand
+    400182: Lower
+    400184: Shoe
+    400186: Spot001
+    400188: Spot001.Target
+    400190: Tail
+    400192: Upper
+    400194: Bip001 R B Lower Cloth
+    4300000: Hand
+    4300002: Shoe
+    4300004: Upper
+    4300006: Tail
+    4300008: Hair01
+    4300010: ear
+    4300012: Ac
+    4300014: Lower
+    4300016: face01
+    9500000: //RootNode
+    13700000: Ac
+    13700002: ear
+    13700004: face01
+    13700006: Hair01
+    13700008: Hand
+    13700010: Lower
+    13700012: Shoe
+    13700014: Tail
+    13700016: Upper
+  materials:
+    importMaterials: 0
+    materialName: 1
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 161
+    normalImportMode: 0
+    tangentImportMode: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
