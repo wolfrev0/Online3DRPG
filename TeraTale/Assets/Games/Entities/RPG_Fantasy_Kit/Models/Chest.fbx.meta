@@ -3,10 +3,29 @@ guid: bc46296565b00064d977b76b34dc9548
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: chest
+    100004: chest00
+    100006: lock
+    100008: open
+    400000: //RootNode
+    400002: chest
+    400004: chest00
+    400006: lock
+    400008: open
+    2300000: chest
+    2300002: chest00
+    2300004: lock
+    2300006: open
+    3300000: chest
+    3300002: chest00
+    3300004: lock
+    3300006: open
     4300000: open
     4300002: lock
     4300004: chest
     4300006: chest00
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

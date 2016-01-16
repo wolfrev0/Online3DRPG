@@ -3,7 +3,12 @@ guid: 53d8e82df5a6f3b42b40cd04cac0be46
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Potion
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

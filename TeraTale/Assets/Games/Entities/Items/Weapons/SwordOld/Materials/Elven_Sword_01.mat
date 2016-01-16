@@ -90,15 +90,15 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .5
+        second: 0.5
       data:
         first:
           name: _Shininess
-        second: .078125
+        second: 0.078125
       data:
         first:
           name: _Parallax
-        second: .0199999996
+        second: 0.02
       data:
         first:
           name: _ZWrite
@@ -130,7 +130,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .5
+        second: 0.5
     m_Colors:
       data:
         first:
@@ -143,4 +143,4 @@ Material:
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: .922413766, b: .669117689, a: 1}
+        second: {r: 1, g: 0.92241377, b: 0.6691177, a: 1}

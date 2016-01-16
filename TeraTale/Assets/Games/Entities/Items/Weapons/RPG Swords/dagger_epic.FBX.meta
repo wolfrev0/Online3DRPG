@@ -3,7 +3,12 @@ guid: 2b4e0496b71e5864ea17e62c57a06963
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: dagger_epic
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
