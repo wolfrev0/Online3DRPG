@@ -27,6 +27,7 @@ GameObject:
   - 114: {fileID: 11413946}
   - 54: {fileID: 5483310}
   - 65: {fileID: 6586406}
+  - 114: {fileID: 11459914}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -209,6 +210,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: 0
   owner: 
+--- !u!114 &11459914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0791189690268f46877324d9b837acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -222,6 +234,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

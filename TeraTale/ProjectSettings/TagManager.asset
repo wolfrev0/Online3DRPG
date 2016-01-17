@@ -8,6 +8,10 @@ TagManager:
   - PlayerStatusView
   - TargetStatusView
   - TargetRenderCamera
+  - TargetCamera
+  - NPCDialog
+  - NPCDialogMenu
+  - Enemy
   layers:
   - Default
   - TransparentFX

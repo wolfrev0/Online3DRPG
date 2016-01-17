@@ -17,8 +17,10 @@ public class Player : AliveEntity
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     List<ItemStack> _itemStacks = new List<ItemStack>(30);
-    Weapon _weapon = new WeaponNull();
+    Weapon _weapon;
     ItemSolid _weaponSolid;
+    //Rename Attacker to AttackSubject??
+    Attacker _attacker;
     //StreamingSkill (Base Attack) Management
     float _attackStackTimer = 0;
     int _attackStack = 0;
@@ -70,6 +72,9 @@ public class Player : AliveEntity
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
         _weaponSolid.GetComponent<Floater>().enabled = false;
+        //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
+        _attacker = _weaponSolid.GetComponent<Attacker>();
+        _attacker.enabled = false;
     }
 
     void Awake()
@@ -93,6 +98,7 @@ public class Player : AliveEntity
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
             playerRenderCamera.gameObject.SetActive(true);
         }
+        Equip(new WeaponNull());
     }
 
     void Update()
@@ -106,6 +112,16 @@ public class Player : AliveEntity
     {
         base.OnDestroy();
         _playersByName.Remove(name);
+    }
+
+    void AttackBegin()
+    {
+        _attacker.enabled = true;
+    }
+
+    void AttackEnd()
+    {
+        _attacker.enabled = false;
     }
 
     public void HandleInput()

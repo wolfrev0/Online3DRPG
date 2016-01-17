@@ -890,7 +890,7 @@ GameObject:
   - 114: {fileID: 11424442}
   m_Layer: 0
   m_Name: Demon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1873,6 +1873,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: 0
   owner: 
+  _hp: 0
+  _hpMax: 0
+  _stamina: 0
+  _staminaMax: 0
+  _attackDamage: 0
 --- !u!135 &13530890
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2020,7 +2025,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 187682}

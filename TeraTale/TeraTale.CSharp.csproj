@@ -99,6 +99,7 @@
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemSolid.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\Attacker.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\Movable.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\Ian\Ian.cs" />
