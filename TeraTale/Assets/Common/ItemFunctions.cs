@@ -8,11 +8,11 @@ public class ItemFunctions : NetworkScript
         DontDestroyOnLoad(gameObject);
         HpPotion.onUse += (Item item) =>
         {
-            var player = Player.FindPlayerByName(userName);
+            var player = Player.mine;
         };
         Equipment.onUse += (Item item) =>
         {
-            var player = Player.FindPlayerByName(userName);
+            var player = Player.mine;
             if (player.IsEquiping((Equipment)item))
                 player.Equip(new WeaponNull());
             else

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - NPCCamera
+  - PlayerStatusView
+  - TargetStatusView
+  - TargetRenderCamera
   layers:
   - Default
   - TransparentFX

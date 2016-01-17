@@ -69,7 +69,7 @@ public abstract class NPC : Entity
             {
                 if (hit.collider.gameObject == gameObject)
                 {
-                    var ppos = Player.FindPlayerByName(userName).transform.position;
+                    var ppos = Player.mine.transform.position;
                     var npos = transform.position;
                     if (Vector3.Distance(ppos, npos) < 3)
                         StartConversation();

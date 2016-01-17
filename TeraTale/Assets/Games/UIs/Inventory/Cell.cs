@@ -30,7 +30,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler
 
         var equipment = _itemStack.item as Equipment;
         if (equipment != null)
-            _equipState.gameObject.SetActive(Player.FindPlayerByName(NetworkScript.userName).IsEquiping(equipment));
+            _equipState.gameObject.SetActive(Player.mine.IsEquiping(equipment));
     }
 
     public void OnPointerClick(PointerEventData eventData)
