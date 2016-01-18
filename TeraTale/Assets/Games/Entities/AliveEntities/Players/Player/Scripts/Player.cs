@@ -173,6 +173,7 @@ public class Player : AliveEntity
     {
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = info.destination;
+        transform.LookAt(info.destination);
         _animator.SetBool("Running", true);
     }
 

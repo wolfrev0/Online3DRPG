@@ -51,8 +51,12 @@ public abstract class Enemy : AliveEntity
 
     protected void Update()
     {
-        if (_target && _navMeshAgent.enabled)
-            _navMeshAgent.destination = _target.transform.position;
+        if (target)
+        {
+            transform.LookAt(target.transform);
+            if (_navMeshAgent.enabled)
+                _navMeshAgent.destination = target.transform.position;
+        }
     }
 
     public void Attack()

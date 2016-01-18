@@ -24,7 +24,7 @@ public class StatusView : MonoBehaviour
         //if (target.GetType().IsSubclassOf(typeof(Player)));//따로처리
         _hpBar.fillAmount = target.hp / target.hpMax;
         _staminaBar.fillAmount = target.stamina / target.staminaMax;
-        //_levelText.text = _player.level;
+        _levelText.text = target.level.ToString();
         _nameText.text = target.name;
         //_moneyText.text = _player.money;
         //_buffsGroup.AddChildren(_player.GetAllBuffs());

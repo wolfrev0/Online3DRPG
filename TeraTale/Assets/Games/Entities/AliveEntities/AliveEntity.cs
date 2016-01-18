@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.UI;
 
 public struct HealInfo
 {
@@ -25,6 +26,12 @@ public struct DamageInfo
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
 {
     [SerializeField]
+    Image _hpBar = null;
+    [SerializeField]
+    Image _staminaBar = null;
+    [SerializeField]
+    Text _levelText = null;
+    [SerializeField]
     float _hp;
     public float hp
     {
@@ -36,6 +43,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             if (value < 0)
                 value = 0;
             _hp = value;
+            _hpBar.fillAmount = hp / hpMax;
         }
     }
     [SerializeField]
@@ -43,21 +51,33 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float hpMax
     {
         get { return _hpMax; }
-        private set { _hpMax = value; }
+        private set
+        {
+            _hpMax = value;
+            _hpBar.fillAmount = hp / hpMax;
+        }
     }
     [SerializeField]
     float _stamina;
     public float stamina
     {
         get { return _stamina; }
-        private set { _stamina = value; }
+        private set
+        {
+            _stamina = value;
+            _staminaBar.fillAmount = stamina / staminaMax;
+        }
     }
     [SerializeField]
     float _staminaMax;
     public float staminaMax
     {
         get { return _staminaMax; }
-        private set { _staminaMax = value; }
+        private set
+        {
+            _staminaMax = value;
+            _staminaBar.fillAmount = stamina / staminaMax;
+        }
     }
     [SerializeField]
     float _attackDamage = 0;
@@ -74,6 +94,23 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
+    [SerializeField]
+    int _level;
+    public int level
+    {
+        get { return _level; }
+        private set { _level = value; _levelText.text = "LV." + _level; }
+    }
+    public float exp { get; set; }
+    public float expMax { get; set; }
+
+    protected new void Start()
+    {
+        base.Start();
+        hp = hp;//Initialize property call
+        stamina = stamina;
+        level = level;
+    }
 
     public virtual void Heal(HealInfo healInfo)
     {
