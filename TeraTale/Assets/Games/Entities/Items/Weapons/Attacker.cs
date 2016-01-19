@@ -3,35 +3,50 @@ using System.Collections;
 
 public class Attacker : MonoBehaviour
 {
-    public AliveEntity owner;
-    Collider collider;
-    TrailRenderer trail;
+    public string targetTag;
+    AliveEntity _owner;
+    Collider _collider;
+    TrailRenderer _trail;
 
     void Awake()
     {
-        collider = GetComponent<Collider>();
-        trail = GetComponentInChildren<TrailRenderer>();
+        _owner = GetComponentInParent<AliveEntity>();
+        _collider = GetComponent<Collider>();
+        _trail = GetComponentInChildren<TrailRenderer>();
+    }
+
+    void OnTransformParentChanged()
+    {
+        _owner = GetComponentInParent<AliveEntity>();
     }
 
     void OnEnable()
     {
-        if (collider)
-            collider.enabled = true;
-        if (trail)
-            trail.enabled = true;
+        if (_collider)
+            _collider.enabled = true;
+        if (_trail)
+            _trail.enabled = true;
     }
 
     void OnDisable()
     {
-        if (collider)
-            collider.enabled = false;
-        if (trail)
-            trail.enabled = false;
+        if (_collider)
+            _collider.enabled = false;
+        if (_trail)
+            _trail.enabled = false;
     }
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.tag == "Enemy")
-            Debug.Log("Hit");
+        if (coll.tag == targetTag)
+        {
+            var ae = coll.GetComponent<AliveEntity>();
+            DamageInfo di;
+            di.amount = _owner.attackDamage;
+            di.fallDown = false;
+            di.knockback = 0;
+            di.type = DamageInfo.Type.Physical;
+            ae.Damage(di);
+        }
     }
 }

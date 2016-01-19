@@ -143,7 +143,7 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetTrigger("Attacking");
+        _animator.SetTrigger("Attack");
         _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
         _animator.SetInteger("BaseAttackStack", _attackStack++);
         _attackStackTimer = 3;
@@ -156,9 +156,9 @@ public class Player : AliveEntity
         }
     }
 
-    void Die()
+    protected override void Die()
     {
-        _animator.SetTrigger("Dying");
+        //_animator.SetTrigger("Die");
     }
 
     public bool IsArrived()
@@ -174,13 +174,13 @@ public class Player : AliveEntity
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = info.destination;
         transform.LookAt(info.destination);
-        _animator.SetBool("Running", true);
+        _animator.SetBool("Run", true);
     }
 
     public void NavigateStop()
     {
         _navMeshAgent.enabled = false;
-        _animator.SetBool("Running", false);
+        _animator.SetBool("Run", false);
     }
 
     public void Speak(string chat)

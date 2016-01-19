@@ -44,6 +44,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
                 value = 0;
             _hp = value;
             _hpBar.fillAmount = hp / hpMax;
+            if (hp == 0)
+                Die();
         }
     }
     [SerializeField]
@@ -125,4 +127,6 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             throw new ArgumentException("Damage amount should be bigger than 0.");
         hp -= dmgInfo.amount;
     }
+
+    protected abstract void Die();
 }

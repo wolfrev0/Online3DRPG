@@ -6,9 +6,11 @@ using TeraTaleNet;
 //2. 그후에 딜량체크해서 딜 많이넣은 플레이어 쫓아간다.
 public abstract class Enemy : AliveEntity
 {
+    public Attacker _attackSubject;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     TargetDetector _targetDetector;
+    bool _lookAtTarget = true;
 
     AliveEntity _target;
     public AliveEntity target
@@ -67,5 +69,23 @@ public abstract class Enemy : AliveEntity
     public void StopAttack()
     {
         _animator.SetBool("Attack", false);
+    }
+
+    void AttackBegin()
+    {
+        _lookAtTarget = false;
+        _attackSubject.enabled = true;
+    }
+
+    void AttackEnd()
+    {
+        _lookAtTarget = true;
+        _attackSubject.enabled = false;
+    }
+
+    protected override void Die()
+    {
+        _animator.SetTrigger("Die");
+        _target = null;
     }
 }

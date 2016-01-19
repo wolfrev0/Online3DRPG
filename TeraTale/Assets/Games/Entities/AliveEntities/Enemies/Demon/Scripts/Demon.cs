@@ -2,7 +2,6 @@
 
 public class Demon : Enemy
 {
-
     new void Awake()
     {
         base.Awake();
