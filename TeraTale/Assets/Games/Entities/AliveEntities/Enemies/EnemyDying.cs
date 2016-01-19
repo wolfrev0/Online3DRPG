@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyDying : StateMachineBehaviour
 {
@@ -8,6 +9,8 @@ public class EnemyDying : StateMachineBehaviour
     {
         if (_enemy == null)
             _enemy = animator.GetComponent<Enemy>();
+        Array.ForEach(_enemy.GetComponentsInChildren<Collider>(), (Collider c)=> { c.enabled = false; });
+        _enemy.ChaseStop();
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

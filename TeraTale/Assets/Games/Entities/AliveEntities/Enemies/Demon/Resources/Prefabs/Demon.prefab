@@ -2191,6 +2191,7 @@ MonoBehaviour:
   _attackDamage: 10
   _level: 1
   _attackSubject: {fileID: 11472186}
+  nameView: {fileID: 11409596}
 --- !u!114 &11434230
 MonoBehaviour:
   m_ObjectHideFlags: 1

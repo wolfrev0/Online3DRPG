@@ -91,10 +91,9 @@ public class Player : AliveEntity
         name = owner;
         nameView.text = name;
         _playersByName.Add(name, this);
-        if (name == userName)
-            FindObjectOfType<CameraController>().target = transform;
         if (isMine)
         {
+            FindObjectOfType<CameraController>().target = transform;
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
             playerRenderCamera.gameObject.SetActive(true);
         }
@@ -173,7 +172,6 @@ public class Player : AliveEntity
     {
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = info.destination;
-        transform.LookAt(info.destination);
         _animator.SetBool("Run", true);
     }
 
