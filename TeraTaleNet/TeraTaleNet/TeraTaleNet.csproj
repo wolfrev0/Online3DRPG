@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\RPC\Damage.cs" />
+    <Compile Include="Body\RPC\Heal.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
     <Compile Include="Body\Item\Consumable\HpPotion.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Sword.cs" />

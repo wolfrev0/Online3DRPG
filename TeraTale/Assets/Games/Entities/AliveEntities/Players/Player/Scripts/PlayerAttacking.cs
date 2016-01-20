@@ -8,12 +8,12 @@ public class PlayerAttacking : StateMachineBehaviour
     {
         if (_player == null)
             _player = animator.GetComponent<Player>();
-        _player.NavigateStop();
     }
 
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //}
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        _player.NavigateStop();
+    }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

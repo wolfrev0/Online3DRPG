@@ -44,6 +44,7 @@ GameObject:
   - 114: {fileID: 11455908}
   - 54: {fileID: 5475726}
   - 65: {fileID: 6506502}
+  - 114: {fileID: 11430656}
   m_Layer: 0
   m_Name: Dagger
   m_TagString: Untagged
@@ -70,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 140536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.773, y: -0.105, z: -0.022}
+  m_LocalPosition: {x: -1.395, y: -0.105, z: -0.022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 497942}
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197434}
   m_LocalRotation: {x: 0, y: 0, z: 0.50000006, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 453338}
@@ -147,8 +148,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.63160133, y: 0.14337587, z: 0.048157573}
-  m_Center: {x: -0.44788158, y: -0.1060245, z: -0.020610154}
+  m_Size: {x: 1.3211576, y: 0.33479083, z: 0.12195623}
+  m_Center: {x: -0.81110936, y: -0.091034055, z: -0.018303946}
 --- !u!96 &9634746
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -196,6 +197,18 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &11430656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0791189690268f46877324d9b837acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Enemy
 --- !u!114 &11455908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,6 +256,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 9634746}
+    - target: {fileID: 0}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 6506502}
+    - target: {fileID: 0}
+      propertyPath: targetTag
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -12,12 +12,15 @@ public class Player : AliveEntity
     public Transform rightHand;
     public Text nameView;
     public SpeechBubble speechBubble;
+    public Camera playerRenderCamera;
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     List<ItemStack> _itemStacks = new List<ItemStack>(30);
-    Weapon _weapon = new WeaponNull();
+    Weapon _weapon;
     ItemSolid _weaponSolid;
+    //Rename Attacker to AttackSubject??
+    Attacker _attacker;
     //StreamingSkill (Base Attack) Management
     float _attackStackTimer = 0;
     int _attackStack = 0;
@@ -27,9 +30,23 @@ public class Player : AliveEntity
         get { return _itemStacks; }
     }
 
+    static Player _mine;
+    static public Player mine
+    {
+        get
+        {
+            if (_mine == null)
+                _mine = FindPlayerByName(userName);
+            return _mine;
+        }
+    }
+
     static public Player FindPlayerByName(string name)
     {
-        return _playersByName[name];
+        try
+        { return _playersByName[name]; }
+        catch (KeyNotFoundException)
+        { return null; }
     }
 
     public Weapon weapon
@@ -55,6 +72,9 @@ public class Player : AliveEntity
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
         _weaponSolid.GetComponent<Floater>().enabled = false;
+        //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
+        _attacker = _weaponSolid.GetComponent<Attacker>();
+        _attacker.enabled = false;
     }
 
     void Awake()
@@ -71,8 +91,13 @@ public class Player : AliveEntity
         name = owner;
         nameView.text = name;
         _playersByName.Add(name, this);
-        if (name == userName)
+        if (isMine)
+        {
             FindObjectOfType<CameraController>().target = transform;
+            GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
+            playerRenderCamera.gameObject.SetActive(true);
+        }
+        Equip(new WeaponNull());
     }
 
     void Update()
@@ -86,6 +111,16 @@ public class Player : AliveEntity
     {
         base.OnDestroy();
         _playersByName.Remove(name);
+    }
+
+    void AttackBegin()
+    {
+        _attacker.enabled = true;
+    }
+
+    void AttackEnd()
+    {
+        _attacker.enabled = false;
     }
 
     public void HandleInput()
@@ -107,7 +142,7 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetTrigger("Attacking");
+        _animator.SetTrigger("Attack");
         _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
         _animator.SetInteger("BaseAttackStack", _attackStack++);
         _attackStackTimer = 3;
@@ -120,9 +155,9 @@ public class Player : AliveEntity
         }
     }
 
-    void Die()
+    protected override void Die()
     {
-        _animator.SetTrigger("Dying");
+        //_animator.SetTrigger("Die");
     }
 
     public bool IsArrived()
@@ -137,13 +172,13 @@ public class Player : AliveEntity
     {
         _navMeshAgent.enabled = true;
         _navMeshAgent.destination = info.destination;
-        _animator.SetBool("Running", true);
+        _animator.SetBool("Run", true);
     }
 
     public void NavigateStop()
     {
         _navMeshAgent.enabled = false;
-        _animator.SetBool("Running", false);
+        _animator.SetBool("Run", false);
     }
 
     public void Speak(string chat)

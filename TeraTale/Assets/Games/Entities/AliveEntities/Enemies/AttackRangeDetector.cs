@@ -10,7 +10,7 @@ public class AttackRangeDetector : MonoBehaviour
         observer = GetComponentInParent<Enemy>();
     }
 
-    void OnTriggerStay(Collider coll)
+    void OnTriggerEnter(Collider coll)
     {
         if (observer.target != null && coll.gameObject == observer.target.gameObject)
             observer.Attack();

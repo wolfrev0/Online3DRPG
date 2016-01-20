@@ -5,7 +5,7 @@ public class Billboard : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     
-	void Update ()
+	void LateUpdate ()
     {
         if (target == null)
             target = GameObject.FindWithTag("MainCamera").transform;

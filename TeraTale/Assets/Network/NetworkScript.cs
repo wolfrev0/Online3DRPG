@@ -23,7 +23,7 @@ public abstract class NetworkScript : MonoBehaviour
             return _isServer == true;
         }
     }
-    static protected bool isLocal { get { return !isServer; } }
+    static public bool isLocal { get { return !isServer; } }
     static public string userName { get; set; }
 
     protected IEnumerator Start()
