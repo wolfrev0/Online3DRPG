@@ -22,7 +22,7 @@ public class ChattingView : NetworkScript
             _text.text = _text.text.Remove(0, _text.text.IndexOf('\n') + 1);
         }
         _text.text = _text.text + info.sender + " : " + info.chat + "\n";
-        var speaker = Player.mine;
+        var speaker = Player.FindPlayerByName(info.sender);
         speaker.Speak(info.chat);
     }
 }

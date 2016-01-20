@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TeraTaleNet;
 
 public class Attacker : MonoBehaviour
 {
@@ -38,15 +39,12 @@ public class Attacker : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
+        if (NetworkScript.isLocal)
+            return;
         if (coll.tag == targetTag)
         {
             var ae = coll.GetComponent<AliveEntity>();
-            DamageInfo di;
-            di.amount = _owner.attackDamage;
-            di.fallDown = false;
-            di.knockback = 0;
-            di.type = DamageInfo.Type.Physical;
-            ae.Damage(di);
+            ae.Damage(new Damage(Damage.Type.Physical, _owner.attackDamage, 0, false));
         }
     }
 }

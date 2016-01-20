@@ -71,6 +71,7 @@
     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
@@ -78,7 +79,11 @@
     <None Include="Assets\Shaders\Shaders\Toony-BasicOutline.shader" />
     <None Include="Assets\Shaders\Shaders\Toony-Lighted.shader" />
     <None Include="Assets\Shaders\Shaders\Toony-LightedOutline.shader" />
-    <None Include="Assets\Unaligned\Fantasy Skybox FREE\Readme\Readme.txt" />
+    <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
+    <None Include="Assets\Unaligned\Shaders\Shaders\Toony-Basic.shader" />
+    <None Include="Assets\Unaligned\Shaders\Shaders\Toony-BasicOutline.shader" />
+    <None Include="Assets\Unaligned\Shaders\Shaders\Toony-Lighted.shader" />
+    <None Include="Assets\Unaligned\Shaders\Shaders\Toony-LightedOutline.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

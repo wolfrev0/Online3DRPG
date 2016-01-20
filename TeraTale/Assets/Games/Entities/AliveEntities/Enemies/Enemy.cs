@@ -27,6 +27,15 @@ public abstract class Enemy : AliveEntity
     {
         base.Start();
         nameView.text = name;
+        Sync("target");
+    }
+    protected override void OnSynced(Sync sync)
+    {
+        if(sync.member=="target")
+        {
+            if (target)
+                Chase(target);
+        }
     }
 
     protected void Update()

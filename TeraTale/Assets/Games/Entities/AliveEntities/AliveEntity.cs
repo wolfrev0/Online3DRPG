@@ -2,25 +2,7 @@
 using System;
 using System.Collections;
 using UnityEngine.UI;
-
-public struct HealInfo
-{
-    public string healer;
-    public float amount;
-}
-
-public struct DamageInfo
-{
-    public enum Type
-    {
-        Physical,
-        Magic,
-    }
-    public Type type;
-    public float amount;
-    public float knockback;
-    public bool fallDown;
-}
+using TeraTaleNet;
 
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
@@ -109,23 +91,46 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     protected new void Start()
     {
         base.Start();
-        hp = hp;//Initialize property call
-        stamina = stamina;
-        level = level;
+        if (isServer)
+        {
+            hp = hp;//Initialize property call
+            stamina = stamina;
+            level = level;
+        }
+        else
+        {
+            Sync("hp");
+            Sync("hpMax");
+            Sync("stamina");
+            Sync("staminaMax");
+            Sync("attackDamage");
+            Sync("abilityPower");
+            Sync("healthRegen");
+            Sync("defence");
+            Sync("magicRegistance");
+            Sync("moveSpeed");
+            Sync("attackSpeed");
+            Sync("castingTimeDecrease");
+            Sync("coolTimeDecrease");
+        }
     }
 
-    public virtual void Heal(HealInfo healInfo)
+    public virtual void Heal(Heal heal)
     {
-        if (healInfo.amount < 0)
+        if (isServer)
+            Send(heal);
+        if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
-        hp += healInfo.amount;
+        hp += heal.amount;
     }
 
-    public virtual void Damage(DamageInfo dmgInfo)
+    public virtual void Damage(Damage dmg)
     {
-        if (dmgInfo.amount < 0)
+        if (isServer)
+            Send(dmg);
+        if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= dmgInfo.amount;
+        hp -= dmg.amount;
     }
 
     protected abstract void Die();
