@@ -2,6 +2,7 @@
 using TeraTaleNet;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 //Target Detect 알고리즘
 //1. 처음 타겟을 쫓아간다.
@@ -10,12 +11,13 @@ public abstract class Enemy : AliveEntity
 {
     public Attacker _attackSubject;
     public Text nameView;
+    public Item[] items;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     bool _lookAtTarget = true;
     
     public AliveEntity target
-    { get; private set; }
+    { get; set; }
 
     protected void Awake()
     {
@@ -27,7 +29,7 @@ public abstract class Enemy : AliveEntity
     {
         base.Start();
         nameView.text = name;
-        Sync("target");
+        //Sync("target");//Cannot Serialize AliveEntity. use int signallerID than.
     }
     protected override void OnSynced(Sync sync)
     {
@@ -101,8 +103,20 @@ public abstract class Enemy : AliveEntity
         _animator.SetBool("Attack", false);
     }
 
+    protected abstract List<Item> DropItems
+    { get; }
+
     protected override void Die()
     {
         _animator.SetTrigger("Die");
+        if (isServer)
+            foreach (var item in DropItems)
+                NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
+        Destroy(gameObject, 5);
+    }
+
+    public void OnDropItemInstantiate(ItemSolid item)
+    {
+        item.transform.position = transform.position + Vector3.up;
     }
 }

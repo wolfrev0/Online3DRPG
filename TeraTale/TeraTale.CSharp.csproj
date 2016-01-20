@@ -110,6 +110,7 @@
     <Compile Include="Assets\Games\Entities\Damagable.cs" />
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemSolid.cs" />
+    <Compile Include="Assets\Games\Entities\Items\ItemSpawnEffector.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\Attacker.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
