@@ -7,6 +7,9 @@ using System.Collections.Generic;
 //Target Detect 알고리즘
 //1. 처음 타겟을 쫓아간다.
 //2. 그후에 딜량체크해서 딜 많이넣은 플레이어 쫓아간다.
+//붙어있는 타겟 처리 알고리즘
+//공격시에는 NavMeshAgent의 updateRotation=false로 하자.
+//공격 후 target에게 Raycast하여 false일경우 이동&updateRotation=true하고 true일경우 그대로 공격
 public abstract class Enemy : AliveEntity
 {
     public Attacker _attackSubject;
@@ -14,7 +17,6 @@ public abstract class Enemy : AliveEntity
     public Item[] items;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    bool _lookAtTarget = true;
     
     public AliveEntity target
     { get; set; }
@@ -44,8 +46,6 @@ public abstract class Enemy : AliveEntity
     {
         if (target)
         {
-            if (_lookAtTarget && !_navMeshAgent.isOnNavMesh)
-                transform.LookAt(target.transform);
             if (_navMeshAgent.enabled)
                 _navMeshAgent.destination = target.transform.position;
         }
@@ -53,13 +53,11 @@ public abstract class Enemy : AliveEntity
 
     void AttackBegin()
     {
-        _lookAtTarget = false;
         _attackSubject.enabled = true;
     }
 
     void AttackEnd()
     {
-        _lookAtTarget = true;
         _attackSubject.enabled = false;
     }
 
@@ -84,7 +82,7 @@ public abstract class Enemy : AliveEntity
             flag = true;
             target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetSignallerID];
         }
-        _navMeshAgent.enabled = flag;
+        _navMeshAgent.updatePosition = flag;
         _animator.SetBool("Chase", flag);
     }
 

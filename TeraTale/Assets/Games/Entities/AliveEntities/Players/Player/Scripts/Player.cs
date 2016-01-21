@@ -79,6 +79,18 @@ public class Player : AliveEntity
         _attacker.enabled = false;
     }
 
+    void OnCollisionEnter(Collision coll)
+    {
+        NavigateStop();
+        OnCollisionStay(coll);
+    }
+
+    void OnCollisionStay(Collision coll)
+    {
+        var targetToPlayer = transform.position - coll.transform.position;
+        transform.position += targetToPlayer.normalized * 0.02f;
+    }
+
     void Awake()
     {
         for (int i = 0; i < 30; i++)
