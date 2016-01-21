@@ -117,6 +117,7 @@
     <None Include="Assets\Shaders\Shaders\Toony-Lighted.shader" />
     <None Include="Assets\Shaders\Shaders\Toony-LightedOutline.shader" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
+    <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
@@ -188,7 +189,6 @@
     <None Include="Assets\Unaligned\Shaders\Shaders\Toony-BasicOutline.shader" />
     <None Include="Assets\Unaligned\Shaders\Shaders\Toony-Lighted.shader" />
     <None Include="Assets\Unaligned\Shaders\Shaders\Toony-LightedOutline.shader" />
-    <None Include="Assets\Wispy Sky\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
