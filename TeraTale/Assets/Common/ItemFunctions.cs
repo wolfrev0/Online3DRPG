@@ -9,6 +9,7 @@ public class ItemFunctions : NetworkScript
         HpPotion.onUse += (Item item) =>
         {
             var player = Player.mine;
+            player.Heal(new Heal("", 30));
         };
         Equipment.onUse += (Item item) =>
         {

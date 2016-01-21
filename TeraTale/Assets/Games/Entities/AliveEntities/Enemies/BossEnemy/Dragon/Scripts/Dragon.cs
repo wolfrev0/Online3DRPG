@@ -8,18 +8,12 @@ public class Dragon : BossEnemy
     public GameObject Fire;
     public ParticleSystem[] _breath;
     public GameObject MagicCircle;
-    float _fDelay;
-    Rigidbody _rigidbody;
     float lerpTime = 1f;
     float currentLerpTime;
-
-
 
     private IEnumerator KnonckBack()
     {
         {
-            if (_player)
-                yield return null;
             yield return new WaitForSeconds(1);
           
             Vector3 pos = _playerpos + transform.forward * 0.15f;
@@ -28,18 +22,13 @@ public class Dragon : BossEnemy
             // perc = Mathf.Sin(perc * Mathf.PI * 0.5f);
             perc = 1f - Mathf.Cos(perc * Mathf.PI * 0.5f);
 
-            _player.transform.localPosition = Vector3.Lerp(_playerpos,pos, perc);
-
+            if (_player)
+                _player.transform.localPosition = Vector3.Lerp(_playerpos, pos, perc);
         }
 
     }
 
-    void Awake()
-    {
-        _fDelay = Time.time;
-    }
-
-    void Update()
+    new void Update()
     {
         base.Update();
 

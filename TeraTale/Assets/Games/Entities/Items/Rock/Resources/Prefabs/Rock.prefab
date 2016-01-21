@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: 0
   owner: 
+  _effector: {fileID: 0}
 --- !u!135 &13574246
 SphereCollider:
   m_ObjectHideFlags: 1
