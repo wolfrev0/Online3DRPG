@@ -18,7 +18,7 @@ public class TargetDetector : MonoBehaviour
 
     void OnTriggerExit(Collider coll)
     {
-        if (NetworkScript.isServer && coll.gameObject == observer.target.gameObject)
+        if (NetworkScript.isServer && observer.target != null && coll.gameObject == observer.target.gameObject)
             observer.ChaseStop();
     }
 }
