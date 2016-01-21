@@ -71,6 +71,7 @@ public class Player : AliveEntity
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
+        _weaponSolid.enabled = false;
         _weaponSolid.GetComponent<Floater>().enabled = false;
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
         //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon

@@ -19,6 +19,8 @@ public class ItemSolid : Entity
 
     void OnTriggerEnter(Collider coll)
     {
+        if (enabled == false)
+            return;
         if (isServer && coll.tag == "Player")// Remove when the test ended.
         {
             var player = coll.GetComponent<Player>();
