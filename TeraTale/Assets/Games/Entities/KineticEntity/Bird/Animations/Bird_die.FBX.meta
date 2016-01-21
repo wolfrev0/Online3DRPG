@@ -1,0 +1,100 @@
+fileFormatVersion: 2
+guid: 0a796484cc21d2840a8c9fff300ac08b
+timeCreated: 1453291189
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bird_Head
+    100004: Bird_Root
+    100006: Bird_Space
+    100008: Bird_Tail
+    100010: L_Bird_Leg
+    100012: L_Bird_Wing1
+    100014: L_Bird_Wing2
+    100016: Model
+    100018: R_Bird_Leg
+    100020: R_Bird_Wing1
+    100022: R_Bird_Wing2
+    400000: //RootNode
+    400002: Bird_Head
+    400004: Bird_Root
+    400006: Bird_Space
+    400008: Bird_Tail
+    400010: L_Bird_Leg
+    400012: L_Bird_Wing1
+    400014: L_Bird_Wing2
+    400016: Model
+    400018: R_Bird_Leg
+    400020: R_Bird_Wing1
+    400022: R_Bird_Wing2
+    4300000: Model
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 044fb48043045f54b9be03d83bab1247,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
