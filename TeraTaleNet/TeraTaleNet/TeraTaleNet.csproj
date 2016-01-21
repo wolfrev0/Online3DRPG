@@ -48,17 +48,18 @@
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
     <Compile Include="Body\RPC\Heal.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
     <Compile Include="Body\Item\Consumable\HpPotion.cs" />
-    <Compile Include="Body\Item\Equipment\Weapon\Sword.cs" />
-    <Compile Include="Body\Item\Equipment\Weapon\WeaponNull.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Knife\Sword.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Hand\WeaponNull.cs" />
     <Compile Include="Body\Item\Item.cs" />
     <Compile Include="Body\Item\ItemNull.cs" />
     <Compile Include="Body\Item\Sundry\Rock.cs" />
     <Compile Include="Body\Item\Sundry\Sundry.cs" />
-    <Compile Include="Body\Item\Equipment\Weapon\Dagger.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Knife\Dagger.cs" />
     <Compile Include="Body\Item\Equipment\Equipment.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Weapon.cs" />
     <Compile Include="Body\LoginAnswer.cs" />
@@ -97,7 +98,9 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="NetworkProgram.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Body\Item\Equipment\Weapon\Wand\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

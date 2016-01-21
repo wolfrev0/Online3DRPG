@@ -12,7 +12,7 @@ using System.Collections.Generic;
 //공격 후 target에게 Raycast하여 false일경우 이동&updateRotation=true하고 true일경우 그대로 공격
 public abstract class Enemy : AliveEntity
 {
-    public Attacker _attackSubject;
+    public AttackSubject _attackSubject;
     public Text nameView;
     public Item[] items;
     NavMeshAgent _navMeshAgent;
