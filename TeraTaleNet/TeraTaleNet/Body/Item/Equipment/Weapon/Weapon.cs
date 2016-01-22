@@ -7,8 +7,8 @@
             hand,
             knife,
             bow,
-            gun,
             wand,
+            gun,
         }
 
         public sealed override Equipment.Type equipmentType { get { return Equipment.Type.Weapon; } }

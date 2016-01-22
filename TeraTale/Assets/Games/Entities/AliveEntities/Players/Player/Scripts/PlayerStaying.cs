@@ -15,12 +15,11 @@ public class PlayerStaying : StateMachineBehaviour
         if (animator.IsInTransition(0))
             return;
         _player.HandleInput();
-        _player.FacingDirectionUpdate();
+        //_player.FacingDirectionUpdate();
     }
 
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
-
     //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

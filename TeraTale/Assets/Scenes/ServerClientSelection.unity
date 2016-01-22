@@ -381,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
+  pfPlayer: {fileID: 0}
 --- !u!4 &326514392
 Transform:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -1
   owner: 
-  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
+  pfPlayer: {fileID: 0}
   serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
+  pfPlayer: {fileID: 0}
 --- !u!4 &599371545
 Transform:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  pfPlayer: {fileID: 11407024, guid: d3f4b6cef99280740b769fb0dee0e136, type: 2}
+  pfPlayer: {fileID: 11425960, guid: 62682600173eba541946507f99114be6, type: 2}
 --- !u!4 &881560870
 Transform:
   m_ObjectHideFlags: 0

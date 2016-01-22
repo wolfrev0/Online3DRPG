@@ -49,6 +49,7 @@
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
     <Compile Include="Body\RPC\Heal.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
@@ -98,9 +99,7 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="NetworkProgram.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Body\Item\Equipment\Weapon\Wand\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
