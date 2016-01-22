@@ -116,6 +116,8 @@
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Bird\Scripts\Bird.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Duck\Scripts\Duck.cs" />
+    <Compile Include="Assets\Games\Entities\KineticEntity\Lizard\Scripts\Lizard.cs" />
+    <Compile Include="Assets\Games\Entities\KineticEntity\Owl\Scripts\Owl.cs" />
     <Compile Include="Assets\Games\Entities\Movable.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\Ian\Ian.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
