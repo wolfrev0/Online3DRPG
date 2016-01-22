@@ -17,6 +17,7 @@ public class PlayerRunning : StateMachineBehaviour
         _player.HandleInput();
         if (_player.IsArrived())
             _player.NavigateStop();
+        _player.FacingDirectionUpdate();
     }
 
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
