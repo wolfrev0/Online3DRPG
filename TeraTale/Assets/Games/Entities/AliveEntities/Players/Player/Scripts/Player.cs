@@ -9,7 +9,6 @@ public class Player : AliveEntity
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
-    public Transform rightHand;
     public Text nameView;
     public SpeechBubble speechBubble;
     public Camera playerRenderCamera;
@@ -66,8 +65,11 @@ public class Player : AliveEntity
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
-        _weaponSolid = itemSolid;
-        _weaponSolid.transform.parent = rightHand;
+        _weaponSolid = itemSolid;        
+        if (_weapon.weaponType == Weapon.Type.bow)
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
+        else
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.RightHand);
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
@@ -144,7 +146,7 @@ public class Player : AliveEntity
     void Shot()
     {
         var projectile = Instantiate(Resources.Load<Projectile>("Prefabs/Arrow"));
-        projectile.transform.position = transform.position;
+        projectile.transform.position = transform.position + Vector3.up;
         projectile.direction = transform.forward;
         projectile.speed = 10;
         projectile.autoDestroyTime = 0.5f;
