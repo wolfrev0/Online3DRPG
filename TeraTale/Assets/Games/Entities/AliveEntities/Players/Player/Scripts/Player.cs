@@ -9,7 +9,6 @@ public class Player : AliveEntity
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
-    public Transform rightHand;
     public Text nameView;
     public SpeechBubble speechBubble;
     public Camera playerRenderCamera;
@@ -20,7 +19,7 @@ public class Player : AliveEntity
     Weapon _weapon;
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
-    Attacker _attacker;
+    AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
     float _attackStackTimer = 0;
     int _attackStack = 0;
@@ -66,8 +65,11 @@ public class Player : AliveEntity
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
-        _weaponSolid = itemSolid;
-        _weaponSolid.transform.parent = rightHand;
+        _weaponSolid = itemSolid;        
+        if (_weapon.weaponType == Weapon.Type.bow)
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
+        else
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.RightHand);
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
@@ -75,8 +77,24 @@ public class Player : AliveEntity
         _weaponSolid.GetComponent<Floater>().enabled = false;
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
         //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
-        _attacker = _weaponSolid.GetComponent<Attacker>();
-        _attacker.enabled = false;
+        _attackSubject = _weaponSolid.GetComponent<AttackSubject>();
+        if (_attackSubject)
+        {
+            _attackSubject.enabled = false;
+            _attackSubject.owner = this;
+        }
+    }
+
+    void OnCollisionEnter(Collision coll)
+    {
+        NavigateStop();
+        OnCollisionStay(coll);
+    }
+
+    void OnCollisionStay(Collision coll)
+    {
+        var targetToPlayer = transform.position - coll.transform.position;
+        transform.position += targetToPlayer.normalized * 0.05f;
     }
 
     void Awake()
@@ -104,6 +122,7 @@ public class Player : AliveEntity
 
     void Update()
     {
+        _navMeshAgent.updateRotation = true;
         _attackStackTimer -= Time.deltaTime;
         if (_attackStackTimer < 0)
             _attackStack = 0;
@@ -117,12 +136,22 @@ public class Player : AliveEntity
 
     void AttackBegin()
     {
-        _attacker.enabled = true;
+        _attackSubject.enabled = true;
     }
 
     void AttackEnd()
     {
-        _attacker.enabled = false;
+        _attackSubject.enabled = false;
+    }
+
+    void Shot()
+    {
+        var projectile = Instantiate(Resources.Load<Projectile>("Prefabs/Arrow"));
+        projectile.transform.position = transform.position + Vector3.up;
+        projectile.direction = transform.forward;
+        projectile.speed = 10;
+        projectile.autoDestroyTime = 0.5f;
+        projectile.GetComponent<AttackSubject>().owner = this;
     }
 
     public void HandleInput()
@@ -142,10 +171,19 @@ public class Player : AliveEntity
             Send(new Attack());
     }
 
+    public void FacingDirectionUpdate()
+    {
+        var corners = _navMeshAgent.path.corners;
+        if (corners.Length >= 2)
+        {
+            var dir = (corners[1] - corners[0]).normalized;
+            transform.LookAt(Vector3.Slerp(transform.forward, dir, 0.3f) + transform.position);
+        }
+    }
+
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attack");
-        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
         _animator.SetInteger("BaseAttackStack", _attackStack++);
         _attackStackTimer = 3;
 
@@ -164,7 +202,7 @@ public class Player : AliveEntity
 
     public bool IsArrived()
     {
-        if (_navMeshAgent.enabled == false)
+        if (_navMeshAgent.updatePosition == false)
             return true;
         var toDestination = _navMeshAgent.destination - transform.position;
         return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
@@ -172,14 +210,14 @@ public class Player : AliveEntity
 
     void Navigate(Navigate info)
     {
-        _navMeshAgent.enabled = true;
+        _navMeshAgent.updatePosition = true;
         _navMeshAgent.destination = info.destination;
         _animator.SetBool("Run", true);
     }
 
     public void NavigateStop()
     {
-        _navMeshAgent.enabled = false;
+        _navMeshAgent.updatePosition = false;
         _animator.SetBool("Run", false);
     }
 
@@ -236,6 +274,7 @@ public class Player : AliveEntity
                 weapon = (Weapon)equipment;
                 break;
         }
+        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
     }
 
     public bool IsEquiping(Equipment equipment)

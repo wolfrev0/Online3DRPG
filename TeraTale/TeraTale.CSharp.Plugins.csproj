@@ -118,10 +118,6 @@
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
-    <None Include="Assets\Shaders\Shaders\Toony-Basic.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-BasicOutline.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-Lighted.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-LightedOutline.shader" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />

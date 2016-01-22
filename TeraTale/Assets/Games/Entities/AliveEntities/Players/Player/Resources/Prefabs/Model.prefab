@@ -250,7 +250,7 @@ GameObject:
   - 20: {fileID: 2020686}
   - 124: {fileID: 12412170}
   - 92: {fileID: 9214834}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player Render Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151982}
-  m_LocalRotation: {x: 0.005027954, y: -0.6972602, z: 0.71297336, w: -0.07397224}
+  m_LocalRotation: {x: 0.0050279545, y: -0.69726026, z: 0.7129734, w: -0.07397225}
   m_LocalPosition: {x: 0.04257455, y: -0.41833785, z: 0.25673655}
   m_LocalScale: {x: 0.9999998, y: 1, z: 0.9999998}
   m_Children:
@@ -813,8 +813,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.315262, y: 0.20018315, z: -43.29092}
+  m_LocalRotation: {x: 0, y: 0.30919865, z: 0, w: 0.9509975}
+  m_LocalPosition: {x: -10.244, y: 0.3, z: -41.015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 487472}
@@ -908,7 +908,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199322}
-  m_LocalRotation: {x: 0.005237844, y: 0.6844747, z: 0.7252909, w: 0.073620975}
+  m_LocalRotation: {x: 0.0052378443, y: 0.68447477, z: 0.72529095, w: 0.07362098}
   m_LocalPosition: {x: 0.0425744, y: 0.41833797, z: 0.25673673}
   m_LocalScale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
   m_Children:
@@ -1076,9 +1076,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!92 &9214834
 Behaviour:
@@ -1140,7 +1140,6 @@ MonoBehaviour:
   _staminaMax: 100
   _attackDamage: 10
   _level: 0
-  rightHand: {fileID: 430128}
   nameView: {fileID: 11496466}
   speechBubble: {fileID: 11400658}
   playerRenderCamera: {fileID: 2020686}
@@ -1413,7 +1412,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105306}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2
   m_Height: 1.7
@@ -1478,12 +1477,12 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105306}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.00001
   m_Speed: 4
   m_Acceleration: 999
   avoidancePriority: 50
-  m_AngularSpeed: 999
+  m_AngularSpeed: 0
   m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1734,11 +1733,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_AngularSpeed
-      value: 999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -1750,6 +1749,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AutoBraking
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
