@@ -17,6 +17,8 @@ public class ItemSpawner : Entity
                 item = new Rock();
             else if (itemName == "Dagger")
                 item = new Dagger();
+            else if (itemName == "Bow")
+                item = new Bow();
             else
                 item = new Sword();
             NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item);

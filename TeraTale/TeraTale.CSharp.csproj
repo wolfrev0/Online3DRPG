@@ -78,6 +78,7 @@
     <Compile Include="Assets\Common\Floater.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />
     <Compile Include="Assets\Common\ItemFunctions.cs" />
+    <Compile Include="Assets\Common\Projectile.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
@@ -110,7 +111,7 @@
     <Compile Include="Assets\Games\Entities\Items\ItemSolid.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemSpawnEffector.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
-    <Compile Include="Assets\Games\Entities\Items\Weapons\Attacker.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubject.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Bird\Scripts\Bird.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Duck\Scripts\Duck.cs" />
@@ -144,10 +145,6 @@
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
-    <None Include="Assets\Shaders\Shaders\Toony-Basic.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-BasicOutline.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-Lighted.shader" />
-    <None Include="Assets\Shaders\Shaders\Toony-LightedOutline.shader" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />

@@ -9,7 +9,6 @@ public class Player : AliveEntity
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
-    public Transform rightHand;
     public Text nameView;
     public SpeechBubble speechBubble;
     public Camera playerRenderCamera;
@@ -20,7 +19,7 @@ public class Player : AliveEntity
     Weapon _weapon;
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
-    Attacker _attacker;
+    AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
     float _attackStackTimer = 0;
     int _attackStack = 0;
@@ -66,8 +65,11 @@ public class Player : AliveEntity
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
-        _weaponSolid = itemSolid;
-        _weaponSolid.transform.parent = rightHand;
+        _weaponSolid = itemSolid;        
+        if (_weapon.weaponType == Weapon.Type.bow)
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
+        else
+            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.RightHand);
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
@@ -75,8 +77,24 @@ public class Player : AliveEntity
         _weaponSolid.GetComponent<Floater>().enabled = false;
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
         //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
-        _attacker = _weaponSolid.GetComponent<Attacker>();
-        _attacker.enabled = false;
+        _attackSubject = _weaponSolid.GetComponent<AttackSubject>();
+        if (_attackSubject)
+        {
+            _attackSubject.enabled = false;
+            _attackSubject.owner = this;
+        }
+    }
+
+    void OnCollisionEnter(Collision coll)
+    {
+        NavigateStop();
+        OnCollisionStay(coll);
+    }
+
+    void OnCollisionStay(Collision coll)
+    {
+        var targetToPlayer = transform.position - coll.transform.position;
+        transform.position += targetToPlayer.normalized * 0.02f;
     }
 
     void Awake()
@@ -117,12 +135,22 @@ public class Player : AliveEntity
 
     void AttackBegin()
     {
-        _attacker.enabled = true;
+        _attackSubject.enabled = true;
     }
 
     void AttackEnd()
     {
-        _attacker.enabled = false;
+        _attackSubject.enabled = false;
+    }
+
+    void Shot()
+    {
+        var projectile = Instantiate(Resources.Load<Projectile>("Prefabs/Arrow"));
+        projectile.transform.position = transform.position + Vector3.up;
+        projectile.direction = transform.forward;
+        projectile.speed = 10;
+        projectile.autoDestroyTime = 0.5f;
+        projectile.GetComponent<AttackSubject>().owner = this;
     }
 
     public void HandleInput()
@@ -145,7 +173,6 @@ public class Player : AliveEntity
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attack");
-        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
         _animator.SetInteger("BaseAttackStack", _attackStack++);
         _attackStackTimer = 3;
 
@@ -236,6 +263,7 @@ public class Player : AliveEntity
                 weapon = (Weapon)equipment;
                 break;
         }
+        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
     }
 
     public bool IsEquiping(Equipment equipment)

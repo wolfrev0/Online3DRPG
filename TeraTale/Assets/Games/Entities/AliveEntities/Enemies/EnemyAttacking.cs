@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class EnemyAttacking : StateMachineBehaviour
 {
@@ -9,6 +10,16 @@ public class EnemyAttacking : StateMachineBehaviour
         if (_enemy == null)
             _enemy = animator.GetComponent<Enemy>();
         _enemy.GetComponent<NavMeshAgent>().enabled = false;
+        //Maybe all monsters are Generic Type...
+        //if (animator.ishuman)
+        //{
+        //    var events = animator.getcurrentanimatorclipinfo(0)[0].clip.events;
+        //    var targetpos = _enemy.target.transform.position;
+        //    var targetrot = _enemy.target.transform.rotation;
+        //    var attackbegintime = array.find(events, (animationevent ev) => { return ev.functionname == "attackbegin"; }).time;
+        //    var attackendtime = array.find(events, (animationevent ev) => { return ev.functionname == "attackend"; }).time;
+        //    animator.matchtarget(targetpos, targetrot, avatartarget.righthand, new matchtargetweightmask(vector3.one, 1f), attackbegintime, attackendtime);
+        //}
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
