@@ -21,8 +21,6 @@ public class Player : AliveEntity
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
-    float _attackStackTimer = 0;
-    int _attackStack = 0;
     
     public List<ItemStack> itemStacks
     {
@@ -63,6 +61,8 @@ public class Player : AliveEntity
         }
     }
 
+    public bool isArrived { get { return Vector3.Distance(_navMeshAgent.destination, _navMeshAgent.transform.position) <= _navMeshAgent.stoppingDistance; } }
+
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
         _weaponSolid = itemSolid;        
@@ -83,18 +83,6 @@ public class Player : AliveEntity
             _attackSubject.enabled = false;
             _attackSubject.owner = this;
         }
-    }
-
-    void OnCollisionEnter(Collision coll)
-    {
-        NavigateStop();
-        OnCollisionStay(coll);
-    }
-
-    void OnCollisionStay(Collision coll)
-    {
-        var targetToPlayer = transform.position - coll.transform.position;
-        transform.position += targetToPlayer.normalized * 0.05f;
     }
 
     void Awake()
@@ -118,14 +106,6 @@ public class Player : AliveEntity
             playerRenderCamera.gameObject.SetActive(true);
         }
         Equip(new WeaponNull());
-    }
-
-    void Update()
-    {
-        _navMeshAgent.updateRotation = true;
-        _attackStackTimer -= Time.deltaTime;
-        if (_attackStackTimer < 0)
-            _attackStack = 0;
     }
 
     new void OnDestroy()
@@ -169,6 +149,11 @@ public class Player : AliveEntity
 
         if (Input.GetButtonDown("Attack"))
             Send(new Attack());
+
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            _animator.SetTrigger("BackTumbling");
+        }
     }
 
     public void FacingDirectionUpdate()
@@ -176,23 +161,14 @@ public class Player : AliveEntity
         var corners = _navMeshAgent.path.corners;
         if (corners.Length >= 2)
         {
-            var dir = (corners[1] - corners[0]).normalized;
-            transform.LookAt(Vector3.Slerp(transform.forward, dir, 0.3f) + transform.position);
+            var vec = corners[1] - corners[0];
+            transform.LookAt(Vector3.Slerp(transform.forward, vec.normalized, 0.3f) + transform.position);
         }
     }
 
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attack");
-        _animator.SetInteger("BaseAttackStack", _attackStack++);
-        _attackStackTimer = 3;
-
-        //Stack Overflow
-        if (_attackStack > 2)
-        {
-            _attackStack = 0;
-            _attackStackTimer = 0;
-        }
     }
 
     protected override void Die()
@@ -200,25 +176,10 @@ public class Player : AliveEntity
         //_animator.SetTrigger("Die");
     }
 
-    public bool IsArrived()
-    {
-        if (_navMeshAgent.updatePosition == false)
-            return true;
-        var toDestination = _navMeshAgent.destination - transform.position;
-        return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
-    }
-
     void Navigate(Navigate info)
     {
-        _navMeshAgent.updatePosition = true;
         _navMeshAgent.destination = info.destination;
         _animator.SetBool("Run", true);
-    }
-
-    public void NavigateStop()
-    {
-        _navMeshAgent.updatePosition = false;
-        _animator.SetBool("Run", false);
     }
 
     public void Speak(string chat)
