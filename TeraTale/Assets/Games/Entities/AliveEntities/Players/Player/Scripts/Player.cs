@@ -94,7 +94,7 @@ public class Player : AliveEntity
     void OnCollisionStay(Collision coll)
     {
         var targetToPlayer = transform.position - coll.transform.position;
-        transform.position += targetToPlayer.normalized * 0.02f;
+        transform.position += targetToPlayer.normalized * 0.05f;
     }
 
     void Awake()
@@ -122,6 +122,7 @@ public class Player : AliveEntity
 
     void Update()
     {
+        _navMeshAgent.updateRotation = true;
         _attackStackTimer -= Time.deltaTime;
         if (_attackStackTimer < 0)
             _attackStack = 0;
@@ -170,6 +171,16 @@ public class Player : AliveEntity
             Send(new Attack());
     }
 
+    public void FacingDirectionUpdate()
+    {
+        var corners = _navMeshAgent.path.corners;
+        if (corners.Length >= 2)
+        {
+            var dir = (corners[1] - corners[0]).normalized;
+            transform.LookAt(Vector3.Slerp(transform.forward, dir, 0.3f) + transform.position);
+        }
+    }
+
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attack");
@@ -191,7 +202,7 @@ public class Player : AliveEntity
 
     public bool IsArrived()
     {
-        if (_navMeshAgent.enabled == false)
+        if (_navMeshAgent.updatePosition == false)
             return true;
         var toDestination = _navMeshAgent.destination - transform.position;
         return toDestination.magnitude <= _navMeshAgent.stoppingDistance;
@@ -199,14 +210,14 @@ public class Player : AliveEntity
 
     void Navigate(Navigate info)
     {
-        _navMeshAgent.enabled = true;
+        _navMeshAgent.updatePosition = true;
         _navMeshAgent.destination = info.destination;
         _animator.SetBool("Run", true);
     }
 
     public void NavigateStop()
     {
-        _navMeshAgent.enabled = false;
+        _navMeshAgent.updatePosition = false;
         _animator.SetBool("Run", false);
     }
 

@@ -883,52 +883,6 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 475808, guid: 1cee7fdd05fa09e498857eaf3ec9ac71, type: 2}
   m_PrefabInternal: {fileID: 1656237573}
---- !u!1001 &35858070
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 439034, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 168802, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-      propertyPath: m_Name
-      value: Arrow
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 51f2e6a3dd8ac5548a13586b16c93a43, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &46872675
 Prefab:
   m_ObjectHideFlags: 0
@@ -16275,7 +16229,7 @@ Transform:
   - {fileID: 1683086278}
   - {fileID: 1145564719}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
 --- !u!1001 &1318353675
 Prefab:
   m_ObjectHideFlags: 0
