@@ -29,8 +29,8 @@ public class PlayerRunning : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //_nma.destination = _player.transform.position;
         _nma.speed = 0;
+        _nma.destination = _player.transform.position;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

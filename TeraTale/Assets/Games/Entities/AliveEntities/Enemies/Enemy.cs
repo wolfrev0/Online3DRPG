@@ -31,24 +31,6 @@ public abstract class Enemy : AliveEntity
     {
         base.Start();
         nameView.text = name;
-        //Sync("target");//Cannot Serialize AliveEntity. use int signallerID than.
-    }
-    protected override void OnSynced(Sync sync)
-    {
-        if(sync.member=="target")
-        {
-            if (target)
-                Chase(target);
-        }
-    }
-
-    protected void Update()
-    {
-        if (target)
-        {
-            if (_navMeshAgent.enabled)
-                _navMeshAgent.destination = target.transform.position;
-        }
     }
 
     void AttackBegin()
@@ -82,7 +64,6 @@ public abstract class Enemy : AliveEntity
             flag = true;
             target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetSignallerID];
         }
-        _navMeshAgent.updatePosition = flag;
         _animator.SetBool("Chase", flag);
     }
 
@@ -99,6 +80,22 @@ public abstract class Enemy : AliveEntity
     public void StopAttack()
     {
         _animator.SetBool("Attack", false);
+    }
+
+    public bool CanAttackTarget()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, float.MaxValue))
+        {
+            var root = hit.transform.root;
+            if (root.tag == "Player")
+            {
+                var player = root.GetComponent<Player>();
+                if (player == target)
+                    return true;
+            }
+        }
+        return false;
     }
 
     protected abstract List<Item> DropItems
