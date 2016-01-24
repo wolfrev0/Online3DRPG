@@ -8,12 +8,12 @@ public class ParsingData : MonoBehaviour
     public Texture[] BodyTexture;
     public Texture[] FootTexture;
 
-    MeshRenderer mesh;
+    SkinnedMeshRenderer mesh;
     int[] _curindex = new int[3];
 
 	void Start ()
     {
-        mesh = GetComponent<MeshRenderer>();    
+        mesh = GetComponent<SkinnedMeshRenderer>();    
 	}
 	
 	void Update ()
@@ -35,7 +35,7 @@ public class ParsingData : MonoBehaviour
 
         mesh.materials[0].mainTexture = HeadTexture[_curindex[0]];
         mesh.materials[1].mainTexture = BodyTexture[_curindex[1]];
-        mesh.materials[2].mainTexture = FootTexture[_curindex[2]];
+        //mesh.materials[2].mainTexture = FootTexture[_curindex[2]];
     }
 
     public void PreHead()

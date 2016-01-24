@@ -467,6 +467,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 426962}
   - 137: {fileID: 13781350}
+  - 114: {fileID: 11466354}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -675,7 +676,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151982}
-  m_LocalRotation: {x: 0.0050279545, y: -0.69726026, z: 0.7129734, w: -0.07397225}
+  m_LocalRotation: {x: 0.005027954, y: -0.6972602, z: 0.71297336, w: -0.07397224}
   m_LocalPosition: {x: 0.04257455, y: -0.41833785, z: 0.25673655}
   m_LocalScale: {x: 0.9999998, y: 1, z: 0.9999998}
   m_Children:
@@ -908,7 +909,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199322}
-  m_LocalRotation: {x: 0.0052378443, y: 0.68447477, z: 0.72529095, w: 0.07362098}
+  m_LocalRotation: {x: 0.005237844, y: 0.6844747, z: 0.7252909, w: 0.073620975}
   m_LocalPosition: {x: 0.0425744, y: 0.41833797, z: 0.25673673}
   m_LocalScale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
   m_Children:
@@ -1331,6 +1332,28 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11466354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1b0e6cd705629419fd53be350315a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReadHead:
+  - {fileID: 2800000, guid: d1e4f6cd18da56d41ba4c8f077b8d415, type: 3}
+  - {fileID: 2800000, guid: 0859835168a807d4bbf722d30c6c305a, type: 3}
+  - {fileID: 2800000, guid: 2a2b20c2d57a7f24f92bca156527a14c, type: 3}
+  - {fileID: 2800000, guid: bf8a3321bd3a2874b9811771a7514737, type: 3}
+  - {fileID: 2800000, guid: 4a81e054889a0594dbb00202f99c86c2, type: 3}
+  - {fileID: 2800000, guid: 8834440b7cf6f2a4a82012f3d30cff56, type: 3}
+  - {fileID: 2800000, guid: c4fdbbc4915e69f4e9c4546c581b4cad, type: 3}
+  ReadBody:
+  - {fileID: 2800000, guid: f1d8b9c93caeb964a9b9cbecccdb8c69, type: 3}
+  ReadFoot: []
 --- !u!114 &11481760
 MonoBehaviour:
   m_ObjectHideFlags: 1
