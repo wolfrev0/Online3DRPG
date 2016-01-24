@@ -10,17 +10,28 @@ public class ItemSpawner : Entity
     {
         if (isServer && coll.tag == "Player")
         {
-            Item item;
-            if (itemName == "HpPotion")
-                item = new HpPotion();
-            else if (itemName == "Rock")
-                item = new Rock();
-            else if (itemName == "Dagger")
-                item = new Dagger();
-            else if (itemName == "Bow")
-                item = new Bow();
-            else
-                item = new Sword();
+            Item item = null;
+            switch(itemName)
+            {
+                case "HpPotion":
+                    item = new HpPotion();
+                    break;
+                case "Rock":
+                    item = new Rock();
+                    break;
+                case "Dagger":
+                    item = new Dagger();
+                    break;
+                case "Bow":
+                    item = new Bow();
+                    break;
+                case "Wand":
+                    item = new Wand();
+                    break;
+                case "Sword":
+                    item = new Sword();
+                    break;
+            }
             NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item);
         }
     }

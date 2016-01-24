@@ -1,34 +1,14 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class PlayerAttacking : StateMachineBehaviour
+public class PlayerBackTumbling : StateMachineBehaviour
 {
     Player _player;
-    Animator _animator;
-    Coroutine _attackStackTimer;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (_player == null)
-        {
             _player = animator.GetComponent<Player>();
-            _animator = animator;
-        }
-
-        int attackStack = animator.GetInteger("BaseAttackStack") + 1;
-        if (attackStack > 2)
-            attackStack = 0;
-        animator.SetInteger("BaseAttackStack", attackStack);
-        if (_attackStackTimer != null)
-            _player.StopCoroutine(_attackStackTimer);
-        _attackStackTimer = _player.StartCoroutine(ResetAttackStack());
-        //Stack Overflow
-    }
-
-    IEnumerator ResetAttackStack()
-    {
-        yield return new WaitForSeconds(3.0f);
-        _animator.SetInteger("BaseAttackStack", 0);
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -37,7 +17,6 @@ public class PlayerAttacking : StateMachineBehaviour
     //        return;
     //}
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
     //}
