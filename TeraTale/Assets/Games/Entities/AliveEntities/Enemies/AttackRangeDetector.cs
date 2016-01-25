@@ -12,15 +12,13 @@ public class AttackRangeDetector : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        if (observer.target != null && coll.gameObject == observer.target.gameObject)
-            observer.Attack();
+        OnTriggerStay(coll);
     }
 
-    IEnumerator OnTriggerExit(Collider coll)
+    void OnTriggerStay(Collider coll)
     {
-        while (observer.target == null)
-            yield return null;
-        if (coll.gameObject == observer.target.gameObject)
-            observer.StopAttack();
+        if (observer.target != null && coll.gameObject == observer.target.gameObject)
+            if (observer.CanAttackTarget())
+                observer.Attack();
     }
 }

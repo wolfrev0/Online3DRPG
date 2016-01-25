@@ -15,7 +15,6 @@ public class PlayerStaying : StateMachineBehaviour
         if (animator.IsInTransition(0))
             return;
         _player.HandleInput();
-        //_player.FacingDirectionUpdate();
     }
 
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

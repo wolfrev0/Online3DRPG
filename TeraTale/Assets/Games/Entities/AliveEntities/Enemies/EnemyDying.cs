@@ -11,6 +11,7 @@ public class EnemyDying : StateMachineBehaviour
             _enemy = animator.GetComponent<Enemy>();
         Array.ForEach(_enemy.GetComponentsInChildren<Collider>(), (Collider c)=> { c.enabled = false; });
         _enemy.ChaseStop();
+        _enemy.GetComponent<NavMeshAgent>().enabled = false;
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
