@@ -45,7 +45,7 @@ public abstract class Enemy : AliveEntity
 
     public void Chase(AliveEntity target)
     {
-        if (isServer && this.target != target)
+        if (isServer)
         {
             this.target = target;
             int targetSignallerID = 0;

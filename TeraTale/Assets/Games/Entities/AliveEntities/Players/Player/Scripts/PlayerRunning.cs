@@ -15,6 +15,7 @@ public class PlayerRunning : StateMachineBehaviour
             _animator = animator;
         }
         _nma.speed = 4;
+        _animator.SetBool("Run", true);
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -31,6 +32,7 @@ public class PlayerRunning : StateMachineBehaviour
     {
         _nma.speed = 0;
         _nma.destination = _player.transform.position;
+        _animator.SetBool("Run", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
