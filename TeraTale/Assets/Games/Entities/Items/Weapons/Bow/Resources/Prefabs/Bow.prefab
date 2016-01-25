@@ -13,6 +13,7 @@ GameObject:
   - 54: {fileID: 5426956}
   - 65: {fileID: 6549568}
   - 114: {fileID: 11424188}
+  - 114: {fileID: 11450208}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Untagged
@@ -106,13 +107,30 @@ MonoBehaviour:
   networkID: 0
   owner: 
   _effector: {fileID: 0}
+--- !u!114 &11450208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72d40cb16f8fc24f8ce23f8385b7286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
+  targetTag: Enemy
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: targetTag
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 198180}

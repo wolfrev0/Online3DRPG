@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -119,6 +121,8 @@
     <Compile Include="Assets\Games\Entities\Items\ItemSpawnEffector.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubject.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectImpl.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectNull.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Bird\Scripts\Bird.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Duck\Scripts\Duck.cs" />

@@ -78,11 +78,8 @@ public class Player : AliveEntity
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
         //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
         _attackSubject = _weaponSolid.GetComponent<AttackSubject>();
-        if (_attackSubject)
-        {
-            _attackSubject.enabled = false;
-            _attackSubject.owner = this;
-        }
+        _attackSubject.enabled = false;
+        _attackSubject.owner = this;
     }
 
     void Awake()
@@ -149,9 +146,12 @@ public class Player : AliveEntity
 
         if (Input.GetButtonDown("Attack"))
             Send(new Attack());
-
-        if(Input.GetKeyDown(KeyCode.C))
+        Debug.Log("update");
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log("Send");
             Send(new BackTumbling());
+        }
     }
 
     public void FacingDirectionUpdate()
@@ -166,17 +166,24 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetTrigger("Attack");
+        _animator.SetBool("Attack", true);
+    }
+
+    public void StopAttack()
+    {
+        _animator.SetBool("Attack", false);
+        _attackSubject.enabled = false;
     }
 
     public void BackTumbling(BackTumbling info)
     {
+        Debug.Log("Recv");
         _animator.SetTrigger("BackTumbling");
     }
 
     protected override void Die()
     {
-        //_animator.SetTrigger("Die");
+        //_animator.SetBool("Die", true);
     }
 
     void Navigate(Navigate info)

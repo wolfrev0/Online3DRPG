@@ -43,6 +43,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: 0
   owner: 
+  _effector: {fileID: 0}
 --- !u!114 &11490326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,9 +52,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 148034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0791189690268f46877324d9b837acd, type: 3}
+  m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
   targetTag: Enemy
 --- !u!135 &13534930
 SphereCollider:
