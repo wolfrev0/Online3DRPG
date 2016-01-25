@@ -88,6 +88,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float exp { get; set; }
     public float expMax { get; set; }
 
+    public Vector3 _syncedPos;
+    public Vector3 _syncedRot;
+    Vector3 _posError;
+    Vector3 _rotError;
+
     protected new void Start()
     {
         base.Start();
@@ -97,7 +102,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             stamina = stamina;
             level = level;
         }
-        else
+        else if (isMine)
         {
             Sync("hp");
             Sync("hpMax");
@@ -112,6 +117,42 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             Sync("attackSpeed");
             Sync("castingTimeDecrease");
             Sync("coolTimeDecrease");
+            InvokeRepeating("PeriodicSync", 3, 3);
+        }
+    }
+
+    void PeriodicSync()
+    {
+        Sync("_syncedPos");
+        Sync("_syncedRot");
+    }
+
+    protected sealed override void OnSynced(Sync sync)
+    {
+        switch(sync.member)
+        {
+            case "_syncedPos":
+                _posError = _syncedPos - transform.position;
+                break;
+            case "_syncedRot":
+                _rotError = _syncedRot - transform.eulerAngles;
+                break;
+        }
+    }
+
+    protected void Update()
+    {
+        if (isServer)
+        {
+            _syncedPos = transform.position;
+            _syncedRot = transform.eulerAngles;
+        }
+        else
+        {
+            transform.position += _posError / 6;
+            _posError = _posError * 5 / 6;
+            transform.eulerAngles += _rotError / 6;
+            _rotError = _rotError * 5 / 6;
         }
     }
 
