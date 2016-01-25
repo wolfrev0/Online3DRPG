@@ -52,7 +52,7 @@ public abstract class NetworkScript : MonoBehaviour
         NetworkProgramUnity.currentInstance.Send(packet);
     }
 
-    protected void Send(TeraTaleNet.RPC rpc)
+    public void Send(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = networkID;
         rpc.sender = userName;

@@ -18,7 +18,16 @@ public class AttackRangeDetector : MonoBehaviour
     void OnTriggerStay(Collider coll)
     {
         if (observer.target != null && coll.gameObject == observer.target.gameObject)
+        {
             if (observer.CanAttackTarget())
                 observer.Attack();
+            else
+                observer.Chase(observer.target);
+        }
+    }
+
+    void OnTriggerExit(Collider coll)
+    {
+        observer.Chase(observer.target);
     }
 }

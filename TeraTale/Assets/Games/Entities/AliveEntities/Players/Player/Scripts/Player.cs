@@ -151,9 +151,7 @@ public class Player : AliveEntity
             Send(new Attack());
 
         if(Input.GetKeyDown(KeyCode.C))
-        {
-            _animator.SetTrigger("BackTumbling");
-        }
+            Send(new BackTumbling());
     }
 
     public void FacingDirectionUpdate()
@@ -169,6 +167,11 @@ public class Player : AliveEntity
     public void Attack(Attack info)
     {
         _animator.SetTrigger("Attack");
+    }
+
+    public void BackTumbling(BackTumbling info)
+    {
+        _animator.SetTrigger("BackTumbling");
     }
 
     protected override void Die()
