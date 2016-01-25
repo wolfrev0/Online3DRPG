@@ -74,18 +74,13 @@ public abstract class Enemy : AliveEntity
 
     public void Attack()
     {
-        _animator.SetBool("Attack", true);
-    }
-
-    public void StopAttack()
-    {
-        _animator.SetBool("Attack", false);
+        _animator.SetTrigger("Attack");
     }
 
     public bool CanAttackTarget()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, float.MaxValue))
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, float.MaxValue))
         {
             var root = hit.transform.root;
             if (root.tag == "Player")
