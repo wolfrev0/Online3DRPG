@@ -3,6 +3,8 @@ using TeraTaleNet;
 
 public class ItemFunctions : NetworkScript
 {
+    public ParticleSystem _fxpotion;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -10,6 +12,11 @@ public class ItemFunctions : NetworkScript
         {
             var player = Player.mine;
             player.Heal(new Heal("", 30));
+            ParticleSystem _particle = Instantiate(_fxpotion);
+            _particle.transform.SetParent(player.transform);
+            _particle.transform.localPosition = Vector3.zero;
+            Destroy(_particle.gameObject,_particle.duration);
+
         };
         Equipment.onUse += (Item item) =>
         {
