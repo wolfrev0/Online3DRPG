@@ -16,7 +16,7 @@ public class ItemFunctions : NetworkScript
             _particle.transform.SetParent(player.transform);
             _particle.transform.localPosition = Vector3.zero;
             Destroy(_particle.gameObject,_particle.duration);
-
+            player.Send(new Heal("", 30));
         };
         Equipment.onUse += (Item item) =>
         {
