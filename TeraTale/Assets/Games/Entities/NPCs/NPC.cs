@@ -15,7 +15,7 @@ public abstract class NPC : Entity
         public string comment;
         public List<Command> commands;
     }
-
+    public GameObject speechBubble;
     Camera npcCam;
     NPCDialog npcDialog;
     List<Script> _scripts = new List<Script>();
@@ -61,6 +61,17 @@ public abstract class NPC : Entity
 
     protected void Update()
     {
+        if(Player.mine)
+        {
+            var ppos = Player.mine.transform.position;
+            var npos = transform.position;
+            if (Vector3.Distance(ppos, npos) < 3)
+                speechBubble.gameObject.SetActive(true);
+            else
+                speechBubble.gameObject.SetActive(false);
+        }
+        
+
         if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
