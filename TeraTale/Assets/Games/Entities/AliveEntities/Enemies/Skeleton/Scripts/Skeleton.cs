@@ -14,7 +14,7 @@ public class Skeleton : Enemy
         base.Start();
     }
 
-    protected override List<Item> DropItems
+    protected override List<Item> Items
     {
         get
         {

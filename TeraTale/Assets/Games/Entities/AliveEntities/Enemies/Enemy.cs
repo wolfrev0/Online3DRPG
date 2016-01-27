@@ -15,11 +15,12 @@ public abstract class Enemy : AliveEntity
     public AttackSubject _attackSubject;
     public Text nameView;
     public Item[] items;
+    public MonsterSpawner spawner { get; set; }
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     
     public AliveEntity target
-    { get; set; }
+    { get; private set; }
 
     protected void Awake()
     {
@@ -31,6 +32,17 @@ public abstract class Enemy : AliveEntity
     {
         base.Start();
         nameView.text = name;
+    }
+
+    protected new void OnEnable()
+    {
+        base.OnEnable();
+        _navMeshAgent.enabled = true;
+    }
+
+    protected void OnDisable()
+    {
+        target = null;
     }
 
     void AttackBegin()
@@ -93,16 +105,35 @@ public abstract class Enemy : AliveEntity
         return false;
     }
 
-    protected abstract List<Item> DropItems
+    protected abstract List<Item> Items
     { get; }
 
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        if (isServer)
-            foreach (var item in DropItems)
-                NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
-        Destroy(gameObject, 5);
+        Invoke("SetActiveFalse", 2.0f);
+    }
+
+    public void DropItems()
+    {
+        if (isLocal)
+            return;
+        foreach (var item in Items)
+            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
+    }
+
+    void SetActiveFalse()
+    {
+        if (isLocal)
+            return;
+        InvokeRepeating("Respawn", 10.0f, float.MaxValue);
+        Send(new SetActive(false));
+    }
+
+    void Respawn()
+    {
+        spawner.Spawn(this);
+        CancelInvoke("Respawn");
     }
 
     public void OnDropItemInstantiate(ItemSolid item)

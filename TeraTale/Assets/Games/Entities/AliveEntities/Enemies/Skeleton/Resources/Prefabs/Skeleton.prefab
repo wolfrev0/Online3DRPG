@@ -1764,7 +1764,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156660}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2201bdc50511d99468693db6b7371b1f, type: 3}
   m_Name: 
@@ -1780,6 +1780,8 @@ MonoBehaviour:
   _staminaMax: 100
   _attackDamage: 10
   _level: 2
+  _syncedPos: {x: 0, y: 0, z: 0}
+  _syncedRot: {x: 0, y: 0, z: 0}
   _attackSubject: {fileID: 11471586}
   nameView: {fileID: 11448990}
 --- !u!114 &11481162

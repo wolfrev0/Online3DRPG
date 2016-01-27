@@ -11,7 +11,6 @@ public class Player : AliveEntity
 
     public Text nameView;
     public SpeechBubble speechBubble;
-    public Camera playerRenderCamera;
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
@@ -21,6 +20,7 @@ public class Player : AliveEntity
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
+    Projectile _pfArrow;
     
     public List<ItemStack> itemStacks
     {
@@ -100,9 +100,10 @@ public class Player : AliveEntity
         {
             FindObjectOfType<CameraController>().target = transform;
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
-            playerRenderCamera.gameObject.SetActive(true);
         }
         Equip(new WeaponNull());
+        transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+        _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
     }
 
     new void OnDestroy()
@@ -123,7 +124,7 @@ public class Player : AliveEntity
 
     void Shot()
     {
-        var projectile = Instantiate(Resources.Load<Projectile>("Prefabs/Arrow"));
+        var projectile = Instantiate(_pfArrow);
         projectile.transform.position = transform.position + Vector3.up;
         projectile.direction = transform.forward;
         projectile.speed = 10;

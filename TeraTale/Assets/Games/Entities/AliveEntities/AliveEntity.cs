@@ -97,12 +97,19 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     {
         base.Start();
         if (isServer)
+            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 3f), 3f);
+    }
+
+    protected new void OnEnable()
+    {
+        base.OnEnable();
+        if (isServer)
         {
-            hp = hp;//Initialize property call
-            stamina = stamina;
+            hp = hpMax;//Initialize property call
+            stamina = staminaMax;
             level = level;
         }
-        else if (isMine)
+        else
         {
             Sync("hp");
             Sync("hpMax");
@@ -117,14 +124,25 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             Sync("attackSpeed");
             Sync("castingTimeDecrease");
             Sync("coolTimeDecrease");
-            InvokeRepeating("PeriodicSync", 3, 3);
         }
     }
 
     void PeriodicSync()
     {
-        Sync("_syncedPos");
-        Sync("_syncedRot");
+        if (gameObject.activeSelf == false)
+            return;
+        _syncedPos = transform.position;
+        _syncedRot = transform.eulerAngles;
+
+        Sync s = new Sync(RPCType.Others, "", "_syncedPos");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        s = new Sync(RPCType.Others, "", "_syncedRot");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
     }
 
     protected sealed override void OnSynced(Sync sync)
@@ -142,12 +160,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
 
     protected void Update()
     {
-        if (isServer)
-        {
-            _syncedPos = transform.position;
-            _syncedRot = transform.eulerAngles;
-        }
-        else
+        if (isLocal)
         {
             transform.position += _posError / 6;
             _posError = _posError * 5 / 6;

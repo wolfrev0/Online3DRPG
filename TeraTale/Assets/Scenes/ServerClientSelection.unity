@@ -485,7 +485,7 @@ MonoBehaviour:
   networkID: -1
   owner: 
   pfPlayer: {fileID: 11425960, guid: 62682600173eba541946507f99114be6, type: 2}
-  serverIP: 14.55.93.198
+  serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0

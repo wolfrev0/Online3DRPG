@@ -1,8 +1,9 @@
-﻿public abstract class Entity : NetworkScript
+﻿using TeraTaleNet;
+
+public abstract class Entity : NetworkScript
 {
-    protected new void Start()
+    protected void OnEnable()
     {
-        StartCoroutine(base.Start());
         Sync("transform.localPosition");
         Sync("transform.localEulerAngles");
     }
