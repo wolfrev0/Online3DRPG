@@ -1,15 +1,36 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.EventSystems;
 
-public class MyInfoView : MonoBehaviour {
+public class MyInfoView : MonoBehaviour, IDragHandler
+{
+    public Camera playerBodyCamera;
+    float theta = 0;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void OnEnable()
+    {
+        playerBodyCamera.enabled = true;
+        playerBodyCamera.transform.SetParent(Player.mine.transform);
+    }
+
+    void OnDisable()
+    {
+        playerBodyCamera.enabled = false;
+    }
+
+    void Update()
+    {
+        playerBodyCamera.transform.localPosition = Quaternion.Euler(0, theta, 0) * new Vector3(0, 1, -0.9f);
+        playerBodyCamera.transform.localEulerAngles = new Vector3(0, theta, 0);
+    }
+
+    public void ToggleShow()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Left)
+            theta += eventData.delta.x;
+    }
 }

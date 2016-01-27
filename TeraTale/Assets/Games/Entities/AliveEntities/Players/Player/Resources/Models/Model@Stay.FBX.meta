@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c942982b4d8165b42a790491bde6faab
-timeCreated: 1453876535
+timeCreated: 1453893898
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -60,7 +60,8 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nDefault bone length found in this file is different
       form the one found in the source avatar:\n\t'Skeleton_UpperLeg_L' : position
-      error = 152.091324 mm\n"
+      error = 239.529602 mm\n\t'Skeleton_Leg_L' : position error = 140.966431 mm\n\t'Skeleton_Foot_L'
+      : position error = 178.071136 mm\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -234,14 +235,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Skeleton_Arm_L
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: Skeleton_Arm_R
       humanName: RightUpperArm
       limit:
@@ -290,8 +283,16 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+    - boneName: Skeleton_Arm_L
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
     skeleton:
-    - name: Model22(Clone)
+    - name: Model(Clone)
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -302,12 +303,12 @@ ModelImporter:
       scale: {x: 0.39370078, y: 0.39370078, z: 0.39370078}
       transformModified: 1
     - name: Knight
-      position: {x: -0, y: 0.040640008, z: 3.609557e-16}
+      position: {x: -0, y: 0.07315201, z: 6.497203e-16}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 5.0000005, y: 5.0000005, z: 5.0000005}
       transformModified: 1
     - name: Locator
-      position: {x: -0, y: 1.2092718, z: 2.4905505}
+      position: {x: -0, y: 2.1766891, z: 4.4829907}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -317,77 +318,77 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Goal
-      position: {x: -0.25400004, y: -0.0050800606, z: 0.015239999}
+      position: {x: -0.45720005, y: -0.009144109, z: 0.027431997}
       rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Goal (2)
-      position: {x: 0.25400004, y: -0.0050800606, z: 0.015239999}
+      position: {x: 0.45720005, y: -0.009144109, z: 0.027431997}
       rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Skeleton_Root
-      position: {x: -0, y: 0.46378607, z: 0.048260003}
+      position: {x: -0, y: 0.8348149, z: 0.086868}
       rotation: {x: 0.5012804, y: -0.49871626, z: -0.5012804, w: -0.49871626}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Locator_Leg_L
-      position: {x: 0.03331915, y: 0.254, z: -0.05824993}
+      position: {x: 0.059974466, y: 0.4572, z: -0.104849875}
       rotation: {x: 0.70710456, y: -0.70710444, z: 0.0018130352, w: -0.0018130454}
       scale: {x: 0.99999994, y: 1, z: 0.99999994}
       transformModified: 1
     - name: Locator_Leg_R
-      position: {x: 0.033319157, y: -0.25399998, z: -0.05824991}
+      position: {x: 0.05997448, y: -0.45719996, z: -0.10484984}
       rotation: {x: 0.70710456, y: -0.70710444, z: 0.0018131195, w: -0.0018131296}
       scale: {x: 0.99999994, y: 1, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Spine01
-      position: {x: -0.000000003027916, y: -3.784895e-10, z: 0.2476532}
+      position: {x: -0.0000000054502487, y: -6.812811e-10, z: 0.44577575}
       rotation: {x: 2.30597e-10, y: -0.05895618, z: -4.469028e-11, w: 0.99826056}
       scale: {x: 1, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Skeleton_Spine02
-      position: {x: -0.0012698383, y: 0, z: 0.15874995}
+      position: {x: -0.002285709, y: 0, z: 0.2857499}
       rotation: {x: 1.5576934e-12, y: 0.0706502, z: -2.1992875e-11, w: 0.99750113}
       scale: {x: 1.0000002, y: 1, z: 1.0000001}
       transformModified: 1
     - name: Skeleton_Arm_L
-      position: {x: 0.023652775, y: 0.23240998, z: 0.14263146}
-      rotation: {x: -0.018187368, y: 0.6858818, z: 0.7258198, w: 0.049203567}
+      position: {x: 0.042574573, y: 0.41832092, z: 0.25673664}
+      rotation: {x: 0.013609111, y: 0.682731, z: 0.72708625, w: 0.07098469}
       scale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_ForeArm_L
-      position: {x: 0.00056074874, y: 0.00009506848, z: 0.19546917}
-      rotation: {x: 0.037468243, y: 0.010520344, z: 0.13222912, w: 0.9904549}
+      position: {x: 0.0378, y: 0.0036000002, z: 0.3474}
+      rotation: {x: 0.008108083, y: 0.22360668, z: 0.13719575, w: 0.96494126}
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Skeleton_Hand_L
-      position: {x: 0.000000024223327, y: 0, z: 0.16764}
-      rotation: {x: -0.00000006947644, y: 0.7071068, z: 0.7071067, w: 0.00000011162331}
+      position: {x: -0.08465564, y: -0.007731268, z: 0.27176666}
+      rotation: {x: 0.15416634, y: 0.70642036, z: 0.690092, w: -0.031241605}
       scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Arm_R
-      position: {x: 0.023653025, y: -0.23240848, z: 0.14263156}
-      rotation: {x: -0.024019813, y: -0.6996947, z: 0.7125865, w: -0.045507308}
+      position: {x: 0.04257455, y: -0.41833782, z: 0.25673655}
+      rotation: {x: 0.0050279545, y: -0.69726026, z: 0.7129734, w: -0.07397225}
       scale: {x: 0.9999998, y: 1, z: 0.9999998}
       transformModified: 1
     - name: Skeleton_ForeArm_R
-      position: {x: -0.0005611852, y: 0.00009455322, z: 0.19576243}
-      rotation: {x: -0.03385619, y: 0.03765968, z: -0.13294743, w: 0.9898286}
+      position: {x: 0.028800001, y: -0.0018000001, z: 0.3492}
+      rotation: {x: -0.008151351, y: 0.2238314, z: -0.13694821, w: 0.964924}
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Skeleton_Hand_R
-      position: {x: -0, y: 0.00000009689331, z: 0.16763996}
-      rotation: {x: -0.000000053671364, y: 0.7071068, z: -0.7071067, w: -0.00000010635493}
+      position: {x: -0.075605914, y: -0.016148638, z: 0.27538887}
+      rotation: {x: 0.012066354, y: 0.6833615, z: -0.70700383, w: 0.18170616}
       scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Head
-      position: {x: 0.0025085981, y: 9.462238e-10, z: 0.32444474}
+      position: {x: 0.0045154765, y: 0.0000000017032027, z: 0.5840005}
       rotation: {x: 0.50822407, y: -0.50822395, z: -0.4916384, w: 0.49163848}
       scale: {x: 0.99999994, y: 1, z: 0.9999998}
       transformModified: 1
     - name: Skeleton_UpperLeg_L
-      position: {x: 0.03331915, y: 0.254, z: -0.05824993}
+      position: {x: 0.059974466, y: 0.4572, z: -0.104849875}
       rotation: {x: 0.7068128, y: -0.7068126, z: -0.020391047, w: 0.02039105}
       scale: {x: 0.9999999, y: 1.0000001, z: 0.9999999}
       transformModified: 1
@@ -397,17 +398,17 @@ ModelImporter:
       scale: {x: 1.0000001, y: 1, z: 1}
       transformModified: 1
     - name: Skeleton_Leg_L
-      position: {x: -0, y: -0.000000006055832, z: 0.20232901}
+      position: {x: -0, y: -0.000000010900497, z: 0.36419222}
       rotation: {x: -0.000012440185, y: -0.056230634, z: 0.9984178, w: -0.00022106593}
       scale: {x: 1, y: 1.0000002, z: 1}
       transformModified: 1
     - name: Skeleton_Foot_L
-      position: {x: -0.000000048446655, y: -0.000000004541874, z: 0.25558567}
+      position: {x: -0.00000008720398, y: -0.000000008175373, z: 0.4600542}
       rotation: {x: 0.70877165, y: 0.70500016, z: 0.01753433, w: -0.017612478}
       scale: {x: 0.99999976, y: 1.0000004, z: 1.0000002}
       transformModified: 1
     - name: Skeleton_UpperLeg_R
-      position: {x: 0.033319164, y: -0.25399995, z: -0.05824991}
+      position: {x: 0.059974495, y: -0.4571999, z: -0.10484984}
       rotation: {x: 0.70686746, y: -0.7068674, z: -0.018397408, w: 0.018397417}
       scale: {x: 0.9999999, y: 1, z: 0.9999998}
       transformModified: 1
@@ -417,22 +418,22 @@ ModelImporter:
       scale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Leg_R
-      position: {x: -0.000000024223327, y: -0.00014942765, z: 0.2023288}
+      position: {x: -0.00000004360199, y: -0.00026896977, z: 0.36419183}
       rotation: {x: -0.000013145374, y: -0.051714063, z: 0.99866194, w: -0.00022099214}
       scale: {x: 0.9999999, y: 1.0000002, z: 1.0000002}
       transformModified: 1
     - name: Skeleton_Foot_R
-      position: {x: -0.000088633155, y: -0.00038731738, z: 0.25490537}
+      position: {x: -0.00015953968, y: -0.00069717126, z: 0.45882967}
       rotation: {x: 0.70879173, y: 0.7050245, z: 0.016547482, w: -0.016761197}
       scale: {x: 0.9999998, y: 0.99999905, z: 1.0000008}
       transformModified: 1
     - name: UpVector_Leg_L
-      position: {x: -0.25400004, y: 0.24892005, z: 0.36576003}
+      position: {x: -0.45720005, y: 0.44805607, z: 0.65836805}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpVector_Leg_R
-      position: {x: 0.25400004, y: 0.24892005, z: 0.36576003}
+      position: {x: 0.45720005, y: 0.44805607, z: 0.65836805}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -450,7 +451,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 18ca2f9c9af63274f9d9d250845c48ee,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1ae271ceff7ef43458f1b8f712cd44bf,
     type: 3}
   animationType: 3
   humanoidOversampling: 1
