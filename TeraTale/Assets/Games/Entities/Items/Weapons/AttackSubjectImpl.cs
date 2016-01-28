@@ -42,7 +42,7 @@ public class AttackSubjectImpl : AttackSubject
         if (coll.tag == targetTag)
         {
             var ae = coll.GetComponent<AliveEntity>();
-            ae.Damage(new Damage(Damage.Type.Physical, owner.attackDamage, 0, false));
+            ae.Damage(new Damage(Damage.Type.Physical, owner.attackDamage, 0, knockdown));
         }
     }
 }

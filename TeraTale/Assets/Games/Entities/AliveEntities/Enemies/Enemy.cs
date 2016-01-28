@@ -114,6 +114,11 @@ public abstract class Enemy : AliveEntity
         Invoke("SetActiveFalse", 2.0f);
     }
 
+    protected override void Knockdown()
+    {
+        _animator.SetTrigger("Knockdown");
+    }
+
     public void DropItems()
     {
         if (isLocal)

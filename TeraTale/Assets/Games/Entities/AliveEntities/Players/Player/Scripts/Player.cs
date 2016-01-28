@@ -122,6 +122,11 @@ public class Player : AliveEntity
         _attackSubject.enabled = false;
     }
 
+    public void SetKnockdown(bool value)
+    {
+        _attackSubject.knockdown = value;
+    }
+
     void Shot()
     {
         var projectile = Instantiate(_pfArrow);
@@ -186,6 +191,11 @@ public class Player : AliveEntity
     void Respawn()
     {
         SwitchWorld("Town");
+    }
+
+    protected override void Knockdown()
+    {
+        //_animator.SetTrigger("Knockdown");
     }
 
     void Navigate(Navigate info)

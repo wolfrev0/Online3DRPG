@@ -189,6 +189,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
         hp -= dmg.amount;
+        if (dmg.knockdown)
+            Knockdown();
+            
     }
 
     public virtual void ExpUp(ExpUp expUp)
@@ -199,4 +202,5 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     }
 
     protected abstract void Die();
+    protected abstract void Knockdown();
 }
