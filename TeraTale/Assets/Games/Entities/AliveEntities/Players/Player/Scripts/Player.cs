@@ -3,9 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
+using System;
+using System.Reflection;
 
-public class Player : AliveEntity
+public class Player : AliveEntity, ISerializable
 {
+    static Dictionary<Type, MethodInfo> serializersCache = new Dictionary<Type, MethodInfo>();
+    static Dictionary<Type, MethodInfo> serializedSizesCache = new Dictionary<Type, MethodInfo>();
+
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
@@ -15,7 +20,7 @@ public class Player : AliveEntity
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     List<ItemStack> _itemStacks = new List<ItemStack>(30);
-    Weapon _weapon;
+    public Weapon _weapon;
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
@@ -104,6 +109,9 @@ public class Player : AliveEntity
         Equip(new WeaponNull());
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+
+        if (isServer)
+            Send(new SerializedPlayer(this));
     }
 
     new void OnDestroy()
@@ -278,5 +286,24 @@ public class Player : AliveEntity
                 return weapon == equipment;
         }
         return false;
+    }
+
+    public void SerializedPlayer(SerializedPlayer rpc)
+    {
+
+    }
+
+    public byte[] Serialize()
+    {
+    }
+
+    public void Deserialize(byte[] buffer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int SerializedSize()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -14,8 +14,6 @@ namespace Database
 
         protected override void OnStart()
         {
-            _messenger = new Messenger(_handler);
-
             Action listenner = () =>
             {
                 _agent.Bind("127.0.0.1", Port.Database, 1);

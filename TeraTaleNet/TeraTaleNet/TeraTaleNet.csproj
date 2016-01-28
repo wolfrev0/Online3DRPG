@@ -82,6 +82,7 @@
     <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\RPC\SyncFromServer.cs" />
     <Compile Include="Body\SerializableType.cs" />
+    <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SwitchWorld.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
