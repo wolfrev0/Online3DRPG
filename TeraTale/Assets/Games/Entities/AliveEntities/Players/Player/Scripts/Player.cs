@@ -11,7 +11,6 @@ public class Player : AliveEntity
 
     public Text nameView;
     public SpeechBubble speechBubble;
-    public Camera playerRenderCamera;
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
@@ -21,6 +20,7 @@ public class Player : AliveEntity
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
+    Projectile _pfArrow;
     
     public List<ItemStack> itemStacks
     {
@@ -78,11 +78,8 @@ public class Player : AliveEntity
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
         //Should Make AttackerNULL and AttackerImpl for ProjectileWeapon
         _attackSubject = _weaponSolid.GetComponent<AttackSubject>();
-        if (_attackSubject)
-        {
-            _attackSubject.enabled = false;
-            _attackSubject.owner = this;
-        }
+        _attackSubject.enabled = false;
+        _attackSubject.owner = this;
     }
 
     void Awake()
@@ -103,9 +100,10 @@ public class Player : AliveEntity
         {
             FindObjectOfType<CameraController>().target = transform;
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
-            playerRenderCamera.gameObject.SetActive(true);
         }
         Equip(new WeaponNull());
+        transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+        _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
     }
 
     new void OnDestroy()
@@ -126,7 +124,7 @@ public class Player : AliveEntity
 
     void Shot()
     {
-        var projectile = Instantiate(Resources.Load<Projectile>("Prefabs/Arrow"));
+        var projectile = Instantiate(_pfArrow);
         projectile.transform.position = transform.position + Vector3.up;
         projectile.direction = transform.forward;
         projectile.speed = 10;
@@ -149,8 +147,7 @@ public class Player : AliveEntity
 
         if (Input.GetButtonDown("Attack"))
             Send(new Attack());
-
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
             Send(new BackTumbling());
     }
 
@@ -166,7 +163,13 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetTrigger("Attack");
+        _animator.SetBool("Attack", true);
+    }
+
+    public void StopAttack()
+    {
+        _animator.SetBool("Attack", false);
+        _attackSubject.enabled = false;
     }
 
     public void BackTumbling(BackTumbling info)
@@ -176,7 +179,13 @@ public class Player : AliveEntity
 
     protected override void Die()
     {
-        //_animator.SetTrigger("Die");
+        _animator.SetTrigger("Die");
+        Invoke("Respawn", 3.0f);
+    }
+
+    void Respawn()
+    {
+        SwitchWorld("Town");
     }
 
     void Navigate(Navigate info)

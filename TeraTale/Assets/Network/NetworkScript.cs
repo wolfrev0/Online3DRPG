@@ -26,7 +26,12 @@ public abstract class NetworkScript : MonoBehaviour
     static public bool isLocal { get { return !isServer; } }
     static public string userName { get; set; }
 
-    protected IEnumerator Start()
+    protected void Start()
+    {
+        StartCoroutine(StartSub());
+    }
+
+    IEnumerator StartSub()
     {
         while (NetworkProgramUnity.currentInstance == null)
             yield return new WaitForSeconds(0);
@@ -85,10 +90,13 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void NetworkInstantiate(NetworkInstantiate info)
     {
-        var instance = Instantiate(Resources.Load<NetworkScript>("Prefabs/" + info.pfName));
+        var pf = Resources.Load<NetworkScript>("Prefabs/" + info.pfName);
+        pf.enabled = false;
+        var instance = Instantiate(pf);
         instance.networkID = info.networkID;
         instance.owner = info.sender;
         instance.RegisterToProgram();
+        instance.enabled = true;
         if (info.callbackArg.body.GetType() != typeof(NullPacket))
             instance.SendMessage("OnNetInstantiate", info.callbackArg.body, SendMessageOptions.DontRequireReceiver);
         if (info.callback != "")
@@ -117,7 +125,7 @@ public abstract class NetworkScript : MonoBehaviour
     protected void Sync(string member)
     {
         if (isLocal)
-            Send(new Sync(Application.loadedLevelName, member));
+            Send(new Sync(RPCType.Specific, Application.loadedLevelName, member));
     }
 
     public void Sync(Sync sync)
@@ -206,6 +214,11 @@ public abstract class NetworkScript : MonoBehaviour
                 OnSynced(sync);
             }
         }
+    }
+
+    public void SetActive(SetActive rpc)
+    {
+        gameObject.SetActive(rpc.value);
     }
 
     protected virtual void OnSynced(Sync sync) { }

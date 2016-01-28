@@ -8,8 +8,9 @@ public abstract class KineticEntity : Entity
     public float AppearTime;
     public float disappearTime;
 
-    void Start()
+    new void Start()
     {
+        base.Start();
         _animator = GetComponent<Animator>();
         _skimesh = GetComponentInChildren<SkinnedMeshRenderer>();
         Invoke("Appear", Random.Range(1, AppearTime));

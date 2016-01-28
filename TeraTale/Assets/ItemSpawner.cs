@@ -32,7 +32,13 @@ public class ItemSpawner : Entity
                     item = new Sword();
                     break;
             }
-            NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item);
+            NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), item, "OnItemInstantiate");
         }
+    }
+
+    void OnItemInstantiate(ItemSolid itemSolid)
+    {
+        itemSolid.transform.position += Vector3.up * 2;
+        itemSolid.transform.eulerAngles += new Vector3(0, 0, 45);
     }
 }

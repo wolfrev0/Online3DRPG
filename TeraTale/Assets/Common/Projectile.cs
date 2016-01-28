@@ -16,4 +16,10 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "Enemy" || coll.tag == "Terrain")
+            Destroy(gameObject);
+    }
 }

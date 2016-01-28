@@ -9,9 +9,8 @@ public class EnemyDying : StateMachineBehaviour
     {
         if (_enemy == null)
             _enemy = animator.GetComponent<Enemy>();
-        Array.ForEach(_enemy.GetComponentsInChildren<Collider>(), (Collider c)=> { c.enabled = false; });
-        _enemy.ChaseStop();
         _enemy.GetComponent<NavMeshAgent>().enabled = false;
+        _enemy.DropItems();
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,10 +18,10 @@ public class EnemyDying : StateMachineBehaviour
 
     //}
 
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        _enemy.GetComponent<NavMeshAgent>().enabled = true;
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

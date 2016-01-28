@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c942982b4d8165b42a790491bde6faab
-timeCreated: 1452855703
+timeCreated: 1453963987
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -60,8 +60,8 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nDefault bone length found in this file is different
       form the one found in the source avatar:\n\t'Skeleton_UpperLeg_L' : position
-      error = 239.545776 mm\n\t'Skeleton_Leg_L' : position error = 140.975952 mm\n\t'Skeleton_Foot_L'
-      : position error = 178.083176 mm\n"
+      error = 239.529602 mm\n\t'Skeleton_Leg_L' : position error = 140.966431 mm\n\t'Skeleton_Foot_L'
+      : position error = 178.071136 mm\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -78,7 +78,7 @@ ModelImporter:
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: 0.07
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -235,14 +235,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Skeleton_Arm_L
-      humanName: LeftUpperArm
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: Skeleton_Arm_R
       humanName: RightUpperArm
       limit:
@@ -285,6 +277,14 @@ ModelImporter:
         modified: 0
     - boneName: Skeleton_Foot_R
       humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Skeleton_Arm_L
+      humanName: LeftUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
         max: {x: 0, y: 0, z: 0}
@@ -353,8 +353,8 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1, z: 1.0000001}
       transformModified: 1
     - name: Skeleton_Arm_L
-      position: {x: 0.0425744, y: 0.41833797, z: 0.2567367}
-      rotation: {x: 0.005237844, y: 0.6844747, z: 0.7252909, w: 0.073620975}
+      position: {x: 0.042574573, y: 0.41832092, z: 0.25673664}
+      rotation: {x: 0.013609111, y: 0.682731, z: 0.72708625, w: 0.07098469}
       scale: {x: 0.9999999, y: 1.0000001, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_ForeArm_L
@@ -363,13 +363,13 @@ ModelImporter:
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Skeleton_Hand_L
-      position: {x: -0.084599994, y: -0.0072000003, z: 0.27179998}
-      rotation: {x: -0.00000006947644, y: 0.7071068, z: 0.7071067, w: 0.00000011162331}
+      position: {x: -0.08465564, y: -0.007731268, z: 0.27176666}
+      rotation: {x: 0.15416634, y: 0.70642036, z: 0.690092, w: -0.031241605}
       scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Arm_R
       position: {x: 0.04257455, y: -0.41833782, z: 0.25673655}
-      rotation: {x: 0.005027954, y: -0.6972602, z: 0.71297336, w: -0.07397224}
+      rotation: {x: 0.0050279545, y: -0.69726026, z: 0.7129734, w: -0.07397225}
       scale: {x: 0.9999998, y: 1, z: 0.9999998}
       transformModified: 1
     - name: Skeleton_ForeArm_R
@@ -378,8 +378,8 @@ ModelImporter:
       scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Skeleton_Hand_R
-      position: {x: -0.0756, y: -0.016199999, z: 0.27539998}
-      rotation: {x: -0.000000053671364, y: 0.7071068, z: -0.7071067, w: -0.00000010635493}
+      position: {x: -0.075605914, y: -0.016148638, z: 0.27538887}
+      rotation: {x: 0.012066354, y: 0.6833615, z: -0.70700383, w: 0.18170616}
       scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
       transformModified: 1
     - name: Skeleton_Head
