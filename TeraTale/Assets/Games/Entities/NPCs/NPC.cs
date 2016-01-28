@@ -59,37 +59,7 @@ public abstract class NPC : Entity
         _scripts.Add(s);
     }
 
-    protected void Update()
-    {
-        if(Player.mine)
-        {
-            var ppos = Player.mine.transform.position;
-            var npos = transform.position;
-            if (Vector3.Distance(ppos, npos) < 3)
-                speechBubble.gameObject.SetActive(true);
-            else
-                speechBubble.gameObject.SetActive(false);
-        }
-        
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, float.MaxValue))
-            {
-                if (hit.collider.gameObject == gameObject)
-                {
-                    var ppos = Player.mine.transform.position;
-                    var npos = transform.position;
-                    if (Vector3.Distance(ppos, npos) < 3)
-                        StartConversation();
-                }
-            }
-        }
-    }
-
-    void StartConversation()
+    public void StartConversation()
     {
         npcCam.transform.position = transform.position + transform.forward + new Vector3(0, 1.58f, 0);
         npcCam.transform.LookAt(transform);

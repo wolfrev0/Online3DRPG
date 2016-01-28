@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using UnityEngine.UI;
 using TeraTaleNet;
 
@@ -83,11 +82,29 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public int level
     {
         get { return _level; }
-        private set { _level = value; _levelText.text = "LV." + _level; }
+        private set
+        {
+            if (value < _level)
+                throw new ArgumentException("level can not decreased.");
+            _level = value;
+            _levelText.text = "LV." + _level;
+        }
     }
     [SerializeField]
     float _exp;
-    public float exp { get { return _exp; } private set { _exp = value; } }
+    public float exp
+    {
+        get { return _exp; }
+        private set
+        {
+            _exp = value;
+            if (_exp >= expMax)
+            {
+                _exp -= expMax;
+                level = level + 1;
+            }
+        }
+    }
     [SerializeField]
     float _expMax;
     public float expMax { get { return _expMax; } private set { _expMax = value; } }

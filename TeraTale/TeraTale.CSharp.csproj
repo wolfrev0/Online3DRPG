@@ -124,6 +124,8 @@
     <Compile Include="Assets\Games\Entities\Movable.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\Ian\Ian.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
+    <Compile Include="Assets\Games\Entities\NPCs\TalkableRangeDetector.cs" />
+    <Compile Include="Assets\Games\MonsterSpawner.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Cell.cs" />
@@ -132,7 +134,6 @@
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
     <Compile Include="Assets\ItemSpawner.cs" />
-    <Compile Include="Assets\MonsterSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
