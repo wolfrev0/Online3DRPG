@@ -126,6 +126,7 @@ public abstract class Enemy : AliveEntity
     {
         if (isLocal)
             return;
+        target.ExpUp(new ExpUp(7));
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
     }

@@ -52,6 +52,7 @@
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
+    <Compile Include="Body\RPC\ExpUp.cs" />
     <Compile Include="Body\RPC\Heal.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
     <Compile Include="Body\Item\Consumable\HpPotion.cs" />

@@ -85,8 +85,12 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         get { return _level; }
         private set { _level = value; _levelText.text = "LV." + _level; }
     }
-    public float exp { get; set; }
-    public float expMax { get; set; }
+    [SerializeField]
+    float _exp;
+    public float exp { get { return _exp; } private set { _exp = value; } }
+    [SerializeField]
+    float _expMax;
+    public float expMax { get { return _expMax; } private set { _expMax = value; } }
 
     public Vector3 _syncedPos;
     public Vector3 _syncedRot;
@@ -185,6 +189,13 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
         hp -= dmg.amount;
+    }
+
+    public virtual void ExpUp(ExpUp expUp)
+    {
+        if (isServer)
+            Send(expUp);
+        exp += expUp.amount;
     }
 
     protected abstract void Die();

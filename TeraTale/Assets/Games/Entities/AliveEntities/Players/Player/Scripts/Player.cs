@@ -179,7 +179,13 @@ public class Player : AliveEntity
 
     protected override void Die()
     {
-        //_animator.SetBool("Die", true);
+        _animator.SetTrigger("Die");
+        Invoke("Respawn", 3.0f);
+    }
+
+    void Respawn()
+    {
+        SwitchWorld("Town");
     }
 
     void Navigate(Navigate info)

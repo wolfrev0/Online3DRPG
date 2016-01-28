@@ -19,7 +19,7 @@ public class MyInfoView : MonoBehaviour, IDragHandler
 
     void Update()
     {
-        playerBodyCamera.transform.localPosition = Quaternion.Euler(0, theta, 0) * new Vector3(0, 1, -0.9f);
+        playerBodyCamera.transform.localPosition = Quaternion.Euler(0, theta, 0) * new Vector3(0, 1f, -0.9f);
         playerBodyCamera.transform.localEulerAngles = new Vector3(0, theta, 0);
     }
 
