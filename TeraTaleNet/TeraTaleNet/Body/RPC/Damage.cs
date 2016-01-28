@@ -10,15 +10,15 @@
         public Type type;
         public float amount;
         public float knockback;
-        public bool fallDown;
+        public bool knockdown;
 
-        public Damage(Type type, float amount, float knockback, bool fallDown)
+        public Damage(Type type, float amount, float knockback, bool knockdown)
             : base(RPCType.Others)
         {
             this.type = type;
             this.amount = amount;
             this.knockback = knockback;
-            this.fallDown = fallDown;
+            this.knockdown = knockdown;
         }
 
         public Damage(byte[] data)

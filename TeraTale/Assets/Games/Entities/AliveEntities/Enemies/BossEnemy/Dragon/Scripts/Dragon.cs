@@ -107,4 +107,9 @@ public class Dragon : BossEnemy
     {
         throw new NotImplementedException();
     }
+
+    protected override void Knockdown()
+    {
+        throw new NotImplementedException();
+    }
 }
