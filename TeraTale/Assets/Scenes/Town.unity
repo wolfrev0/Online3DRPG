@@ -1797,9 +1797,17 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11452358, guid: 3cddb7c6acf51064dbeb1fb9b3081a5b, type: 2}
+      propertyPath: speechBubble
+      value: 
+      objectReference: {fileID: 679701436}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cddb7c6acf51064dbeb1fb9b3081a5b, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &679701436 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 193364, guid: 3cddb7c6acf51064dbeb1fb9b3081a5b, type: 2}
+  m_PrefabInternal: {fileID: 679701435}
 --- !u!1001 &683587485
 Prefab:
   m_ObjectHideFlags: 0
