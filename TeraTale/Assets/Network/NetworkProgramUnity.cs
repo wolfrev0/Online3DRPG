@@ -26,7 +26,6 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
     {
         signallersByID = new Dictionary<int, NetworkScript>();
         _messenger = new Messenger(this);
-        _messenger.cc += (string ss) => { Debug.Log(ss); };
     }
 
     protected new void Start()

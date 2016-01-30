@@ -295,8 +295,6 @@ namespace TeraTaleNet
             {
                 byte[] buffer;
                 var fieldType = field.FieldType;
-                if (!fieldType.IsValueType && !(fieldType == typeof(string) || fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable)))
-                    continue;
                 var value = field.GetValue(obj);
                 if (fieldType.IsEnum)
                 {

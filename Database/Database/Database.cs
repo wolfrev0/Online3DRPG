@@ -14,8 +14,6 @@ namespace Database
 
         protected override void OnStart()
         {
-
-
             _messenger = new Messenger(_handler);
 
             Action listenner = () =>
