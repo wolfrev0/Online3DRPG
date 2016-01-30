@@ -7,8 +7,6 @@ namespace TeraTaleNet
 {
     public class Messenger : IDisposable
     {
-        public delegate void CC(string ss);
-        public CC cc = (string ss) => { };
         //concurrent Dictionary?
         Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
         Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
@@ -142,7 +140,6 @@ namespace TeraTaleNet
                                 //Need ioLock?
                                 var packet = _sendQByKey[key].Dequeue();
                                 History.Log("Sended : " + Packet.GetTypeByIndex(packet.header.type));
-                                cc.Invoke("Sended : " + Packet.GetTypeByIndex(packet.header.type));
                                 _streamByKey[key].Write(packet);
                             }
                         }
@@ -175,7 +172,6 @@ namespace TeraTaleNet
                                 //Need ioLock?
                                 var packet = _streamByKey[key].Read();
                                 History.Log("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
-                                cc.Invoke("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
                                 _recvQByKey[key].Enqueue(packet);
                             }
                         }
@@ -185,7 +181,6 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
-                cc.Invoke(e.ToString());
                 History.Log(e.ToString());
             }
             finally
