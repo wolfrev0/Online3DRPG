@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
@@ -6,6 +8,9 @@ namespace TeraTaleNet
 {
     public static class Serializer
     {
+        static Dictionary<Type, MethodInfo> serializersCache = new Dictionary<Type, MethodInfo>();
+        static Dictionary<Type, MethodInfo> serializedSizesCache = new Dictionary<Type, MethodInfo>();
+
         public static byte[] Serialize(bool obj)
         {
             return BitConverter.GetBytes(obj);
@@ -280,6 +285,101 @@ namespace TeraTaleNet
             bytes = new byte[header.bodySize];
             Buffer.BlockCopy(buffer, offset, bytes, 0, header.bodySize);
             return Packet.Create(header, bytes);
+        }
+
+        public static byte[] Serialize(ISerializable obj)
+        {
+            List<byte[]> buffers = new List<byte[]>();
+            int totalBufferSize = 0;
+            foreach (var field in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public))
+            {
+                byte[] buffer;
+                var fieldType = field.FieldType;
+                if (!fieldType.IsValueType && !(fieldType == typeof(string) || fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable)))
+                    continue;
+                var value = field.GetValue(obj);
+                if (fieldType.IsEnum)
+                {
+                    fieldType = Enum.GetUnderlyingType(fieldType);
+                    value = Convert.ChangeType(value, fieldType);
+                }
+                if (fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable))
+                {
+                    fieldType = typeof(Packet);
+                    value = Activator.CreateInstance(typeof(Packet), field.GetValue(obj));
+                }
+                if (!serializersCache.ContainsKey(fieldType))
+                    serializersCache.Add(fieldType, typeof(Serializer).GetMethod("Serialize", new[] { fieldType }));
+                buffer = (byte[])serializersCache[fieldType].Invoke(null, new[] { value });
+                totalBufferSize += buffer.Length;
+                buffers.Add(buffer);
+            }
+
+            byte[] ret = new byte[totalBufferSize];
+            int offset = 0;
+            foreach (var buffer in buffers)
+            {
+                buffer.CopyTo(ret, offset);
+                offset += buffer.Length;
+            }
+
+            return ret;
+        } 
+
+        public static void Deserialize(ISerializable obj, byte[] buffer)
+        {
+            int offset = 0;
+            foreach (var field in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public))
+            {
+                object value;
+                var fieldType = field.FieldType;
+                if (fieldType.IsEnum)
+                    fieldType = Enum.GetUnderlyingType(fieldType);
+                string typeName = fieldType.Name;
+                if (fieldType.IsArray)
+                    typeName = typeName.Replace("[]", "s");
+                if (fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable))
+                    typeName = "Packet";
+                value = typeof(Serializer).GetMethod("To" + typeName, new[] { typeof(byte[]), typeof(int) }).Invoke(null, new object[] { buffer, offset });
+                if (fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable))
+                    value = value.GetType().GetField("body").GetValue(value);
+                field.SetValue(obj, value);
+                offset += SerializedSize(obj, field);
+            }
+        }
+
+        static int SerializedSize(ISerializable obj, FieldInfo field)
+        {
+            int ret = 0;
+            var fieldType = field.FieldType;
+            object value = field.GetValue(obj);
+            if (fieldType.IsEnum)
+            {
+                fieldType = Enum.GetUnderlyingType(fieldType);
+                value = Convert.ChangeType(value, fieldType);
+            }
+            if (fieldType.IsSubclassOf(typeof(ISerializable)) || fieldType == typeof(ISerializable))
+            {
+                fieldType = typeof(Packet);
+                value = Activator.CreateInstance(typeof(Packet), field.GetValue(obj));
+            }
+            if (!serializedSizesCache.ContainsKey(fieldType))
+                serializedSizesCache.Add(fieldType, typeof(Serializer).GetMethod("SerializedSize", new[] { fieldType }));
+            ret += (int)serializedSizesCache[fieldType].Invoke(null, new[] { value });
+            return ret;
+        }
+
+        public static int SerializedSize(ISerializable obj)
+        {
+            int ret = 0;
+            foreach (var field in obj.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public))
+                ret += SerializedSize(obj, field);
+            return ret;
+        }
+
+        public static Header CreateHeader(ISerializable obj)
+        {
+            return new Header(Packet.GetIndexByType(obj.GetType()), SerializedSize(obj));
         }
     }
 }

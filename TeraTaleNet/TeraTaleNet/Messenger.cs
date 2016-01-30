@@ -7,6 +7,8 @@ namespace TeraTaleNet
 {
     public class Messenger : IDisposable
     {
+        public delegate void CC(string ss);
+        public CC cc = (string ss) => { };
         //concurrent Dictionary?
         Dictionary<string, ConcurrentQueue<Packet>> _sendQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
         Dictionary<string, ConcurrentQueue<Packet>> _recvQByKey = new Dictionary<string, ConcurrentQueue<Packet>>();
@@ -18,7 +20,7 @@ namespace TeraTaleNet
         bool _disposed = false;
         object _locker = new object();
 
-        Dictionary<string, MethodInfo> handlerByName = new Dictionary<string, MethodInfo>();
+        Dictionary<Type, MethodInfo> handlerByType = new Dictionary<Type, MethodInfo>();
 
         public Dictionary<string, PacketStream>.KeyCollection Keys
         {
@@ -36,7 +38,11 @@ namespace TeraTaleNet
             {
                 try
                 {
-                    handlerByName.Add(method.Name, method);
+                    var p = method.GetParameters();
+                    if (p.Length > 2)
+                        handlerByType.Add(p[2].ParameterType, method);
+                    else if (p.Length > 0)
+                        handlerByType.Add(p[0].ParameterType, method);
                 }
                 catch (ArgumentException e)
                 { }
@@ -101,12 +107,12 @@ namespace TeraTaleNet
                 if (rpc != null)
                 {
                     MethodInfo method;
-                    if (handlerByName.TryGetValue(Body.GetNameByIndex(packet.header.type), out method))
+                    if (handlerByType.TryGetValue(Packet.GetTypeByIndex(packet.header.type), out method))
                         method.Invoke(listener, new object[] { packet.body });
                     listener.RPCHandler(rpc);
                 }
                 else
-                    handlerByName[Body.GetNameByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
+                    handlerByType[Packet.GetTypeByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
             }
             Thread.Sleep(10);
         }
@@ -118,7 +124,7 @@ namespace TeraTaleNet
             if (rpc != null)
                 listener.RPCHandler(rpc);
             else
-                handlerByName[Body.GetNameByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
+                handlerByType[Packet.GetTypeByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
         }
 
         void Sender()
@@ -135,7 +141,8 @@ namespace TeraTaleNet
                             {
                                 //Need ioLock?
                                 var packet = _sendQByKey[key].Dequeue();
-                                History.Log("Sended : " + Body.GetNameByIndex(packet.header.type));
+                                History.Log("Sended : " + Packet.GetTypeByIndex(packet.header.type));
+                                cc.Invoke("Sended : " + Packet.GetTypeByIndex(packet.header.type));
                                 _streamByKey[key].Write(packet);
                             }
                         }
@@ -167,7 +174,8 @@ namespace TeraTaleNet
                             {
                                 //Need ioLock?
                                 var packet = _streamByKey[key].Read();
-                                History.Log("Recieved : " + Body.GetNameByIndex(packet.header.type));
+                                History.Log("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
+                                cc.Invoke("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
                                 _recvQByKey[key].Enqueue(packet);
                             }
                         }
@@ -177,6 +185,7 @@ namespace TeraTaleNet
             }
             catch (Exception e)
             {
+                cc.Invoke(e.ToString());
                 History.Log(e.ToString());
             }
             finally

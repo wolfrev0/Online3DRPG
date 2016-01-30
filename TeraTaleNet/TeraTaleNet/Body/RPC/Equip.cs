@@ -2,7 +2,7 @@
 {
     public class Equip : RPC
     {
-        public Packet equipment;
+        public ISerializable equipment;
 
         public Equip(Equipment equipment)
             : base(RPCType.All)

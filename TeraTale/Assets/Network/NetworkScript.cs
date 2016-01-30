@@ -70,7 +70,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg)
+    public void NetworkInstantiate(NetworkScript prefab, ISerializable callbackArg)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, "");
         Send(ni);
@@ -82,7 +82,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg, string callback)
+    public void NetworkInstantiate(NetworkScript prefab, ISerializable callbackArg, string callback)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, callback);
         Send(ni);
@@ -97,8 +97,8 @@ public abstract class NetworkScript : MonoBehaviour
         instance.owner = info.sender;
         instance.RegisterToProgram();
         instance.enabled = true;
-        if (info.callbackArg.body.GetType() != typeof(NullPacket))
-            instance.SendMessage("OnNetInstantiate", info.callbackArg.body, SendMessageOptions.DontRequireReceiver);
+        if (info.callbackArg.GetType() != typeof(NullPacket))
+            instance.SendMessage("OnNetInstantiate", info.callbackArg, SendMessageOptions.DontRequireReceiver);
         if (info.callback != "")
             SendMessage(info.callback, instance);
     }
@@ -164,12 +164,12 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if (field != null)
             {
-                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
+                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
                 Send(sync);
             }
             else
             {
-                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
+                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
                 Send(sync);
             }
         }
@@ -205,12 +205,12 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if(field != null)
             {
-                field.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body));
+                field.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data));
                 OnSynced(sync);
             }
             else
             {
-                property.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body), null);
+                property.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data), null);
                 OnSynced(sync);
             }
         }

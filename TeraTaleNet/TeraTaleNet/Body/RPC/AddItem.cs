@@ -2,7 +2,7 @@
 {
     public class AddItem : RPC
     {
-        public Packet item;
+        public ISerializable item;
 
         public AddItem(string receiver, Item item)
             : base(RPCType.Specific, receiver)

@@ -110,8 +110,8 @@ public class Player : AliveEntity, ISerializable
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
 
-        if (isServer)
-            Send(new SerializedPlayer(this));
+        //if (isServer)
+        //    Send(new SerializedPlayer(this));
     }
 
     new void OnDestroy()
@@ -237,7 +237,7 @@ public class Player : AliveEntity, ISerializable
 
     public void AddItem(AddItem rpc)
     {
-        Item item = (Item)rpc.item.body;
+        Item item = (Item)rpc.item;
         _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
@@ -248,7 +248,7 @@ public class Player : AliveEntity, ISerializable
 
     public void Equip(Equip rpc)
     {
-        var equipment = (Equipment)rpc.equipment.body;
+        var equipment = (Equipment)rpc.equipment;
         switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
@@ -295,15 +295,21 @@ public class Player : AliveEntity, ISerializable
 
     public byte[] Serialize()
     {
+        return Serializer.Serialize(this as ISerializable);
     }
 
     public void Deserialize(byte[] buffer)
     {
-        throw new NotImplementedException();
+        Serializer.Deserialize(this as ISerializable, buffer);
     }
 
     public int SerializedSize()
     {
-        throw new NotImplementedException();
+        return Serializer.SerializedSize(this as ISerializable);
+    }
+
+    public Header CreateHeader()
+    {
+        return Serializer.CreateHeader(this as ISerializable);
     }
 }

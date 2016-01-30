@@ -15,6 +15,7 @@ namespace Login
 
         protected override void OnStart()
         {
+            new NullPacket();
             _messenger = new Messenger(_handler);
 
             PacketStream stream;

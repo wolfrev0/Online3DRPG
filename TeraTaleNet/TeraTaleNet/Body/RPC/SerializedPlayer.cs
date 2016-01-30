@@ -2,12 +2,12 @@
 
 public class SerializedPlayer : RPC
 {
-    public byte[] bytes;
+    public byte[] data;
 
     public SerializedPlayer(ISerializable player)
         :base(RPCType.All)
     {
-        bytes = player.Serialize();
+        data = player.Serialize();
     }
 
     public SerializedPlayer(byte[] data)

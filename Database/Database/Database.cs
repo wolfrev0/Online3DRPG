@@ -14,6 +14,17 @@ namespace Database
 
         protected override void OnStart()
         {
+            History.Log(Packet.GetIndexByType(typeof(Equip)).ToString());
+            var e = new Equip(new WeaponNull());
+            e.sender = "";
+            e.signallerID = 0;
+            var p = new Packet(e);
+            var s = p.Serialize();
+
+            History.Log(Packet.GetTypeByIndex(11).Name);
+
+            _messenger = new Messenger(_handler);
+
             Action listenner = () =>
             {
                 _agent.Bind("127.0.0.1", Port.Database, 1);

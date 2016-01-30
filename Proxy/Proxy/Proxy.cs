@@ -29,6 +29,7 @@ namespace Proxy
 
         protected override void OnStart()
         {
+            new NullPacket();
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
