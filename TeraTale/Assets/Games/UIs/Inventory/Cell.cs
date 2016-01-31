@@ -2,17 +2,24 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TeraTaleNet;
+using System;
 
-public class Cell : MonoBehaviour, IPointerClickHandler
+public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     ItemStack _itemStack;
     Image _image;
     public Text _count;
     public Text _equipState;
+    Vector3 _alignedPosition;
 
     void Awake()
     {
         _image = GetComponent<Image>();
+    }
+
+    void Start()
+    {
+        _alignedPosition = transform.position;
     }
 
     public void SetItemStack(ItemStack itemStack)
@@ -39,5 +46,40 @@ public class Cell : MonoBehaviour, IPointerClickHandler
         {
             _itemStack.Use();
         }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        //if (eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //}
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        //if(eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //    transform.position = eventData.position;
+        //}
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        //ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
+        //transform.position = _alignedPosition;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        //if (eventData.button == PointerEventData.InputButton.Left)
+        //{
+        //    var tmp = eventData.pointerDrag.GetComponent<Cell>()._itemStack;
+        //    eventData.pointerDrag.GetComponent<Cell>()._itemStack = _itemStack;
+        //    _itemStack = tmp;
+        //}
     }
 }

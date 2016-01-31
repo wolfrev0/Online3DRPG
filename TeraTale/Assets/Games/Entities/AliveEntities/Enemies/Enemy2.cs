@@ -29,8 +29,9 @@ namespace sunho
             _animator = GetComponent<Animator>();
         }
 
-        protected void Update()
+        protected new void Update()
         {
+            base.Update();
             if (_player == null)
                 return;
             _distance = _player.transform.localPosition - this.transform.localPosition;

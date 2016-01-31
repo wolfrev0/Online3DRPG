@@ -85,16 +85,32 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         get { return _level; }
         private set { _level = value; _levelText.text = "LV." + _level; }
     }
-    public float exp { get; set; }
-    public float expMax { get; set; }
+    [SerializeField]
+    float _exp;
+    public float exp { get { return _exp; } private set { _exp = value; } }
+    [SerializeField]
+    float _expMax;
+    public float expMax { get { return _expMax; } private set { _expMax = value; } }
+
+    public Vector3 _syncedPos;
+    public Vector3 _syncedRot;
+    Vector3 _posError;
+    Vector3 _rotError;
 
     protected new void Start()
     {
         base.Start();
         if (isServer)
+            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 3f), 3f);
+    }
+
+    protected new void OnEnable()
+    {
+        base.OnEnable();
+        if (isServer)
         {
-            hp = hp;//Initialize property call
-            stamina = stamina;
+            hp = hpMax;//Initialize property call
+            stamina = staminaMax;
             level = level;
         }
         else
@@ -115,6 +131,48 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         }
     }
 
+    void PeriodicSync()
+    {
+        if (gameObject.activeSelf == false)
+            return;
+        _syncedPos = transform.position;
+        _syncedRot = transform.eulerAngles;
+
+        Sync s = new Sync(RPCType.Others, "", "_syncedPos");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        s = new Sync(RPCType.Others, "", "_syncedRot");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+    }
+
+    protected sealed override void OnSynced(Sync sync)
+    {
+        switch(sync.member)
+        {
+            case "_syncedPos":
+                _posError = _syncedPos - transform.position;
+                break;
+            case "_syncedRot":
+                _rotError = _syncedRot - transform.eulerAngles;
+                break;
+        }
+    }
+
+    protected void Update()
+    {
+        if (isLocal)
+        {
+            transform.position += _posError / 6;
+            _posError = _posError * 5 / 6;
+            transform.eulerAngles += _rotError / 6;
+            _rotError = _rotError * 5 / 6;
+        }
+    }
+
     public virtual void Heal(Heal heal)
     {
         if (isServer)
@@ -131,7 +189,18 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
         hp -= dmg.amount;
+        if (dmg.knockdown)
+            Knockdown();
+            
+    }
+
+    public virtual void ExpUp(ExpUp expUp)
+    {
+        if (isServer)
+            Send(expUp);
+        exp += expUp.amount;
     }
 
     protected abstract void Die();
+    protected abstract void Knockdown();
 }

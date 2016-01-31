@@ -5,8 +5,8 @@
         public string member;
         public Packet packet = new NullPacket();
 
-        public Sync(string receiver, string member)
-            : base(RPCType.Specific, receiver)
+        public Sync(RPCType type, string receiver, string member)
+            : base(type, receiver)
         {
             this.member = member;
         }

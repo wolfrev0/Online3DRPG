@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    Vector3 relativeAtTargetPos = new Vector3(0, 6, -6);
+    Vector3 relativeAtTargetPos = new Vector3(0, 8, -8);
 
     void Update()
     {

@@ -2174,7 +2174,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187682}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be0b5f6aeda42f944b86eba311500f18, type: 3}
   m_Name: 
@@ -2190,6 +2190,8 @@ MonoBehaviour:
   _staminaMax: 100
   _attackDamage: 10
   _level: 1
+  _syncedPos: {x: 0, y: 0, z: 0}
+  _syncedRot: {x: 0, y: 0, z: 0}
   _attackSubject: {fileID: 11472186}
   nameView: {fileID: 11409596}
 --- !u!114 &11434230
@@ -2341,11 +2343,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 192648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0791189690268f46877324d9b837acd, type: 3}
+  m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTag: Player
   owner: {fileID: 0}
+  targetTag: Player
 --- !u!114 &11476442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2784,6 +2786,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: targetTag
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

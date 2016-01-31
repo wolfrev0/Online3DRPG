@@ -484,8 +484,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -1
   owner: 
-  pfPlayer: {fileID: 11425960, guid: 62682600173eba541946507f99114be6, type: 2}
-  serverIP: 121.186.97.120
+  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
+  serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkID: -2
   owner: 
-  pfPlayer: {fileID: 11407024, guid: 62682600173eba541946507f99114be6, type: 2}
+  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
 --- !u!4 &881560870
 Transform:
   m_ObjectHideFlags: 0

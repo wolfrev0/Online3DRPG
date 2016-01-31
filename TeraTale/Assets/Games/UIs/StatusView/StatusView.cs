@@ -16,6 +16,10 @@ public class StatusView : MonoBehaviour
     Text _moneyText = null;
     [SerializeField]
     Transform _buffsGroup = null;
+    [SerializeField]
+    Image _expBar = null;
+    [SerializeField]
+    Text _expText = null;
 
     void Update()
     {
@@ -26,6 +30,8 @@ public class StatusView : MonoBehaviour
         _staminaBar.fillAmount = target.stamina / target.staminaMax;
         _levelText.text = target.level.ToString();
         _nameText.text = target.name;
+        _expBar.fillAmount = target.exp / target.expMax;
+        _expText.text = string.Format("{0:0.##}% ({1}/{2})", target.exp / target.expMax * 100, target.exp, target.expMax);
         //_moneyText.text = _player.money;
         //_buffsGroup.AddChildren(_player.GetAllBuffs());
     }

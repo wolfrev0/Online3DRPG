@@ -104,6 +104,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBacktumbling.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
     <Compile Include="Assets\Games\Entities\Attackable.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="Assets\Games\Entities\Items\ItemSpawnEffector.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubject.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectImpl.cs" />
+    <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectNull.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Bird\Scripts\Bird.cs" />
     <Compile Include="Assets\Games\Entities\KineticEntity\Duck\Scripts\Duck.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Cell.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
     <Compile Include="Assets\ItemSpawner.cs" />
