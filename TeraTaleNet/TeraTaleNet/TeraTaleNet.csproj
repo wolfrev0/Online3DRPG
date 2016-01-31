@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\ItemStack.cs" />
+    <Compile Include="Body\SerializableList.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="ConnecterType.cs" />
     <Compile Include="Body\Body.cs" />
     <Compile Include="Header.cs" />
-    <Compile Include="ISerializable.cs" />
+    <Compile Include="IAutoSerializable.cs" />
     <Compile Include="History.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Attributes\Remote.cs" />

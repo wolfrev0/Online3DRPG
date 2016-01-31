@@ -37,10 +37,6 @@ namespace TeraTaleNet
         public Item()
         { }
 
-        public Item(byte[] data)
-            : base(data)
-        { }
-
         public virtual void Use() { }
 
         public bool IsSameType(Item other)

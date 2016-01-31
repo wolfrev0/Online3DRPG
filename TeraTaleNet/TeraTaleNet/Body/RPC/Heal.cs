@@ -12,8 +12,7 @@
             this.amount = amount;
         }
 
-        public Heal(byte[] data)
-                : base(data)
+        public Heal()
         { }
     }
 }

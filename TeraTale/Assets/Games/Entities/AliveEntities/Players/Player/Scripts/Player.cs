@@ -6,7 +6,7 @@ using TeraTaleNet;
 using System;
 using System.Reflection;
 
-public class Player : AliveEntity, ISerializable
+public class Player : AliveEntity, IAutoSerializable
 {
     static Dictionary<Type, MethodInfo> serializersCache = new Dictionary<Type, MethodInfo>();
     static Dictionary<Type, MethodInfo> serializedSizesCache = new Dictionary<Type, MethodInfo>();
@@ -19,15 +19,15 @@ public class Player : AliveEntity, ISerializable
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    List<ItemStack> _itemStacks = new List<ItemStack>(30);
-    public Weapon _weapon;
+    public ItemStackList _itemStacks = new ItemStackList(30);
+    Weapon _weapon;
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
     Projectile _pfArrow;
     
-    public List<ItemStack> itemStacks
+    public ItemStackList itemStacks
     {
         get { return _itemStacks; }
     }
@@ -106,12 +106,15 @@ public class Player : AliveEntity, ISerializable
             FindObjectOfType<CameraController>().target = transform;
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
         }
-        Equip(new WeaponNull());
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
 
-        //if (isServer)
-        //    Send(new SerializedPlayer(this));
+        if (isServer)
+        {
+            Equip(new WeaponNull());
+            _itemStacks[3].Push(new Sword());
+            Send(new SerializedPlayer(this));
+        }
     }
 
     new void OnDestroy()
@@ -290,26 +293,26 @@ public class Player : AliveEntity, ISerializable
 
     public void SerializedPlayer(SerializedPlayer rpc)
     {
-
+        Deserialize(rpc.data);
     }
 
     public byte[] Serialize()
     {
-        return Serializer.Serialize(this as ISerializable);
+        return Serializer.Serialize(this as IAutoSerializable);
     }
 
     public void Deserialize(byte[] buffer)
     {
-        Serializer.Deserialize(this as ISerializable, buffer);
+        Serializer.Deserialize(this as IAutoSerializable, buffer);
     }
 
     public int SerializedSize()
     {
-        return Serializer.SerializedSize(this as ISerializable);
+        return Serializer.SerializedSize(this as IAutoSerializable);
     }
 
     public Header CreateHeader()
     {
-        return Serializer.CreateHeader(this as ISerializable);
+        return Serializer.CreateHeader(this as IAutoSerializable);
     }
 }

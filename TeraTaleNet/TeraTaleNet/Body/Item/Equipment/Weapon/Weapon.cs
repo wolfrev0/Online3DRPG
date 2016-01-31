@@ -16,9 +16,5 @@
 
         public Weapon()
         { }
-
-        public Weapon(byte[] data)
-            : base(data)
-        { }
     }
 }

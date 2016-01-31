@@ -11,8 +11,7 @@
             this.member = member;
         }
 
-        public SyncFromServer(byte[] data)
-            : base(data)
+        public SyncFromServer()
         { }
     }
 }

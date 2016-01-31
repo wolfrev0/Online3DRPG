@@ -9,10 +9,6 @@ namespace TeraTaleNet
         protected Body()
         { }
 
-        protected Body(byte[] data)
-            : base(data)
-        { }
-
         public static implicit operator Packet(Body body)
         {
             return new Packet(body);

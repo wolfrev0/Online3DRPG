@@ -6,9 +6,5 @@
 
         public Sword()
         { }
-
-        public Sword(byte[] data)
-            : base(data)
-        { }
     }
 }

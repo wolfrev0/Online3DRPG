@@ -4,10 +4,10 @@
     {
         public int networkID;
         public string pfName;
-        public ISerializable callbackArg;
+        public IAutoSerializable callbackArg;
         public string callback;
 
-        public NetworkInstantiate(string pfName, ISerializable callbackArg, string callback)
+        public NetworkInstantiate(string pfName, IAutoSerializable callbackArg, string callback)
             : base(RPCType.AllBuffered)
         {
             this.pfName = pfName;
@@ -15,8 +15,7 @@
             this.callback = callback;
         }
 
-        public NetworkInstantiate(byte[] data)
-            : base(data)
+        public NetworkInstantiate()
         { }
     }
 }

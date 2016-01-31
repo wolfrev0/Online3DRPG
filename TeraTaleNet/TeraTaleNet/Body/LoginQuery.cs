@@ -13,8 +13,7 @@
             this.confirmID = confirmID;
         }
 
-        public LoginQuery(byte[] data)
-            : base(data)
+        public LoginQuery()
         { }
     }
 }

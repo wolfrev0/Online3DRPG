@@ -1,6 +1,6 @@
 ﻿namespace TeraTaleNet
 {
-    public interface ISerializable
+    public interface IAutoSerializable
     {
         byte[] Serialize();
         void Deserialize(byte[] buffer);

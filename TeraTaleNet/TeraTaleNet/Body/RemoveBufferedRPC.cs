@@ -13,8 +13,7 @@
             this.networkID = networkID;
         }
 
-        public RemoveBufferedRPC(byte[] data)
-            : base(data)
+        public RemoveBufferedRPC()
         { }
     }
 }

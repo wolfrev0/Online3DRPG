@@ -11,8 +11,7 @@
             this.world = world;
         }
 
-        public SwitchWorld(byte[] data)
-            : base(data)
+        public SwitchWorld()
         { }
     }
 }

@@ -33,8 +33,7 @@ namespace TeraTaleNet
             GetType();
         }
 
-        public RPC(byte[] data)
-            : base(data)
+        public RPC()
         { }
     }
 }

@@ -6,9 +6,5 @@
 
         public Wand()
         { }
-
-        public Wand(byte[] data)
-            : base(data)
-        { }
     }
 }

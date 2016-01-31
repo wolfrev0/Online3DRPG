@@ -11,14 +11,13 @@ namespace TeraTaleNet
         static Dictionary<int, Type> _typeByIndex = new Dictionary<int, Type>();
 
         public Header header;
-        public ISerializable body;
+        public IAutoSerializable body;
 
         static Packet()
         {
-            var type = typeof(ISerializable);
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract);
+                .Where(p => p.GetInterface("IAutoSerializable") != null && !p.IsAbstract);
             var typeArr = types.ToArray();
             for (int i = 0; i < typeArr.Length; i++)
             {
@@ -39,17 +38,18 @@ namespace TeraTaleNet
 
         static public Packet Create(Header header, byte[] bytes)
         {
-            ISerializable body = (ISerializable)Activator.CreateInstance(GetTypeByIndex(header.type), bytes);
+            IAutoSerializable body = (IAutoSerializable)Activator.CreateInstance(GetTypeByIndex(header.type));
+            body.Deserialize(bytes);
             return new Packet(header, body);
         }
 
-        Packet(Header header, ISerializable body)
+        Packet(Header header, IAutoSerializable body)
         {
             this.header = header;
             this.body = body;
         }
 
-        public Packet(ISerializable body)
+        public Packet(IAutoSerializable body)
         {
             header = body.CreateHeader();
             this.body = body;

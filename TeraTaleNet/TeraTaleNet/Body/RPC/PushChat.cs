@@ -10,8 +10,7 @@
             this.chat = chat;
         }
 
-        public PushChat(byte[] data)
-            : base(data)
+        public PushChat()
         { }
     }
 }

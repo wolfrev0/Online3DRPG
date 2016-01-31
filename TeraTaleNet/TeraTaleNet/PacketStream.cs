@@ -21,7 +21,8 @@ namespace TeraTaleNet
             byte[] buffer = new byte[_bufferSize];
             
             _connection.Read(buffer, Header.size);
-            var header = new Header(buffer);
+            var header = new Header();
+            header.Deserialize(buffer);
             _connection.Read(buffer, header.bodySize);
             return Packet.Create(header, buffer);
         }

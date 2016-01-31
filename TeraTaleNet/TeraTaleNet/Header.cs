@@ -15,8 +15,7 @@ namespace TeraTaleNet
             this.bodySize = bodySize;
         }
 
-        public Header(byte[] data)
-            : base(data)
+        public Header()
         { }
     }
 }

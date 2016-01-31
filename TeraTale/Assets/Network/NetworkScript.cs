@@ -70,7 +70,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, ISerializable callbackArg)
+    public void NetworkInstantiate(NetworkScript prefab, IAutoSerializable callbackArg)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, "");
         Send(ni);
@@ -82,7 +82,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, ISerializable callbackArg, string callback)
+    public void NetworkInstantiate(NetworkScript prefab, IAutoSerializable callbackArg, string callback)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, callback);
         Send(ni);

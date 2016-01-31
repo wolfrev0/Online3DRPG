@@ -6,9 +6,5 @@
 
         public Dagger()
         { }
-
-        public Dagger(byte[] data)
-            : base(data)
-        { }
     }
 }

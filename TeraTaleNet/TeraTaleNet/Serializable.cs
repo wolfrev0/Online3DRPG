@@ -4,10 +4,9 @@ using System.Reflection;
 
 namespace TeraTaleNet
 {
-    public abstract class Serializable : ISerializable
+    public abstract class Serializable : IAutoSerializable
     {
         protected Serializable() { }
-        protected Serializable(byte[] data) { Deserialize(data); }
 
         public byte[] Serialize()
         {

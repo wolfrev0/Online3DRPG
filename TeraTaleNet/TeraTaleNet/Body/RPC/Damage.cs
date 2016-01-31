@@ -21,8 +21,7 @@
             this.knockdown = knockdown;
         }
 
-        public Damage(byte[] data)
-                : base(data)
+        public Damage()
         { }
     }
 }

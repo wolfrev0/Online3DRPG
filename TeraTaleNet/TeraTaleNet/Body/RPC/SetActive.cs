@@ -9,8 +9,7 @@
             this.value = value;
         }
 
-        public SetActive(byte[] data)
-            : base(data)
+        public SetActive()
         { }
     }
 }

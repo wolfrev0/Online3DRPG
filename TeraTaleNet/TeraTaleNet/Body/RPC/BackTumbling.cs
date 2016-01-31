@@ -5,9 +5,5 @@
         public BackTumbling()
             : base(RPCType.All)
         { }
-
-        public BackTumbling(byte[] data)
-            : base(data)
-        { }
     }
 }
