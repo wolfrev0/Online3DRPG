@@ -3879,7 +3879,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 1
-  m_Camera: {fileID: 924428778}
+  m_Camera: {fileID: 1100919353}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
