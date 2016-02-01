@@ -10,7 +10,6 @@ public class EnemyDying : StateMachineBehaviour
         if (_enemy == null)
             _enemy = animator.GetComponent<Enemy>();
         _enemy.GetComponent<NavMeshAgent>().enabled = false;
-        _enemy.DropItems();
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

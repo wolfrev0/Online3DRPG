@@ -103,9 +103,10 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBacktumbling.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBackTumbling.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
@@ -151,7 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
-    <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />

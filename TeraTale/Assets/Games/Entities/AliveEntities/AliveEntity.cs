@@ -106,6 +106,13 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     Vector3 _posError;
     Vector3 _rotError;
 
+    static ParticleSystem _pfHealFX;
+
+    static AliveEntity()
+    {
+        _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
+    }
+
     protected new void Start()
     {
         base.Start();
@@ -189,6 +196,10 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
         hp += heal.amount;
+        ParticleSystem _particle = Instantiate(_pfHealFX);
+        _particle.transform.SetParent(transform);
+        _particle.transform.localPosition = Vector3.zero;
+        Destroy(_particle.gameObject, _particle.duration);
     }
 
     public virtual void Damage(Damage dmg)
@@ -200,7 +211,10 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         hp -= dmg.amount;
         if (dmg.knockdown)
             Knockdown();
-            
+        ParticleSystem _particle = Instantiate(_pfHealFX);
+        _particle.transform.SetParent(transform);
+        _particle.transform.localPosition = Vector3.zero;
+        Destroy(_particle.gameObject, _particle.duration);
     }
 
     public virtual void ExpUp(ExpUp expUp)

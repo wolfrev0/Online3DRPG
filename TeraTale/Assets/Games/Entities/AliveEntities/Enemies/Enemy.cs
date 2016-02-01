@@ -16,7 +16,6 @@ public abstract class Enemy : AliveEntity
     public Text nameView;
     public Item[] items;
     public MonsterSpawner spawner { get; set; }
-    NavMeshAgent _navMeshAgent;
     Animator _animator;
     
     public AliveEntity target
@@ -24,7 +23,6 @@ public abstract class Enemy : AliveEntity
 
     protected void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
 
@@ -37,12 +35,8 @@ public abstract class Enemy : AliveEntity
     protected new void OnEnable()
     {
         base.OnEnable();
-        _navMeshAgent.enabled = true;
-    }
-
-    protected void OnDisable()
-    {
         target = null;
+        GetComponent<NavMeshAgent>().enabled = true;
     }
 
     void AttackBegin()
@@ -111,6 +105,7 @@ public abstract class Enemy : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
+        DropItems();
         Invoke("SetActiveFalse", 2.0f);
     }
 
@@ -131,7 +126,8 @@ public abstract class Enemy : AliveEntity
     {
         if (isLocal)
             return;
-        target.ExpUp(new ExpUp(7));
+        if (target)
+            target.ExpUp(new ExpUp(7));
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
     }

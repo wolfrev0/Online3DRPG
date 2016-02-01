@@ -2120,12 +2120,12 @@ MonoBehaviour:
   _hpBar: {fileID: 11463040}
   _staminaBar: {fileID: 11434230}
   _levelText: {fileID: 11401228}
-  _hp: 100
-  _hpMax: 100
-  _stamina: 100
-  _staminaMax: 100
-  _attackDamage: 10
-  _level: 1
+  _hp: 50
+  _hpMax: 50
+  _stamina: 1
+  _staminaMax: 1
+  _attackDamage: 2
+  _level: 0
   _exp: 0
   _expMax: 0
   _syncedPos: {x: 0, y: 0, z: 0}
@@ -2601,6 +2601,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hpMax
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _stamina
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _staminaMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _attackDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _level
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _expMax
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

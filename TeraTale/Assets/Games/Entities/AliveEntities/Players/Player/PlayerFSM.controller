@@ -85,6 +85,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e351bc56b6a302c4d9d37c545230731d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11425002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecc7ad777814cd4994873e9693af340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11434106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,6 +138,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74465fc6c40df2c43b7326bc69747abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11482620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecc7ad777814cd4994873e9693af340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1101 &110103352
@@ -365,7 +387,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Died
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: Die
+    m_ConditionEvent: BackTumbling
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 110247938}
@@ -558,7 +580,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110117878}
   m_StateMachineBehaviours:
-  - {fileID: 11455864}
+  - {fileID: 11482620}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

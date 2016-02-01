@@ -191,7 +191,6 @@ GameObject:
   - 224: {fileID: 22462010}
   - 223: {fileID: 22335054}
   - 114: {fileID: 11419938}
-  - 114: {fileID: 11446648}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -834,7 +833,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 407436}
@@ -1584,19 +1583,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: LV.0
---- !u!114 &11446648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ad3a183963a414ca172123e37b6293, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 0, y: 180, z: 0}
 --- !u!114 &11448882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1712,12 +1698,12 @@ MonoBehaviour:
   _hpBar: {fileID: 11465648}
   _staminaBar: {fileID: 11408940}
   _levelText: {fileID: 11430962}
-  _hp: 100
-  _hpMax: 100
-  _stamina: 100
-  _staminaMax: 100
-  _attackDamage: 10
-  _level: 2
+  _hp: 50
+  _hpMax: 50
+  _stamina: 1
+  _staminaMax: 1
+  _attackDamage: 4
+  _level: 1
   _exp: 0
   _expMax: 0
   _syncedPos: {x: 0, y: 0, z: 0}
@@ -1768,7 +1754,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156660}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.3
   m_Height: 1.7
@@ -2045,6 +2031,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hpMax
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _stamina
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _staminaMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _attackDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _expMax
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
