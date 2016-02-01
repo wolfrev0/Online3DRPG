@@ -33,8 +33,8 @@ public class ParsingData : MonoBehaviour
                 _curindex[i] = FootTexture.Length - 1;
         }
 
-        mesh.materials[0].mainTexture = HeadTexture[_curindex[0]];
-        mesh.materials[1].mainTexture = BodyTexture[_curindex[1]];
+        mesh.materials[0].SetTexture("_DiffuseMapSpecA", HeadTexture[_curindex[0]]);
+        //mesh.materials[1].mainTexture = BodyTexture[_curindex[1]];
         //mesh.materials[2].mainTexture = FootTexture[_curindex[2]];
     }
 
