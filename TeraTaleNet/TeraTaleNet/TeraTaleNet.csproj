@@ -49,7 +49,7 @@
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\ItemStack.cs" />
-    <Compile Include="Body\SerializableList.cs" />
+    <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
@@ -85,6 +85,9 @@
     <Compile Include="Body\RPC\SyncFromServer.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
+    <Compile Include="Body\SerializedPlayerAnswer.cs" />
+    <Compile Include="Body\SerializedPlayerQuery.cs" />
+    <Compile Include="Body\SerializedPlayerSave.cs" />
     <Compile Include="Body\SwitchWorld.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />

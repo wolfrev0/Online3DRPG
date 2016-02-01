@@ -16,6 +16,7 @@
         }
 
         public NetworkInstantiate()
+            : base(RPCType.AllBuffered)
         { }
     }
 }

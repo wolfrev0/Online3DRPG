@@ -12,6 +12,7 @@
         }
 
         public Sync()
+            : base(RPCType.Specific)
         { }
     }
 }

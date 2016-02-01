@@ -11,6 +11,7 @@
         }
 
         public PushChat()
+            : base(RPCType.All)
         { }
     }
 }

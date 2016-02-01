@@ -11,6 +11,7 @@
         }
 
         public NetworkDestroy()
+            : base(RPCType.Others)
         { }
     }
 }

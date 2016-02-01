@@ -11,6 +11,7 @@
         }
 
         public Chase()
+            : base(RPCType.All)
         { }
     }
 }

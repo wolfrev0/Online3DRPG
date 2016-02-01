@@ -6,8 +6,12 @@ using System.Reflection;
 
 public abstract class NetworkScript : MonoBehaviour
 {
-    public int networkID;
-    public string owner = null;
+    [SerializeField]
+    int _networkID;
+    [SerializeField]
+    string _owner = null;
+    public int networkID { get { return _networkID; } set { _networkID = value; } }
+    public string owner { get { return _owner; } set { _owner = value; } }
 
     static protected bool? _isServer;
     bool _registered = false;
@@ -45,23 +49,23 @@ public abstract class NetworkScript : MonoBehaviour
         _registered = true;
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (_destroyed == false)
             NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
         _destroyed = true;
     }
 
-    protected void Send(Packet packet)
+    protected void Send(Packet packet, string server = "Proxy")
     {
-        NetworkProgramUnity.currentInstance.Send(packet);
+        NetworkProgramUnity.currentInstance.Send(packet, server);
     }
 
     public void Send(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = networkID;
         rpc.sender = userName;
-        NetworkProgramUnity.currentInstance.Send(rpc);
+        NetworkProgramUnity.currentInstance.Send(new Packet(rpc));
     }
 
     public void NetworkInstantiate(NetworkScript prefab)

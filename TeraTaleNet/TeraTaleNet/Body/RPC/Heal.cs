@@ -13,6 +13,7 @@
         }
 
         public Heal()
+            : base(RPCType.Others)
         { }
     }
 }

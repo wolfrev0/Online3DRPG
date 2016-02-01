@@ -22,6 +22,7 @@
         }
 
         public Damage()
+            : base(RPCType.Others)
         { }
     }
 }

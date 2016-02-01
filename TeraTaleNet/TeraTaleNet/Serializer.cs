@@ -352,10 +352,6 @@ namespace TeraTaleNet
                 value = typeof(Serializer).GetMethod("To" + typeName, new[] { typeof(byte[]), typeof(int) }).Invoke(null, new object[] { buffer, offset });
                 if (fieldType.GetInterface("IAutoSerializable") != null || fieldType == typeof(IAutoSerializable))
                     value = value.GetType().GetField("body").GetValue(value);
-                if(fieldType.IsGenericType)
-                {
-                    int a = 0;
-                }
                 field.SetValue(obj, value);
                 offset += SerializedSize(obj, field);
             }

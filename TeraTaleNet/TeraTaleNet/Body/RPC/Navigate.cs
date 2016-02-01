@@ -13,6 +13,7 @@ namespace TeraTaleNet
         }
 
         public Navigate()
+            : base(RPCType.All)
         { }
     }
 }

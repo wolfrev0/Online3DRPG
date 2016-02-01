@@ -8,9 +8,6 @@ using System.Reflection;
 
 public class Player : AliveEntity, IAutoSerializable
 {
-    static Dictionary<Type, MethodInfo> serializersCache = new Dictionary<Type, MethodInfo>();
-    static Dictionary<Type, MethodInfo> serializedSizesCache = new Dictionary<Type, MethodInfo>();
-
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
 
@@ -112,13 +109,14 @@ public class Player : AliveEntity, IAutoSerializable
         if (isServer)
         {
             Equip(new WeaponNull());
-            _itemStacks[3].Push(new Sword());
-            Send(new SerializedPlayer(this));
+            GameServer.currentInstance.QuerySerializedPlayer(name);
         }
     }
 
-    new void OnDestroy()
+    protected override void OnDestroy()
     {
+        if (isServer)
+            GameServer.currentInstance.SavePlayer(this);
         base.OnDestroy();
         _playersByName.Remove(name);
     }
@@ -293,6 +291,10 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void SerializedPlayer(SerializedPlayer rpc)
     {
+        if (isServer)
+            Send(rpc);
+        if (rpc.data.Length <= 1)
+            return;
         Deserialize(rpc.data);
     }
 

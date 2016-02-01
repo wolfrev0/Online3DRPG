@@ -12,6 +12,7 @@
         }
 
         public SyncFromServer()
+            : base(RPCType.Others)
         { }
     }
 }

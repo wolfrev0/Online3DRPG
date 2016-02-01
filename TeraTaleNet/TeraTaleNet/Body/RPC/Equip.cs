@@ -11,6 +11,7 @@
         }
 
         public Equip()
+            : base(RPCType.All)
         { }
     }
 }

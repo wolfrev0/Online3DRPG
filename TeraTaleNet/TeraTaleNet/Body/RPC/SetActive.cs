@@ -10,6 +10,7 @@
         }
 
         public SetActive()
+            : base(RPCType.All)
         { }
     }
 }

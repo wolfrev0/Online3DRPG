@@ -379,8 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4381d3ddffd843944ba1af383438c83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
+  _networkID: -1
+  _owner: 
   pfPlayer: {fileID: 0}
 --- !u!4 &326514392
 Transform:
@@ -482,10 +482,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2661960f520f44388b02661feebabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -1
-  owner: 
+  _networkID: -2
+  _owner: 
   pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
-  serverIP: 127.0.0.1
+  serverIP: 221.159.191.54
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0
@@ -640,8 +640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa2ba20a7896641a117e2290a5e413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
+  _networkID: -1
+  _owner: 
   pfPlayer: {fileID: 0}
 --- !u!4 &599371545
 Transform:
@@ -823,8 +823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f76ee9e4c6974eb4410e5778f3894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
+  _networkID: -1
+  _owner: 
   pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
 --- !u!4 &881560870
 Transform:
@@ -865,8 +865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be6b29ee02fd7943aae1fff157dff58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -11
-  owner: 
+  _networkID: -5
+  _owner: 
   _fxpotion: {fileID: 19800010, guid: c549c3ea40be24e6e9490ceacea81780, type: 2}
 --- !u!4 &1070198285
 Transform:

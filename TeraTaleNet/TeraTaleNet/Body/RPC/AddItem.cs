@@ -11,6 +11,7 @@
         }
 
         public AddItem()
+            : base(RPCType.Specific)
         { }
     }
 }

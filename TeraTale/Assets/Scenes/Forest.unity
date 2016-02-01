@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fcfa91a372c2947b055e215998cf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -21
-  owner: 
+  _networkID: -9
+  _owner: 
   pfEnemy: {fileID: 11424442, guid: 34e54f93a4f11b24f9c66dc663dd9efc, type: 2}
 --- !u!135 &35917323
 SphereCollider:
@@ -665,8 +665,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b69635f0c3f2664db0ef3c4f05f08a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -17
-  owner: 
+  _networkID: -11
+  _owner: 
   itemName: Wand
 --- !u!23 &206325156
 MeshRenderer:
@@ -1282,8 +1282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b69635f0c3f2664db0ef3c4f05f08a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -12
-  owner: 
+  _networkID: -13
+  _owner: 
   itemName: Dagger
 --- !u!23 &404601842
 MeshRenderer:
@@ -3972,8 +3972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b69635f0c3f2664db0ef3c4f05f08a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -13
-  owner: 
+  _networkID: -12
+  _owner: 
   itemName: Sword
 --- !u!23 &1179386834
 MeshRenderer:
@@ -5137,8 +5137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b69635f0c3f2664db0ef3c4f05f08a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -16
-  owner: 
+  _networkID: -10
+  _owner: 
   itemName: Bow
 --- !u!23 &1526747060
 MeshRenderer:
@@ -5225,8 +5225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fcfa91a372c2947b055e215998cf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -20
-  owner: 
+  _networkID: -8
+  _owner: 
   pfEnemy: {fileID: 11479884, guid: 834dcd257f5f17c438990d2f6124abdb, type: 2}
 --- !u!135 &1533633456
 SphereCollider:
@@ -5723,8 +5723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595cd7ab5ae4a4748ac82a2ed0807bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -6
-  owner: 
+  _networkID: -7
+  _owner: 
 --- !u!114 &1680315808
 MonoBehaviour:
   m_ObjectHideFlags: 0

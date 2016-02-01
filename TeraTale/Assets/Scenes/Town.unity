@@ -3546,6 +3546,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11452358, guid: 3cddb7c6acf51064dbeb1fb9b3081a5b, type: 2}
+      propertyPath: _networkID
+      value: -8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cddb7c6acf51064dbeb1fb9b3081a5b, type: 2}
   m_IsPrefabParent: 0
@@ -5530,8 +5534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595cd7ab5ae4a4748ac82a2ed0807bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -6
-  owner: 
+  _networkID: -7
+  _owner: 
 --- !u!114 &1841418647
 MonoBehaviour:
   m_ObjectHideFlags: 0

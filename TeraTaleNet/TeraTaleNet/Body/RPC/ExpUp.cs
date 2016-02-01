@@ -11,6 +11,7 @@
         }
 
         public ExpUp()
+            : base(RPCType.Others)
         { }
     }
 }

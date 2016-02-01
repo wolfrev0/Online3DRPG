@@ -11,5 +11,6 @@ public class SerializedPlayer : RPC
     }
 
     public SerializedPlayer()
+        : base(RPCType.Others)
     { }
 }
