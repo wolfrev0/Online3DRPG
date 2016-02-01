@@ -6,9 +6,5 @@
 
         public Bow()
         { }
-
-        public Bow(byte[] data)
-            : base(data)
-        { }
     }
 }

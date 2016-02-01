@@ -10,8 +10,8 @@
             this.targetSignallerID = targetSignallerID;
         }
 
-        public Chase(byte[] data)
-            : base(data)
+        public Chase()
+            : base(RPCType.All)
         { }
     }
 }

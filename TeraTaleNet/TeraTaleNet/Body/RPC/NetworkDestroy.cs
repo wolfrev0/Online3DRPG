@@ -10,8 +10,8 @@
             this.networkID = networkID;
         }
 
-        public NetworkDestroy(byte[] data)
-            : base(data)
+        public NetworkDestroy()
+            : base(RPCType.Others)
         { }
     }
 }

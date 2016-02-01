@@ -17,9 +17,9 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
     protected abstract void OnUpdate();
     protected abstract void OnEnd();
 
-    public new void Send(Packet packet)
+    public new void Send(Packet packet, string server)
     {
-        _messenger.Send("Proxy", packet);
+        _messenger.Send(server, packet);
     }
     
     void Awake()

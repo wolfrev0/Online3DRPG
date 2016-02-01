@@ -22,10 +22,6 @@
         public Equipment()
         { }
 
-        public Equipment(byte[] data)
-            : base(data)
-        { }
-
         public override void Use()
         {
             onUse(this);

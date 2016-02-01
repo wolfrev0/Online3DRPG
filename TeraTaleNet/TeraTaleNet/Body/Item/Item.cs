@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 
@@ -34,11 +35,22 @@ namespace TeraTaleNet
         public bool isConsumables { get { return GetType().IsSubclassOf(typeof(Consumable)); } }
         public virtual bool isNull { get { return false; } }
 
-        public Item()
-        { }
+        static Item()
+        {
+            try
+            {
+                currentItemID = Serializer.ToInt32(File.ReadAllBytes(@"C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTale\ServerStates\ItemID"), 0);
+            }
+            catch (IOException)
+            { }
+        }
 
-        public Item(byte[] data)
-            : base(data)
+        static public void Save()
+        {
+            File.WriteAllBytes(@"C:\Users\Lobo\Desktop\Projects\TeraTale\TeraTale\ServerStates\ItemID", Serializer.Serialize(currentItemID));
+        }
+
+        public Item()
         { }
 
         public virtual void Use() { }

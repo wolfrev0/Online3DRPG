@@ -10,8 +10,8 @@
             this.amount = amount;
         }
 
-        public ExpUp(byte[] data)
-                : base(data)
+        public ExpUp()
+            : base(RPCType.Others)
         { }
     }
 }

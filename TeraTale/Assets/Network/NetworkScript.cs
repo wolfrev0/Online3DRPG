@@ -6,8 +6,12 @@ using System.Reflection;
 
 public abstract class NetworkScript : MonoBehaviour
 {
-    public int networkID;
-    public string owner = null;
+    [SerializeField]
+    int _networkID;
+    [SerializeField]
+    string _owner = null;
+    public int networkID { get { return _networkID; } set { _networkID = value; } }
+    public string owner { get { return _owner; } set { _owner = value; } }
 
     static protected bool? _isServer;
     bool _registered = false;
@@ -45,23 +49,23 @@ public abstract class NetworkScript : MonoBehaviour
         _registered = true;
     }
 
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (_destroyed == false)
             NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
         _destroyed = true;
     }
 
-    protected void Send(Packet packet)
+    protected void Send(Packet packet, string server = "Proxy")
     {
-        NetworkProgramUnity.currentInstance.Send(packet);
+        NetworkProgramUnity.currentInstance.Send(packet, server);
     }
 
     public void Send(TeraTaleNet.RPC rpc)
     {
         rpc.signallerID = networkID;
         rpc.sender = userName;
-        NetworkProgramUnity.currentInstance.Send(rpc);
+        NetworkProgramUnity.currentInstance.Send(new Packet(rpc));
     }
 
     public void NetworkInstantiate(NetworkScript prefab)
@@ -70,7 +74,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg)
+    public void NetworkInstantiate(NetworkScript prefab, IAutoSerializable callbackArg)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, "");
         Send(ni);
@@ -82,7 +86,7 @@ public abstract class NetworkScript : MonoBehaviour
         Send(ni);
     }
 
-    public void NetworkInstantiate(NetworkScript prefab, Packet callbackArg, string callback)
+    public void NetworkInstantiate(NetworkScript prefab, IAutoSerializable callbackArg, string callback)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, callback);
         Send(ni);
@@ -97,8 +101,8 @@ public abstract class NetworkScript : MonoBehaviour
         instance.owner = info.sender;
         instance.RegisterToProgram();
         instance.enabled = true;
-        if (info.callbackArg.body.GetType() != typeof(NullPacket))
-            instance.SendMessage("OnNetInstantiate", info.callbackArg.body, SendMessageOptions.DontRequireReceiver);
+        if (info.callbackArg.GetType() != typeof(NullPacket))
+            instance.SendMessage("OnNetInstantiate", info.callbackArg, SendMessageOptions.DontRequireReceiver);
         if (info.callback != "")
             SendMessage(info.callback, instance);
     }
@@ -164,12 +168,12 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if (field != null)
             {
-                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
+                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
                 Send(sync);
             }
             else
             {
-                sync.packet = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
+                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
                 Send(sync);
             }
         }
@@ -205,12 +209,12 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if(field != null)
             {
-                field.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body));
+                field.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data));
                 OnSynced(sync);
             }
             else
             {
-                property.SetValue(instance, sync.packet.body.GetType().GetField("value").GetValue(sync.packet.body), null);
+                property.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data), null);
                 OnSynced(sync);
             }
         }

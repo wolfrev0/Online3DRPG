@@ -9,8 +9,7 @@
             this.name = name;
         }
 
-        public ConnectorInfo(byte[] data)
-            : base(data)
+        public ConnectorInfo()
         { }
     }
 }

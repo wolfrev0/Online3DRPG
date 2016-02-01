@@ -7,9 +7,5 @@
 
         public ItemNull()
         { }
-
-        public ItemNull(byte[] data)
-            : base(data)
-        { }
     }
 }

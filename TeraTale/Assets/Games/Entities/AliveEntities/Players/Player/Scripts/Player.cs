@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
+using System;
+using System.Reflection;
 
-public class Player : AliveEntity
+public class Player : AliveEntity, IAutoSerializable
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
@@ -14,7 +16,7 @@ public class Player : AliveEntity
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    List<ItemStack> _itemStacks = new List<ItemStack>(30);
+    public ItemStackList _itemStacks = new ItemStackList(30);
     Weapon _weapon;
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
@@ -22,7 +24,7 @@ public class Player : AliveEntity
     //StreamingSkill (Base Attack) Management
     Projectile _pfArrow;
     
-    public List<ItemStack> itemStacks
+    public ItemStackList itemStacks
     {
         get { return _itemStacks; }
     }
@@ -101,13 +103,20 @@ public class Player : AliveEntity
             FindObjectOfType<CameraController>().target = transform;
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
         }
-        Equip(new WeaponNull());
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+
+        if (isServer)
+        {
+            Equip(new WeaponNull());
+            GameServer.currentInstance.QuerySerializedPlayer(name);
+        }
     }
 
-    new void OnDestroy()
+    protected override void OnDestroy()
     {
+        if (isServer)
+            GameServer.currentInstance.SavePlayer(this);
         base.OnDestroy();
         _playersByName.Remove(name);
     }
@@ -229,7 +238,7 @@ public class Player : AliveEntity
 
     public void AddItem(AddItem rpc)
     {
-        Item item = (Item)rpc.item.body;
+        Item item = (Item)rpc.item;
         _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
@@ -240,7 +249,7 @@ public class Player : AliveEntity
 
     public void Equip(Equip rpc)
     {
-        var equipment = (Equipment)rpc.equipment.body;
+        var equipment = (Equipment)rpc.equipment;
         switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
@@ -278,5 +287,34 @@ public class Player : AliveEntity
                 return weapon == equipment;
         }
         return false;
+    }
+
+    public void SerializedPlayer(SerializedPlayer rpc)
+    {
+        if (isServer)
+            Send(rpc);
+        if (rpc.data.Length <= 1)
+            return;
+        Deserialize(rpc.data);
+    }
+
+    public byte[] Serialize()
+    {
+        return Serializer.Serialize(this as IAutoSerializable);
+    }
+
+    public void Deserialize(byte[] buffer)
+    {
+        Serializer.Deserialize(this as IAutoSerializable, buffer);
+    }
+
+    public int SerializedSize()
+    {
+        return Serializer.SerializedSize(this as IAutoSerializable);
+    }
+
+    public Header CreateHeader()
+    {
+        return Serializer.CreateHeader(this as IAutoSerializable);
     }
 }

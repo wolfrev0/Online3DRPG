@@ -8,10 +8,6 @@
         public HpPotion()
         { }
 
-        public HpPotion(byte[] data)
-            : base(data)
-        { }
-
         public override void Use()
         {
             onUse(this);
