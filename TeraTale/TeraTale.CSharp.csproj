@@ -59,6 +59,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -76,6 +82,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Collecting\Scripts\Collect.cs" />
+    <Compile Include="Assets\Collecting\Scripts\CollectFlower.cs" />
+    <Compile Include="Assets\Collecting\Scripts\Logging.cs" />
+    <Compile Include="Assets\Collecting\Scripts\Mining.cs" />
     <Compile Include="Assets\Common\Billboard.cs" />
     <Compile Include="Assets\Common\Floater.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />
@@ -148,8 +158,10 @@
     <Compile Include="Assets\UIs\NPCDialog\NPCDialog.cs" />
     <Compile Include="Assets\UIs\ServerClientSelections\ServerClientSelectionHandler.cs" />
     <Compile Include="Assets\Unaligned\ReadData.cs" />
+    <Compile Include="Assets\aasdf.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Collecting\AboutHero\Double Sided Standard Diffuse Bump.shader" />
     <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
