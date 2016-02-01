@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using UnityEngine.UI;
 using TeraTaleNet;
 
@@ -13,8 +12,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     Image _staminaBar = null;
     [SerializeField]
     Text _levelText = null;
-    [SerializeField]
-    float _hp;
+    public float _hp;
     public float hp
     {
         get { return _hp; }
@@ -30,8 +28,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
                 Die();
         }
     }
-    [SerializeField]
-    float _hpMax;
+    public float _hpMax;
     public float hpMax
     {
         get { return _hpMax; }
@@ -41,8 +38,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             _hpBar.fillAmount = hp / hpMax;
         }
     }
-    [SerializeField]
-    float _stamina;
+    public float _stamina;
     public float stamina
     {
         get { return _stamina; }
@@ -52,8 +48,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
-    [SerializeField]
-    float _staminaMax;
+    public float _staminaMax;
     public float staminaMax
     {
         get { return _staminaMax; }
@@ -63,8 +58,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
-    [SerializeField]
-    float _attackDamage = 0;
+    public float _attackDamage = 0;
     public float attackDamage
     {
         get { return _attackDamage; }
@@ -78,18 +72,33 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
-    [SerializeField]
-    int _level;
+    public int _level;
     public int level
     {
         get { return _level; }
-        private set { _level = value; _levelText.text = "LV." + _level; }
+        private set
+        {
+            if (value < _level)
+                throw new ArgumentException("level can not decreased.");
+            _level = value;
+            _levelText.text = "LV." + _level;
+        }
     }
-    [SerializeField]
-    float _exp;
-    public float exp { get { return _exp; } private set { _exp = value; } }
-    [SerializeField]
-    float _expMax;
+    public float _exp;
+    public float exp
+    {
+        get { return _exp; }
+        private set
+        {
+            _exp = value;
+            if (_exp >= expMax)
+            {
+                _exp -= expMax;
+                level = level + 1;
+            }
+        }
+    }
+    public float _expMax;
     public float expMax { get { return _expMax; } private set { _expMax = value; } }
 
     public Vector3 _syncedPos;

@@ -14,6 +14,16 @@ namespace Database
 
         protected override void OnStart()
         {
+            var ss = new SerializedPlayer(new HpPotion());
+            ss.sender = "sender";
+            var p = new Packet(ss);
+            var s = p.Serialize();
+            var h = new Header();
+            h.Deserialize(s);
+            var sss = new byte[1024];
+            Array.Copy(s, Header.size, sss, 0, h.bodySize);
+            var pp = Packet.Create(h, sss);
+
             _messenger = new Messenger(_handler);
 
             Action listenner = () =>

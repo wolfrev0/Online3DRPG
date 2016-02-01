@@ -12,8 +12,8 @@ namespace TeraTaleNet
             this.destination = destination;
         }
 
-        public Navigate(byte[] data)
-            : base(data)
+        public Navigate()
+            : base(RPCType.All)
         { }
     }
 }

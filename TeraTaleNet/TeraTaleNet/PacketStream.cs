@@ -1,5 +1,6 @@
 ﻿using System;
 using LoboNet;
+using System.Collections.Generic;
 
 namespace TeraTaleNet
 {
@@ -18,9 +19,10 @@ namespace TeraTaleNet
         public Packet Read()
         {
             byte[] buffer = new byte[_bufferSize];
-
+            
             _connection.Read(buffer, Header.size);
-            Header header = new Header(buffer);
+            var header = new Header();
+            header.Deserialize(buffer);
             _connection.Read(buffer, header.bodySize);
             return Packet.Create(header, buffer);
         }

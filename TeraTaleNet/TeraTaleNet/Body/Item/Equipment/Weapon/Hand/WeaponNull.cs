@@ -6,9 +6,5 @@
 
         public WeaponNull()
         { }
-
-        public WeaponNull(byte[] data)
-            : base(data)
-        { }
     }
 }

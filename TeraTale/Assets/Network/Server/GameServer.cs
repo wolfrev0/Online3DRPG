@@ -4,8 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TeraTaleNet;
 
-public abstract class GameServer : NetworkProgramUnity, IDisposable
+public abstract class GameServer : NetworkProgramUnity
 {
+    public new static GameServer currentInstance
+    {
+        get
+        {
+            if (isServer)
+                return (GameServer)NetworkProgramUnity.currentInstance;
+            return null;
+        }
+    }
+
     NetworkAgent _agent = new NetworkAgent();
 
     protected override void OnStart()
@@ -33,7 +43,9 @@ public abstract class GameServer : NetworkProgramUnity, IDisposable
     }
 
     protected override void OnEnd()
-    { }
+    {
+        Item.Save();
+    }
 
     IEnumerator Dispatcher(string key)
     {
@@ -59,5 +71,22 @@ public abstract class GameServer : NetworkProgramUnity, IDisposable
         _messenger.Join();
         _agent.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    public void QuerySerializedPlayer(string name)
+    {
+        Send(new SerializedPlayerQuery(userName, name), "Database");
+    }
+
+    public void SavePlayer(Player player)
+    {
+        Send(new SerializedPlayerSave(player.name, player.Serialize()), "Database");
+    }
+
+    public void SerializedPlayerAnswer(Messenger messenger, string key, SerializedPlayerAnswer answer)
+    {
+        var sp = new SerializedPlayer();
+        sp.data = answer.bytes;
+        Player.FindPlayerByName(answer.player).SerializedPlayer(sp);
     }
 }

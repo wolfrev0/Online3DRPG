@@ -15,8 +15,7 @@
             this.world = world;
         }
 
-        public LoginAnswer(byte[] data)
-            : base(data)
+        public LoginAnswer()
         { }
     }
 }

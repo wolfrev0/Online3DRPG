@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -122,7 +124,6 @@
     <Compile Include="Assets\Games\Entities\Entity.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemSolid.cs" />
     <Compile Include="Assets\Games\Entities\Items\ItemSpawnEffector.cs" />
-    <Compile Include="Assets\Games\Entities\Items\ItemStack.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubject.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectImpl.cs" />
     <Compile Include="Assets\Games\Entities\Items\Weapons\AttackSubjectNull.cs" />
@@ -134,6 +135,8 @@
     <Compile Include="Assets\Games\Entities\Movable.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\Ian\Ian.cs" />
     <Compile Include="Assets\Games\Entities\NPCs\NPC.cs" />
+    <Compile Include="Assets\Games\Entities\NPCs\TalkableRangeDetector.cs" />
+    <Compile Include="Assets\Games\MonsterSpawner.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Cell.cs" />
@@ -142,7 +145,6 @@
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
     <Compile Include="Assets\ItemSpawner.cs" />
-    <Compile Include="Assets\MonsterSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />

@@ -12,6 +12,7 @@ namespace Database
     {
         static string accountPath = "Accounts";
         static string playerLocationPath = "PlayerLocation";
+        static string serializedPlayerPath = "SerializedPlayer";
 
         void LoginQuery(Messenger messenger, string key, LoginQuery query)
         {
@@ -42,15 +43,44 @@ namespace Database
                     throw new InvalidLoginException();
                 }
             }
-            catch(InvalidLoginException e)
+            catch (InvalidLoginException e)
             {
                 messenger.Send("Login", new LoginAnswer(query.confirmID, false, "", ""));
-            }         
+            }
         }
 
         void MessageHandler.RPCHandler(RPC rpc)
         {
             throw new NotImplementedException();
+        }
+
+        void SerializedPlayerQuery(Messenger messenger, string key, SerializedPlayerQuery query)
+        {
+            try
+            {
+                while (true)
+                {
+                    try
+                    {
+                        var data = File.ReadAllBytes(serializedPlayerPath + "\\" + query.player);
+                        messenger.Send(query.sender, new SerializedPlayerAnswer(query.player, data));
+                        return;
+                    }
+                    catch (FileNotFoundException)
+                    { throw; }
+                    catch (IOException)
+                    { }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                messenger.Send(query.sender, new SerializedPlayerAnswer(query.player, new byte[1]));
+            }
+        }
+
+        void SerializedPlayerSave(Messenger messenger, string key, SerializedPlayerSave data)
+        {
+            File.WriteAllBytes(serializedPlayerPath + "\\" + data.player, data.bytes);
         }
     }
 }

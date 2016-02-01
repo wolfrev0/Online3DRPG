@@ -181,6 +181,10 @@ namespace Proxy
 
         void MessageHandler.RPCHandler(RPC rpc)
         {
+            if (rpc is SerializedPlayer)
+            {
+                int a = 0;
+            }
             if ((rpc.rpcType & RPCType.Self) != 0)
             {
                 _messenger.Send(rpc.sender, rpc);
@@ -191,7 +195,7 @@ namespace Proxy
             //}
             if ((rpc.rpcType & RPCType.Others) != 0)
             {
-                foreach(var target in _messenger.Keys)
+                foreach (var target in _messenger.Keys)
                 {
                     if (target != rpc.sender && _worldByUser[target] == _worldByUser[rpc.sender])
                         _messenger.Send(target, rpc);

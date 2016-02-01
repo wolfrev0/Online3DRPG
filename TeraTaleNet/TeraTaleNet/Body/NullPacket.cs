@@ -4,9 +4,5 @@
     {
         public NullPacket()
         { }
-
-        public NullPacket(byte[] data)
-            : base(data)
-        { }
     }
 }

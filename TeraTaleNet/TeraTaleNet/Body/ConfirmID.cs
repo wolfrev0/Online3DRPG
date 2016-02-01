@@ -9,8 +9,7 @@
             this.id = id;
         }
 
-        public ConfirmID(byte[] data)
-            : base(data)
+        public ConfirmID()
         { }
     }
 }

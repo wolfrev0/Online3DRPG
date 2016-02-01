@@ -6,9 +6,5 @@
 
         public Sundry()
         { }
-
-        public Sundry(byte[] data)
-            : base(data)
-        { }
     }
 }

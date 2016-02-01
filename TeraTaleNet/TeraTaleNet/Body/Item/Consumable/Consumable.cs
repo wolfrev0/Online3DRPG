@@ -6,9 +6,5 @@
 
         public Consumable()
         { }
-
-        public Consumable(byte[] data)
-            : base(data)
-        { }
     }
 }

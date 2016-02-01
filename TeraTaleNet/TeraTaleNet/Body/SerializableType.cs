@@ -11,8 +11,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableBoolean(byte[] data)
-            : base(data)
+        public SerializableBoolean()
         { }
 
         public static implicit operator SerializableBoolean(bool value)
@@ -35,8 +34,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableByte(byte[] data)
-            : base(data)
+        public SerializableByte()
         { }
 
         public static implicit operator SerializableByte(byte value)
@@ -59,8 +57,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableChar(byte[] data)
-            : base(data)
+        public SerializableChar()
         { }
 
         public static implicit operator SerializableChar(char value)
@@ -83,8 +80,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableDouble(byte[] data)
-            : base(data)
+        public SerializableDouble()
         { }
 
         public static implicit operator SerializableDouble(double value)
@@ -107,8 +103,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableSingle(byte[] data)
-            : base(data)
+        public SerializableSingle()
         { }
 
         public static implicit operator SerializableSingle(float value)
@@ -131,8 +126,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableInt32(byte[] data)
-            : base(data)
+        public SerializableInt32()
         { }
 
         public static implicit operator SerializableInt32(int value)
@@ -155,8 +149,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableInt64(byte[] data)
-            : base(data)
+        public SerializableInt64()
         { }
 
         public static implicit operator SerializableInt64(long value)
@@ -179,8 +172,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableInt16(byte[] data)
-            : base(data)
+        public SerializableInt16()
         { }
 
         public static implicit operator SerializableInt16(short value)
@@ -203,8 +195,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableUInt32(byte[] data)
-            : base(data)
+        public SerializableUInt32()
         { }
 
         public static implicit operator SerializableUInt32(uint value)
@@ -227,8 +218,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableUInt64(byte[] data)
-            : base(data)
+        public SerializableUInt64()
         { }
 
         public static implicit operator SerializableUInt64(ulong value)
@@ -251,8 +241,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableUInt16(byte[] data)
-            : base(data)
+        public SerializableUInt16()
         { }
 
         public static implicit operator SerializableUInt16(ushort value)
@@ -275,8 +264,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableString(byte[] data)
-            : base(data)
+        public SerializableString()
         { }
 
         public static implicit operator SerializableString(string value)
@@ -299,8 +287,7 @@ namespace TeraTaleNet
             this.value = value;
         }
 
-        public SerializableVector3(byte[] data)
-            : base(data)
+        public SerializableVector3()
         { }
 
         public static implicit operator SerializableVector3(Vector3 value)
@@ -329,8 +316,7 @@ namespace TeraTaleNet
             scale = value.lossyScale;
         }
 
-        public SerializableTransform(byte[] data)
-            : base(data)
+        public SerializableTransform()
         { }
 
         public static implicit operator Transform(SerializableTransform value)
