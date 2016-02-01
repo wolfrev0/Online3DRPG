@@ -291,7 +291,7 @@ GameObject:
   - 223: {fileID: 22390892}
   - 114: {fileID: 11423108}
   - 114: {fileID: 11478656}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2970,8 +2970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14310ac4eddee448b51ed76fe9c14b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -15
-  owner: 
+  _networkID: -8
+  _owner: 
   speechBubble: {fileID: 193364}
 --- !u!114 &11456508
 MonoBehaviour:

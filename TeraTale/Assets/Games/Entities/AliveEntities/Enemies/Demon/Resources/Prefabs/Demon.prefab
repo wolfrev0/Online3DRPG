@@ -87,7 +87,7 @@ GameObject:
   - 223: {fileID: 22389716}
   - 114: {fileID: 11476442}
   - 114: {fileID: 11462912}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1811,8 +1811,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187682}
-  m_LocalRotation: {x: 0, y: -0.9896038, z: 0, w: -0.14382079}
-  m_LocalPosition: {x: 11.5271225, y: 0.20018315, z: -21.59439}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 472278}
@@ -2179,8 +2179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0b5f6aeda42f944b86eba311500f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: 0
-  owner: 
+  _networkID: 0
+  _owner: 
   _hpBar: {fileID: 11463040}
   _staminaBar: {fileID: 11434230}
   _levelText: {fileID: 11401228}
@@ -2190,6 +2190,8 @@ MonoBehaviour:
   _staminaMax: 100
   _attackDamage: 10
   _level: 1
+  _exp: 0
+  _expMax: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
   _attackSubject: {fileID: 11472186}
@@ -2348,6 +2350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   targetTag: Player
+  knockdown: 0
 --- !u!114 &11476442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2632,7 +2635,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 192.5}
+  m_AnchoredPosition: {x: 0, y: -27.5}
   m_SizeDelta: {x: 100, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22430372
@@ -2683,7 +2686,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22463262
@@ -2790,6 +2793,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: targetTag
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
