@@ -6,6 +6,7 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
 {
+    protected bool usePeriodicSync = true;
     [SerializeField]
     Image _hpBar = null;
     [SerializeField]
@@ -119,7 +120,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     {
         base.Start();
         if (isServer)
-            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 3f), 3f);
+            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
     }
 
     protected new void OnEnable()
@@ -152,8 +153,10 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         }
     }
 
-    void PeriodicSync()
+    protected void PeriodicSync()
     {
+        if (usePeriodicSync == false)
+            return;
         if (gameObject.activeSelf == false)
             return;
         _syncedPos = transform.position;

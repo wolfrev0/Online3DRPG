@@ -20,6 +20,7 @@ public class Tree : Enemy
     protected new void OnEnable()
     {
         base.OnEnable();
+        usePeriodicSync = false;
         transform.rotation = Quaternion.identity;
         GetComponent<Animator>().Rebind();
     }

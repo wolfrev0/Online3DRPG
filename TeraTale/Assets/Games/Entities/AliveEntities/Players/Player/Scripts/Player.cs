@@ -56,6 +56,7 @@ public class Player : AliveEntity, IAutoSerializable
         private set
         {
             _weapon = value;
+            _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
             if (isServer)
             {
                 NetworkDestroy(_weaponSolid);
@@ -109,9 +110,7 @@ public class Player : AliveEntity, IAutoSerializable
         _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
 
         if (isServer)
-        {
             GameServer.currentInstance.QuerySerializedPlayer(name);
-        }
     }
 
     protected override void OnNetworkDestroy()
@@ -280,7 +279,6 @@ public class Player : AliveEntity, IAutoSerializable
                 weapon = (Weapon)equipment;
                 break;
         }
-        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
     }
 
     public bool IsEquiping(Equipment equipment)
@@ -311,11 +309,16 @@ public class Player : AliveEntity, IAutoSerializable
             return;
         Deserialize(rpc.data);
 
-        //Weapon Sync;
+        //Deserialize only set the field _weapon, not the property weapon. so, we should call this property manually.
         weapon = weapon;
+        //Weapon Sync;
+        Sync s = new Sync(RPCType.Others, "", "weapon");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
 
         //itemStack Sync
-        Sync s = new Sync(RPCType.Others, "", "itemStacks");
+        s = new Sync(RPCType.Others, "", "itemStacks");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
