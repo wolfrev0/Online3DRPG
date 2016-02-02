@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Body\BufferedRPCRequest.cs" />
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
     <Compile Include="Body\ItemStack.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="Body\SerializedPlayerAnswer.cs" />
     <Compile Include="Body\SerializedPlayerQuery.cs" />
     <Compile Include="Body\SerializedPlayerSave.cs" />
-    <Compile Include="Body\SwitchWorld.cs" />
+    <Compile Include="Body\RPC\SwitchWorld.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />

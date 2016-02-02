@@ -14,12 +14,16 @@ public class Portal : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
+        if (NetworkScript.isServer)
+            return;
         if (coll.gameObject == Player.mine.gameObject)
             canvas.enabled = true;
     }
 
     void OnTriggerExit(Collider coll)
     {
+        if (NetworkScript.isServer)
+            return;
         if (coll.gameObject == Player.mine.gameObject)
             canvas.enabled = false;
     }

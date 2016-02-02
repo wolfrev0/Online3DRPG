@@ -381,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -1
   _owner: 
-  pfPlayer: {fileID: 0}
+  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
 --- !u!4 &326514392
 Transform:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -1
   _owner: 
-  pfPlayer: {fileID: 0}
+  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
 --- !u!4 &599371545
 Transform:
   m_ObjectHideFlags: 0

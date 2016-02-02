@@ -16,7 +16,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float hp
     {
         get { return _hp; }
-        private set
+        protected set
         {
             if (value > hpMax)
                 value = hpMax;
@@ -78,6 +78,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         get { return _level; }
         private set
         {
+            if (expMax < 1)
+                return;
             if (value < _level)
                 throw new ArgumentException("level can not decreased.");
             _level = value;

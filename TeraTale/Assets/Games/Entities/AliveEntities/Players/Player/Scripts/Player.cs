@@ -195,11 +195,13 @@ public class Player : AliveEntity, IAutoSerializable
     protected override void Die()
     {
         _animator.SetTrigger("Die");
+        GetComponent<Collider>().enabled = false;
         Invoke("Respawn", 3.0f);
     }
 
     void Respawn()
     {
+        hp = hpMax;
         SwitchWorld("Town");
     }
 
@@ -221,11 +223,23 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void SwitchWorld(string world)
     {
-        if (isMine)
+        Send(new SwitchWorld(RPCType.Specific, Application.loadedLevelName, name, world));
+    }
+
+    public void SwitchWorld(SwitchWorld rpc)
+    {
+        if (isServer)
         {
+            rpc.receiver = rpc.user;
+            Send(rpc);
             Destroy();
-            Send(new SwitchWorld(userName, world));
-            SceneManager.LoadScene(world);
+        }
+        else
+        {
+            Debug.Log("Switch World On " + rpc.world);
+            SceneManager.LoadScene(rpc.world);
+            Send(new BufferedRPCRequest(userName));
+
             var programInst = NetworkProgramUnity.currentInstance;
             programInst.NetworkInstantiate(programInst.pfPlayer);
         }

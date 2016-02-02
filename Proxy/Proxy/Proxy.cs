@@ -158,8 +158,6 @@ namespace Proxy
                     }
                     _worldByUser.Add(answer.name, answer.world);
                     _messenger.Send(answer.name, answer);
-                    foreach (var rpc in _rpcBufferByWorld[answer.world])
-                        _messenger.Send(answer.name, rpc);
                 }
             }
             else
@@ -212,6 +210,17 @@ namespace Proxy
             rpc.networkID = _currentNetworkID++;
         }
 
+        void SwitchWorld(SwitchWorld rpc)
+        {
+            _worldByUser[rpc.user] = rpc.world;
+        }
+
+        void SendBufferedRPC(string user)
+        {
+            foreach (var i in _rpcBufferByWorld[_worldByUser[user]])
+                _messenger.Send(user, i);
+        }
+
         void RemoveBufferedRPC(Messenger messenger, string key, RemoveBufferedRPC packet)
         {
             var buffer = _rpcBufferByWorld[_worldByUser[packet.caller]];
@@ -226,15 +235,9 @@ namespace Proxy
             }
         }
 
-        void SwitchWorld(Messenger messenger, string key, SwitchWorld packet)
+        void BufferedRPCRequest(Messenger messenger, string key, BufferedRPCRequest packet)
         {
-            _worldByUser[packet.user] = packet.world;
-            History.Log("SwitchWorld");
-            foreach (var rpc in _rpcBufferByWorld[packet.world])
-            {
-                _messenger.Send(packet.user, rpc);
-                History.Log(rpc.GetType().Name);
-            }
+            SendBufferedRPC(packet.caller);
         }
     }
 }
