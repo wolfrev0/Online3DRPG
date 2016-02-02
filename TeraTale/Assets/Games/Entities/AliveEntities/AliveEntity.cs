@@ -111,14 +111,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
 
     static ParticleSystem _pfHealFX;
 
-    static AliveEntity()
-    {
-        _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
-    }
-
     protected new void Start()
     {
         base.Start();
+        if (_pfHealFX == null)
+            _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
     }

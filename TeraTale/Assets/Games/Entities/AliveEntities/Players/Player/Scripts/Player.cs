@@ -107,7 +107,8 @@ public class Player : AliveEntity, IAutoSerializable
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
         }
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
-        _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfArrow == null)
+            _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
 
         if (isServer)
             GameServer.currentInstance.QuerySerializedPlayer(name);
@@ -246,8 +247,7 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void AddItem(Item item)
     {
-        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
-        Send(new AddItem(name, item));
+        Send(new AddItem(item));
     }
 
     public void AddItem(AddItem rpc)
