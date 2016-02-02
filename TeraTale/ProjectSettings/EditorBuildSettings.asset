@@ -19,3 +19,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Offline.unity
   - enabled: 1
     path: Assets/Scenes/Town.unity
+  - enabled: 1
+    path: Assets/Scenes/Mine.unity

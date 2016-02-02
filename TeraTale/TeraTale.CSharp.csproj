@@ -142,6 +142,7 @@
     <Compile Include="Assets\Network\NetworkScript.cs" />
     <Compile Include="Assets\Network\Server\Forest.cs" />
     <Compile Include="Assets\Network\Server\GameServer.cs" />
+    <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />

@@ -46,6 +46,7 @@ namespace Proxy
             connector(Port.Login);
             connector(Port.Town);
             connector(Port.Forest);
+            connector(Port.Mine);
 
             foreach (var key in _messenger.Keys)
             {

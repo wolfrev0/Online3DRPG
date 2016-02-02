@@ -244,86 +244,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 244009292}
---- !u!1001 &258960018
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 11.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.00000016292068
-      objectReference: {fileID: 0}
-    - target: {fileID: 435432, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 473560, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.0052378443
-      objectReference: {fileID: 0}
-    - target: {fileID: 473560, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.68447477
-      objectReference: {fileID: 0}
-    - target: {fileID: 473560, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.72529095
-      objectReference: {fileID: 0}
-    - target: {fileID: 473560, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.07362098
-      objectReference: {fileID: 0}
-    - target: {fileID: 409122, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.0050279545
-      objectReference: {fileID: 0}
-    - target: {fileID: 409122, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0.69726026
-      objectReference: {fileID: 0}
-    - target: {fileID: 409122, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.7129734
-      objectReference: {fileID: 0}
-    - target: {fileID: 409122, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.07397225
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 8e7e5fd4a3313a044b3421c43258ba55, type: 2}
-  m_IsPrefabParent: 0
---- !u!114 &258960019 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11454140, guid: 8e7e5fd4a3313a044b3421c43258ba55,
-    type: 2}
-  m_PrefabInternal: {fileID: 258960018}
-  m_Script: {fileID: 11500000, guid: 42284833d96abe749a30af47f24debbf, type: 3}
 --- !u!1 &330093665
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: NextHead
         m_Mode: 1
         m_Arguments:
@@ -668,7 +588,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: PreHead
         m_Mode: 1
         m_Arguments:
@@ -1026,7 +946,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: SaveData
         m_Mode: 1
         m_Arguments:
@@ -1495,7 +1415,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: PreBody
         m_Mode: 1
         m_Arguments:
@@ -1634,7 +1554,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: NextBody
         m_Mode: 1
         m_Arguments:
@@ -2136,7 +2056,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 258960019}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadData
         m_Mode: 1
         m_Arguments:
