@@ -77,7 +77,7 @@
     <Compile Include="Body\RPC\AddItem.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
     <Compile Include="Body\RPC\Chase.cs" />
-    <Compile Include="Body\RPC\Equip.cs" />
+    <Compile Include="Body\RPC\ItemUse.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
@@ -85,7 +85,6 @@
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="Body\RPC\SetActive.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
-    <Compile Include="Body\RPC\SyncFromServer.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SerializedPlayerAnswer.cs" />

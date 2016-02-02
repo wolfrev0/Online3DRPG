@@ -30,9 +30,21 @@ public abstract class NetworkScript : MonoBehaviour
     static public bool isLocal { get { return !isServer; } }
     static public string userName { get; set; }
 
+    protected virtual void OnNetworkDestroy()
+    {
+        NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
+        _destroyed = true;
+    }
+
     protected void Start()
     {
         StartCoroutine(StartSub());
+    }
+
+    protected void OnDestroy()
+    {
+        if (_destroyed == false)
+            OnNetworkDestroy();
     }
 
     IEnumerator StartSub()
@@ -47,13 +59,6 @@ public abstract class NetworkScript : MonoBehaviour
         if (_registered == false)
             NetworkProgramUnity.currentInstance.RegisterSignaller(this);
         _registered = true;
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (_destroyed == false)
-            NetworkProgramUnity.currentInstance.UnregisterSignaller(this);
-        _destroyed = true;
     }
 
     protected void Send(Packet packet, string server = "Proxy")
@@ -118,12 +123,15 @@ public abstract class NetworkScript : MonoBehaviour
         Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
         Send(new NetworkDestroy(networkID));
         Destroy(gameObject);
-        OnDestroy();
+        if (_destroyed == false)
+            OnNetworkDestroy();
     }
 
     public void NetworkDestroy(NetworkDestroy info)
     {
         Destroy(NetworkProgramUnity.currentInstance.signallersByID[info.networkID].gameObject);
+        if (_destroyed == false)
+            OnNetworkDestroy();
     }
 
     protected void Sync(string member)
@@ -168,12 +176,22 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if (field != null)
             {
-                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
+                var value = field.GetValue(instance);
+                var autoSerializable = value as IAutoSerializable;
+                if (autoSerializable != null)
+                    sync.data = autoSerializable;
+                else
+                    sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + field.FieldType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), field.GetValue(instance));
                 Send(sync);
             }
             else
             {
-                sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
+                var value = property.GetValue(instance, null);
+                var autoSerializable = value as IAutoSerializable;
+                if (autoSerializable != null)
+                    sync.data = autoSerializable;
+                else
+                    sync.data = (Body)Activator.CreateInstance(Type.GetType("TeraTaleNet.Serializable" + property.PropertyType.Name + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"), property.GetValue(instance, null));
                 Send(sync);
             }
         }
@@ -209,12 +227,22 @@ public abstract class NetworkScript : MonoBehaviour
             }
             if(field != null)
             {
-                field.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data));
+                var value = field.GetValue(instance);
+                var autoSerializable = value as IAutoSerializable;
+                if (autoSerializable != null)
+                    field.SetValue(instance, sync.data);
+                else
+                    field.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data));
                 OnSynced(sync);
             }
             else
             {
-                property.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data), null);
+                var value = property.GetValue(instance, null);
+                var autoSerializable = value as IAutoSerializable;
+                if (autoSerializable != null)
+                    property.SetValue(instance, sync.data, null);
+                else
+                    property.SetValue(instance, sync.data.GetType().GetField("value").GetValue(sync.data), null);
                 OnSynced(sync);
             }
         }

@@ -6,24 +6,29 @@ public class ItemFunctions : NetworkScript
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        HpPotion.onUse += (Item item) =>
+        HpPotion.onUse += (Item item, object target) =>
         {
-            var player = Player.mine;
-            player.Send(new Heal("", 30));
+            if (isServer)
+            {
+                var player = (Player)target;
+                player.Heal(new Heal("", 30));
+            }
         };
-        Apple.onUse += (Item item) =>
+        Apple.onUse += (Item item, object target) =>
         {
-            var player = Player.mine;
-            player.Heal(new Heal("", 10));
+            if (isServer)
+            {
+                var player = (Player)target;
+                player.Heal(new Heal("", 10));
+            }
         };
-        Equipment.onUse += (Item item) =>
+        Equipment.onUse += (Item item, object target) =>
         {
-            var player = Player.mine;
+            var player = (Player)target;
             if (player.IsEquiping((Equipment)item))
                 player.Equip(new WeaponNull());
             else
                 player.Equip((Equipment)item);
-
         };
     }
 }

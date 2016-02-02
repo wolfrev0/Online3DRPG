@@ -65,15 +65,22 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
     void MessageHandler.RPCHandler(TeraTaleNet.RPC rpc)
     {
         NetworkScript script;
-        if (signallersByID.TryGetValue(rpc.signallerID, out script) && script.gameObject.activeSelf)
-            script.SendMessage(rpc.GetType().Name, rpc);
+        if (signallersByID.TryGetValue(rpc.signallerID, out script))
+        {
+            if (script.gameObject.activeSelf)
+                script.SendMessage(rpc.GetType().Name, rpc);
+            else
+            {
+                SetActive sa = rpc as SetActive;
+                if (sa != null)
+                    script.SetActive(sa);
+                else
+                    Debug.Log("A RPC was not arrived. Name:" + rpc.GetType().Name + " DestinationID:" + rpc.signallerID);
+            }
+        }
         else
         {
-            SetActive sa = rpc as SetActive;
-            if (sa != null)
-                script.SetActive(sa);
-            else
-                Debug.Log("A RPC was not arrived. Name:" + rpc.GetType().Name + " DestinationID:" + rpc.signallerID);
+            Debug.Log("A RPC was not arrived. Name:" + rpc.GetType().Name + " DestinationID:" + rpc.signallerID);
         }
     }
 

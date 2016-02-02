@@ -867,7 +867,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -5
   _owner: 
-  _fxpotion: {fileID: 19800010, guid: c549c3ea40be24e6e9490ceacea81780, type: 2}
 --- !u!4 &1070198285
 Transform:
   m_ObjectHideFlags: 0

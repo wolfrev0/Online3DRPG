@@ -43,7 +43,7 @@ namespace Database
                     throw new InvalidLoginException();
                 }
             }
-            catch (InvalidLoginException e)
+            catch (InvalidLoginException)
             {
                 messenger.Send("Login", new LoginAnswer(query.confirmID, false, "", ""));
             }

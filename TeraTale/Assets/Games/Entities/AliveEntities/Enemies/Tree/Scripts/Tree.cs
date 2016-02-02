@@ -21,5 +21,6 @@ public class Tree : Enemy
     {
         base.OnEnable();
         transform.rotation = Quaternion.identity;
+        GetComponent<Animator>().Rebind();
     }
 }

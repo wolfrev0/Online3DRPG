@@ -181,10 +181,6 @@ namespace Proxy
 
         void MessageHandler.RPCHandler(RPC rpc)
         {
-            if (rpc is SerializedPlayer)
-            {
-                int a = 0;
-            }
             if ((rpc.rpcType & RPCType.Self) != 0)
             {
                 _messenger.Send(rpc.sender, rpc);

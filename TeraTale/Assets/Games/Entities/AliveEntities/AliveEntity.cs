@@ -144,6 +144,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             Sync("attackSpeed");
             Sync("castingTimeDecrease");
             Sync("coolTimeDecrease");
+            Sync("level");
+            Sync("exp");
+            Sync("expMax");
         }
     }
 
@@ -196,6 +199,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
         hp += heal.amount;
+
         ParticleSystem _particle = Instantiate(_pfHealFX);
         _particle.transform.SetParent(transform);
         _particle.transform.localPosition = Vector3.zero;
@@ -209,12 +213,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
         hp -= dmg.amount;
+
         if (dmg.knockdown)
             Knockdown();
-        ParticleSystem _particle = Instantiate(_pfHealFX);
-        _particle.transform.SetParent(transform);
-        _particle.transform.localPosition = Vector3.zero;
-        Destroy(_particle.gameObject, _particle.duration);
     }
 
     public virtual void ExpUp(ExpUp expUp)

@@ -17,7 +17,7 @@ public class Player : AliveEntity, IAutoSerializable
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     public ItemStackList _itemStacks = new ItemStackList(30);
-    Weapon _weapon;
+    public Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
@@ -27,6 +27,7 @@ public class Player : AliveEntity, IAutoSerializable
     public ItemStackList itemStacks
     {
         get { return _itemStacks; }
+        private set { _itemStacks = value; }
     }
 
     static Player _mine;
@@ -67,7 +68,8 @@ public class Player : AliveEntity, IAutoSerializable
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
-        _weaponSolid = itemSolid;        
+        _weaponSolid = itemSolid;
+        _weapon = (Weapon)_weaponSolid.item;
         if (_weapon.weaponType == Weapon.Type.bow)
             _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
         else
@@ -108,16 +110,15 @@ public class Player : AliveEntity, IAutoSerializable
 
         if (isServer)
         {
-            Equip(new WeaponNull());
             GameServer.currentInstance.QuerySerializedPlayer(name);
         }
     }
 
-    protected override void OnDestroy()
+    protected override void OnNetworkDestroy()
     {
         if (isServer)
             GameServer.currentInstance.SavePlayer(this);
-        base.OnDestroy();
+        base.OnNetworkDestroy();
         _playersByName.Remove(name);
     }
 
@@ -242,14 +243,13 @@ public class Player : AliveEntity, IAutoSerializable
         _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
-    public void Equip(Equipment equipment)
+    public void ItemUse(ItemUse rpc)
     {
-        Send(new Equip(equipment));
+        _itemStacks[rpc.index].Use(this);
     }
 
-    public void Equip(Equip rpc)
+    public void Equip(Equipment equipment)
     {
-        var equipment = (Equipment)rpc.equipment;
         switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
@@ -291,11 +291,20 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void SerializedPlayer(SerializedPlayer rpc)
     {
-        if (isServer)
-            Send(rpc);
+        if (isLocal)
+            return;
         if (rpc.data.Length <= 1)
             return;
         Deserialize(rpc.data);
+
+        //Weapon Sync;
+        weapon = weapon;
+
+        //itemStack Sync
+        Sync s = new Sync(RPCType.Others, "", "itemStacks");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
     }
 
     public byte[] Serialize()

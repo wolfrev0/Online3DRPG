@@ -36,7 +36,9 @@ public abstract class Enemy : AliveEntity
     {
         base.OnEnable();
         target = null;
-        GetComponent<NavMeshAgent>().enabled = true;
+        var nma = GetComponent<NavMeshAgent>();
+        if (nma)
+            nma.enabled = true;
     }
 
     void AttackBegin()

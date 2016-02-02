@@ -53,7 +53,7 @@ namespace TeraTaleNet
         public Item()
         { }
 
-        public virtual void Use() { }
+        public virtual void Use(object player) { }
 
         public bool IsSameType(Item other)
         { return GetType() == other.GetType(); }
