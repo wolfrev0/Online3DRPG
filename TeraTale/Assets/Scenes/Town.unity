@@ -2872,6 +2872,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 199226, guid: ff3b185aaf811eb429bdd5fba1267855, type: 2}
+      propertyPath: m_Name
+      value: PortalForest
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff3b185aaf811eb429bdd5fba1267855, type: 2}
   m_IsPrefabParent: 0
@@ -7174,7 +7178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 199226, guid: ff3b185aaf811eb429bdd5fba1267855, type: 2}
       propertyPath: m_Name
-      value: Portal
+      value: PortalMine
       objectReference: {fileID: 0}
     - target: {fileID: 11416152, guid: ff3b185aaf811eb429bdd5fba1267855, type: 2}
       propertyPath: targetWorld

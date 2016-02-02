@@ -4,11 +4,13 @@
     {
         public new enum Type
         {
+            none,
             hand,
             knife,
             bow,
             wand,
-            gun,
+            axe,
+            pickaxe,
         }
 
         public sealed override Equipment.Type equipmentType { get { return Equipment.Type.Weapon; } }

@@ -17,11 +17,20 @@ public class Tree : Enemy
         }
     }
 
-    protected new void OnEnable()
+    protected new void Start()
     {
-        base.OnEnable();
+        base.Start();
         usePeriodicSync = false;
-        transform.rotation = Quaternion.identity;
-        GetComponent<Animator>().Rebind();
+    }
+
+    protected override float CalculateDamage(float original, Weapon.Type weaponType)
+    {
+        if (weaponType != Weapon.Type.axe)
+        {
+            if (isMine)
+                FindObjectOfType<ChattingView>().PushGuideMessage("나무는 '도끼'로 벌목할 수 있습니다.");
+            return 0;
+        }
+        return original;
     }
 }

@@ -52,9 +52,11 @@
     <Compile Include="Body\ItemStack.cs" />
     <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Consumable\Apple.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Pickaxe\Pickaxe.cs" />
     <Compile Include="Body\Item\Sundry\Bone.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
+    <Compile Include="Body\Item\Sundry\IronOre.cs" />
     <Compile Include="Body\Item\Sundry\Log.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
@@ -112,7 +114,9 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="NetworkProgram.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Body\Item\Equipment\Weapon\Axe\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

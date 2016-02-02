@@ -5,16 +5,20 @@ using TeraTaleNet;
 public class MonsterSpawner : NetworkScript
 {
     public Enemy pfEnemy;
+    public int enemyCount = 0;
     SphereCollider _spawnRange;
-    Enemy[] _enemies = new Enemy[4];
+    Enemy[] _enemies;
     int _index = 0;
 
     new void Start()
     {
         base.Start();
 
+        _enemies = new Enemy[enemyCount];
+
         if (isLocal)
             return;
+
         _spawnRange = GetComponent<SphereCollider>();
         for (int i = 0; i < _enemies.Length; i++)
             NetworkInstantiate(pfEnemy, "OnEnemyInstantiate");

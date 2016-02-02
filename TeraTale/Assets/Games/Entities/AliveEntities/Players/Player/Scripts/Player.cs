@@ -6,7 +6,7 @@ using TeraTaleNet;
 using System;
 using System.Reflection;
 
-public class Player : AliveEntity, IAutoSerializable
+public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
@@ -322,25 +322,5 @@ public class Player : AliveEntity, IAutoSerializable
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
-    }
-
-    public byte[] Serialize()
-    {
-        return Serializer.Serialize(this as IAutoSerializable);
-    }
-
-    public void Deserialize(byte[] buffer)
-    {
-        Serializer.Deserialize(this as IAutoSerializable, buffer);
-    }
-
-    public int SerializedSize()
-    {
-        return Serializer.SerializedSize(this as IAutoSerializable);
-    }
-
-    public Header CreateHeader()
-    {
-        return Serializer.CreateHeader(this as IAutoSerializable);
     }
 }

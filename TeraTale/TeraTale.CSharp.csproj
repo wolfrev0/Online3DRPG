@@ -101,6 +101,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyChasing.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Mineral\Scripts\Mineral.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
@@ -135,7 +136,7 @@
     <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
-    <Compile Include="Assets\ItemSpawner.cs" />
+    <Compile Include="Assets\Games\ItemSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />

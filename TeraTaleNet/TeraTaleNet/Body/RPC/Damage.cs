@@ -7,15 +7,17 @@
             Physical,
             Magic,
         }
-        public Type type;
+        public Type damageType;
+        public Weapon.Type weaponType;
         public float amount;
         public float knockback;
         public bool knockdown;
 
-        public Damage(Type type, float amount, float knockback, bool knockdown)
+        public Damage(Type damageType, Weapon.Type weaponType, float amount, float knockback, bool knockdown)
             : base(RPCType.Others)
         {
-            this.type = type;
+            this.damageType = damageType;
+            this.weaponType = weaponType;
             this.amount = amount;
             this.knockback = knockback;
             this.knockdown = knockdown;

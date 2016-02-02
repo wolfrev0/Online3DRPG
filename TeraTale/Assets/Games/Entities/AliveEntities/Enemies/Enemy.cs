@@ -138,6 +138,7 @@ public abstract class Enemy : AliveEntity
     {
         spawner.Spawn(this);
         CancelInvoke("Respawn");
+        _animator.Rebind();
     }
 
     public void OnDropItemInstantiate(ItemSolid item)

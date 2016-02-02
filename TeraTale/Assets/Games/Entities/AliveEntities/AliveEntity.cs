@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TeraTaleNet;
 
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
-public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
+public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
     protected bool usePeriodicSync = true;
     [SerializeField]
@@ -111,6 +111,23 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
 
     static ParticleSystem _pfHealFX;
 
+    public Weapon.Type weaponType
+    {
+        get
+        {
+            Weapon.Type weaponType = Weapon.Type.none;
+
+            Player player = this as Player;
+            if (player)
+                weaponType = player.weapon.weaponType;
+
+            return weaponType;
+        }
+    }
+
+    protected virtual float CalculateHeal(float original) { return original; }
+    protected virtual float CalculateDamage(float original, Weapon.Type weaponType) { return original; }
+
     protected new void Start()
     {
         base.Start();
@@ -194,13 +211,33 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         }
     }
 
+    public byte[] Serialize()
+    {
+        return Serializer.Serialize(this as IAutoSerializable);
+    }
+
+    public void Deserialize(byte[] buffer)
+    {
+        Serializer.Deserialize(this as IAutoSerializable, buffer);
+    }
+
+    public int SerializedSize()
+    {
+        return Serializer.SerializedSize(this as IAutoSerializable);
+    }
+
+    public Header CreateHeader()
+    {
+        return Serializer.CreateHeader(this as IAutoSerializable);
+    }
+
     public virtual void Heal(Heal heal)
     {
         if (isServer)
             Send(heal);
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
-        hp += heal.amount;
+        hp += CalculateHeal(heal.amount);
 
         ParticleSystem _particle = Instantiate(_pfHealFX);
         _particle.transform.SetParent(transform);
@@ -214,7 +251,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             Send(dmg);
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= dmg.amount;
+        hp -= CalculateDamage(dmg.amount, dmg.weaponType);
 
         if (dmg.knockdown)
             Knockdown();
