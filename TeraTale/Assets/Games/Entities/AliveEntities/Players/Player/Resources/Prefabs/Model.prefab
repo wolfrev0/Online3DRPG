@@ -286,7 +286,7 @@ GameObject:
   - 136: {fileID: 13639556}
   - 195: {fileID: 19578548}
   - 114: {fileID: 11442132}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1396,7 +1396,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

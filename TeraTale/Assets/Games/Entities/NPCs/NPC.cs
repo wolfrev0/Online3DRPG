@@ -33,9 +33,6 @@ public abstract class NPC : Entity
         cmd.name = "Next";
         cmd.action = npcDialog.Next;
         s.commands.Add(cmd);
-        cmd.name = "Close";
-        cmd.action = npcDialog.Close;
-        s.commands.Add(cmd);
         _scripts.Add(s);
 
         s.commands = new List<Script.Command>();
@@ -43,16 +40,10 @@ public abstract class NPC : Entity
         cmd.name = "Next";
         cmd.action = npcDialog.Next;
         s.commands.Add(cmd);
-        cmd.name = "Close";
-        cmd.action = npcDialog.Close;
-        s.commands.Add(cmd);
         _scripts.Add(s);
 
         s.commands = new List<Script.Command>();
         s.comment = "나는 오늘도 눈을 감고 음악을 듣는다... 음악만이 이 공간속에서 유일하게 허락된 마약이니깐, 크하하핫!!!";
-        cmd.name = "Next";
-        cmd.action = npcDialog.Next;
-        s.commands.Add(cmd);
         cmd.name = "Close";
         cmd.action = npcDialog.Close;
         s.commands.Add(cmd);
