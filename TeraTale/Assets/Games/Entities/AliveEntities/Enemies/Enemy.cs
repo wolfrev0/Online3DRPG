@@ -32,15 +32,6 @@ public abstract class Enemy : AliveEntity
         nameView.text = name;
     }
 
-    protected new void OnEnable()
-    {
-        base.OnEnable();
-        target = null;
-        var nma = GetComponent<NavMeshAgent>();
-        if (nma)
-            nma.enabled = true;
-    }
-
     void AttackBegin()
     {
         _attackSubject.enabled = true;
@@ -107,13 +98,6 @@ public abstract class Enemy : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        DropItems();
-        Invoke("SetActiveFalse", 2.0f);
-    }
-
-    protected override void Knockdown()
-    {
-        _animator.SetTrigger("Knockdown");
     }
 
     public void DropItems()
@@ -132,6 +116,7 @@ public abstract class Enemy : AliveEntity
             target.ExpUp(new ExpUp(7));
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
+        target = null;
     }
 
     void Respawn()
@@ -139,6 +124,11 @@ public abstract class Enemy : AliveEntity
         spawner.Spawn(this);
         CancelInvoke("Respawn");
         _animator.Rebind();
+    }
+
+    protected override void Knockdown()
+    {
+        _animator.SetTrigger("Knockdown");
     }
 
     public void OnDropItemInstantiate(ItemSolid item)

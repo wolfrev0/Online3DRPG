@@ -23,14 +23,14 @@ public class Mineral : Enemy
         usePeriodicSync = false;
     }
 
-    protected override float CalculateDamage(float original, Weapon.Type weaponType)
+    protected override float CalculateDamage(Damage damage)
     {
-        if (weaponType != Weapon.Type.pickaxe)
+        if (damage.weaponType != Weapon.Type.pickaxe)
         {
-            if(isMine)
+            if (damage.from == userName)
                 FindObjectOfType<ChattingView>().PushGuideMessage("광물은 '곡괭이'로 채광할 수 있습니다.");
             return 0;
         }
-        return original;
+        return damage.amount;
     }
 }

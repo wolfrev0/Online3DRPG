@@ -125,8 +125,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         }
     }
 
-    protected virtual float CalculateHeal(float original) { return original; }
-    protected virtual float CalculateDamage(float original, Weapon.Type weaponType) { return original; }
+    protected virtual float CalculateHeal(Heal heal) { return heal.amount; }
+    protected virtual float CalculateDamage(Damage damage) { return damage.amount; }
 
     protected new void Start()
     {
@@ -237,7 +237,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(heal);
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
-        hp += CalculateHeal(heal.amount);
+        hp += CalculateHeal(heal);
 
         ParticleSystem _particle = Instantiate(_pfHealFX);
         _particle.transform.SetParent(transform);
@@ -251,7 +251,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(dmg);
         if (dmg.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= CalculateDamage(dmg.amount, dmg.weaponType);
+        hp -= CalculateDamage(dmg);
 
         if (dmg.knockdown)
             Knockdown();

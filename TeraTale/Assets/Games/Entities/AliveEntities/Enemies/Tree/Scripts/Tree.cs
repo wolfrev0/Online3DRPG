@@ -23,14 +23,14 @@ public class Tree : Enemy
         usePeriodicSync = false;
     }
 
-    protected override float CalculateDamage(float original, Weapon.Type weaponType)
+    protected override float CalculateDamage(Damage damage)
     {
-        if (weaponType != Weapon.Type.axe)
+        if (damage.weaponType != Weapon.Type.axe)
         {
-            if (isMine)
+            if (damage.from == userName)
                 FindObjectOfType<ChattingView>().PushGuideMessage("나무는 '도끼'로 벌목할 수 있습니다.");
             return 0;
         }
-        return original;
+        return damage.amount;
     }
 }

@@ -41,7 +41,7 @@ public class AttackSubjectImpl : AttackSubject
             return;
         if (coll.tag == targetTag)
         {
-            coll.GetComponent<AliveEntity>().Damage(new Damage(Damage.Type.Physical, owner.weaponType, damageCalculator(owner.attackDamage), 0, knockdown));
+            coll.GetComponent<AliveEntity>().Damage(new Damage(Damage.Type.Physical, owner.weaponType, owner.owner, damageCalculator(owner.attackDamage), 0, knockdown));
         }
     }
 }
