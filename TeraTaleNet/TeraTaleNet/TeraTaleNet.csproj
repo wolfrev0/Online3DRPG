@@ -58,6 +58,7 @@
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\Item\Sundry\IronOre.cs" />
     <Compile Include="Body\Item\Sundry\Log.cs" />
+    <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
     <Compile Include="Body\RPC\ExpUp.cs" />
@@ -79,12 +80,13 @@
     <Compile Include="Body\RemoveBufferedRPC.cs" />
     <Compile Include="Body\RPC\AddItem.cs" />
     <Compile Include="Body\RPC\Attack.cs" />
-    <Compile Include="Body\RPC\Chase.cs" />
     <Compile Include="Body\RPC\ItemUse.cs" />
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
+    <Compile Include="Body\RPC\RemoveTarget.cs" />
+    <Compile Include="Body\RPC\Respawn.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="Body\RPC\SetActive.cs" />
     <Compile Include="Body\RPC\Sync.cs" />

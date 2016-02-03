@@ -10,24 +10,24 @@ public class AttackRangeDetector : MonoBehaviour
         observer = GetComponentInParent<Enemy>();
     }
 
-    void OnTriggerEnter(Collider coll)
-    {
-        OnTriggerStay(coll);
-    }
-
     void OnTriggerStay(Collider coll)
     {
+        if (enabled == false)
+            return;
         if (observer.target != null && coll.gameObject == observer.target.gameObject)
         {
             if (observer.CanAttackTarget())
                 observer.Attack();
             else
-                observer.Chase(observer.target);
+                observer.Chase();
         }
     }
 
     void OnTriggerExit(Collider coll)
     {
-        observer.Chase(observer.target);
+        if (enabled == false)
+            return;
+        if (observer.target != null && coll.gameObject == observer.target.gameObject)
+            observer.Chase();
     }
 }

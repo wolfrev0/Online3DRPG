@@ -68,7 +68,7 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
         if (signallersByID.TryGetValue(rpc.signallerID, out script))
         {
             if (script.gameObject.activeSelf)
-                script.SendMessage(rpc.GetType().Name, rpc);
+                script.SendMessage(rpc.GetType().Name, rpc, SendMessageOptions.RequireReceiver);
             else
             {
                 SetActive sa = rpc as SetActive;

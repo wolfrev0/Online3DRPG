@@ -94,7 +94,7 @@ public class Player : AliveEntity
         _animator = GetComponentInChildren<Animator>();
     }
 
-    new void Start()
+    protected new void Start()
     {
         base.Start();
         name = owner;
@@ -194,7 +194,7 @@ public class Player : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        GetComponent<Collider>().enabled = false;
+        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         Invoke("Respawn", 3.0f);
     }
 
@@ -235,7 +235,6 @@ public class Player : AliveEntity
         }
         else
         {
-            Debug.Log("Switch World On " + rpc.world);
             SceneManager.LoadScene(rpc.world);
             Send(new BufferedRPCRequest(userName));
 

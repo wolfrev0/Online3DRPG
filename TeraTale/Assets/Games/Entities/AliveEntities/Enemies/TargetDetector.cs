@@ -10,15 +10,23 @@ public class TargetDetector : MonoBehaviour
         observer = transform.GetComponentInParent<Enemy>();
     }
 
-    void OnTriggerEnter(Collider coll)
+    void OnTriggerStay(Collider coll)
     {
-        if (NetworkScript.isServer && observer.target == null && coll.tag == "Player")
-            observer.Chase(coll.GetComponent<Player>());
+        if (enabled == false)
+            return;
+        if (coll.tag == "Player")
+        {
+            if (observer.target == null)
+                observer.AddTarget(coll.GetComponent<Player>());
+            observer.Chase();
+        }
     }
 
     void OnTriggerExit(Collider coll)
     {
-        if (NetworkScript.isServer && observer.target != null && coll.gameObject == observer.target.gameObject)
-            observer.ChaseStop();
+        if (enabled == false)
+            return;
+        if (observer.target != null && coll.gameObject == observer.target.gameObject)
+            observer.RemoveTarget(coll.GetComponent<Player>());
     }
 }

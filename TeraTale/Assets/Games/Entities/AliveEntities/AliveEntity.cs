@@ -194,7 +194,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         Sync(s);
     }
 
-    protected sealed override void OnSynced(Sync sync)
+    protected override void OnSynced(Sync sync)
     {
         switch(sync.member)
         {
