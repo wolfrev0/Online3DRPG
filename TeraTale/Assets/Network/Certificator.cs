@@ -83,6 +83,9 @@ public class Certificator : NetworkProgramUnity
             userName = answer.name;
             net.signallersByID = signallersByID;
             net.enabled = true;
+
+            //※ Client.Start() is not started yet.
+            Send(new BufferedRPCRequest(userName));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace TeraTaleNet
 {
     public class PacketStream : IDisposable
     {
-        const int _bufferSize = 1024;
+        const int _bufferSize = 8192;
 
         Connection _connection;
         bool _disposed = false;

@@ -4,14 +4,14 @@
     {
         public IAutoSerializable item;
 
-        public AddItem(string receiver, Item item)
-            : base(RPCType.Specific, receiver)
+        public AddItem(Item item)
+            : base(RPCType.All)
         {
             this.item = item;
         }
 
         public AddItem()
-            : base(RPCType.Specific)
+            : base(RPCType.All)
         { }
     }
 }

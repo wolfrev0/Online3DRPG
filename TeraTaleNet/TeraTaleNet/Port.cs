@@ -6,6 +6,7 @@
         Login,
         Town,
         Forest,
+        Mine,
         Proxy,
     }
 }

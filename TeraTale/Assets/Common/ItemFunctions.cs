@@ -3,29 +3,32 @@ using TeraTaleNet;
 
 public class ItemFunctions : NetworkScript
 {
-    public ParticleSystem _fxpotion;
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        HpPotion.onUse += (Item item) =>
+        HpPotion.onUse += (Item item, object target) =>
         {
-            var player = Player.mine;
-            player.Heal(new Heal("", 30));
-            ParticleSystem _particle = Instantiate(_fxpotion);
-            _particle.transform.SetParent(player.transform);
-            _particle.transform.localPosition = Vector3.zero;
-            Destroy(_particle.gameObject,_particle.duration);
-            player.Send(new Heal("", 30));
+            if (isServer)
+            {
+                var player = (Player)target;
+                player.Heal(new Heal("", 30));
+            }
         };
-        Equipment.onUse += (Item item) =>
+        Apple.onUse += (Item item, object target) =>
         {
-            var player = Player.mine;
+            if (isServer)
+            {
+                var player = (Player)target;
+                player.Heal(new Heal("", 10));
+            }
+        };
+        Equipment.onUse += (Item item, object target) =>
+        {
+            var player = (Player)target;
             if (player.IsEquiping((Equipment)item))
                 player.Equip(new WeaponNull());
             else
                 player.Equip((Equipment)item);
-
         };
     }
 }

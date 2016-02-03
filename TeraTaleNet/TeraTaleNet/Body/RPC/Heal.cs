@@ -2,13 +2,13 @@
 {
     public class Heal : RPC
     {
-        public string healer;
+        public string from;
         public float amount;
 
-        public Heal(string healer, float amount)
+        public Heal(string from, float amount)
             : base(RPCType.Others)
         {
-            this.healer = healer;
+            this.from = from;
             this.amount = amount;
         }
 

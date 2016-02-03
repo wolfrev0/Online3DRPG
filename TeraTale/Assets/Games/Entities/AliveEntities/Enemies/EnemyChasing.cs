@@ -21,6 +21,8 @@ public class EnemyChasing : StateMachineBehaviour
             return;
         if (_enemy.target)
             _nma.destination = _enemy.target.transform.position;
+        else
+            animator.SetBool("Chase", false);
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

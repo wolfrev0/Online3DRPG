@@ -53,10 +53,10 @@ namespace TeraTaleNet
             return IsFull() == false && i.IsSameType(item);
         }
 
-        public void Use()
+        public void Use(object player)
         {
             Item item = _stack.Peek();
-            item.Use();
+            item.Use(player);
 
             if (item.isConsumables)
             {

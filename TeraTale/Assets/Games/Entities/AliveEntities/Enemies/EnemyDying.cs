@@ -9,8 +9,9 @@ public class EnemyDying : StateMachineBehaviour
     {
         if (_enemy == null)
             _enemy = animator.GetComponent<Enemy>();
-        _enemy.GetComponent<NavMeshAgent>().enabled = false;
+        animator.SetBool("Died", true);
         _enemy.DropItems();
+        _enemy.Invoke("SetActiveFalse", 2.0f);
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,7 +21,7 @@ public class EnemyDying : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _enemy.GetComponent<NavMeshAgent>().enabled = true;
+        //it won't call.
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

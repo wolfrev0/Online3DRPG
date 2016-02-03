@@ -4,8 +4,11 @@ using UnityEngine.UI;
 using TeraTaleNet;
 
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
-public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
+public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
+    static int[] _expMaxByLevel;
+
+    protected bool usePeriodicSync = true;
     [SerializeField]
     Image _hpBar = null;
     [SerializeField]
@@ -16,7 +19,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float hp
     {
         get { return _hp; }
-        private set
+        protected set
         {
             if (value > hpMax)
                 value = hpMax;
@@ -72,18 +75,24 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
-    public int _level;
+    public int _level = 1;
     public int level
     {
         get { return _level; }
         private set
         {
+            if (expMax < 1)
+                return;
             if (value < _level)
                 throw new ArgumentException("level can not decreased.");
+            if (level > levelMax)
+                return;
             _level = value;
             _levelText.text = "LV." + _level;
+            expMax = _expMaxByLevel[level];
         }
     }
+    int levelMax { get { return _expMaxByLevel.Length - 1; } }
     public float _exp;
     public float exp
     {
@@ -91,14 +100,14 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         private set
         {
             _exp = value;
-            if (_exp >= expMax)
+            while (_exp >= expMax)
             {
                 _exp -= expMax;
                 level = level + 1;
             }
         }
     }
-    public float _expMax;
+    float _expMax = 1;
     public float expMax { get { return _expMax; } private set { _expMax = value; } }
 
     public Vector3 _syncedPos;
@@ -106,11 +115,33 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
     Vector3 _posError;
     Vector3 _rotError;
 
+    static ParticleSystem _pfHealFX;
+
+    public Weapon.Type weaponType
+    {
+        get
+        {
+            Weapon.Type weaponType = Weapon.Type.none;
+
+            Player player = this as Player;
+            if (player)
+                weaponType = player.weapon.weaponType;
+
+            return weaponType;
+        }
+    }
+
+    protected virtual float CalculateHeal(Heal heal) { return heal.amount; }
+    protected virtual float CalculateDamage(Damage damage) { return damage.amount; }
+
     protected new void Start()
     {
         base.Start();
+        if (_pfHealFX == null)
+            _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
-            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 3f), 3f);
+            InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
+        _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
     }
 
     protected new void OnEnable()
@@ -137,11 +168,16 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
             Sync("attackSpeed");
             Sync("castingTimeDecrease");
             Sync("coolTimeDecrease");
+            Sync("level");
+            Sync("exp");
+            Sync("expMax");
         }
     }
 
-    void PeriodicSync()
+    protected void PeriodicSync()
     {
+        if (usePeriodicSync == false)
+            return;
         if (gameObject.activeSelf == false)
             return;
         _syncedPos = transform.position;
@@ -158,7 +194,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         Sync(s);
     }
 
-    protected sealed override void OnSynced(Sync sync)
+    protected override void OnSynced(Sync sync)
     {
         switch(sync.member)
         {
@@ -182,28 +218,57 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable
         }
     }
 
-    public virtual void Heal(Heal heal)
+    public byte[] Serialize()
+    {
+        return Serializer.Serialize(this as IAutoSerializable);
+    }
+
+    public void Deserialize(byte[] buffer)
+    {
+        Serializer.Deserialize(this as IAutoSerializable, buffer);
+    }
+
+    public int SerializedSize()
+    {
+        return Serializer.SerializedSize(this as IAutoSerializable);
+    }
+
+    public Header CreateHeader()
+    {
+        return Serializer.CreateHeader(this as IAutoSerializable);
+    }
+
+    public void Heal(Heal heal)
     {
         if (isServer)
             Send(heal);
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
-        hp += heal.amount;
-    }
+        hp += CalculateHeal(heal);
+        OnHealed(heal);
 
-    public virtual void Damage(Damage dmg)
+        ParticleSystem _particle = Instantiate(_pfHealFX);
+        _particle.transform.SetParent(transform);
+        _particle.transform.localPosition = Vector3.zero;
+        Destroy(_particle.gameObject, _particle.duration);
+    }
+    protected virtual void OnHealed(Heal heal) { }
+
+    public void Damage(Damage damage)
     {
         if (isServer)
-            Send(dmg);
-        if (dmg.amount < 0)
+            Send(damage);
+        if (damage.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= dmg.amount;
-        if (dmg.knockdown)
-            Knockdown();
-            
-    }
+        hp -= CalculateDamage(damage);
+        OnDamaged(damage);
 
-    public virtual void ExpUp(ExpUp expUp)
+        if (damage.knockdown)
+            Knockdown();
+    }
+    protected virtual void OnDamaged(Damage damage) { }
+
+    public void ExpUp(ExpUp expUp)
     {
         if (isServer)
             Send(expUp);

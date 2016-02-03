@@ -16,15 +16,15 @@ public abstract class Enemy : AliveEntity
     public Text nameView;
     public Item[] items;
     public MonsterSpawner spawner { get; set; }
-    NavMeshAgent _navMeshAgent;
     Animator _animator;
-    
+
+    SortedList<float, AliveEntity> _targets = new SortedList<float, AliveEntity>();
+    //return high-damaged target;
     public AliveEntity target
-    { get; private set; }
+    { get { return (_targets.Count == 0) ? null : _targets.Values[_targets.Count - 1]; } }
 
     protected void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
 
@@ -32,17 +32,6 @@ public abstract class Enemy : AliveEntity
     {
         base.Start();
         nameView.text = name;
-    }
-
-    protected new void OnEnable()
-    {
-        base.OnEnable();
-        _navMeshAgent.enabled = true;
-    }
-
-    protected void OnDisable()
-    {
-        target = null;
     }
 
     void AttackBegin()
@@ -55,33 +44,44 @@ public abstract class Enemy : AliveEntity
         _attackSubject.enabled = false;
     }
 
-    public void Chase(AliveEntity target)
+    public void AddTarget(AliveEntity target)
     {
         if (isServer)
         {
-            this.target = target;
-            int targetSignallerID = 0;
-            if (target)
-                targetSignallerID = target.networkID;
-            Send(new Chase(targetSignallerID));
+            var rpc = new AddTarget(target.networkID);
+            AddTarget(rpc);
+            Send(rpc);
         }
     }
 
-    public void Chase(Chase rpc)
+    public void AddTarget(AddTarget rpc)
     {
-        bool flag = false;
-        target = null;
-        if (rpc.targetSignallerID != 0)
-        {
-            flag = true;
-            target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetSignallerID];
-        }
-        _animator.SetBool("Chase", flag);
+        var target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID];
+        if (!_targets.ContainsValue(target))
+            _targets.Add(0, target);
+    }
+
+    public void RemoveTarget(AliveEntity target)
+    {
+        if (isServer)
+            Send(new RemoveTarget(target.networkID));
+    }
+
+    public void RemoveTarget(RemoveTarget rpc)
+    {
+        var target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID];
+        if (_targets.ContainsValue(target))
+            _targets.RemoveAt(_targets.IndexOfValue(target));
+    }
+
+    public void Chase()
+    {
+        _animator.SetBool("Chase", true);
     }
 
     public void ChaseStop()
     {
-        Chase(null as AliveEntity);
+        _animator.SetBool("Chase", false);
     }
 
     public void Attack()
@@ -111,12 +111,6 @@ public abstract class Enemy : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        Invoke("SetActiveFalse", 2.0f);
-    }
-
-    protected override void Knockdown()
-    {
-        _animator.SetTrigger("Knockdown");
     }
 
     public void DropItems()
@@ -131,15 +125,35 @@ public abstract class Enemy : AliveEntity
     {
         if (isLocal)
             return;
-        target.ExpUp(new ExpUp(7));
+        if (target)
+            target.ExpUp(new ExpUp(10));
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
     }
 
-    void Respawn()
+    public void Respawn()
     {
-        spawner.Spawn(this);
         CancelInvoke("Respawn");
+        if (gameObject.activeSelf == false)
+            Send(new SetActive(true));
+        Send(new Reset(UnityEngine.Random.Range(0f, Mathf.PI * 2)));
+    }
+
+    public void Reset(Reset rpc)
+    {
+        transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * UnityEngine.Random.Range(0f, spawner.spawnRange) + spawner.transform.position;
+        transform.eulerAngles = new Vector3(0, UnityEngine.Random.Range(0f, 360f), 0);
+        _animator.Rebind();
+        _targets.Clear();
+    }
+
+    protected override void OnDamaged(Damage damage)
+    {
+    }
+
+    protected override void Knockdown()
+    {
+        _animator.SetTrigger("Knockdown");
     }
 
     public void OnDropItemInstantiate(ItemSolid item)

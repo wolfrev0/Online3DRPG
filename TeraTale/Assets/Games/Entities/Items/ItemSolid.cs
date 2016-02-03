@@ -3,12 +3,12 @@ using TeraTaleNet;
 
 public class ItemSolid : Entity
 {
-    Item _item;
+    public Item item;
     public ItemSpawnEffector _effector;
 
     public void OnNetInstantiate(Item item)
     {
-        _item = item;
+        this.item = item;
 
         _effector = gameObject.AddComponent<ItemSpawnEffector>();
         var floater = gameObject.AddComponent<Floater>();
@@ -24,7 +24,7 @@ public class ItemSolid : Entity
         if (isServer && coll.tag == "Player")// Remove when the test ended.
         {
             var player = coll.GetComponent<Player>();
-            player.AddItem(_item);
+            player.AddItem(item);
             NetworkDestroy(this);
         }
     }

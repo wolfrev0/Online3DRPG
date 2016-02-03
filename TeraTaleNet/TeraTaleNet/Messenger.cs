@@ -42,7 +42,7 @@ namespace TeraTaleNet
                     else if (p.Length > 0)
                         handlerByType.Add(p[0].ParameterType, method);
                 }
-                catch (ArgumentException e)
+                catch (ArgumentException)
                 { }
             }
 

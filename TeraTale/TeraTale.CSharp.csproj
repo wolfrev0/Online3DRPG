@@ -111,11 +111,13 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyChasing.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Mineral\Scripts\Mineral.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBacktumbling.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBackTumbling.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
@@ -144,13 +146,14 @@
     <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
-    <Compile Include="Assets\ItemSpawner.cs" />
+    <Compile Include="Assets\Games\ItemSpawner.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
     <Compile Include="Assets\Network\NetworkScript.cs" />
     <Compile Include="Assets\Network\Server\Forest.cs" />
     <Compile Include="Assets\Network\Server\GameServer.cs" />
+    <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />
@@ -163,7 +166,6 @@
   <ItemGroup>
     <None Include="Assets\Collecting\AboutHero\Double Sided Standard Diffuse Bump.shader" />
     <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
-    <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />

@@ -20,9 +20,9 @@ public class Skeleton : Enemy
         {
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
-                ret.Add(new HpPotion());
+                ret.Add(new Bone());
             else
-                ret.Add(new Rock());
+                ret.Add(new HpPotion());
             return ret;
         }
     }

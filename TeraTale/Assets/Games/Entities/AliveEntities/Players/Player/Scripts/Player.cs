@@ -6,7 +6,7 @@ using TeraTaleNet;
 using System;
 using System.Reflection;
 
-public class Player : AliveEntity, IAutoSerializable
+public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     const float kRaycastDistance = 50.0f;
@@ -17,7 +17,7 @@ public class Player : AliveEntity, IAutoSerializable
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     public ItemStackList _itemStacks = new ItemStackList(30);
-    Weapon _weapon;
+    public Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
@@ -27,6 +27,7 @@ public class Player : AliveEntity, IAutoSerializable
     public ItemStackList itemStacks
     {
         get { return _itemStacks; }
+        private set { _itemStacks = value; }
     }
 
     static Player _mine;
@@ -42,10 +43,9 @@ public class Player : AliveEntity, IAutoSerializable
 
     static public Player FindPlayerByName(string name)
     {
-        try
-        { return _playersByName[name]; }
-        catch (KeyNotFoundException)
-        { return null; }
+        Player ret;
+        _playersByName.TryGetValue(name, out ret);
+        return ret;
     }
 
     public Weapon weapon
@@ -55,6 +55,7 @@ public class Player : AliveEntity, IAutoSerializable
         private set
         {
             _weapon = value;
+            _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
             if (isServer)
             {
                 NetworkDestroy(_weaponSolid);
@@ -67,7 +68,8 @@ public class Player : AliveEntity, IAutoSerializable
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
-        _weaponSolid = itemSolid;        
+        _weaponSolid = itemSolid;
+        _weapon = (Weapon)_weaponSolid.item;
         if (_weapon.weaponType == Weapon.Type.bow)
             _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
         else
@@ -92,7 +94,7 @@ public class Player : AliveEntity, IAutoSerializable
         _animator = GetComponentInChildren<Animator>();
     }
 
-    new void Start()
+    protected new void Start()
     {
         base.Start();
         name = owner;
@@ -104,20 +106,18 @@ public class Player : AliveEntity, IAutoSerializable
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
         }
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
-        _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfArrow == null)
+            _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
 
         if (isServer)
-        {
-            Equip(new WeaponNull());
             GameServer.currentInstance.QuerySerializedPlayer(name);
-        }
     }
 
-    protected override void OnDestroy()
+    protected override void OnNetworkDestroy()
     {
         if (isServer)
             GameServer.currentInstance.SavePlayer(this);
-        base.OnDestroy();
+        base.OnNetworkDestroy();
         _playersByName.Remove(name);
     }
 
@@ -194,11 +194,13 @@ public class Player : AliveEntity, IAutoSerializable
     protected override void Die()
     {
         _animator.SetTrigger("Die");
+        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         Invoke("Respawn", 3.0f);
     }
 
     void Respawn()
     {
+        hp = hpMax;
         SwitchWorld("Town");
     }
 
@@ -220,11 +222,22 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void SwitchWorld(string world)
     {
-        if (isMine)
+        Send(new SwitchWorld(RPCType.Specific, Application.loadedLevelName, name, world));
+    }
+
+    public void SwitchWorld(SwitchWorld rpc)
+    {
+        if (isServer)
         {
+            rpc.receiver = rpc.user;
+            Send(rpc);
             Destroy();
-            Send(new SwitchWorld(userName, world));
-            SceneManager.LoadScene(world);
+        }
+        else
+        {
+            SceneManager.LoadScene(rpc.world);
+            Send(new BufferedRPCRequest(userName));
+
             var programInst = NetworkProgramUnity.currentInstance;
             programInst.NetworkInstantiate(programInst.pfPlayer);
         }
@@ -232,8 +245,7 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void AddItem(Item item)
     {
-        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
-        Send(new AddItem(name, item));
+        Send(new AddItem(item));
     }
 
     public void AddItem(AddItem rpc)
@@ -242,14 +254,13 @@ public class Player : AliveEntity, IAutoSerializable
         _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
-    public void Equip(Equipment equipment)
+    public void ItemUse(ItemUse rpc)
     {
-        Send(new Equip(equipment));
+        _itemStacks[rpc.index].Use(this);
     }
 
-    public void Equip(Equip rpc)
+    public void Equip(Equipment equipment)
     {
-        var equipment = (Equipment)rpc.equipment;
         switch (equipment.equipmentType)
         {
             case Equipment.Type.Coat:
@@ -266,7 +277,6 @@ public class Player : AliveEntity, IAutoSerializable
                 weapon = (Weapon)equipment;
                 break;
         }
-        _animator.SetInteger("WeaponType", (int)_weapon.weaponType);
     }
 
     public bool IsEquiping(Equipment equipment)
@@ -291,30 +301,24 @@ public class Player : AliveEntity, IAutoSerializable
 
     public void SerializedPlayer(SerializedPlayer rpc)
     {
-        if (isServer)
-            Send(rpc);
+        if (isLocal)
+            return;
         if (rpc.data.Length <= 1)
             return;
         Deserialize(rpc.data);
-    }
 
-    public byte[] Serialize()
-    {
-        return Serializer.Serialize(this as IAutoSerializable);
-    }
+        //Deserialize only set the field _weapon, not the property weapon. so, we should call this property manually.
+        weapon = weapon;
+        //Weapon Sync;
+        Sync s = new Sync(RPCType.Others, "", "weapon");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
 
-    public void Deserialize(byte[] buffer)
-    {
-        Serializer.Deserialize(this as IAutoSerializable, buffer);
-    }
-
-    public int SerializedSize()
-    {
-        return Serializer.SerializedSize(this as IAutoSerializable);
-    }
-
-    public Header CreateHeader()
-    {
-        return Serializer.CreateHeader(this as IAutoSerializable);
+        //itemStack Sync
+        s = new Sync(RPCType.Others, "", "itemStacks");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
     }
 }

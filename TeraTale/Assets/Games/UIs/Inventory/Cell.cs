@@ -6,6 +6,7 @@ using System;
 
 public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    int _itemStackIndex = -1;
     ItemStack _itemStack;
     Image _image;
     public Text _count;
@@ -22,10 +23,11 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         _alignedPosition = transform.position;
     }
 
-    public void SetItemStack(ItemStack itemStack)
+    public void SetItemStack(ItemStack itemStack, int itemStackIndex)
     {
         Awake();//이상한 null 버그 땜빵..
         _itemStack = itemStack;
+        _itemStackIndex = itemStackIndex;
     }
 
     void Update()
@@ -44,7 +46,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            _itemStack.Use();
+            Player.mine.Send(new ItemUse(_itemStackIndex));
         }
     }
 

@@ -21,16 +21,10 @@ public class ServerClientSelectionHandler : MonoBehaviour
         login.Start();
     }
 
-    public void OnTown()
+    public void OnServer(string name)
     {
-        town.enabled = true;
-        SceneManager.LoadScene("Town");
-    }
-
-    public void OnForest()
-    {
-        forest.enabled = true;
-        SceneManager.LoadScene("Forest");
+        GameObject.Find(name).GetComponent<GameServer>().enabled = true;
+        SceneManager.LoadScene(name);
     }
 
     public void OnProxy()

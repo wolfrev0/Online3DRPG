@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
         var player = Player.mine;
         for (int i = 0; i < cells.Length; i++)
         {
-            cells[i].SetItemStack(player.itemStacks[i]);
+            cells[i].SetItemStack(player.itemStacks[i], i);
         }
     }
 
