@@ -6,6 +6,8 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
+    static int[] _expMaxByLevel;
+
     protected bool usePeriodicSync = true;
     [SerializeField]
     Image _hpBar = null;
@@ -73,7 +75,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
-    public int _level;
+    public int _level = 1;
     public int level
     {
         get { return _level; }
@@ -83,10 +85,14 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 return;
             if (value < _level)
                 throw new ArgumentException("level can not decreased.");
+            if (level > levelMax)
+                return;
             _level = value;
             _levelText.text = "LV." + _level;
+            expMax = _expMaxByLevel[level];
         }
     }
+    int levelMax { get { return _expMaxByLevel.Length - 1; } }
     public float _exp;
     public float exp
     {
@@ -94,14 +100,14 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         private set
         {
             _exp = value;
-            if (_exp >= expMax)
+            while (_exp >= expMax)
             {
                 _exp -= expMax;
                 level = level + 1;
             }
         }
     }
-    public float _expMax;
+    float _expMax = 1;
     public float expMax { get { return _expMax; } private set { _expMax = value; } }
 
     public Vector3 _syncedPos;
@@ -135,6 +141,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
+        _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
     }
 
     protected new void OnEnable()
@@ -231,33 +238,37 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         return Serializer.CreateHeader(this as IAutoSerializable);
     }
 
-    public virtual void Heal(Heal heal)
+    public void Heal(Heal heal)
     {
         if (isServer)
             Send(heal);
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
         hp += CalculateHeal(heal);
+        OnHealed(heal);
 
         ParticleSystem _particle = Instantiate(_pfHealFX);
         _particle.transform.SetParent(transform);
         _particle.transform.localPosition = Vector3.zero;
         Destroy(_particle.gameObject, _particle.duration);
     }
+    protected virtual void OnHealed(Heal heal) { }
 
-    public virtual void Damage(Damage dmg)
+    public void Damage(Damage damage)
     {
         if (isServer)
-            Send(dmg);
-        if (dmg.amount < 0)
+            Send(damage);
+        if (damage.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= CalculateDamage(dmg);
+        hp -= CalculateDamage(damage);
+        OnDamaged(damage);
 
-        if (dmg.knockdown)
+        if (damage.knockdown)
             Knockdown();
     }
+    protected virtual void OnDamaged(Damage damage) { }
 
-    public virtual void ExpUp(ExpUp expUp)
+    public void ExpUp(ExpUp expUp)
     {
         if (isServer)
             Send(expUp);

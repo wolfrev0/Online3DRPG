@@ -113,7 +113,7 @@ public abstract class Enemy : AliveEntity
         if (isLocal)
             return;
         if (target)
-            target.ExpUp(new ExpUp(7));
+            target.ExpUp(new ExpUp(10));
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
         target = null;
@@ -124,6 +124,10 @@ public abstract class Enemy : AliveEntity
         spawner.Spawn(this);
         CancelInvoke("Respawn");
         _animator.Rebind();
+    }
+
+    protected override void OnDamaged(Damage damage)
+    {
     }
 
     protected override void Knockdown()

@@ -43,10 +43,9 @@ public class Player : AliveEntity
 
     static public Player FindPlayerByName(string name)
     {
-        try
-        { return _playersByName[name]; }
-        catch (KeyNotFoundException)
-        { return null; }
+        Player ret;
+        _playersByName.TryGetValue(name, out ret);
+        return ret;
     }
 
     public Weapon weapon

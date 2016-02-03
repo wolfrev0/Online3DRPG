@@ -896,9 +896,8 @@ MonoBehaviour:
   _stamina: 100
   _staminaMax: 100
   _attackDamage: 10
-  _level: 0
+  _level: 1
   _exp: 0
-  _expMax: 30
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
   nameView: {fileID: 11404584}
@@ -1397,6 +1396,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _level
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
