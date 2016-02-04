@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -82,6 +80,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Campfire\Script\FireLightScript.cs" />
+    <Compile Include="Assets\Collecting\Doctor.cs" />
     <Compile Include="Assets\Collecting\Scripts\Collect.cs" />
     <Compile Include="Assets\Collecting\Scripts\CollectFlower.cs" />
     <Compile Include="Assets\Collecting\Scripts\Logging.cs" />
@@ -162,12 +162,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Collecting\AboutHero\Double Sided Standard Diffuse Bump.shader" />
+    <None Include="Assets\Collecting\AboutZombi\Toon Zombie S\TSF\Shaders\TSF.shader" />
+    <None Include="Assets\Collecting\AboutZombi\Toon Zombie S\TSF\Shaders\TSFOutline.shader" />
     <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Games\Entities\Items\Hand painted bottle\readme.txt" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
+    <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
