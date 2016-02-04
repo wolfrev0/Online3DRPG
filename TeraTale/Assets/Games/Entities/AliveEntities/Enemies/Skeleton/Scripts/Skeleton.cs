@@ -14,7 +14,7 @@ public class Skeleton : Enemy
         base.Start();
     }
 
-    protected override List<Item> Items
+    protected override List<Item> itemsForDrop
     {
         get
         {
@@ -26,4 +26,7 @@ public class Skeleton : Enemy
             return ret;
         }
     }
+
+    protected override float levelForDrop
+    { get { return 16; } }
 }

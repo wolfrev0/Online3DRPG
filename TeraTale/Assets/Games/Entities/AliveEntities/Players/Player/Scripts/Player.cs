@@ -22,8 +22,9 @@ public class Player : AliveEntity
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
-    Projectile _pfArrow;
-    
+    static Projectile _pfArrow;
+    static Player _pfPlayer;
+
     public ItemStackList itemStacks
     {
         get { return _itemStacks; }
@@ -108,6 +109,8 @@ public class Player : AliveEntity
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         if (_pfArrow == null)
             _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfPlayer == null)
+            _pfPlayer = Resources.Load<Player>("Prefabs/Player");
 
         if (isServer)
             GameServer.currentInstance.QuerySerializedPlayer(name);
@@ -237,9 +240,7 @@ public class Player : AliveEntity
         {
             SceneManager.LoadScene(rpc.world);
             Send(new BufferedRPCRequest(userName));
-
-            var programInst = NetworkProgramUnity.currentInstance;
-            programInst.NetworkInstantiate(programInst.pfPlayer);
+            NetworkProgramUnity.currentInstance.NetworkInstantiate(_pfPlayer);
         }
     }
 

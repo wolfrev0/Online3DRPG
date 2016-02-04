@@ -5,6 +5,7 @@ using TeraTaleNet;
 
 public class Client : NetworkProgramUnity
 {
+    public NetworkScript pfPlayer;
     public PacketStream stream;
     NetworkAgent _agent = new NetworkAgent();
 
@@ -15,7 +16,8 @@ public class Client : NetworkProgramUnity
         StartCoroutine(Dispatcher("Proxy"));
 
         _messenger.Start();
-        
+
+        Send(new BufferedRPCRequest(userName));
         NetworkInstantiate(pfPlayer);
     }
 

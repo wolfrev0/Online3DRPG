@@ -7,7 +7,6 @@ public abstract class Enemy : AliveEntity
 {
     public AttackSubject _attackSubject;
     public Text nameView;
-    public Item[] items;
     public MonsterSpawner spawner { get; set; }
     Animator _animator;
 
@@ -33,8 +32,15 @@ public abstract class Enemy : AliveEntity
     }
     List<TargetDamagePair> _targets = new List<TargetDamagePair>();
     //return high-damaged target;
-    public AliveEntity target
-    { get { return (_targets.Count == 0) ? null : _targets[_targets.Count - 1].target; } }
+    public AliveEntity mainTarget
+    { get { return _targets[_targets.Count - 1].target; } }
+
+    public bool hasTarget { get { return _targets.Count > 0; } }
+
+    public bool ContainsTarget(GameObject gameObject)
+    {
+        return _targets.Find(t => t.target.gameObject == gameObject) != null;
+    }
 
     protected void Awake()
     {
@@ -113,14 +119,17 @@ public abstract class Enemy : AliveEntity
             if (root.tag == "Player")
             {
                 var player = root.GetComponent<Player>();
-                if (player == target)
+                if (player == mainTarget)
                     return true;
             }
         }
         return false;
     }
 
-    protected abstract List<Item> Items
+    protected abstract List<Item> itemsForDrop
+    { get; }
+
+    protected abstract float levelForDrop
     { get; }
 
     protected override void Die()
@@ -132,7 +141,7 @@ public abstract class Enemy : AliveEntity
     {
         if (isLocal)
             return;
-        foreach (var item in Items)
+        foreach (var item in itemsForDrop)
             NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
     }
 
@@ -141,7 +150,7 @@ public abstract class Enemy : AliveEntity
         if (isLocal)
             return;
         foreach (var target in _targets)
-            target.target.ExpUp(new ExpUp(10));//나중에 accumulatedDamage 비율 계산해서 주자.
+            target.target.ExpUp(new ExpUp(levelForDrop));//나중에 accumulatedDamage 비율 계산해서 주자.
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
     }

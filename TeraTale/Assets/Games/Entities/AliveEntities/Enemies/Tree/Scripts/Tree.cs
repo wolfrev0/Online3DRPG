@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tree : Enemy
 {
-    protected override List<Item> Items
+    protected override List<Item> itemsForDrop
     {
         get
         {
@@ -16,6 +16,9 @@ public class Tree : Enemy
             return ret;
         }
     }
+
+    protected override float levelForDrop
+    { get { return 10; } }
 
     protected new void Start()
     {

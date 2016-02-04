@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
 {
     static public NetworkProgramUnity currentInstance;
-    public NetworkScript pfPlayer;
     protected Messenger _messenger;
     bool _stopped = false;
 

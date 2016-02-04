@@ -102,8 +102,15 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _exp = value;
             while (_exp >= expMax)
             {
-                _exp -= expMax;
-                level = level + 1;
+                if (level == levelMax)
+                {
+                    _exp = expMax - 1;
+                }
+                else
+                {
+                    _exp -= expMax;
+                    level = level + 1;
+                }
             }
         }
     }
