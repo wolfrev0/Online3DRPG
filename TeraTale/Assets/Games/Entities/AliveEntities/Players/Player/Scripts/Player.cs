@@ -194,7 +194,7 @@ public class Player : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue / 2, float.MaxValue / 2, float.MaxValue / 2);
         Invoke("Respawn", 3.0f);
     }
 

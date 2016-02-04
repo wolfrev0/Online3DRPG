@@ -6,7 +6,7 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
-    static int[] _expMaxByLevel;
+    static int[] _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
 
     protected bool usePeriodicSync = true;
     [SerializeField]
@@ -85,7 +85,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 return;
             if (value < _level)
                 throw new ArgumentException("level can not decreased.");
-            if (level > levelMax)
+            if (level >= levelMax)
                 return;
             _level = value;
             _levelText.text = "LV." + _level;
@@ -141,7 +141,6 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
-        _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
     }
 
     protected new void OnEnable()
@@ -170,7 +169,6 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Sync("coolTimeDecrease");
             Sync("level");
             Sync("exp");
-            Sync("expMax");
         }
     }
 
