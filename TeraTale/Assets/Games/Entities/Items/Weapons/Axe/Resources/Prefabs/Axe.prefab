@@ -74,6 +74,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 475506}
+  - 114: {fileID: 11492778}
+  - 54: {fileID: 5437780}
+  - 65: {fileID: 6582188}
+  - 114: {fileID: 11487612}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Untagged
@@ -124,8 +128,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175744}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071067, y: -0.7071068, z: -0.000000115202326, w: -0.00000011520231}
+  m_LocalPosition: {x: -0.5, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 482058}
@@ -244,6 +248,60 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178310}
   m_Mesh: {fileID: 4300002, guid: 3f636f5f593c2f045bffd68d1c3c10c4, type: 3}
+--- !u!54 &5437780
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199908}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6582188
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.83232164, y: 0.96846724, z: 0.25774395}
+  m_Center: {x: -1.0555273, y: -0.40787244, z: -0.004725188}
+--- !u!114 &11487612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Enemy
+  knockdown: 0
+--- !u!114 &11492778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199908}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c308e8d9b4146de4d9f6bfac5ddef9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkID: 0
+  _owner: 
+  _effector: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

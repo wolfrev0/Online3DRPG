@@ -160,12 +160,12 @@ public abstract class Enemy : AliveEntity
         CancelInvoke("Respawn");
         if (gameObject.activeSelf == false)
             Send(new SetActive(true));
-        Send(new Reset(Random.Range(0f, Mathf.PI * 2)));
+        Send(new Reset(Random.Range(0f, Mathf.PI * 2), Random.Range(0f, spawner.spawnRange)));
     }
 
     public void Reset(Reset rpc)
     {
-        transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * Random.Range(0f, spawner.spawnRange) + spawner.transform.position;
+        transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * rpc.lengthSeed + spawner.transform.position;
         transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
         _animator.Rebind();
         _targets.Clear();
@@ -173,8 +173,6 @@ public abstract class Enemy : AliveEntity
 
     protected override void OnDamaged(Damage damage)
     {
-        var sender = Player.FindPlayerByName(damage.sendedUser);
-
         var targetPair = _targets.Find(pair => pair.target.name == damage.sendedUser);
         if (targetPair == null)
         {

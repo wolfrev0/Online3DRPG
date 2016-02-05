@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 4717dbbdeda1c5f47b3c47dd8a366dcf
+guid: 307780a6ece2f2340930aa6b40d6c46d
 timeCreated: 1454607228
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Knight
-    100004: Locator
+    100000: Knight
+    100002: Locator
+    100004: //RootNode
     100006: Skeleton_Arm_L
     100008: Skeleton_Arm_R
     100010: Skeleton_Foot_L
@@ -24,9 +24,9 @@ ModelImporter:
     100032: Skeleton_Spine02
     100034: Skeleton_UpperLeg_L
     100036: Skeleton_UpperLeg_R
-    400000: //RootNode
-    400002: Knight
-    400004: Locator
+    400000: Knight
+    400002: Locator
+    400004: //RootNode
     400006: Skeleton_Arm_L
     400008: Skeleton_Arm_R
     400010: Skeleton_Foot_L
@@ -44,7 +44,7 @@ ModelImporter:
     400034: Skeleton_UpperLeg_L
     400036: Skeleton_UpperLeg_R
     4300000: Knight
-    7400000: Die
+    7400000: Log
     9500000: //RootNode
     13700000: Knight
   materials:
@@ -60,15 +60,8 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nDefault bone length found in this file is different
       form the one found in the source avatar:\n\t'Skeleton_UpperLeg_L' : position
-      error = 242.831879 mm\n\t'Skeleton_Leg_L' : position error = 140.966431 mm\n\t'Skeleton_Foot_L'
-      : position error = 178.071136 mm\n\t'Skeleton_UpperLeg_R' : position error =
-      224.129303 mm\n\t'Skeleton_Leg_R' : position error = 140.966064 mm\n\t'Skeleton_Foot_R'
-      : position error = 177.597412 mm\n\nClip 'Take 001' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Skeleton_UpperLeg_L' has translation animation
-      that will be discarded.\n\t'Skeleton_Leg_L' has translation animation that will
-      be discarded.\n\t'Skeleton_UpperLeg_R' has translation animation that will be
-      discarded.\n\t'Skeleton_Leg_R' has translation animation that will be discarded.\n"
+      error = 239.654724 mm\n\t'Skeleton_Leg_L' : position error = 140.966324 mm\n\t'Skeleton_Foot_L'
+      : position error = 178.071167 mm\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -79,21 +72,21 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Die
+      name: Log
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0.07
+      level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -101,7 +94,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.32489452
+        functionName: AttackBegin
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.73417723
+        functionName: AttackEnd
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
