@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Tree : Enemy
 {
-    protected override void PeriodicSync()
-    { }
+    //protected override void PeriodicSync()
+    //{ }
 
     protected override List<Item> itemsForDrop
     {

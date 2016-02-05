@@ -11,7 +11,7 @@ public class ItemFunctions : NetworkScript
             if (isServer)
             {
                 var player = (Player)target;
-                player.Heal(new Heal("", 30));
+                player.Heal(new Heal("", 50));
             }
         };
         Apple.onUse += (Item item, object target) =>
@@ -19,7 +19,7 @@ public class ItemFunctions : NetworkScript
             if (isServer)
             {
                 var player = (Player)target;
-                player.Heal(new Heal("", 10));
+                player.Heal(new Heal("", 15));
             }
         };
         Equipment.onUse += (Item item, object target) =>

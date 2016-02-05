@@ -1766,7 +1766,7 @@ GameObject:
   - 222: {fileID: 22220426}
   - 114: {fileID: 11405400}
   m_Layer: 5
-  m_Name: BonusStatus
+  m_Name: Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2888,7 +2888,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BonusStatus
+  m_Text: Effect
 --- !u!114 &11405482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7712,6 +7712,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaafd7597d3043340b477916a404e243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameText: {fileID: 11461930}
+  price: {fileID: 11445352}
+  itemType: {fileID: 11450962}
+  weaponType: {fileID: 11478960}
+  rank: {fileID: 11455938}
+  wearableLevel: {fileID: 11462680}
+  upgradedLevel: {fileID: 11496924}
+  durability: {fileID: 11481968}
+  effect: {fileID: 11405400}
+  itemExplanation: {fileID: 11481858}
 --- !u!114 &11488942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9298,7 +9308,7 @@ Canvas:
   m_GameObject: {fileID: 155370}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 0

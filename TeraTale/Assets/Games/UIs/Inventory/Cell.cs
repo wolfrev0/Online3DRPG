@@ -90,6 +90,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void OnPointerEnter(PointerEventData eventData)
     {
         _popup.gameObject.SetActive(true);
+        _popup.item = _itemStack.item;
     }
 
     public void OnPointerExit(PointerEventData eventData)

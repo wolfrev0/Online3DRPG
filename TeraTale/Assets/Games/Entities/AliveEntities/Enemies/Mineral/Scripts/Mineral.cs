@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Mineral : Enemy
 {
-    protected override void PeriodicSync()
-    { }
+    //protected override void PeriodicSync()
+    //{ }
 
     protected override List<Item> itemsForDrop
     {

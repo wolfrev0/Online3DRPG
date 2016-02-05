@@ -7,15 +7,29 @@ namespace TeraTaleNet
 {
     public abstract class Item : Body
     {
+        public enum Type
+        {
+            none,
+            sundry,
+            consumable,
+            equipment,
+        }
+
         static int currentItemID = 0;
 
         public int _itemID = currentItemID++;
+        
+        public string name { get { return GetType().Name; } }
+        public abstract int price { get; }
+        public abstract Type itemType { get; }
+        public abstract string effectExplanation { get; }
+        public abstract string explanation { get; }
 
         public Sprite sprite
-        { get { return Resources.Load<Sprite>("Textures/" + GetType().Name); } }
+        { get { return Resources.Load<Sprite>("Textures/" + name); } }
 
         public GameObject solidPrefab
-        { get { return Resources.Load<GameObject>("Prefabs/" + GetType().Name); } }
+        { get { return Resources.Load<GameObject>("Prefabs/" + name); } }
 
         public Item clone
         {
@@ -33,7 +47,7 @@ namespace TeraTaleNet
 
         public abstract int maxCount { get; }
         public bool isConsumables { get { return GetType().IsSubclassOf(typeof(Consumable)); } }
-        public virtual bool isNull { get { return false; } }
+        public bool isNull { get { return itemType == Type.none; } }
 
         static Item()
         {
