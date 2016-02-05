@@ -2,10 +2,10 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TeraTaleNet;
-using System;
 
-public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    static CellPopupView _popup;
     int _itemStackIndex = -1;
     ItemStack _itemStack;
     Image _image;
@@ -16,6 +16,8 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     void Awake()
     {
         _image = GetComponent<Image>();
+        if (!_popup)
+            _popup = FindObjectOfType<CellPopupView>();
     }
 
     void Start()
@@ -83,5 +85,15 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         //    eventData.pointerDrag.GetComponent<Cell>()._itemStack = _itemStack;
         //    _itemStack = tmp;
         //}
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _popup.gameObject.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _popup.gameObject.SetActive(false);
     }
 }

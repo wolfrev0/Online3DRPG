@@ -734,18 +734,18 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11424428, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
-      propertyPath: m_Texture
-      value: 
-      objectReference: {fileID: 8400000, guid: 1debd3b6d4a84ba44adf62f6a1428b17, type: 2}
-    - target: {fileID: 11427176, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
-      propertyPath: m_Texture
-      value: 
-      objectReference: {fileID: 8400000, guid: b1f9218cbd8c7534b9b7cbe352742e2a, type: 2}
     - target: {fileID: 22325390, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1100919353}
+    - target: {fileID: 11427176, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: b1f9218cbd8c7534b9b7cbe352742e2a, type: 2}
+    - target: {fileID: 11424428, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: 1debd3b6d4a84ba44adf62f6a1428b17, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
   m_IsPrefabParent: 0

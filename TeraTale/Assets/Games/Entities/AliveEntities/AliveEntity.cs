@@ -138,9 +138,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         }
         else
         {
+            Sync("level");
             Sync("hp");
             Sync("stamina");
-            Sync("level");
             Sync("exp");
         }
     }

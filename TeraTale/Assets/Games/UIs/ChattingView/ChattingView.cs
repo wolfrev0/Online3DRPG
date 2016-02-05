@@ -1,13 +1,18 @@
 ﻿using UnityEngine.UI;
 using TeraTaleNet;
+using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class ChattingView : NetworkScript
 {
+    static CellPopupView _popup;
     Text _text;
 
     protected void Awake()
     {
         _text = GetComponent<Text>();
+        if (!_popup)
+            _popup = FindObjectOfType<CellPopupView>();
     }
 
     public void SendChat(string chat)
