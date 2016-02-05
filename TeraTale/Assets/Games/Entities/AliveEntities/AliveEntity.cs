@@ -7,8 +7,7 @@ using TeraTaleNet;
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
     static int[] _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
-
-    protected bool usePeriodicSync = true;
+    
     [SerializeField]
     Image _hpBar = null;
     [SerializeField]
@@ -120,9 +119,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     protected virtual float CalculateHeal(Heal heal) { return heal.amount; }
     protected virtual float CalculateDamage(Damage damage) { return damage.amount; }
 
-    protected new void Start()
+    protected void Start()
     {
-        base.Start();
         if (_pfHealFX == null)
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
@@ -147,10 +145,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         }
     }
 
-    protected void PeriodicSync()
+    protected virtual void PeriodicSync()
     {
-        if (usePeriodicSync == false)
-            return;
         if (gameObject.activeSelf == false)
             return;
         _syncedPos = transform.position;

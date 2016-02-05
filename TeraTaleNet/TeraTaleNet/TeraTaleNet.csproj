@@ -49,6 +49,7 @@
     <Compile Include="Body\BufferedRPCRequest.cs" />
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\ItemSolidArgument.cs" />
     <Compile Include="Body\ItemStack.cs" />
     <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Consumable\Apple.cs" />

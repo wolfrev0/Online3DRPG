@@ -4,27 +4,35 @@ using UnityEngine;
 
 public class Mineral : Enemy
 {
+    protected override void PeriodicSync()
+    { }
+
     protected override List<Item> itemsForDrop
     {
         get
         {
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
-                ret.Add(new Rock());
-            else
                 ret.Add(new IronOre());
+            if (Random.Range(0, 2) == 0)
+                ret.Add(new IronOre());
+            if (Random.Range(0, 2) == 0)
+                ret.Add(new IronOre());
+            if (Random.Range(0, 2) == 0)
+                ret.Add(new IronOre());
+            if (Random.Range(0, 2) == 0)
+                ret.Add(new IronOre());
+            ret.Add(new Rock());
+            ret.Add(new Rock());
+            ret.Add(new Rock());
+            ret.Add(new Rock());
+            ret.Add(new Rock());
             return ret;
         }
     }
 
     protected override float levelForDrop
     { get { return 10; } }
-
-    protected new void Start()
-    {
-        base.Start();
-        usePeriodicSync = false;
-    }
 
     protected override float CalculateDamage(Damage damage)
     {

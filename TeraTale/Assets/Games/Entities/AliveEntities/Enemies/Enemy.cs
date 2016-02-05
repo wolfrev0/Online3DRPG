@@ -154,7 +154,7 @@ public abstract class Enemy : AliveEntity
         if (isLocal)
             return;
         foreach (var item in itemsForDrop)
-            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
+            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(item, Random.Range(0f, Mathf.PI * 2), Random.Range(0f, 1f)), "OnDropItemInstantiate");
     }
 
     void SetActiveFalse()
@@ -167,20 +167,20 @@ public abstract class Enemy : AliveEntity
         Send(new SetActive(false));
     }
 
-    public void Respawn()
-    {
-        CancelInvoke("Respawn");
-        if (gameObject.activeSelf == false)
-            Send(new SetActive(true));
-        Send(new Reset(Random.Range(0f, Mathf.PI * 2), Random.Range(0f, spawner.spawnRange)));
-    }
-
-    public void Reset(Reset rpc)
+    public void Respawn(Respawn rpc)
     {
         transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * rpc.lengthSeed + spawner.transform.position;
         transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
         _animator.Rebind();
         _targets.Clear();
+    }
+
+    public void Respawn()
+    {
+        CancelInvoke("Respawn");
+        if (gameObject.activeSelf == false)
+            Send(new SetActive(true));
+        Send(new Respawn(Random.Range(0f, Mathf.PI * 2), Random.Range(0f, spawner.spawnRange)));
     }
 
     protected override void OnDamaged(Damage damage)

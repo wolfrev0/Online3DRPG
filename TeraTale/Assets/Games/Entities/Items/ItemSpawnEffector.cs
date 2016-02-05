@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ItemSpawnEffector : MonoBehaviour
 {
+    public float xzAngle = 0;
+    public float xzSpeed = 0;
     float _time = 1.5f;
     float _elapsed;
     float _frequency;
@@ -23,7 +24,8 @@ public class ItemSpawnEffector : MonoBehaviour
         {
             _elapsed += Time.deltaTime * _frequency;
             var y = (Mathf.Sin(_elapsed) - _prevSin);
-            transform.position += new Vector3(0, y * 2f, 0);
+            var xzDelta = xzSpeed * Time.deltaTime * 2;
+            transform.position += new Vector3(Mathf.Sin(xzAngle) * xzDelta, y * 2f, Mathf.Cos(xzAngle) * xzDelta);
             _prevSin = Mathf.Sin(_elapsed);
         }
         else

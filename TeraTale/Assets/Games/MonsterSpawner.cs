@@ -12,10 +12,8 @@ public class MonsterSpawner : NetworkScript
 
     public float spawnRange { get { return _spawnRange.radius; } }
 
-    new void Start()
+    protected void Start()
     {
-        base.Start();
-
         _enemies = new Enemy[enemyCount];
         _spawnRange = GetComponent<SphereCollider>();
 

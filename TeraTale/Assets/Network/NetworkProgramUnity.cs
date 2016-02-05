@@ -21,15 +21,14 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
         _messenger.Send(server, packet);
     }
     
-    void Awake()
+    protected void Awake()
     {
         signallersByID = new Dictionary<int, NetworkScript>();
         _messenger = new Messenger(this);
     }
 
-    protected new void Start()
+    protected void Start()
     {
-        base.Start();
         DontDestroyOnLoad(gameObject.transform.root);
         currentInstance = this;
         OnStart();

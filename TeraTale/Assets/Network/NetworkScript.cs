@@ -36,7 +36,7 @@ public abstract class NetworkScript : MonoBehaviour
         _destroyed = true;
     }
 
-    protected void Start()
+    protected void OnEnable()
     {
         if (NetworkProgramUnity.currentInstance == null)
             StartCoroutine(StartSub());

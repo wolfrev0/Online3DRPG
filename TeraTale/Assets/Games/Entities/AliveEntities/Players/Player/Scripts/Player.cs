@@ -71,7 +71,7 @@ public class Player : AliveEntity
             if (isServer)
             {
                 NetworkDestroy(_weaponSolid);
-                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), _weapon, "OnWeaponInstantiate");
+                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(_weapon, 0, 0), "OnWeaponInstantiate");
             }
         }
     }
@@ -98,7 +98,7 @@ public class Player : AliveEntity
         _attackSubject.owner = this;
     }
 
-    void Awake()
+    protected void Awake()
     {
         for (int i = 0; i < 30; i++)
             _itemStacks.Add(new ItemStack());

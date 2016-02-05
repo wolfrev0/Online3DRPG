@@ -21,8 +21,7 @@ public class Demon : Enemy
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
                 ret.Add(new HpPotion());
-            else
-                ret.Add(new Rock());
+            ret.Add(new Apple());
             return ret;
         }
     }

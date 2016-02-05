@@ -3,7 +3,7 @@ using TeraTaleNet;
 
 public class ItemFunctions : NetworkScript
 {
-    void Awake()
+    protected void Awake()
     {
         DontDestroyOnLoad(gameObject);
         HpPotion.onUse += (Item item, object target) =>

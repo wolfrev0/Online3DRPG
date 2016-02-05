@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Tree : Enemy
 {
+    protected override void PeriodicSync()
+    { }
+
     protected override List<Item> itemsForDrop
     {
         get
@@ -11,20 +14,22 @@ public class Tree : Enemy
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
                 ret.Add(new Apple());
-            else
-                ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
+            ret.Add(new Log());
             return ret;
         }
     }
 
     protected override float levelForDrop
     { get { return 10; } }
-
-    protected new void Start()
-    {
-        base.Start();
-        usePeriodicSync = false;
-    }
 
     protected override float CalculateDamage(Damage damage)
     {

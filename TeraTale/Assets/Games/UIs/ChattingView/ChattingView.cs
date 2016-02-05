@@ -5,7 +5,7 @@ public class ChattingView : NetworkScript
 {
     Text _text;
 
-    void Awake()
+    protected void Awake()
     {
         _text = GetComponent<Text>();
     }
