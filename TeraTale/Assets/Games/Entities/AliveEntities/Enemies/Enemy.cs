@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public abstract class Enemy : AliveEntity
 {
     [SerializeField]
+    float _hpMax = 0;
+    [SerializeField]
+    float _staminaMax = 0;
+    [SerializeField]
     float _baseAttackDamage = 0;
     public AttackSubject _attackSubject;
     public Text nameView;
@@ -32,8 +36,12 @@ public abstract class Enemy : AliveEntity
         }
     }
     List<TargetDamagePair> _targets = new List<TargetDamagePair>();
+    public override float hpMax { get { return _hpMax; } }
+    public override float staminaMax { get { return _staminaMax; } }
     public override float baseAttackDamage { get { return _baseAttackDamage; } }
-    public override float bonusAttackDamage { get { return 0; }}
+    public override float bonusAttackDamage { get { return 0; } }
+    public override float baseAttackSpeed { get { return 1; } }
+    public override float bonusAttackSpeed { get { return 0; } }
     //return high-damaged target;
     public AliveEntity mainTarget
     { get { return _targets[_targets.Count - 1].target; } }

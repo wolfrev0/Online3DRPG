@@ -24,7 +24,7 @@ public class PlayerAttacking : StateMachineBehaviour
         if (_attackStackTimer != null)
             _player.StopCoroutine(_attackStackTimer);
         _attackStackTimer = _player.StartCoroutine(ResetAttackStack());
-        //Stack Overflow
+        animator.SetFloat("AttackSpeed", _player.attackSpeed);
     }
 
     IEnumerator ResetAttackStack()

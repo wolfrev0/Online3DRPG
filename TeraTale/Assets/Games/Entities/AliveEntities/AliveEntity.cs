@@ -31,16 +31,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 Die();
         }
     }
-    public float _hpMax;
-    public float hpMax
-    {
-        get { return _hpMax; }
-        private set
-        {
-            _hpMax = value;
-            _hpBar.fillAmount = hp / hpMax;
-        }
-    }
+    public abstract float hpMax { get; }
     public float _stamina;
     public float stamina
     {
@@ -51,22 +42,13 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
-    public float _staminaMax;
-    public float staminaMax
-    {
-        get { return _staminaMax; }
-        private set
-        {
-            _staminaMax = value;
-            _staminaBar.fillAmount = stamina / staminaMax;
-        }
-    }
+    public abstract float staminaMax { get; }
     public float attackDamage { get { return baseAttackDamage + bonusAttackDamage; } }
     public abstract float baseAttackDamage { get; }
     public abstract float bonusAttackDamage { get; }
     public float attackSpeed { get { return baseAttackSpeed + bonusAttackSpeed; } }
-    public float baseAttackSpeed { get; set; }
-    public float bonusAttackSpeed { get; set; }
+    public abstract float baseAttackSpeed { get; }
+    public abstract float bonusAttackSpeed { get; }
     public float abilityPower { get; set; }
     public float healthRegen { get; set; }
     public float defence { get; set; }
@@ -159,9 +141,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         else
         {
             Sync("hp");
-            Sync("hpMax");
             Sync("stamina");
-            Sync("staminaMax");
             Sync("level");
             Sync("exp");
         }

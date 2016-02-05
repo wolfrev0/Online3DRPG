@@ -9,7 +9,10 @@ using System.Reflection;
 public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
-    static int[] _baseAttackDamageByLevel = new int[] { 1, 10, 12, 15, 18, 20 };
+    static float[] _hpMaxByLevel = new float[] { 1, 100, 110, 120, 130, 150 };
+    static float[] _staminaMaxByLevel = new float[] { 1, 110, 115, 120, 126, 133 };
+    static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
+    static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
     const float kRaycastDistance = 50.0f;
 
     public Text nameView;
@@ -26,8 +29,12 @@ public class Player : AliveEntity
     static Projectile _pfArrow;
     static Player _pfPlayer;
 
+    public override float hpMax { get { return _hpMaxByLevel[level]; } }
+    public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
     public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
     public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
+    public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
+    public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
 
     public ItemStackList itemStacks
     {

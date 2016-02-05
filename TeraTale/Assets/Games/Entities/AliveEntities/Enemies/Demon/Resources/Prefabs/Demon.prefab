@@ -2121,13 +2121,13 @@ MonoBehaviour:
   _staminaBar: {fileID: 11434230}
   _levelText: {fileID: 11401228}
   _hp: 50
-  _hpMax: 50
   _stamina: 1
-  _staminaMax: 1
   _level: 1
   _exp: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _hpMax: 50
+  _staminaMax: 1
   _baseAttackDamage: 2
   _attackSubject: {fileID: 11472186}
   nameView: {fileID: 11409596}
@@ -2639,6 +2639,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: _baseAttackDamage
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _baseAttackSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
