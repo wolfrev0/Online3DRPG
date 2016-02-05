@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public abstract class Enemy : AliveEntity
 {
+    [SerializeField]
+    float _baseAttackDamage = 0;
     public AttackSubject _attackSubject;
     public Text nameView;
-    public MonsterSpawner spawner { get; set; }
     Animator _animator;
 
     class TargetDamagePair : System.IComparable<TargetDamagePair>
@@ -31,9 +32,12 @@ public abstract class Enemy : AliveEntity
         }
     }
     List<TargetDamagePair> _targets = new List<TargetDamagePair>();
+    public override float baseAttackDamage { get { return _baseAttackDamage; } }
+    public override float bonusAttackDamage { get { return 0; }}
     //return high-damaged target;
     public AliveEntity mainTarget
     { get { return _targets[_targets.Count - 1].target; } }
+    public MonsterSpawner spawner { get; set; }
 
     public bool hasTarget { get { return _targets.Count > 0; } }
 

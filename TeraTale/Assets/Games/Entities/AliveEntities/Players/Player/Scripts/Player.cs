@@ -9,6 +9,7 @@ using System.Reflection;
 public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
+    static int[] _baseAttackDamageByLevel = new int[] { 1, 10, 12, 15, 18, 20 };
     const float kRaycastDistance = 50.0f;
 
     public Text nameView;
@@ -24,6 +25,9 @@ public class Player : AliveEntity
     //StreamingSkill (Base Attack) Management
     static Projectile _pfArrow;
     static Player _pfPlayer;
+
+    public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
+    public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
 
     public ItemStackList itemStacks
     {

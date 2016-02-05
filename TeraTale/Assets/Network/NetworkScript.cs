@@ -38,7 +38,10 @@ public abstract class NetworkScript : MonoBehaviour
 
     protected void Start()
     {
-        StartCoroutine(StartSub());
+        if (NetworkProgramUnity.currentInstance == null)
+            StartCoroutine(StartSub());
+        else
+            RegisterToProgram();
     }
 
     IEnumerator StartSub()

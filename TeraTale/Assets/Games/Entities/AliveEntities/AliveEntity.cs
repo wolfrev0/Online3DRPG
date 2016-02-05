@@ -61,18 +61,17 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
-    public float _attackDamage = 0;
-    public float attackDamage
-    {
-        get { return _attackDamage; }
-        private set { _attackDamage = value; }
-    }
+    public float attackDamage { get { return baseAttackDamage + bonusAttackDamage; } }
+    public abstract float baseAttackDamage { get; }
+    public abstract float bonusAttackDamage { get; }
+    public float attackSpeed { get { return baseAttackSpeed + bonusAttackSpeed; } }
+    public float baseAttackSpeed { get; set; }
+    public float bonusAttackSpeed { get; set; }
     public float abilityPower { get; set; }
     public float healthRegen { get; set; }
     public float defence { get; set; }
     public float magicRegistance { get; set; }
     public float moveSpeed { get; set; }
-    public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
     public int _level = 1;
@@ -89,7 +88,6 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 return;
             _level = value;
             _levelText.text = "LV." + _level;
-            expMax = _expMaxByLevel[level];
         }
     }
     int levelMax { get { return _expMaxByLevel.Length - 1; } }
@@ -114,8 +112,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             }
         }
     }
-    float _expMax = 1;
-    public float expMax { get { return _expMax; } private set { _expMax = value; } }
+    public float expMax { get { return _expMaxByLevel[level]; } }
 
     public Vector3 _syncedPos;
     public Vector3 _syncedRot;
@@ -165,15 +162,6 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Sync("hpMax");
             Sync("stamina");
             Sync("staminaMax");
-            Sync("attackDamage");
-            Sync("abilityPower");
-            Sync("healthRegen");
-            Sync("defence");
-            Sync("magicRegistance");
-            Sync("moveSpeed");
-            Sync("attackSpeed");
-            Sync("castingTimeDecrease");
-            Sync("coolTimeDecrease");
             Sync("level");
             Sync("exp");
         }
