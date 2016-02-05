@@ -13,7 +13,6 @@ public class Player : AliveEntity
     static float[] _staminaMaxByLevel = new float[] { 1, 110, 115, 120, 126, 133 };
     static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
     static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
-    const float kRaycastDistance = 50.0f;
 
     public Text nameView;
     public SpeechBubble speechBubble;
@@ -158,25 +157,6 @@ public class Player : AliveEntity
         projectile.speed = 10;
         projectile.autoDestroyTime = 0.5f;
         projectile.GetComponent<AttackSubject>().owner = this;
-    }
-
-    public void HandleInput()
-    {
-        if (!isMine)
-            return;
-
-        if (Input.GetButtonDown("Move"))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, kRaycastDistance, 1 << LayerMask.NameToLayer("Terrain")))
-                Send(new Navigate(hit.point));
-        }
-
-        if (Input.GetButtonDown("Attack"))
-            Send(new Attack());
-        if (Input.GetKeyDown(KeyCode.C))
-            Send(new BackTumbling());
     }
 
     public void FacingDirectionUpdate()

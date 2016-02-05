@@ -8,14 +8,12 @@ public class PlayerStaying : StateMachineBehaviour
     {
         if (_player == null)
             _player = animator.GetComponent<Player>();
+        InputHandler.instance.enabled = true;
     }
 
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (animator.IsInTransition(0))
-            return;
-        _player.HandleInput();
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //}
 
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
