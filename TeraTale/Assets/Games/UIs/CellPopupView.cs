@@ -44,6 +44,6 @@ public class CellPopupView : MonoBehaviour
 
     void Update()
     {
-        _rt.position = Input.mousePosition;
+        _rt.anchoredPosition = Input.mousePosition;
     }
 }
