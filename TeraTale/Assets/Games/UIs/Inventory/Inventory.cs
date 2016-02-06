@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     {
         var player = Player.mine;
         for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].SetItemStack(i);
+            itemSlots[i].itemStackIndex = i;
     }
 
     public void ToggleShow()

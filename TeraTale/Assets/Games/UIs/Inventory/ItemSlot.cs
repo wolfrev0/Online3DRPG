@@ -6,7 +6,7 @@ using TeraTaleNet;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     static ItemSlotPopupView _popup = null;
-    int _itemStackIndex = -1;
+    public int itemStackIndex = -1;
     Image _image;
     public Text _count;
     public Text _equipState;
@@ -26,14 +26,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
         _alignedPosition = _rt.anchoredPosition;
     }
 
-    public void SetItemStack(int itemStackIndex)
-    {
-        _itemStackIndex = itemStackIndex;
-    }
-
     void Update()
     {
-        ItemStack itemStack = Player.mine.itemStacks[_itemStackIndex];
+        if (Player.mine == null)
+            return;
+        ItemStack itemStack = Player.mine.itemStacks[itemStackIndex];
         _image.sprite = itemStack.sprite;
         _count.text = itemStack.count.ToString();
         if (itemStack.count <= 1)
@@ -50,11 +47,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Player.mine.Send(new ItemUse(_itemStackIndex));
+            Use();
         }
     }
 
-    public virtual void OnBeginDrag(PointerEventData eventData)
+    public void Use()
+    {
+        Player.mine.Send(new ItemUse(itemStackIndex));
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
     {
     }
 
@@ -73,24 +75,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
         ResetPosition();
 
         if(eventData.pointerCurrentRaycast.gameObject == null)
-            Player.mine.DropItemStack(_itemStackIndex);
+            Player.mine.DropItemStack(itemStackIndex);
     }
 
-    public void ResetPosition()
+    void ResetPosition()
     {
         _rt.anchoredPosition = _alignedPosition;
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
-            Player.mine.SwapItemStack(_itemStackIndex, eventData.pointerDrag.GetComponent<ItemSlot>()._itemStackIndex);
+            Player.mine.SwapItemStack(itemStackIndex, eventData.pointerDrag.GetComponent<ItemSlot>().itemStackIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         _popup.gameObject.SetActive(true);
-        _popup.item = Player.mine.itemStacks[_itemStackIndex].item;
+        _popup.item = Player.mine.itemStacks[itemStackIndex].item;
     }
 
     public void OnPointerExit(PointerEventData eventData)

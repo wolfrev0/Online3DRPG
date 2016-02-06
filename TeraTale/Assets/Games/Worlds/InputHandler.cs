@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     static public InputHandler instance;
+    QuickSlotController _quickSlotController;
 
     Action onLeftClick = () => {  };
     Action onRightClick = () =>
@@ -33,6 +34,17 @@ public class InputHandler : MonoBehaviour
     void Awake()
     {
         instance = this;
+        _quickSlotController = FindObjectOfType<QuickSlotController>();
+        on1 = () => { _quickSlotController.Execute(0); };
+        on2 = () => { _quickSlotController.Execute(1); };
+        on3 = () => { _quickSlotController.Execute(2); };
+        on4 = () => { _quickSlotController.Execute(3); };
+        on5 = () => { _quickSlotController.Execute(4); };
+        on6 = () => { _quickSlotController.Execute(5); };
+        on7 = () => { _quickSlotController.Execute(6); };
+        on8 = () => { _quickSlotController.Execute(7); };
+        on9 = () => { _quickSlotController.Execute(8); };
+        on0 = () => { _quickSlotController.Execute(9); };
     }
 
 	void Update ()
