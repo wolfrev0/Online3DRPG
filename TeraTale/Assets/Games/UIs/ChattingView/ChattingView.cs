@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class ChattingView : NetworkScript
 {
-    static CellPopupView _popup;
+    static ItemSlotPopupView _popup;
     Text _text;
 
     protected void Awake()
     {
         _text = GetComponent<Text>();
         if (!_popup)
-            _popup = FindObjectOfType<CellPopupView>();
+            _popup = FindObjectOfType<ItemSlotPopupView>();
     }
 
     public void SendChat(string chat)

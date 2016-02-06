@@ -13,11 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
+    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -129,11 +132,12 @@
     <Compile Include="Assets\Games\ItemSpawner.cs" />
     <Compile Include="Assets\Games\MonsterSpawner.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
-    <Compile Include="Assets\Games\UIs\CellPopupView.cs" />
+    <Compile Include="Assets\Games\UIs\ItemSlotPopupView.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
-    <Compile Include="Assets\Games\UIs\Inventory\Cell.cs" />
+    <Compile Include="Assets\Games\UIs\Inventory\ItemSlot.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
+    <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlot.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />

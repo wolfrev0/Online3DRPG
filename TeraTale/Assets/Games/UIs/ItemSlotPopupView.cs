@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CellPopupView : MonoBehaviour
+public class ItemSlotPopupView : MonoBehaviour
 {
     public Text nameText;
     public Text price;
@@ -44,6 +44,8 @@ public class CellPopupView : MonoBehaviour
 
     void Update()
     {
-        _rt.anchoredPosition = Input.mousePosition;
+        Vector3 pos;
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(_rt, Input.mousePosition, Camera.main, out pos);
+        _rt.position = pos;
     }
 }

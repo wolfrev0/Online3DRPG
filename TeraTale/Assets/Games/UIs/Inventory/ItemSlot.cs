@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TeraTaleNet;
 
-public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    static CellPopupView _popup;
+    static ItemSlotPopupView _popup = null;
     int _itemStackIndex = -1;
     Image _image;
     public Text _count;
@@ -18,7 +18,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         _rt = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         if (!_popup)
-            _popup = FindObjectOfType<CellPopupView>();
+            _popup = FindObjectOfType<ItemSlotPopupView>();
     }
 
     void Start()
@@ -55,7 +55,8 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)
-    { }
+    {
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -83,7 +84,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
-            Player.mine.SwapItemStack(_itemStackIndex, eventData.pointerDrag.GetComponent<Cell>()._itemStackIndex);
+            Player.mine.SwapItemStack(_itemStackIndex, eventData.pointerDrag.GetComponent<ItemSlot>()._itemStackIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
