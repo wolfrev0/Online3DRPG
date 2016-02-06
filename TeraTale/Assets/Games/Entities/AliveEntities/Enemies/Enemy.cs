@@ -160,7 +160,7 @@ public abstract class Enemy : AliveEntity
             do xzAngle = Random.Range(0f, Mathf.PI * 2);
             while (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(xzAngle), 0, Mathf.Cos(xzAngle)), 2f, LayerMask.GetMask("Terrain")));
 
-            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(item, xzAngle, Random.Range(0f, 1f)), "OnDropItemInstantiate");
+            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(item, transform.position + Vector3.up, xzAngle, Random.Range(0f, 1f)));
         }
     }
 
@@ -205,10 +205,5 @@ public abstract class Enemy : AliveEntity
     protected override void Knockdown()
     {
         _animator.SetTrigger("Knockdown");
-    }
-
-    public void OnDropItemInstantiate(ItemSolid item)
-    {
-        item.transform.position = transform.position + Vector3.up;
     }
 }

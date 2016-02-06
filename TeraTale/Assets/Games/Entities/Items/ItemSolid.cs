@@ -15,6 +15,8 @@ public class ItemSolid : Entity
     {
         item = arg.item;
 
+        transform.position = arg.spawnPos;
+
         _effector = gameObject.AddComponent<ItemSpawnEffector>();
         _effector.xzAngle = arg.xzAngle;
         _effector.xzSpeed = arg.xzSpeed;

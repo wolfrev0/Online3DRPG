@@ -7,14 +7,15 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 {
     static CellPopupView _popup;
     int _itemStackIndex = -1;
-    ItemStack _itemStack;
     Image _image;
     public Text _count;
     public Text _equipState;
     Vector3 _alignedPosition;
+    RectTransform _rt;
 
     void Awake()
     {
+        _rt = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         if (!_popup)
             _popup = FindObjectOfType<CellPopupView>();
@@ -22,25 +23,27 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     void Start()
     {
-        _alignedPosition = transform.position;
+        _alignedPosition = _rt.anchoredPosition;
     }
 
-    public void SetItemStack(ItemStack itemStack, int itemStackIndex)
+    public void SetItemStack(int itemStackIndex)
     {
-        _itemStack = itemStack;
         _itemStackIndex = itemStackIndex;
     }
 
     void Update()
     {
-        _image.sprite = _itemStack.sprite;
-        _count.text = _itemStack.count.ToString();
-        if (_itemStack.count <= 1)
+        ItemStack itemStack = Player.mine.itemStacks[_itemStackIndex];
+        _image.sprite = itemStack.sprite;
+        _count.text = itemStack.count.ToString();
+        if (itemStack.count <= 1)
             _count.text = "";
 
-        var equipment = _itemStack.item as Equipment;
+        var equipment = itemStack.item as Equipment;
         if (equipment != null)
             _equipState.gameObject.SetActive(Player.mine.IsEquiping(equipment));
+        else
+            _equipState.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -51,45 +54,42 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         }
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        //if (eventData.button == PointerEventData.InputButton.Left)
-        //{
-        //}
-    }
+    public virtual void OnBeginDrag(PointerEventData eventData)
+    { }
 
     public void OnDrag(PointerEventData eventData)
     {
-        //if(eventData.button == PointerEventData.InputButton.Left)
-        //{
-        //    transform.position = eventData.position;
-        //}
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            Vector3 pos;
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(_rt, Input.mousePosition, Camera.main, out pos);
+            _rt.position = pos;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //ResetPosition();
+        ResetPosition();
+
+        if(eventData.pointerCurrentRaycast.gameObject == null)
+            Player.mine.DropItemStack(_itemStackIndex);
     }
 
     public void ResetPosition()
     {
-        //transform.position = _alignedPosition;
+        _rt.anchoredPosition = _alignedPosition;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        //if (eventData.button == PointerEventData.InputButton.Left)
-        //{
-        //    var tmp = eventData.pointerDrag.GetComponent<Cell>()._itemStack;
-        //    eventData.pointerDrag.GetComponent<Cell>()._itemStack = _itemStack;
-        //    _itemStack = tmp;
-        //}
+        if (eventData.button == PointerEventData.InputButton.Left)
+            Player.mine.SwapItemStack(_itemStackIndex, eventData.pointerDrag.GetComponent<Cell>()._itemStackIndex);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         _popup.gameObject.SetActive(true);
-        _popup.item = _itemStack.item;
+        _popup.item = Player.mine.itemStacks[_itemStackIndex].item;
     }
 
     public void OnPointerExit(PointerEventData eventData)

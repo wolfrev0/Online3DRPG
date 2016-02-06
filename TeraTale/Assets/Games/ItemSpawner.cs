@@ -10,13 +10,7 @@ public class ItemSpawner : NetworkScript
         if (isServer && coll.tag == "Player")
         {
             Item item = (Item)System.Activator.CreateInstance(System.Type.GetType("TeraTaleNet." + itemName + ", TeraTaleNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"));
-            NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), new ItemSolidArgument(item, 0, 0), "OnItemInstantiate");
+            NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), new ItemSolidArgument(item, transform.position + Vector3.up, 0, 0));
         }
-    }
-
-    void OnItemInstantiate(ItemSolid itemSolid)
-    {
-        itemSolid.transform.position = transform.position + Vector3.up * 2;
-        itemSolid.transform.eulerAngles += new Vector3(0, 0, 45);
     }
 }

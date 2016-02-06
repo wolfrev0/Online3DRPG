@@ -14,7 +14,7 @@ namespace TeraTaleNet
     {
         Stack<Item> _stack = new Stack<Item>(new[] { new ItemNull() });
 
-        public int count { get { return _stack.Count; } }
+        public int count { get { return item.isNull ? 0 : _stack.Count; } }
         public Sprite sprite { get { return _stack.Peek().sprite; } }
         public Item item { get { return _stack.Peek(); } }
 
@@ -59,11 +59,15 @@ namespace TeraTaleNet
             item.Use(player);
 
             if (item.isConsumables)
-            {
-                _stack.Pop();
-                if (_stack.Count == 0)
-                    _stack.Push(new ItemNull());
-            }
+                Pop();
+        }
+
+        public Item Pop()
+        {
+            var ret = _stack.Pop();
+            if (_stack.Count == 0)
+                _stack.Push(new ItemNull());
+            return ret;
         }
 
         public byte[] Serialize()

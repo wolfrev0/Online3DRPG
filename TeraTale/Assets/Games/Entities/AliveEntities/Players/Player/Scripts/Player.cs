@@ -70,7 +70,7 @@ public class Player : AliveEntity
             if (isServer)
             {
                 NetworkDestroy(_weaponSolid);
-                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(_weapon, 0, 0), "OnWeaponInstantiate");
+                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(_weapon, transform.position + Vector3.up, 0, 0), "OnWeaponInstantiate");
             }
         }
     }
@@ -312,5 +312,34 @@ public class Player : AliveEntity
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
+    }
+
+    public void DropItemStack(DropItemStack rpc)
+    {
+        var itemStack = itemStacks[rpc.index];
+        var itemCount = itemStack.count;
+        for (int i = 0; i < itemCount; i++)
+        {
+            var item = itemStack.Pop();
+            if (isServer)
+                NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), new ItemSolidArgument(item, transform.position + Vector3.up, 0, 0));
+        }
+    }
+
+    public void DropItemStack(int index)
+    {
+        Send(new DropItemStack(index));
+    }
+
+    public void SwapItemStack(SwapItemStack rpc)
+    {
+        var tmp = itemStacks[rpc.indexA];
+        itemStacks[rpc.indexA] = itemStacks[rpc.indexB];
+        itemStacks[rpc.indexB] = tmp;
+    }
+
+    public void SwapItemStack(int indexA, int indexB)
+    {
+        Send(new SwapItemStack(indexA, indexB));
     }
 }
