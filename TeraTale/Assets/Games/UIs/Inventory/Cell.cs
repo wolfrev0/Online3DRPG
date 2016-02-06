@@ -27,7 +27,6 @@ public class Cell : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void SetItemStack(ItemStack itemStack, int itemStackIndex)
     {
-        Awake();//이상한 null 버그 땜빵..
         _itemStack = itemStack;
         _itemStackIndex = itemStackIndex;
     }
