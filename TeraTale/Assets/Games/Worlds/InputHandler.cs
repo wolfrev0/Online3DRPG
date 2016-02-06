@@ -12,7 +12,7 @@ public class InputHandler : MonoBehaviour
     {
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, float.MaxValue, 1 << LayerMask.NameToLayer("Terrain")))
+        if (Physics.Raycast(ray, out hit, float.MaxValue, LayerMask.GetMask("Terrain")))
             Player.mine.Send(new Navigate(hit.point));
     };
     Action on1 = () => { };

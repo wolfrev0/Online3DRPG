@@ -157,7 +157,7 @@ public abstract class Enemy : AliveEntity
         {
             float xzAngle;
             do xzAngle = Random.Range(0f, Mathf.PI * 2);
-            while (Physics.Raycast(transform.position, new Vector3(Mathf.Sin(xzAngle), 0, Mathf.Cos(xzAngle)), 2f, 1 << LayerMask.NameToLayer("Terrain")));
+            while (Physics.Raycast(transform.position + Vector3.up, new Vector3(Mathf.Sin(xzAngle), 0, Mathf.Cos(xzAngle)), 2f, LayerMask.GetMask("Terrain")));
 
             NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(item, transform.position + Vector3.up, xzAngle, Random.Range(0f, 1f)));
         }
