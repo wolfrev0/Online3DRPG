@@ -131,6 +131,7 @@
     <Compile Include="Assets\Games\NPCs\TalkableRangeDetector.cs" />
     <Compile Include="Assets\Games\NPCs\Taylor\Taylor.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
+    <Compile Include="Assets\Games\UIs\BuyDialog\BuyDialog.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlot.cs" />

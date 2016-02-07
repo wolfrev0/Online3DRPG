@@ -243,6 +243,11 @@ public class Player : AliveEntity
         itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
+    public bool CanAddItem(Item item, int amount)
+    {
+        return itemStacks.Find((ItemStack s) => { return s.IsPushable(item, amount); }) != null;
+    }
+
     public void ItemUse(ItemUse rpc)
     {
         itemStacks[rpc.index].Use(this);
@@ -311,6 +316,12 @@ public class Player : AliveEntity
 
         //itemStack Sync
         s = new Sync(RPCType.Others, "", "itemStacks");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        //money Sync
+        s = new Sync(RPCType.Others, "", "money");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);

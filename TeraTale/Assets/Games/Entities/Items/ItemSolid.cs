@@ -33,8 +33,11 @@ public class ItemSolid : Entity
         if (isServer && coll.tag == "Player")// Remove when the test ended.
         {
             var player = coll.GetComponent<Player>();
-            player.AddItem(item);
-            NetworkDestroy(this);
+            if (player.CanAddItem(item, 1))
+            {
+                player.AddItem(item);
+                NetworkDestroy(this);
+            }
         }
     }
 }
