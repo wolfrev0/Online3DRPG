@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
 
     void OnEnable()
     {
-        var player = Player.mine;
         for (int i = 0; i < itemSlots.Length; i++)
             itemSlots[i].itemStackIndex = i;
     }

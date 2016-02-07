@@ -251,6 +251,11 @@ public class Player : AliveEntity
         _itemStacks[rpc.index].Use(this);
     }
 
+    public void Use(int itemStackIndex)
+    {
+        Send(new ItemUse(itemStackIndex));
+    }
+
     public void Equip(Equipment equipment)
     {
         switch (equipment.equipmentType)

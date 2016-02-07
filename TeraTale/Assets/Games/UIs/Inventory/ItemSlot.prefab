@@ -113,11 +113,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 137244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c656efb82d7c5a4d987cebb789c07b9, type: 3}
+  m_Script: {fileID: 11500000, guid: d0eedce7fe66ca14693cca525387e487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _count: {fileID: 11458124}
-  _equipState: {fileID: 11489392}
+  itemStackIndex: -1
+  _count: {fileID: 0}
+  _equipState: {fileID: 0}
 --- !u!114 &11458124
 MonoBehaviour:
   m_ObjectHideFlags: 1

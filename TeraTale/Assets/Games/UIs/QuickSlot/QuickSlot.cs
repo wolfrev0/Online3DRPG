@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
-public class QuickSlot : ItemSlot
+public class QuickSlot : InventorySlot
 {
     public override void OnDrop(PointerEventData eventData)
     {
