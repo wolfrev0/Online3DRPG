@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
-using System;
-using System.Reflection;
 
 public class Player : AliveEntity
 {
@@ -27,6 +25,9 @@ public class Player : AliveEntity
     //StreamingSkill (Base Attack) Management
     static Projectile _pfArrow;
     static Player _pfPlayer;
+
+    public int _money = 0;
+    public int money { get { return _money; } private set { _money = value; } }
 
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
@@ -342,5 +343,16 @@ public class Player : AliveEntity
     public void SwapItemStack(int indexA, int indexB)
     {
         Send(new SwapItemStack(indexA, indexB));
+    }
+
+    public void SellItem(SellItem rpc)
+    {
+        for (int i = 0; i < rpc.amount; i++)
+            money += itemStacks[rpc.index].Pop().price;
+    }
+
+    public void SellItem(int index, int amount)
+    {
+        Send(new SellItem(index, amount));
     }
 }

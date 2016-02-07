@@ -5,9 +5,13 @@ public class Inventory : MonoBehaviour
     static public Inventory instance;
     public InventorySlot[] itemSlots;
 
-    void Start()
+    void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
         gameObject.SetActive(false);
     }
 

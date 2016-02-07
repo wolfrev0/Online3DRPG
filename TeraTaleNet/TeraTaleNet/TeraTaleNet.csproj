@@ -94,6 +94,7 @@
     <Compile Include="Body\RPC\SetActive.cs" />
     <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
+    <Compile Include="Body\RPC\SellItem.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SerializedPlayerAnswer.cs" />

@@ -38,6 +38,9 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public virtual void OnDrag(PointerEventData eventData)
     {
+        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Vector3 pos;
@@ -48,6 +51,9 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
+        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
+            return;
+
         _layoutGroup.SetDirty();
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
@@ -56,11 +62,13 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public override void OnDrop(PointerEventData eventData)
     {
+        var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
+
+        if (Player.mine.itemStacks[itemSlot.itemStackIndex].item.isNull)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
             Player.mine.SwapItemStack(itemStackIndex, itemSlot.itemStackIndex);
-        }
     }
 
     public override void OnPointerClick(PointerEventData eventData)

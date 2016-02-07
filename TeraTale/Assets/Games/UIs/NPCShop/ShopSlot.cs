@@ -5,15 +5,17 @@ public class ShopSlot : ItemSlot
 
     public override void OnDrop(PointerEventData eventData)
     {
+        var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
+        if (Player.mine.itemStacks[itemSlot.itemStackIndex].item.isNull)
+            return;
         if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            //var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
-            //Sell Dialog
-        }
+            SellDialog.instance.Open(itemSlot.itemStackIndex);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
+        if (NPCShop.instance.currentOwner.itemStacks[itemStackIndex].item.isNull)
+            return;
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             //Buy Dialog
