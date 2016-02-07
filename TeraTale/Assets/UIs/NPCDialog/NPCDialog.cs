@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class NPCDialog : MonoBehaviour
 {
+    static public NPCDialog instance;
     public Button pfButton;
     public Text text;
     public Transform menu;
@@ -14,6 +15,7 @@ public class NPCDialog : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
         npcCam = GameObject.FindWithTag("NPCCamera").GetComponent<Camera>();
     }
 

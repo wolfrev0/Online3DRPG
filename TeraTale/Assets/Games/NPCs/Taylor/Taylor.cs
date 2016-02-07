@@ -1,8 +1,16 @@
 ﻿using System.Collections.Generic;
+using TeraTaleNet;
 using UnityEngine;
 
 public class Taylor : NPC
 {
+    protected new void Awake()
+    {
+        base.Awake();
+        itemStacks[0].Push(new Pickaxe());
+        itemStacks[1].Push(new HpPotion());
+    }
+
     protected override List<Script> scripts
     {
         get
@@ -32,25 +40,20 @@ public class Taylor : NPC
                         break;
                 }
                 cmd.name = "Close";
-                cmd.action = npcDialog.Close;
+                cmd.action = NPCDialog.instance.Close;
                 s.commands.Add(cmd);
                 _scripts.Add(s);
 
-                npcDialog.Next();
+                NPCDialog.instance.Next();
             };
             s.commands.Add(cmd);
 
             cmd.name = "거래";
             cmd.action = ()=>
             {
-                s.commands = new List<Script.Command>();
-                s.comment = "아직 준비중이야.";
-                cmd.name = "Close";
-                cmd.action = npcDialog.Close;
-                s.commands.Add(cmd);
-                _scripts.Add(s);
-
-                npcDialog.Next();
+                NPCShop.instance.Open(this);
+                Inventory.instance.gameObject.SetActive(true);
+                NPCDialog.instance.Close();
             };
             s.commands.Add(cmd);
 
@@ -60,11 +63,11 @@ public class Taylor : NPC
                 s.commands = new List<Script.Command>();
                 s.comment = "아직 퀘스트가 없어...";
                 cmd.name = "Close";
-                cmd.action = npcDialog.Close;
+                cmd.action = NPCDialog.instance.Close;
                 s.commands.Add(cmd);
                 _scripts.Add(s);
 
-                npcDialog.Next();
+                NPCDialog.instance.Next();
             };
             s.commands.Add(cmd);
 

@@ -2,10 +2,12 @@
 
 public class Inventory : MonoBehaviour
 {
-    public ItemSlot[] itemSlots;
+    static public Inventory instance;
+    public InventorySlot[] itemSlots;
 
     void Start()
     {
+        instance = this;
         gameObject.SetActive(false);
     }
 

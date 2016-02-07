@@ -39,7 +39,7 @@ public class Mineral : Enemy
         if (damage.weaponType != Weapon.Type.pickaxe)
         {
             if (damage.sendedUser == userName)
-                FindObjectOfType<ChattingView>().PushGuideMessage("광물은 '곡괭이'로 채광할 수 있습니다.");
+                ChattingView.instance.PushGuideMessage("광물은 '곡괭이'로 채광할 수 있습니다.");
             return 0;
         }
         return damage.amount;

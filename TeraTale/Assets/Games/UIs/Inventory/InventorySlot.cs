@@ -1,15 +1,42 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
-using System;
 using TeraTaleNet;
+using UnityEngine.UI;
 
-public class InventorySlot : ItemSlot
+public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public override void OnBeginDrag(PointerEventData eventData)
+    public Text _count;
+    public Text _equipState;
+    Image _image;
+    Vector3 _alignedPosition;
+
+    void Start()
+    {
+        _image = GetComponent<Image>();
+        _alignedPosition = rt.anchoredPosition;
+    }
+
+    void Update()
+    {
+        if (Player.mine == null)
+            return;
+        ItemStack itemStack = Player.mine.itemStacks[itemStackIndex];
+        _image.sprite = itemStack.sprite;
+        _count.text = itemStack.count.ToString();
+        if (itemStack.count <= 1)
+            _count.text = "";
+
+        var equipment = itemStack.item as Equipment;
+        if (equipment != null)
+            _equipState.gameObject.SetActive(Player.mine.IsEquiping(equipment));
+        else
+            _equipState.gameObject.SetActive(false);
+    }
+
+    public virtual void OnBeginDrag(PointerEventData eventData)
     { }
 
-    public override void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -19,7 +46,7 @@ public class InventorySlot : ItemSlot
         }
     }
 
-    public override void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         ResetPosition();
 
@@ -27,10 +54,18 @@ public class InventorySlot : ItemSlot
             Player.mine.DropItemStack(itemStackIndex);
     }
 
+    protected void ResetPosition()
+    {
+        rt.anchoredPosition = _alignedPosition;
+    }
+
     public override void OnDrop(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
-            Player.mine.SwapItemStack(itemStackIndex, eventData.pointerDrag.GetComponent<ItemSlot>().itemStackIndex);
+        {
+            var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
+            Player.mine.SwapItemStack(itemStackIndex, itemSlot.itemStackIndex);
+        }
     }
 
     public override void OnPointerClick(PointerEventData eventData)
@@ -46,12 +81,12 @@ public class InventorySlot : ItemSlot
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        _popup.gameObject.SetActive(true);
-        _popup.item = Player.mine.itemStacks[itemStackIndex].item;
+        ItemSlotPopupView.instance.gameObject.SetActive(true);
+        ItemSlotPopupView.instance.item = Player.mine.itemStacks[itemStackIndex].item;
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
-        _popup.gameObject.SetActive(false);
+        ItemSlotPopupView.instance.gameObject.SetActive(false);
     }
 }

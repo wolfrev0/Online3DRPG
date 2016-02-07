@@ -19,7 +19,7 @@ public class Player : AliveEntity
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    public ItemStackList _itemStacks = new ItemStackList(30);
+    public ItemStackList itemStacks = new ItemStackList(30);
     public Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
@@ -35,12 +35,6 @@ public class Player : AliveEntity
     public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
     public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
 
-    public ItemStackList itemStacks
-    {
-        get { return _itemStacks; }
-        private set { _itemStacks = value; }
-    }
-
     static Player _mine;
     static public Player mine
     {
@@ -54,6 +48,8 @@ public class Player : AliveEntity
 
     static public Player FindPlayerByName(string name)
     {
+        if (name == null)
+            return null;
         Player ret;
         _playersByName.TryGetValue(name, out ret);
         return ret;
@@ -100,7 +96,7 @@ public class Player : AliveEntity
     protected void Awake()
     {
         for (int i = 0; i < 30; i++)
-            _itemStacks.Add(new ItemStack());
+            itemStacks.Add(new ItemStack());
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -243,12 +239,12 @@ public class Player : AliveEntity
     public void AddItem(AddItem rpc)
     {
         Item item = (Item)rpc.item;
-        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
+        itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
     public void ItemUse(ItemUse rpc)
     {
-        _itemStacks[rpc.index].Use(this);
+        itemStacks[rpc.index].Use(this);
     }
 
     public void Use(int itemStackIndex)

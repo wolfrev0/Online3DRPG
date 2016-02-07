@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class ItemSlotPopupView : MonoBehaviour
 {
+    static public ItemSlotPopupView instance;
+
     public Text nameText;
     public Text price;
     public Text itemType;
@@ -38,8 +40,9 @@ public class ItemSlotPopupView : MonoBehaviour
 
     void Start()
     {
-        gameObject.SetActive(false);
+        instance = this;
         _rt = GetComponent<RectTransform>();
+        gameObject.SetActive(false);
     }
 
     void Update()

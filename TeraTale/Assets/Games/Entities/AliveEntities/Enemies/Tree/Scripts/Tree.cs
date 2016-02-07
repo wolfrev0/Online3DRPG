@@ -36,7 +36,7 @@ public class Tree : Enemy
         if (damage.weaponType != Weapon.Type.axe)
         {
             if (damage.sendedUser == userName)
-                FindObjectOfType<ChattingView>().PushGuideMessage("나무는 '도끼'로 벌목할 수 있습니다.");
+                ChattingView.instance.PushGuideMessage("나무는 '도끼'로 벌목할 수 있습니다.");
             return 0;
         }
         return damage.amount;

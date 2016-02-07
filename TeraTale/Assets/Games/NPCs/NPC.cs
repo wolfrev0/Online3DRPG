@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using TeraTaleNet;
 
 public abstract class NPC : MonoBehaviour
 {
@@ -14,14 +15,18 @@ public abstract class NPC : MonoBehaviour
         public string comment;
         public List<Command> commands;
     }
-    Camera _npcCam;
-    protected NPCDialog npcDialog;
+
+    static Camera _npcCam;
+    
     protected abstract List<Script> scripts { get; }
+    public ItemStackList itemStacks = new ItemStackList(30);
 
     protected void Awake()
     {
-        _npcCam = GameObject.FindWithTag("NPCCamera").GetComponent<Camera>();
-        npcDialog = FindObjectOfType<NPCDialog>();
+        for (int i = 0; i < 30; i++)
+            itemStacks.Add(new ItemStack());
+        if (!_npcCam)
+            _npcCam = GameObject.FindWithTag("NPCCamera").GetComponent<Camera>();
     }
 
     public void StartConversation()
@@ -34,6 +39,6 @@ public abstract class NPC : MonoBehaviour
         _npcCam.enabled = true;
         _npcCam.depth = Camera.main.depth + 1;
 
-        npcDialog.StartConversation(scripts);
+        NPCDialog.instance.StartConversation(scripts);
     }
 }
