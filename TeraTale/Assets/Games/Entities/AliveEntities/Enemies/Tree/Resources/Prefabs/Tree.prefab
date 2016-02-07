@@ -402,12 +402,11 @@ MonoBehaviour:
   _hpMax: 100
   _stamina: 0
   _staminaMax: 1
-  _attackDamage: 0
   _level: 0
   _exp: 0
-  _expMax: 1
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _baseAttackDamage: 0
   _attackSubject: {fileID: 0}
   nameView: {fileID: 11491612}
 --- !u!136 &13637868
@@ -590,6 +589,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SizeDelta.y
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hpMax
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -9,26 +9,31 @@ using System.Reflection;
 public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
-    const float kRaycastDistance = 50.0f;
+    static float[] _hpMaxByLevel = new float[] { 1, 100, 110, 120, 130, 150 };
+    static float[] _staminaMaxByLevel = new float[] { 1, 110, 115, 120, 126, 133 };
+    static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
+    static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
 
     public Text nameView;
     public SpeechBubble speechBubble;
 
     NavMeshAgent _navMeshAgent;
     Animator _animator;
-    public ItemStackList _itemStacks = new ItemStackList(30);
+    public ItemStackList itemStacks = new ItemStackList(30);
     public Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
-    Projectile _pfArrow;
-    
-    public ItemStackList itemStacks
-    {
-        get { return _itemStacks; }
-        private set { _itemStacks = value; }
-    }
+    static Projectile _pfArrow;
+    static Player _pfPlayer;
+
+    public override float hpMax { get { return _hpMaxByLevel[level]; } }
+    public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
+    public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
+    public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
+    public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
+    public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
 
     static Player _mine;
     static public Player mine
@@ -43,6 +48,8 @@ public class Player : AliveEntity
 
     static public Player FindPlayerByName(string name)
     {
+        if (name == null)
+            return null;
         Player ret;
         _playersByName.TryGetValue(name, out ret);
         return ret;
@@ -59,7 +66,7 @@ public class Player : AliveEntity
             if (isServer)
             {
                 NetworkDestroy(_weaponSolid);
-                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), _weapon, "OnWeaponInstantiate");
+                NetworkInstantiate(_weapon.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(_weapon, transform.position + Vector3.up, 0, 0), "OnWeaponInstantiate");
             }
         }
     }
@@ -86,10 +93,10 @@ public class Player : AliveEntity
         _attackSubject.owner = this;
     }
 
-    void Awake()
+    protected void Awake()
     {
         for (int i = 0; i < 30; i++)
-            _itemStacks.Add(new ItemStack());
+            itemStacks.Add(new ItemStack());
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -108,6 +115,8 @@ public class Player : AliveEntity
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         if (_pfArrow == null)
             _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfPlayer == null)
+            _pfPlayer = Resources.Load<Player>("Prefabs/Player");
 
         if (isServer)
             GameServer.currentInstance.QuerySerializedPlayer(name);
@@ -146,25 +155,6 @@ public class Player : AliveEntity
         projectile.GetComponent<AttackSubject>().owner = this;
     }
 
-    public void HandleInput()
-    {
-        if (!isMine)
-            return;
-
-        if (Input.GetButtonDown("Move"))
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, kRaycastDistance, 1 << LayerMask.NameToLayer("Terrain")))
-                Send(new Navigate(hit.point));
-        }
-
-        if (Input.GetButtonDown("Attack"))
-            Send(new Attack());
-        if (Input.GetKeyDown(KeyCode.C))
-            Send(new BackTumbling());
-    }
-
     public void FacingDirectionUpdate()
     {
         var corners = _navMeshAgent.path.corners;
@@ -194,7 +184,7 @@ public class Player : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
-        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue / 2, float.MaxValue / 2, float.MaxValue / 2);
         Invoke("Respawn", 3.0f);
     }
 
@@ -237,9 +227,7 @@ public class Player : AliveEntity
         {
             SceneManager.LoadScene(rpc.world);
             Send(new BufferedRPCRequest(userName));
-
-            var programInst = NetworkProgramUnity.currentInstance;
-            programInst.NetworkInstantiate(programInst.pfPlayer);
+            NetworkProgramUnity.currentInstance.NetworkInstantiate(_pfPlayer);
         }
     }
 
@@ -251,12 +239,17 @@ public class Player : AliveEntity
     public void AddItem(AddItem rpc)
     {
         Item item = (Item)rpc.item;
-        _itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
+        itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
     public void ItemUse(ItemUse rpc)
     {
-        _itemStacks[rpc.index].Use(this);
+        itemStacks[rpc.index].Use(this);
+    }
+
+    public void Use(int itemStackIndex)
+    {
+        Send(new ItemUse(itemStackIndex));
     }
 
     public void Equip(Equipment equipment)
@@ -320,5 +313,34 @@ public class Player : AliveEntity
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
+    }
+
+    public void DropItemStack(DropItemStack rpc)
+    {
+        var itemStack = itemStacks[rpc.index];
+        var itemCount = itemStack.count;
+        for (int i = 0; i < itemCount; i++)
+        {
+            var item = itemStack.Pop();
+            if (isServer)
+                NetworkInstantiate(item.solidPrefab.GetComponent<ItemSolid>(), new ItemSolidArgument(item, transform.position + Vector3.up, 0, 0));
+        }
+    }
+
+    public void DropItemStack(int index)
+    {
+        Send(new DropItemStack(index));
+    }
+
+    public void SwapItemStack(SwapItemStack rpc)
+    {
+        var tmp = itemStacks[rpc.indexA];
+        itemStacks[rpc.indexA] = itemStacks[rpc.indexB];
+        itemStacks[rpc.indexB] = tmp;
+    }
+
+    public void SwapItemStack(int indexA, int indexB)
+    {
+        Send(new SwapItemStack(indexA, indexB));
     }
 }

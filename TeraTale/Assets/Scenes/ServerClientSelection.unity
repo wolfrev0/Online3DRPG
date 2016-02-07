@@ -500,9 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4381d3ddffd843944ba1af383438c83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
-  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
+  _networkID: -1
+  _owner: 
 --- !u!4 &326514392
 Transform:
   m_ObjectHideFlags: 0
@@ -605,7 +604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -2
   _owner: 
-  pfPlayer: {fileID: 0}
   serverIP: 127.0.0.1
 --- !u!4 &447090859
 Transform:
@@ -761,9 +759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa2ba20a7896641a117e2290a5e413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
-  pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
+  _networkID: -1
+  _owner: 
 --- !u!4 &599371545
 Transform:
   m_ObjectHideFlags: 0
@@ -817,7 +814,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -1
   _owner: 
-  pfPlayer: {fileID: 0}
 --- !u!1 &775296908
 GameObject:
   m_ObjectHideFlags: 0

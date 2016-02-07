@@ -6,11 +6,20 @@ public class ItemSolid : Entity
     public Item item;
     public ItemSpawnEffector _effector;
 
-    public void OnNetInstantiate(Item item)
+    protected new void OnEnable()
     {
-        this.item = item;
+        //base.OnEnable();
+    }
+
+    public void OnNetInstantiate(ItemSolidArgument arg)
+    {
+        item = arg.item;
+
+        transform.position = arg.spawnPos;
 
         _effector = gameObject.AddComponent<ItemSpawnEffector>();
+        _effector.xzAngle = arg.xzAngle;
+        _effector.xzSpeed = arg.xzSpeed;
         var floater = gameObject.AddComponent<Floater>();
         floater.amplitude = 0.2f;
         floater.frequency = 2;

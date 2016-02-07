@@ -1,12 +1,17 @@
 ﻿using UnityEngine.UI;
 using TeraTaleNet;
+using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class ChattingView : NetworkScript
 {
+    static public ChattingView instance;
     Text _text;
 
-    void Awake()
+    protected void Awake()
     {
+        instance = this;
+
         _text = GetComponent<Text>();
     }
 

@@ -36,22 +36,25 @@ public abstract class NetworkScript : MonoBehaviour
         _destroyed = true;
     }
 
-    protected void Start()
+    protected void OnEnable()
     {
-        StartCoroutine(StartSub());
+        if (NetworkProgramUnity.currentInstance == null)
+            StartCoroutine(StartSub());
+        else
+            RegisterToProgram();
+    }
+
+    IEnumerator StartSub()
+    {
+        while (NetworkProgramUnity.currentInstance == null)
+            yield return null;
+        RegisterToProgram();
     }
 
     protected void OnDestroy()
     {
         if (_destroyed == false)
             OnNetworkDestroy();
-    }
-
-    IEnumerator StartSub()
-    {
-        while (NetworkProgramUnity.currentInstance == null)
-            yield return new WaitForSeconds(0);
-        RegisterToProgram();
     }
 
     public void RegisterToProgram()

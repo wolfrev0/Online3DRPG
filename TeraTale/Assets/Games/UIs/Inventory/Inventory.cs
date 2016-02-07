@@ -2,15 +2,19 @@
 
 public class Inventory : MonoBehaviour
 {
-    public Cell[] cells;
+    static public Inventory instance;
+    public InventorySlot[] itemSlots;
+
+    void Start()
+    {
+        instance = this;
+        gameObject.SetActive(false);
+    }
 
     void OnEnable()
     {
-        var player = Player.mine;
-        for (int i = 0; i < cells.Length; i++)
-        {
-            cells[i].SetItemStack(player.itemStacks[i], i);
-        }
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].itemStackIndex = i;
     }
 
     public void ToggleShow()

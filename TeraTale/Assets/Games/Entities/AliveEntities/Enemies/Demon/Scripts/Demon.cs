@@ -14,16 +14,18 @@ public class Demon : Enemy
         base.Start();
     }
 
-    protected override List<Item> Items
+    protected override List<Item> itemsForDrop
     {
         get
         {
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
                 ret.Add(new HpPotion());
-            else
-                ret.Add(new Rock());
+            ret.Add(new Apple());
             return ret;
         }
     }
+
+    protected override float levelForDrop
+    { get { return 10; } }
 }

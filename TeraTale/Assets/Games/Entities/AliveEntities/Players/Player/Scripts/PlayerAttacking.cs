@@ -24,7 +24,8 @@ public class PlayerAttacking : StateMachineBehaviour
         if (_attackStackTimer != null)
             _player.StopCoroutine(_attackStackTimer);
         _attackStackTimer = _player.StartCoroutine(ResetAttackStack());
-        //Stack Overflow
+        animator.SetFloat("AttackSpeed", _player.attackSpeed);
+        InputHandler.instance.enabled = true;
     }
 
     IEnumerator ResetAttackStack()
@@ -33,12 +34,9 @@ public class PlayerAttacking : StateMachineBehaviour
         _animator.SetInteger("BaseAttackStack", 0);
     }
 
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (animator.IsInTransition(0))
-            return;
-        _player.HandleInput();
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

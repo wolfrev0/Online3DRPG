@@ -2,7 +2,7 @@
 {
     public abstract class Equipment : Item
     {
-        public enum Type
+        public new enum Type
         {
             Weapon,
             Coat,
@@ -17,6 +17,7 @@
 
         public abstract Type equipmentType { get; }
 
+        public sealed override Item.Type itemType { get { return Item.Type.equipment; } }
         public sealed override int maxCount { get { return 1; } }
 
         public Equipment()

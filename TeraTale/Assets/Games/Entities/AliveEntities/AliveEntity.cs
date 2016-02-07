@@ -6,9 +6,8 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
-    static int[] _expMaxByLevel;
-
-    protected bool usePeriodicSync = true;
+    static int[] _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
+    
     [SerializeField]
     Image _hpBar = null;
     [SerializeField]
@@ -31,16 +30,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 Die();
         }
     }
-    public float _hpMax;
-    public float hpMax
-    {
-        get { return _hpMax; }
-        private set
-        {
-            _hpMax = value;
-            _hpBar.fillAmount = hp / hpMax;
-        }
-    }
+    public abstract float hpMax { get; }
     public float _stamina;
     public float stamina
     {
@@ -51,28 +41,18 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
-    public float _staminaMax;
-    public float staminaMax
-    {
-        get { return _staminaMax; }
-        private set
-        {
-            _staminaMax = value;
-            _staminaBar.fillAmount = stamina / staminaMax;
-        }
-    }
-    public float _attackDamage = 0;
-    public float attackDamage
-    {
-        get { return _attackDamage; }
-        private set { _attackDamage = value; }
-    }
+    public abstract float staminaMax { get; }
+    public float attackDamage { get { return baseAttackDamage + bonusAttackDamage; } }
+    public abstract float baseAttackDamage { get; }
+    public abstract float bonusAttackDamage { get; }
+    public float attackSpeed { get { return baseAttackSpeed + bonusAttackSpeed; } }
+    public abstract float baseAttackSpeed { get; }
+    public abstract float bonusAttackSpeed { get; }
     public float abilityPower { get; set; }
     public float healthRegen { get; set; }
     public float defence { get; set; }
     public float magicRegistance { get; set; }
     public float moveSpeed { get; set; }
-    public float attackSpeed { get; set; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
     public int _level = 1;
@@ -85,11 +65,10 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 return;
             if (value < _level)
                 throw new ArgumentException("level can not decreased.");
-            if (level > levelMax)
+            if (level >= levelMax)
                 return;
             _level = value;
             _levelText.text = "LV." + _level;
-            expMax = _expMaxByLevel[level];
         }
     }
     int levelMax { get { return _expMaxByLevel.Length - 1; } }
@@ -102,13 +81,19 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             _exp = value;
             while (_exp >= expMax)
             {
-                _exp -= expMax;
-                level = level + 1;
+                if (level == levelMax)
+                {
+                    _exp = expMax - 1;
+                }
+                else
+                {
+                    _exp -= expMax;
+                    level = level + 1;
+                }
             }
         }
     }
-    float _expMax = 1;
-    public float expMax { get { return _expMax; } private set { _expMax = value; } }
+    public float expMax { get { return _expMaxByLevel[level]; } }
 
     public Vector3 _syncedPos;
     public Vector3 _syncedRot;
@@ -134,14 +119,12 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     protected virtual float CalculateHeal(Heal heal) { return heal.amount; }
     protected virtual float CalculateDamage(Damage damage) { return damage.amount; }
 
-    protected new void Start()
+    protected void Start()
     {
-        base.Start();
         if (_pfHealFX == null)
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
-        _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
     }
 
     protected new void OnEnable()
@@ -155,29 +138,15 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         }
         else
         {
-            Sync("hp");
-            Sync("hpMax");
-            Sync("stamina");
-            Sync("staminaMax");
-            Sync("attackDamage");
-            Sync("abilityPower");
-            Sync("healthRegen");
-            Sync("defence");
-            Sync("magicRegistance");
-            Sync("moveSpeed");
-            Sync("attackSpeed");
-            Sync("castingTimeDecrease");
-            Sync("coolTimeDecrease");
             Sync("level");
+            Sync("hp");
+            Sync("stamina");
             Sync("exp");
-            Sync("expMax");
         }
     }
 
-    protected void PeriodicSync()
+    protected virtual void PeriodicSync()
     {
-        if (usePeriodicSync == false)
-            return;
         if (gameObject.activeSelf == false)
             return;
         _syncedPos = transform.position;

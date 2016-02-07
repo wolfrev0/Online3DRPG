@@ -82,10 +82,7 @@ public class Certificator : NetworkProgramUnity
                 net.stream = messenger.Unregister("Proxy");
             userName = answer.name;
             net.signallersByID = signallersByID;
-            net.enabled = true;
-
-            //※ Client.Start() is not started yet.
-            Send(new BufferedRPCRequest(userName));
+            net.enabled = true;            
         }
     }
 }

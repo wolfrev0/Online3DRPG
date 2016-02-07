@@ -2,17 +2,19 @@
 
 namespace TeraTaleNet
 {
-    public class Reset : RPC
+    public class Respawn : RPC
     {
         public float positionSeed;
+        public float lengthSeed;
 
-        public Reset(float positionSeed)
+        public Respawn(float positionSeed, float lengthSeed)
             : base(RPCType.All)
         {
             this.positionSeed = positionSeed;
+            this.lengthSeed = lengthSeed;
         }
 
-        public Reset()
+        public Respawn()
             : base(RPCType.All)
         { }
     }

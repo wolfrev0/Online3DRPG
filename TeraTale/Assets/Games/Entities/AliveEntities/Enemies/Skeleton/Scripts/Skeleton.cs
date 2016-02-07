@@ -14,16 +14,18 @@ public class Skeleton : Enemy
         base.Start();
     }
 
-    protected override List<Item> Items
+    protected override List<Item> itemsForDrop
     {
         get
         {
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
-                ret.Add(new Bone());
-            else
                 ret.Add(new HpPotion());
+            ret.Add(new Bone());
             return ret;
         }
     }
+
+    protected override float levelForDrop
+    { get { return 16; } }
 }

@@ -1,27 +1,58 @@
 ﻿using UnityEngine;
 using TeraTaleNet;
 using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
 
-//Target Detect 알고리즘
-//1. 처음 타겟을 쫓아간다.
-//2. 그후에 딜량체크해서 딜 많이넣은 플레이어 쫓아간다.
-//붙어있는 타겟 처리 알고리즘
-//공격시에는 NavMeshAgent의 updateRotation=false로 하자.
-//공격 후 target에게 Raycast하여 false일경우 이동&updateRotation=true하고 true일경우 그대로 공격
 public abstract class Enemy : AliveEntity
 {
+    [SerializeField]
+    float _hpMax = 0;
+    [SerializeField]
+    float _staminaMax = 0;
+    [SerializeField]
+    float _baseAttackDamage = 0;
     public AttackSubject _attackSubject;
     public Text nameView;
-    public Item[] items;
-    public MonsterSpawner spawner { get; set; }
     Animator _animator;
 
-    SortedList<float, AliveEntity> _targets = new SortedList<float, AliveEntity>();
+    class TargetDamagePair : System.IComparable<TargetDamagePair>
+    {
+        public AliveEntity target;
+        public float accumulatedDamage;
+
+        public TargetDamagePair(AliveEntity target, float accumulatedDamage)
+        {
+            this.target = target;
+            this.accumulatedDamage = accumulatedDamage;
+        }
+
+        public int CompareTo(TargetDamagePair other)
+        {
+            if (accumulatedDamage < other.accumulatedDamage)
+                return -1;
+            if (other.accumulatedDamage < accumulatedDamage)
+                return 1;
+            return 0;
+        }
+    }
+    List<TargetDamagePair> _targets = new List<TargetDamagePair>();
+    public override float hpMax { get { return _hpMax; } }
+    public override float staminaMax { get { return _staminaMax; } }
+    public override float baseAttackDamage { get { return _baseAttackDamage; } }
+    public override float bonusAttackDamage { get { return 0; } }
+    public override float baseAttackSpeed { get { return 1; } }
+    public override float bonusAttackSpeed { get { return 0; } }
     //return high-damaged target;
-    public AliveEntity target
-    { get { return (_targets.Count == 0) ? null : _targets.Values[_targets.Count - 1]; } }
+    public AliveEntity mainTarget
+    { get { return _targets[_targets.Count - 1].target; } }
+    public MonsterSpawner spawner { get; set; }
+
+    public bool hasTarget { get { return _targets.Count > 0; } }
+
+    public bool ContainsTarget(GameObject gameObject)
+    {
+        return _targets.Find(t => t.target.gameObject == gameObject) != null;
+    }
 
     protected void Awake()
     {
@@ -56,9 +87,11 @@ public abstract class Enemy : AliveEntity
 
     public void AddTarget(AddTarget rpc)
     {
-        var target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID];
-        if (!_targets.ContainsValue(target))
-            _targets.Add(0, target);
+        if (_targets.Find(t => t.target.networkID == rpc.targetID) == null)
+        {
+            _targets.Add(new TargetDamagePair((AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID], 0));
+            _targets.Sort();
+        }
     }
 
     public void RemoveTarget(AliveEntity target)
@@ -69,9 +102,9 @@ public abstract class Enemy : AliveEntity
 
     public void RemoveTarget(RemoveTarget rpc)
     {
-        var target = (AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID];
-        if (_targets.ContainsValue(target))
-            _targets.RemoveAt(_targets.IndexOfValue(target));
+        var pair = _targets.Find(t => t.target.networkID == rpc.targetID);
+        if (pair != null)
+            _targets.Remove(pair);
     }
 
     public void Chase()
@@ -98,14 +131,17 @@ public abstract class Enemy : AliveEntity
             if (root.tag == "Player")
             {
                 var player = root.GetComponent<Player>();
-                if (player == target)
+                if (player == mainTarget)
                     return true;
             }
         }
         return false;
     }
 
-    protected abstract List<Item> Items
+    protected abstract List<Item> itemsForDrop
+    { get; }
+
+    protected abstract float levelForDrop
     { get; }
 
     protected override void Die()
@@ -117,18 +153,32 @@ public abstract class Enemy : AliveEntity
     {
         if (isLocal)
             return;
-        foreach (var item in Items)
-            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), item, "OnDropItemInstantiate");
+        foreach (var item in itemsForDrop)
+        {
+            float xzAngle;
+            do xzAngle = Random.Range(0f, Mathf.PI * 2);
+            while (Physics.Raycast(transform.position + Vector3.up, new Vector3(Mathf.Sin(xzAngle), 0, Mathf.Cos(xzAngle)), 2f, LayerMask.GetMask("Terrain")));
+
+            NetworkInstantiate(item.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(item, transform.position + Vector3.up, xzAngle, Random.Range(0f, 1f)));
+        }
     }
 
     void SetActiveFalse()
     {
         if (isLocal)
             return;
-        if (target)
-            target.ExpUp(new ExpUp(10));
+        foreach (var target in _targets)
+            target.target.ExpUp(new ExpUp(levelForDrop));//나중에 accumulatedDamage 비율 계산해서 주자.
         InvokeRepeating("Respawn", 10.0f, float.MaxValue);
         Send(new SetActive(false));
+    }
+
+    public void Respawn(Respawn rpc)
+    {
+        transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * rpc.lengthSeed + spawner.transform.position;
+        transform.eulerAngles = new Vector3(0, Random.Range(0f, 360f), 0);
+        _animator.Rebind();
+        _targets.Clear();
     }
 
     public void Respawn()
@@ -136,28 +186,23 @@ public abstract class Enemy : AliveEntity
         CancelInvoke("Respawn");
         if (gameObject.activeSelf == false)
             Send(new SetActive(true));
-        Send(new Reset(UnityEngine.Random.Range(0f, Mathf.PI * 2)));
-    }
-
-    public void Reset(Reset rpc)
-    {
-        transform.position = new Vector3(Mathf.Sin(rpc.positionSeed), 0, Mathf.Cos(rpc.positionSeed)) * UnityEngine.Random.Range(0f, spawner.spawnRange) + spawner.transform.position;
-        transform.eulerAngles = new Vector3(0, UnityEngine.Random.Range(0f, 360f), 0);
-        _animator.Rebind();
-        _targets.Clear();
+        Send(new Respawn(Random.Range(0f, Mathf.PI * 2), Random.Range(0f, spawner.spawnRange)));
     }
 
     protected override void OnDamaged(Damage damage)
     {
+        var targetPair = _targets.Find(pair => pair.target.name == damage.sendedUser);
+        if (targetPair == null)
+        {
+            targetPair = new TargetDamagePair(Player.FindPlayerByName(damage.sendedUser), 0);
+            _targets.Add(targetPair);
+        }
+        targetPair.accumulatedDamage += CalculateDamage(damage);
+        _targets.Sort();
     }
 
     protected override void Knockdown()
     {
         _animator.SetTrigger("Knockdown");
-    }
-
-    public void OnDropItemInstantiate(ItemSolid item)
-    {
-        item.transform.position = transform.position + Vector3.up;
     }
 }

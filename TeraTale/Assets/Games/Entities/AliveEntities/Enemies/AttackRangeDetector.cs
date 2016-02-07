@@ -14,20 +14,26 @@ public class AttackRangeDetector : MonoBehaviour
     {
         if (enabled == false)
             return;
-        if (observer.target != null && coll.gameObject == observer.target.gameObject)
+        if (coll.tag == "Player")
         {
-            if (observer.CanAttackTarget())
-                observer.Attack();
-            else
-                observer.Chase();
+            if (observer.ContainsTarget(coll.gameObject))
+            {
+                if (observer.CanAttackTarget())
+                    observer.Attack();
+                else
+                    observer.Chase();
+            }
         }
     }
 
     void OnTriggerExit(Collider coll)
     {
-        if (enabled == false)
-            return;
-        if (observer.target != null && coll.gameObject == observer.target.gameObject)
-            observer.Chase();
+        if (coll.tag == "Player")
+        {
+            if (enabled == false)
+                return;
+            if (observer.ContainsTarget(coll.gameObject))
+                observer.Chase();
+        }
     }
 }

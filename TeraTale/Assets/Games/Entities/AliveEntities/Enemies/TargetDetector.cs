@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class TargetDetector : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class TargetDetector : MonoBehaviour
             return;
         if (coll.tag == "Player")
         {
-            if (observer.target == null)
+            if (!observer.hasTarget)
                 observer.AddTarget(coll.GetComponent<Player>());
             observer.Chase();
         }
@@ -26,7 +25,10 @@ public class TargetDetector : MonoBehaviour
     {
         if (enabled == false)
             return;
-        if (observer.target != null && coll.gameObject == observer.target.gameObject)
-            observer.RemoveTarget(coll.GetComponent<Player>());
+        if (coll.tag == "Player")
+        {
+            if (observer.ContainsTarget(coll.gameObject))
+                observer.RemoveTarget(coll.GetComponent<Player>());
+        }
     }
 }

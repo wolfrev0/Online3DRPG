@@ -15,6 +15,8 @@
 
         public sealed override Equipment.Type equipmentType { get { return Equipment.Type.Weapon; } }
         public abstract Type weaponType { get; }
+        public abstract float bonusAttackDamage { get; }
+        public abstract float bonusAttackSpeed { get; }
 
         public Weapon()
         { }

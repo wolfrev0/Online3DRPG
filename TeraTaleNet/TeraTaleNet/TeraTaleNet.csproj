@@ -49,9 +49,11 @@
     <Compile Include="Body\BufferedRPCRequest.cs" />
     <Compile Include="Body\ConfirmID.cs" />
     <Compile Include="Body\ConnectorInfo.cs" />
+    <Compile Include="Body\ItemSolidArgument.cs" />
     <Compile Include="Body\ItemStack.cs" />
     <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Consumable\Apple.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Axe\Axe.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Pickaxe\Pickaxe.cs" />
     <Compile Include="Body\Item\Sundry\Bone.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
+    <Compile Include="Body\RPC\DropItemStack.cs" />
     <Compile Include="Body\RPC\ExpUp.cs" />
     <Compile Include="Body\RPC\Heal.cs" />
     <Compile Include="Body\Item\Consumable\Consumable.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Body\RPC\Respawn.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="Body\RPC\SetActive.cs" />
+    <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
@@ -116,9 +120,7 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="NetworkProgram.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Body\Item\Equipment\Weapon\Axe\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

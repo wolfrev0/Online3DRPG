@@ -16,13 +16,13 @@ public class PlayerRunning : StateMachineBehaviour
         }
         _nma.speed = 4;
         _animator.SetBool("Run", true);
+        InputHandler.instance.enabled = true;
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animator.IsInTransition(0))
             return;
-        _player.HandleInput();
         _player.FacingDirectionUpdate();
         if (_player.isArrived)
             _animator.SetBool("Run", false);
