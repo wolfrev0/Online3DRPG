@@ -8,10 +8,12 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
     public Text _count;
     public Text _equipState;
     Image _image;
+    InventorySlotLayoutGroup _layoutGroup;
 
     protected void Start()
     {
         _image = GetComponent<Image>();
+        _layoutGroup = Inventory.instance.GetComponentInChildren<InventorySlotLayoutGroup>();
     }
 
     void Update()
@@ -46,9 +48,7 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-        //Set GridLayoutGroup Dirty for rearrange. unity didn't open SetDirty Method :(
-        _image.enabled = false;
-        _image.enabled = true;
+        _layoutGroup.SetDirty();
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
             Player.mine.DropItemStack(itemStackIndex);
