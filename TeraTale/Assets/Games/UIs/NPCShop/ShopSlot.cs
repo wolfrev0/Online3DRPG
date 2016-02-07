@@ -7,11 +7,8 @@ public class ShopSlot : ItemSlot
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
-            if (itemSlot is InventorySlot)
-            {
-                //Sell Dialog
-            }
+            //var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
+            //Sell Dialog
         }
     }
 
