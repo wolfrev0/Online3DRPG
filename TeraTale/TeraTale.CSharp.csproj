@@ -128,6 +128,7 @@
     <Compile Include="Assets\Games\MonsterSpawner.cs" />
     <Compile Include="Assets\Games\NPCs\Ian\Ian.cs" />
     <Compile Include="Assets\Games\NPCs\NPC.cs" />
+    <Compile Include="Assets\Games\NPCs\Smith\Smith.cs" />
     <Compile Include="Assets\Games\NPCs\TalkableRangeDetector.cs" />
     <Compile Include="Assets\Games\NPCs\Taylor\Taylor.cs" />
     <Compile Include="Assets\Games\Portal.cs" />
