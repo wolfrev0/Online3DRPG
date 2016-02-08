@@ -383,4 +383,38 @@ public class Player : AliveEntity
     {
         Send(new BuyItem(Application.loadedLevelName, item, amount));
     }
+
+    public int ItemCount(Item item)
+    {
+        int count = 0;
+
+        for (int i = 0; i < itemStacks.count; i++)
+            if (itemStacks[i].item.IsSameType(item))
+                count += itemStacks[i].count;
+
+        return count;
+    }
+
+    public void RemoveItem(RemoveItem rpc)
+    {
+        for (int i = 0; i < itemStacks.count; i++)
+        {
+            var itemStack = itemStacks[i];
+            if (itemStack.item.IsSameType(rpc.item))
+            {
+                while (itemStack.count != 0)
+                {
+                    if (rpc.amount == 0)
+                        return;
+                    itemStack.Pop();
+                    --rpc.amount;
+                }
+            }
+        }
+    }
+
+    public void RemoveItem(Item item, int amount)
+    {
+        Send(new RemoveItem(item, amount));
+    }
 }

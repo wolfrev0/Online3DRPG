@@ -1,16 +1,18 @@
 ﻿namespace TeraTaleNet
 {
-    public class AddItem : RPC
+    public class RemoveItem : RPC
     {
         public Item item;
+        public int amount;
 
-        public AddItem(Item item)
+        public RemoveItem(Item item, int amount)
             : base(RPCType.All)
         {
             this.item = item;
+            this.amount = amount;
         }
 
-        public AddItem()
+        public RemoveItem()
             : base(RPCType.All)
         { }
     }

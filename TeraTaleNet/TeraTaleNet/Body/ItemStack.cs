@@ -21,6 +21,11 @@ namespace TeraTaleNet
         public ItemStack()
         { }
 
+        public void Clear()
+        {
+            _stack = new Stack<Item>(new[] { new ItemNull() });
+        }
+
         public void Push(Item item)
         {
             Item i = _stack.Peek();

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TeraTaleNet;
+using UnityEngine;
 
 public class Inventory : Modal
 {

@@ -21,6 +21,8 @@ namespace TeraTaleNet
             set { _list[index] = value; }
         }
 
+        public int count { get { return _list.Count; } }
+
         public void Add(ItemStack item)
         { _list.Add(item); }
 
