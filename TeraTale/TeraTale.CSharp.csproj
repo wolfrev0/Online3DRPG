@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -108,7 +106,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBacktumbling.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBackTumbling.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
@@ -172,9 +170,7 @@
   <ItemGroup>
     <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
-    <None Include="Assets\References\UnityEngine.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
