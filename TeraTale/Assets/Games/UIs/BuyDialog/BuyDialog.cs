@@ -1,9 +1,7 @@
-﻿
-using TeraTaleNet;
-using UnityEngine;
+﻿using TeraTaleNet;
 using UnityEngine.UI;
 
-public class BuyDialog : MonoBehaviour
+public class BuyDialog : Modal
 {
     static public BuyDialog instance;
     public Image image;
@@ -14,6 +12,10 @@ public class BuyDialog : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
         gameObject.SetActive(false);
     }
 
@@ -21,6 +23,7 @@ public class BuyDialog : MonoBehaviour
     {
         _item = item;
         image.sprite = item.sprite;
+        input.text = "0";
         gameObject.SetActive(true);
     }
 
@@ -40,7 +43,7 @@ public class BuyDialog : MonoBehaviour
         var amount = int.Parse(input.text);
         if(Player.mine.money >= _item.price*amount && Player.mine.CanAddItem(_item, amount))
         {
-            //BuyItem
+            Player.mine.BuyItem(_item, amount);
         }
         else
         {

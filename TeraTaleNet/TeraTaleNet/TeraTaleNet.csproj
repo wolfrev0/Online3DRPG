@@ -62,6 +62,7 @@
     <Compile Include="Body\Item\Sundry\Log.cs" />
     <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
+    <Compile Include="Body\RPC\BuyItem.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
     <Compile Include="Body\RPC\DropItemStack.cs" />
     <Compile Include="Body\RPC\ExpUp.cs" />

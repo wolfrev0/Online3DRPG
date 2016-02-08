@@ -73,7 +73,7 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Left)
             Use();
     }
 

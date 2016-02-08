@@ -1,8 +1,6 @@
-﻿
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-public class SellDialog : MonoBehaviour
+public class SellDialog : Modal
 {
     static public SellDialog instance;
     public Image image;
@@ -13,6 +11,10 @@ public class SellDialog : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
         gameObject.SetActive(false);
     }
 
@@ -20,6 +22,7 @@ public class SellDialog : MonoBehaviour
     {
         _itemStackIndex = itemStackindex;
         image.sprite = Player.mine.itemStacks[itemStackindex].sprite;
+        input.text = "0";
         gameObject.SetActive(true);
     }
 

@@ -35,13 +35,15 @@ namespace TeraTaleNet
         {
             get
             {
-                var clone = Activator.CreateInstance(GetType());
+                Item clone = (Item)Activator.CreateInstance(GetType());
 
+                int savedID = clone._itemID;
                 FieldInfo[] fi = GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 for (int i = 0; i < fi.Length; i++)
                     fi[i].SetValue(clone, fi[i].GetValue(this));
+                clone._itemID = savedID;
 
-                return (Item)clone;
+                return clone;
             }
         }
 

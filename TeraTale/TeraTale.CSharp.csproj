@@ -138,7 +138,9 @@
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlotLayoutGroup.cs" />
     <Compile Include="Assets\Games\UIs\ItemSlot.cs" />
     <Compile Include="Assets\Games\UIs\ItemSlotPopupView.cs" />
+    <Compile Include="Assets\Games\UIs\Modal.cs" />
     <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
+    <Compile Include="Assets\Games\UIs\NPCDialog\NPCDialog.cs" />
     <Compile Include="Assets\Games\UIs\NPCShop\NPCShop.cs" />
     <Compile Include="Assets\Games\UIs\NPCShop\ShopSlot.cs" />
     <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlot.cs" />
@@ -158,7 +160,6 @@
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />
     <Compile Include="Assets\UIs\Logins\Scripts\LoginButtonHandler.cs" />
-    <Compile Include="Assets\UIs\NPCDialog\NPCDialog.cs" />
     <Compile Include="Assets\UIs\ServerClientSelections\ServerClientSelectionHandler.cs" />
     <Compile Include="Assets\Unaligned\ReadData.cs" />
   </ItemGroup>

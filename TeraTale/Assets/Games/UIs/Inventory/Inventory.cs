@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : Modal
 {
     static public Inventory instance;
     public InventorySlot[] itemSlots;
@@ -15,8 +15,9 @@ public class Inventory : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnEnable()
+    protected new void OnEnable()
     {
+        base.OnEnable();
         for (int i = 0; i < itemSlots.Length; i++)
             itemSlots[i].itemStackIndex = i;
     }

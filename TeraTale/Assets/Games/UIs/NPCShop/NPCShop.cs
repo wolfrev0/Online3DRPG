@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class NPCShop : MonoBehaviour
+public class NPCShop : Modal
 {
     static public NPCShop instance;
     public ShopSlot[] itemSlots;
@@ -8,9 +8,13 @@ public class NPCShop : MonoBehaviour
 
     public NPC currentOwner { get { return _owner; } }
 
-    void Start()
+    void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
         gameObject.SetActive(false);
     }
 
@@ -26,8 +30,9 @@ public class NPCShop : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnEnable()
+    protected new void OnEnable()
     {
+        base.OnEnable();
         for (int i = 0; i < itemSlots.Length; i++)
             itemSlots[i].itemStackIndex = i;
     }

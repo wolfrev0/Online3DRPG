@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MyInfoView : MonoBehaviour, IDragHandler
+public class MyInfoView : Modal, IDragHandler
 {
     public Camera playerBodyCamera;
     float theta = 0;
 
-    void OnEnable()
+    protected new void OnEnable()
     {
         playerBodyCamera.enabled = true;
         playerBodyCamera.transform.SetParent(Player.mine.transform);
     }
 
-    void OnDisable()
+    protected new void OnDisable()
     {
         playerBodyCamera.enabled = false;
     }

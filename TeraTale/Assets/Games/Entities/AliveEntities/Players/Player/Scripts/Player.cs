@@ -366,4 +366,21 @@ public class Player : AliveEntity
     {
         Send(new SellItem(index, amount));
     }
+
+    public void BuyItem(BuyItem rpc)
+    {
+        money -= rpc.item.price * rpc.amount;
+        for (int i = 0; i < rpc.amount; i++)
+            AddItem(rpc.item);
+
+        var s = new Sync(RPCType.Others, "", "money");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+    }
+
+    public void BuyItem(Item item, int amount)
+    {
+        Send(new BuyItem(Application.loadedLevelName, item, amount));
+    }
 }
