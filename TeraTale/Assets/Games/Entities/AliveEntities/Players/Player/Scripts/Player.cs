@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
-using System;
-using System.Reflection;
 
 public class Player : AliveEntity
 {
@@ -27,6 +25,9 @@ public class Player : AliveEntity
     //StreamingSkill (Base Attack) Management
     static Projectile _pfArrow;
     static Player _pfPlayer;
+
+    public int _money = 0;
+    public int money { get { return _money; } private set { _money = value; } }
 
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
@@ -242,6 +243,11 @@ public class Player : AliveEntity
         itemStacks.Find((ItemStack s) => { return s.IsPushable(item); }).Push(item);
     }
 
+    public bool CanAddItem(Item item, int amount)
+    {
+        return itemStacks.Find((ItemStack s) => { return s.IsPushable(item, amount); }) != null;
+    }
+
     public void ItemUse(ItemUse rpc)
     {
         itemStacks[rpc.index].Use(this);
@@ -313,6 +319,12 @@ public class Player : AliveEntity
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
+
+        //money Sync
+        s = new Sync(RPCType.Others, "", "money");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
     }
 
     public void DropItemStack(DropItemStack rpc)
@@ -342,5 +354,67 @@ public class Player : AliveEntity
     public void SwapItemStack(int indexA, int indexB)
     {
         Send(new SwapItemStack(indexA, indexB));
+    }
+
+    public void SellItem(SellItem rpc)
+    {
+        for (int i = 0; i < rpc.amount; i++)
+            money += itemStacks[rpc.index].Pop().price;
+    }
+
+    public void SellItem(int index, int amount)
+    {
+        Send(new SellItem(index, amount));
+    }
+
+    public void BuyItem(BuyItem rpc)
+    {
+        money -= rpc.item.price * rpc.amount;
+        for (int i = 0; i < rpc.amount; i++)
+            AddItem(rpc.item);
+
+        var s = new Sync(RPCType.Others, "", "money");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+    }
+
+    public void BuyItem(Item item, int amount)
+    {
+        Send(new BuyItem(Application.loadedLevelName, item, amount));
+    }
+
+    public int ItemCount(Item item)
+    {
+        int count = 0;
+
+        for (int i = 0; i < itemStacks.count; i++)
+            if (itemStacks[i].item.IsSameType(item))
+                count += itemStacks[i].count;
+
+        return count;
+    }
+
+    public void RemoveItem(RemoveItem rpc)
+    {
+        for (int i = 0; i < itemStacks.count; i++)
+        {
+            var itemStack = itemStacks[i];
+            if (itemStack.item.IsSameType(rpc.item))
+            {
+                while (itemStack.count != 0)
+                {
+                    if (rpc.amount == 0)
+                        return;
+                    itemStack.Pop();
+                    --rpc.amount;
+                }
+            }
+        }
+    }
+
+    public void RemoveItem(Item item, int amount)
+    {
+        Send(new RemoveItem(item, amount));
     }
 }

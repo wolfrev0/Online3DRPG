@@ -30,5 +30,9 @@ public class ItemFunctions : NetworkScript
             else
                 player.Equip((Equipment)item);
         };
+        Scroll.onUse += (Item item, object target) =>
+        {
+            ScrollIngredientView.instance.Open((Scroll)item);
+        };
     }
 }

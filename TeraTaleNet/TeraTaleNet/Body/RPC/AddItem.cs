@@ -2,7 +2,7 @@
 {
     public class AddItem : RPC
     {
-        public IAutoSerializable item;
+        public Item item;
 
         public AddItem(Item item)
             : base(RPCType.All)

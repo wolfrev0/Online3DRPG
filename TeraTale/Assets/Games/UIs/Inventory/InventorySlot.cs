@@ -8,12 +8,12 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
     public Text _count;
     public Text _equipState;
     Image _image;
-    Vector3 _alignedPosition;
+    InventorySlotLayoutGroup _layoutGroup;
 
-    void Start()
+    protected void Start()
     {
         _image = GetComponent<Image>();
-        _alignedPosition = rt.anchoredPosition;
+        _layoutGroup = Inventory.instance.GetComponentInChildren<InventorySlotLayoutGroup>();
     }
 
     void Update()
@@ -38,6 +38,9 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public virtual void OnDrag(PointerEventData eventData)
     {
+        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Vector3 pos;
@@ -48,29 +51,29 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-        ResetPosition();
+        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
+            return;
+
+        _layoutGroup.SetDirty();
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
             Player.mine.DropItemStack(itemStackIndex);
     }
 
-    protected void ResetPosition()
-    {
-        rt.anchoredPosition = _alignedPosition;
-    }
-
     public override void OnDrop(PointerEventData eventData)
     {
+        var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
+
+        if (Player.mine.itemStacks[itemSlot.itemStackIndex].item.isNull)
+            return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
             Player.mine.SwapItemStack(itemStackIndex, itemSlot.itemStackIndex);
-        }
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Left)
             Use();
     }
 

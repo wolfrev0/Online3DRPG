@@ -21,6 +21,11 @@ namespace TeraTaleNet
         public ItemStack()
         { }
 
+        public void Clear()
+        {
+            _stack = new Stack<Item>(new[] { new ItemNull() });
+        }
+
         public void Push(Item item)
         {
             Item i = _stack.Peek();
@@ -51,6 +56,27 @@ namespace TeraTaleNet
             if (i.isNull)
                 return true;
             return IsFull() == false && i.IsSameType(item);
+        }
+
+        public bool IsPushable(Item item, int amount)
+        {
+            if (IsFull())
+                return false;
+
+            Item i = _stack.Peek();
+
+            if (i.isNull)
+            {
+                if (amount <= item.maxCount)
+                    return true;
+                return false;
+            }
+            else
+            {
+                if (i.IsSameType(item) && _stack.Count + amount <= item.maxCount)
+                    return true;
+                return false;
+            }
         }
 
         public void Use(object player)

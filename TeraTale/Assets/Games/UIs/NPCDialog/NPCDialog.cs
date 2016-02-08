@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class NPCDialog : MonoBehaviour
+public class NPCDialog : Modal
 {
     static public NPCDialog instance;
     public Button pfButton;
@@ -19,8 +19,14 @@ public class NPCDialog : MonoBehaviour
         npcCam = GameObject.FindWithTag("NPCCamera").GetComponent<Camera>();
     }
 
+    void Start()
+    {
+        enabled = false;
+    }
+
     public void StartConversation(List<NPC.Script> scripts)
     {
+        enabled = true;
         _scripts = scripts;
         _nextScriptIdx = 0;
         Next();
@@ -47,6 +53,7 @@ public class NPCDialog : MonoBehaviour
 
     public void Close()
     {
+        enabled = false;
         npcCam.enabled = false;
         npcCam.depth = Camera.main.depth - 1;
     }

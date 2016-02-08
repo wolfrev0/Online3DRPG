@@ -45,6 +45,11 @@ public class InputHandler : MonoBehaviour
         on0 = () => { QuickSlotController.instance.Execute(9); };
     }
 
+    void OnDestroy()
+    {
+        instance = null;
+    }
+
 	void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))

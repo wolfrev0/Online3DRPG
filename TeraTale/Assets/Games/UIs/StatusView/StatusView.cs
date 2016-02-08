@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class StatusView : MonoBehaviour
 {
-    public AliveEntity target { private get; set; }
+    public Player target { private get; set; }
     [SerializeField]
     Image _hpBar = null;
     [SerializeField]
@@ -38,7 +38,7 @@ public class StatusView : MonoBehaviour
         _nameText.text = target.name;
         _expBar.fillAmount = target.exp / target.expMax;
         _expText.text = string.Format("{0:0.##}% ({1}/{2})", target.exp / target.expMax * 100, target.exp, target.expMax);
-        //_moneyText.text = _player.money;
+        _moneyText.text = target.money + "G";
         //_buffsGroup.AddChildren(_player.GetAllBuffs());
     }
 }

@@ -60,8 +60,11 @@
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\Item\Sundry\IronOre.cs" />
     <Compile Include="Body\Item\Sundry\Log.cs" />
+    <Compile Include="Body\Item\Sundry\Scroll\BowScroll.cs" />
+    <Compile Include="Body\Item\Sundry\Scroll\Scroll.cs" />
     <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
+    <Compile Include="Body\RPC\BuyItem.cs" />
     <Compile Include="Body\RPC\Damage.cs" />
     <Compile Include="Body\RPC\DropItemStack.cs" />
     <Compile Include="Body\RPC\ExpUp.cs" />
@@ -88,12 +91,14 @@
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
+    <Compile Include="Body\RPC\RemoveItem.cs" />
     <Compile Include="Body\RPC\RemoveTarget.cs" />
     <Compile Include="Body\RPC\Respawn.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="Body\RPC\SetActive.cs" />
     <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
+    <Compile Include="Body\RPC\SellItem.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SerializedPlayerAnswer.cs" />
