@@ -110,7 +110,10 @@ public class Player : AliveEntity
         _playersByName.Add(name, this);
         if (isMine)
         {
-            FindObjectOfType<CameraController>().target = transform;
+            var cam = FindObjectOfType<CameraController>();
+            cam.target = transform;
+            Destroy(cam.GetComponent<AudioListener>());
+            gameObject.AddComponent<AudioListener>();
             GameObject.FindWithTag("PlayerStatusView").GetComponent<StatusView>().target = this;
         }
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
