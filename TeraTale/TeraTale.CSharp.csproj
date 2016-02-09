@@ -83,17 +83,9 @@
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\BossEnemy.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\FireBaseScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\FireLightScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\Scripts\Dragon.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\Scripts\SummonMeteor.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Demon\Scripts\Demon.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Dragon.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Meteor.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy2.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyAttacking.cs" />
@@ -161,6 +153,13 @@
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\FireBaseScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\FireLightScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
+    <Compile Include="Assets\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />
     <Compile Include="Assets\UIs\Logins\Scripts\LoginButtonHandler.cs" />
@@ -168,8 +167,8 @@
     <Compile Include="Assets\Unaligned\ReadData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Games\Entities\AliveEntities\Enemies\BossEnemy\Dragon\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
+    <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />

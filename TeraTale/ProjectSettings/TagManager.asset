@@ -12,6 +12,8 @@ TagManager:
   - Enemy
   - SpawnPoint
   - PlayerBodyCamera
+  - Fire
+  - Terrain
   layers:
   - Default
   - TransparentFX

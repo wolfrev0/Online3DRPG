@@ -135,6 +135,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 1}
   speed: 1
   autoDestroyTime: 3.4028235e+38
+  targetTag: Enemy
 --- !u!114 &11403772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
   targetTag: Enemy
+  knockdown: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

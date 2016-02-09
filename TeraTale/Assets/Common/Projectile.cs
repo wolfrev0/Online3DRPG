@@ -6,20 +6,20 @@ public class Projectile : MonoBehaviour
     public float speed = 1;
     public float autoDestroyTime = float.MaxValue;
 
-    void Start()
+    protected void Start()
     {
         transform.LookAt(direction + transform.position);
         Destroy(gameObject, autoDestroyTime);
     }
 
-    void Update()
+    protected void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter(Collider coll)
+    protected void OnTriggerEnter(Collider coll)
     {
-        if (coll.tag == "Enemy" || coll.tag == "Terrain")
+        if (coll.tag == "Terrain")
             Destroy(gameObject);
     }
 }
