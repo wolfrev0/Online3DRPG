@@ -90,9 +90,9 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Demon\Scripts\Demon.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Dragon.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\FireBreath\FireBreath.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Meteor\Meteor.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Resources\FireBreath\FireBreath.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Resources\Meteor\Meteor.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Scripts\Dragon.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy2.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyAttacking.cs" />

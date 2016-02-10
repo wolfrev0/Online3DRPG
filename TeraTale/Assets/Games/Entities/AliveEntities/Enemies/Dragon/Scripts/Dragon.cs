@@ -7,6 +7,24 @@ public class Dragon : Enemy
     public Projectile pfMeteor;
     public FireBreath fireBreath;
 
+    Collider _ardColl;
+    public override void OnAttackAnimationEnd(Collider ardColl)
+    {
+        _ardColl = ardColl;
+        Invoke("ARDCollEnable", Random.Range(2, 8));
+    }
+
+    void ARDCollEnable()
+    {
+        _ardColl.enabled = true;
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
+        _animator.SetInteger("AttackType", Random.Range(0, 2));
+    }
+
     new void Awake()
     {
         base.Awake();
@@ -15,6 +33,16 @@ public class Dragon : Enemy
     new void Start()
     {
         base.Start();
+    }
+
+    protected new void Update()
+    {
+        base.Update();
+        if (mainTarget)
+        {
+            var vec = mainTarget.transform.position - transform.position;
+            transform.LookAt(Vector3.Slerp(transform.forward, vec.normalized, 0.3f) + transform.position);
+        }
     }
 
     void MeteorStart()

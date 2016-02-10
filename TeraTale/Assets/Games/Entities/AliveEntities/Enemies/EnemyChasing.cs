@@ -19,7 +19,7 @@ public class EnemyChasing : StateMachineBehaviour
     {
         if (animator.IsInTransition(0))
             return;
-        if (_enemy.hasTarget)
+        if (_enemy.mainTarget)
             _nma.destination = _enemy.mainTarget.transform.position;
         else
             animator.SetBool("Chase", false);
