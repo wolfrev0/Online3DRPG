@@ -85,7 +85,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Demon\Scripts\Demon.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Dragon.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Meteor.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Meteor\Meteor.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Enemy2.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyAttacking.cs" />
