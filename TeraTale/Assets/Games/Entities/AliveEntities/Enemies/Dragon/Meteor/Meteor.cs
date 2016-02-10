@@ -29,7 +29,7 @@ public class Meteor : MonoBehaviour
 
     void Update()
     {
-        _magicCircleRenderer.material.color = Color.Lerp(Color.red, Color.yellow, (_endPos - transform.position).magnitude / (_endPos - _startPos).magnitude);
+        _magicCircleRenderer.material.color = Color.Lerp(Color.red, Color.yellow, (_endPos - transform.position).magnitude / (_endPos - _startPos).magnitude - 0.15f);
     }
 
     void OnDestroy()
