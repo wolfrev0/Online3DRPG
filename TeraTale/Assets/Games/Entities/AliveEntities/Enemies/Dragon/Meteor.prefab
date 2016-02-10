@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfMagicCircle: {fileID: 120942, guid: 1bb2ecaf6938b8d4a88ee0fcac9c1344, type: 2}
+  pfExplosion: {fileID: 144618, guid: 373cf7e38a64e904e9d521499ec6c329, type: 2}
 --- !u!114 &11453734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -310,6 +311,10 @@ Prefab:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pfExplosion
+      value: 
+      objectReference: {fileID: 144618, guid: 373cf7e38a64e904e9d521499ec6c329, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164416}
