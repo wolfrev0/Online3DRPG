@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dragon : Enemy
 {
     public Projectile pfMeteor;
+    public FireBreath fireBreath;
 
     new void Awake()
     {
@@ -28,6 +29,16 @@ public class Dragon : Enemy
         var xzSeed = Random.Range(0, Mathf.PI * 2);
         meteor.transform.position = transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * Random.Range(0f, 10f) + Vector3.up * 40;
         meteor.direction = new Vector3(0, -1, 0);
+    }
+
+    void FireBreathBegin()
+    {
+        fireBreath.On();
+    }
+
+    void FireBreathEnd()
+    {
+        fireBreath.Off();
     }
 
     protected override List<Item> itemsForDrop
