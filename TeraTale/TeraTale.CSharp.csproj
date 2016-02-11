@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -137,6 +131,7 @@
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\BuyDialog\BuyDialog.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
+    <Compile Include="Assets\Games\UIs\DamageView\DamageView.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlot.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlotLayoutGroup.cs" />
