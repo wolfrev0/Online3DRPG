@@ -13,7 +13,7 @@ public abstract class Enemy : AliveEntity
     float _baseAttackDamage = 0;
     public AttackSubject _attackSubject;
     public Text nameView;
-    Animator _animator;
+    protected Animator _animator;
 
     class TargetDamagePair : System.IComparable<TargetDamagePair>
     {
@@ -44,10 +44,9 @@ public abstract class Enemy : AliveEntity
     public override float bonusAttackSpeed { get { return 0; } }
     //return high-damaged target;
     public AliveEntity mainTarget
-    { get { return _targets[_targets.Count - 1].target; } }
+    { get { return _targets.Count > 0 ? _targets[_targets.Count - 1].target : null; } }
     public MonsterSpawner spawner { get; set; }
 
-    public bool hasTarget { get { return _targets.Count > 0; } }
 
     public bool ContainsTarget(GameObject gameObject)
     {
@@ -73,6 +72,11 @@ public abstract class Enemy : AliveEntity
     void AttackEnd()
     {
         _attackSubject.enabled = false;
+    }
+
+    public virtual void OnAttackAnimationEnd(Collider ardColl)
+    {
+        ardColl.enabled = true;
     }
 
     public void AddTarget(AliveEntity target)
@@ -117,7 +121,7 @@ public abstract class Enemy : AliveEntity
         _animator.SetBool("Chase", false);
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         _animator.SetTrigger("Attack");
     }

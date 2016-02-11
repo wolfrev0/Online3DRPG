@@ -15,7 +15,7 @@ public class TargetDetector : MonoBehaviour
             return;
         if (coll.tag == "Player")
         {
-            if (!observer.hasTarget)
+            if (!observer.mainTarget)
                 observer.AddTarget(coll.GetComponent<Player>());
             observer.Chase();
         }

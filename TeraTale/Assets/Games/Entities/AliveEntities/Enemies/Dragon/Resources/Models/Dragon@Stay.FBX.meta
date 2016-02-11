@@ -210,7 +210,7 @@ ModelImporter:
     4300000: Box003
     4300002: Box004
     4300004: Model
-    7400000: Fly
+    7400000: Stay
     9500000: //RootNode
     13700000: Model
   materials:
@@ -235,7 +235,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fly
+      name: Stay
       takeName: Take 001
       firstFrame: 0
       lastFrame: 70
