@@ -1703,6 +1703,7 @@ MonoBehaviour:
   _exp: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _uiRoot: {fileID: 22462010}
   _hpMax: 50
   _staminaMax: 1
   _baseAttackDamage: 4
@@ -2074,6 +2075,10 @@ Prefab:
       propertyPath: _baseAttackSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _uiRoot
+      value: 
+      objectReference: {fileID: 22462010}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 156660}

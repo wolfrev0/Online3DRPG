@@ -258,15 +258,15 @@ MonoBehaviour:
   _staminaBar: {fileID: 11411252}
   _levelText: {fileID: 11498818}
   _hp: 100
-  _hpMax: 100
   _stamina: 0
-  _staminaMax: 1
-  _attackDamage: 0
   _level: 0
   _exp: 0
-  _expMax: 1
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _uiRoot: {fileID: 22420596}
+  _hpMax: 100
+  _staminaMax: 1
+  _baseAttackDamage: 0
   _attackSubject: {fileID: 0}
   nameView: {fileID: 11492316}
 --- !u!114 &11446798
@@ -590,6 +590,10 @@ Prefab:
       propertyPath: m_CullingMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _uiRoot
+      value: 
+      objectReference: {fileID: 22420596}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 115634}
