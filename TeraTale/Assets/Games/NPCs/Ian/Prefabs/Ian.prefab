@@ -2829,8 +2829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14310ac4eddee448b51ed76fe9c14b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -8
-  _owner: 
 --- !u!114 &11456508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3496,7 +3494,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: -0.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22482010
