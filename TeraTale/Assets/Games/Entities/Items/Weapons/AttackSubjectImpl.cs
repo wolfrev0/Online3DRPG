@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using TeraTaleNet;
 
 public class AttackSubjectImpl : AttackSubject
@@ -40,8 +39,19 @@ public class AttackSubjectImpl : AttackSubject
         if (NetworkScript.isLocal)
             return;
         if (coll.tag == targetTag)
-        {
-            coll.GetComponent<AliveEntity>().Damage(new Damage(Damage.Type.Physical, owner.weaponType, owner.owner, damageCalculator(owner.attackDamage), 0, knockdown));
-        }
+            ApplyDamage(coll.GetComponent<AliveEntity>());
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        if (NetworkScript.isLocal)
+            return;
+        if (other.tag == targetTag)
+            ApplyDamage(other.GetComponent<AliveEntity>());
+    }
+
+    void ApplyDamage(AliveEntity target)
+    {
+        target.Damage(new Damage(Damage.Type.Physical, owner.weaponType, owner.owner, damageCalculator(owner.attackDamage), 0, knockdown));
     }
 }

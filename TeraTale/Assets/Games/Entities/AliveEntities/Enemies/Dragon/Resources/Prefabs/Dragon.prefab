@@ -356,8 +356,11 @@ GameObject:
   - 4: {fileID: 453824}
   - 198: {fileID: 19873406}
   - 199: {fileID: 19993718}
+  - 82: {fileID: 8283210}
+  - 114: {fileID: 11453190}
+  - 114: {fileID: 11435518}
   m_Layer: 8
-  m_Name: FlamethrowerFire
+  m_Name: FireBreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -683,23 +686,6 @@ GameObject:
   - 4: {fileID: 489912}
   m_Layer: 0
   m_Name: R_Foot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &144030
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 473412}
-  - 82: {fileID: 8212978}
-  - 114: {fileID: 11497792}
-  m_Layer: 8
-  m_Name: FireBreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2346,7 +2332,7 @@ Transform:
   - {fileID: 459660}
   - {fileID: 427546}
   - {fileID: 421866}
-  - {fileID: 473412}
+  - {fileID: 453824}
   m_Father: {fileID: 448106}
   m_RootOrder: 0
 --- !u!4 &449596
@@ -2403,12 +2389,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.09229597, y: 0.7010575, z: -0.09229598, w: 0.7010574}
+  m_LocalPosition: {x: 0.14323638, y: -0.13418177, z: -0.0000640396}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 473412}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 499616}
+  m_Father: {fileID: 449284}
+  m_RootOrder: 3
 --- !u!4 &456488
 Transform:
   m_ObjectHideFlags: 1
@@ -2638,20 +2625,6 @@ Transform:
   - {fileID: 427460}
   m_Father: {fileID: 447268}
   m_RootOrder: 0
---- !u!4 &473412
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144030}
-  m_LocalRotation: {x: 0.09229597, y: 0.7010575, z: -0.09229598, w: 0.7010574}
-  m_LocalPosition: {x: 0.14323638, y: -0.13418177, z: -0.0000640396}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 453824}
-  - {fileID: 499616}
-  m_Father: {fileID: 449284}
-  m_RootOrder: 3
 --- !u!4 &474150
 Transform:
   m_ObjectHideFlags: 1
@@ -2974,8 +2947,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 473412}
-  m_RootOrder: 1
+  m_Father: {fileID: 453824}
+  m_RootOrder: 0
 --- !u!54 &5457826
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2991,12 +2964,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!82 &8212978
+--- !u!82 &8283210
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144030}
+  m_GameObject: {fileID: 121848}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -3174,7 +3147,6 @@ MonoBehaviour:
   _attackSubject: {fileID: 0}
   nameView: {fileID: 11420010}
   pfMeteor: {fileID: 11453734, guid: 8aeb2c0224fe763499eed3ec0587162b, type: 2}
-  fireBreath: {fileID: 11497792}
 --- !u!114 &11420010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3222,6 +3194,19 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &11435518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  knockdown: 0
 --- !u!114 &11443328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3235,6 +3220,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: 0, y: 180, z: 0}
+--- !u!114 &11453190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf5a9320ca8dab4792faf7386fb1620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fire: {fileID: 19873406}
+  smoke: {fileID: 19886234}
 --- !u!114 &11455504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3332,19 +3330,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11497792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 144030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cf5a9320ca8dab4792faf7386fb1620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fire: {fileID: 19873406}
-  smoke: {fileID: 19886234}
 --- !u!114 &11498122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4962,7 +4947,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 2
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 1
   SubModule:

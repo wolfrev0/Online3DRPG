@@ -6,7 +6,7 @@ using UnityEngine;
 public class Dragon : Enemy
 {
     public Projectile pfMeteor;
-    public FireBreath fireBreath;
+    FireBreath fireBreath;
 
     Collider _ardColl;
     int nextAttackType;
@@ -42,6 +42,8 @@ public class Dragon : Enemy
     new void Awake()
     {
         base.Awake();
+        fireBreath = GetComponentInChildren<FireBreath>();
+        GetComponentInChildren<AttackSubjectImpl>().damageCalculator = original => original * 0.1f;
     }
 
     new void Start()
