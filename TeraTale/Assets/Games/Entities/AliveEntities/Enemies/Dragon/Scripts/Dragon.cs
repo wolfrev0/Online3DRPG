@@ -68,6 +68,7 @@ public class Dragon : Enemy
         else
             meteor.transform.position = target.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() + Vector3.up * 50;
         meteor.direction = new Vector3(0, -1, 0);
+        meteor.GetComponent<AttackSubject>().owner = this;
     }
 
     void FireBreathBegin()

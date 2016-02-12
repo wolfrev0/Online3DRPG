@@ -202,7 +202,7 @@ public class Player : AliveEntity
 
     protected override void Knockdown()
     {
-        //_animator.SetTrigger("Knockdown");
+        _animator.SetTrigger("Knockdown");
     }
 
     void Navigate(Navigate info)
