@@ -7,6 +7,8 @@ public class Tree : Enemy
     //protected override void PeriodicSync()
     //{ }
 
+    public override float moveSpeed { get { return 0; } }
+
     protected override List<Item> itemsForDrop
     {
         get

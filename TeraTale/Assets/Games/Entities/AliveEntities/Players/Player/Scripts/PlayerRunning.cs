@@ -14,7 +14,7 @@ public class PlayerRunning : StateMachineBehaviour
             _nma = animator.GetComponent<NavMeshAgent>();
             _animator = animator;
         }
-        _nma.speed = 4;
+        _nma.speed = _player.moveSpeed;
         _animator.SetBool("Run", true);
         InputHandler.instance.enabled = true;
     }

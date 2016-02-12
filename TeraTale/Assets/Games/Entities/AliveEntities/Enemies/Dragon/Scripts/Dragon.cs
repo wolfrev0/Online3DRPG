@@ -11,6 +11,8 @@ public class Dragon : Enemy
     Collider _ardColl;
     int nextAttackType;
     System.Random random = new System.Random();
+    
+    public override float moveSpeed { get { return 0; } }
 
     public override void OnAttackAnimationEnd(Collider ardColl)
     {

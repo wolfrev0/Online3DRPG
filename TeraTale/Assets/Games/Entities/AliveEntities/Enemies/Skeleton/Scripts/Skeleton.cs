@@ -14,6 +14,8 @@ public class Skeleton : Enemy
         base.Start();
     }
 
+    public override float moveSpeed { get { return 2; } }
+
     protected override List<Item> itemsForDrop
     {
         get

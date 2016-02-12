@@ -12,7 +12,7 @@ public class EnemyChasing : StateMachineBehaviour
             _enemy = animator.GetComponent<Enemy>();
             _nma = animator.GetComponent<NavMeshAgent>();
         }
-        _nma.speed = 2.5f;
+        _nma.speed = _enemy.moveSpeed;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

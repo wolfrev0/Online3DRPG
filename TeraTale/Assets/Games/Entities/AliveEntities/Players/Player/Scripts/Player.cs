@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
+using System;
 
 public class Player : AliveEntity
 {
@@ -35,6 +36,7 @@ public class Player : AliveEntity
     public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
     public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
     public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
+    public override float moveSpeed { get { return 4; } }
 
     static Player _mine;
     static public Player mine
