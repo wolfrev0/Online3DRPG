@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0418cd10685de2b489b99ce783a5f6fe
-timeCreated: 1451298848
+guid: b1b653a941ee24749b4980e1cac078ca
+timeCreated: 1455274410
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -210,7 +210,7 @@ ModelImporter:
     4300000: Box003
     4300002: Box004
     4300004: Model
-    7400000: Stay
+    7400000: Chase
     9500000: //RootNode
     13700000: Model
   materials:
@@ -235,7 +235,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Stay
+      name: Chase
       takeName: Take 001
       firstFrame: 0
       lastFrame: 70
@@ -481,7 +481,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 4
+    tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 1
   humanDescription:

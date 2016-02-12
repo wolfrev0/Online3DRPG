@@ -66,6 +66,15 @@ public abstract class Enemy : AliveEntity
         nameView.text = name;
     }
 
+    public void FacingDirectionUpdate()
+    {
+        if (mainTarget)
+        {
+            var vec = mainTarget.transform.position - transform.position;
+            transform.LookAt(Vector3.Slerp(transform.forward, vec.normalized, 0.1f) + transform.position);
+        }
+    }
+
     void AttackBegin()
     {
         _attackSubject.enabled = true;

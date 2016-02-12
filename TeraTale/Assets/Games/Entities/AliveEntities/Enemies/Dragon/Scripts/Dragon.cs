@@ -47,16 +47,6 @@ public class Dragon : Enemy
         base.Start();
     }
 
-    protected new void Update()
-    {
-        base.Update();
-        if (mainTarget)
-        {
-            var vec = mainTarget.transform.position - transform.position;
-            transform.LookAt(Vector3.Slerp(transform.forward, vec.normalized, 0.3f) + transform.position);
-        }
-    }
-
     void MeteorStart()
     {
         for (int i = 0; i < 10; i++)
