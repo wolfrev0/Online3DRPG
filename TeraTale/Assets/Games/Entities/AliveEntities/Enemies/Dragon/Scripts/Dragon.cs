@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TeraTaleNet;
 using UnityEngine;
 
@@ -58,15 +59,22 @@ public class Dragon : Enemy
 
     void MeteorStart()
     {
-        for (int i = 0; i < 12; i++)
-            Invoke("CastMeteor", (float)random.NextDouble());
+        for (int i = 0; i < 10; i++)
+            StartCoroutine(CastMeteor(null));
+        foreach (var target in targets)
+            StartCoroutine(CastMeteor(target));
     }
 
-    void CastMeteor()
+    IEnumerator CastMeteor(AliveEntity target)
     {
+        yield return new WaitForSeconds((float)random.NextDouble());
+
         var meteor = Instantiate(pfMeteor);
         var xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
-        meteor.transform.position = transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 10 + Vector3.up * 50;
+        if (target == null)
+            meteor.transform.position = transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 10 + Vector3.up * 50;
+        else
+            meteor.transform.position = target.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() + Vector3.up * 50;
         meteor.direction = new Vector3(0, -1, 0);
     }
 

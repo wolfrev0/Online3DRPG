@@ -2,6 +2,7 @@
 using TeraTaleNet;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Enemy : AliveEntity
 {
@@ -15,7 +16,7 @@ public abstract class Enemy : AliveEntity
     public Text nameView;
     protected Animator _animator;
 
-    class TargetDamagePair : System.IComparable<TargetDamagePair>
+    public class TargetDamagePair : System.IComparable<TargetDamagePair>
     {
         public AliveEntity target;
         public float accumulatedDamage;
@@ -45,6 +46,7 @@ public abstract class Enemy : AliveEntity
     //return high-damaged target;
     public AliveEntity mainTarget
     { get { return _targets.Count > 0 ? _targets[_targets.Count - 1].target : null; } }
+    public List<AliveEntity> targets { get { return (from pair in _targets select pair.target).ToList(); } }
     public MonsterSpawner spawner { get; set; }
 
 
