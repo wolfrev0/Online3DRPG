@@ -318,7 +318,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -407,7 +407,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3499,7 +3499,7 @@ ParticleSystem:
   looping: 0
   prewarm: 0
   playOnAwake: 0
-  moveWithTransform: 0
+  moveWithTransform: 1
   scalingMode: 2
   InitialModule:
     serializedVersion: 2
@@ -4928,7 +4928,7 @@ ParticleSystem:
   looping: 0
   prewarm: 0
   playOnAwake: 0
-  moveWithTransform: 0
+  moveWithTransform: 1
   scalingMode: 2
   InitialModule:
     serializedVersion: 2
@@ -6517,6 +6517,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -12,10 +12,14 @@ public class MonsterSpawner : NetworkScript
 
     public float spawnRange { get { return _spawnRange.radius; } }
 
+    protected void Awake()
+    {
+        _spawnRange = GetComponent<SphereCollider>();
+    }
+
     protected void Start()
     {
         _enemies = new Enemy[enemyCount];
-        _spawnRange = GetComponent<SphereCollider>();
 
         if (isLocal)
             return;

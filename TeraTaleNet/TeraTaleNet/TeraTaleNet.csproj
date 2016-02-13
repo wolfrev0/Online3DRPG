@@ -90,6 +90,7 @@
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
+    <Compile Include="Body\RPC\SetNextAttack.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RemoveItem.cs" />
     <Compile Include="Body\RPC\RemoveTarget.cs" />

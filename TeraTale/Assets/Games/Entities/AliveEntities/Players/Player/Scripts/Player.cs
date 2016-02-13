@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
+using System.Linq;
 
 public class Player : AliveEntity
 {
@@ -35,6 +36,7 @@ public class Player : AliveEntity
     public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
     public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
     public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
+    public override float moveSpeed { get { return 4; } }
 
     static Player _mine;
     static public Player mine
@@ -46,6 +48,8 @@ public class Player : AliveEntity
             return _mine;
         }
     }
+
+    static public List<Player> players { get { return _playersByName.Values.ToList(); } }
 
     static public Player FindPlayerByName(string name)
     {
@@ -200,7 +204,7 @@ public class Player : AliveEntity
 
     protected override void Knockdown()
     {
-        //_animator.SetTrigger("Knockdown");
+        _animator.SetTrigger("Knockdown");
     }
 
     void Navigate(Navigate info)

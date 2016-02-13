@@ -12,14 +12,15 @@ public class EnemyChasing : StateMachineBehaviour
             _enemy = animator.GetComponent<Enemy>();
             _nma = animator.GetComponent<NavMeshAgent>();
         }
-        _nma.speed = 2.5f;
+        _nma.speed = _enemy.moveSpeed;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animator.IsInTransition(0))
             return;
-        if (_enemy.hasTarget)
+        _enemy.FacingDirectionUpdate();
+        if (_enemy.mainTarget)
             _nma.destination = _enemy.mainTarget.transform.position;
         else
             animator.SetBool("Chase", false);

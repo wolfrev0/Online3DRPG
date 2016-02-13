@@ -833,7 +833,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2, y: 0, z: 0}
+  m_LocalPosition: {x: -2.8699799, y: 0.00018310547, z: 10.067665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 407436}
@@ -1703,6 +1703,7 @@ MonoBehaviour:
   _exp: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _uiRoot: {fileID: 22462010}
   _hpMax: 50
   _staminaMax: 1
   _baseAttackDamage: 4
@@ -1937,7 +1938,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: -0.3}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22462010
@@ -1992,7 +1993,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.2}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
@@ -2074,6 +2075,10 @@ Prefab:
       propertyPath: _baseAttackSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _uiRoot
+      value: 
+      objectReference: {fileID: 22462010}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 156660}

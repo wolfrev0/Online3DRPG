@@ -468,7 +468,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.4247055, y: 0.00018310547, z: 10.339394}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 440512}
@@ -892,16 +892,15 @@ MonoBehaviour:
   _staminaBar: {fileID: 11465002}
   _levelText: {fileID: 11413082}
   _hp: 100
-  _hpMax: 100
   _stamina: 100
-  _staminaMax: 100
-  _attackDamage: 10
   _level: 1
   _exp: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
+  _uiRoot: {fileID: 22418844}
   nameView: {fileID: 11404584}
   speechBubble: {fileID: 11446364}
+  _money: 0
 --- !u!114 &11445438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1057,7 +1056,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149390}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
   m_Height: 1.7
@@ -1210,7 +1209,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: -0.3}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22418844
@@ -1285,7 +1284,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.2}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22455200
@@ -1400,6 +1399,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: _level
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _uiRoot
+      value: 
+      objectReference: {fileID: 22418844}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

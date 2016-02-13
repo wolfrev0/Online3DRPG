@@ -52,7 +52,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float healthRegen { get; set; }
     public float defence { get; set; }
     public float magicRegistance { get; set; }
-    public float moveSpeed { get; set; }
+    public abstract float moveSpeed { get; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
     public int _level = 1;
@@ -99,8 +99,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public Vector3 _syncedRot;
     Vector3 _posError;
     Vector3 _rotError;
+    [SerializeField]
+    Transform _uiRoot;
 
     static ParticleSystem _pfHealFX;
+    static DamageView _pfDamageView;
 
     public Weapon.Type weaponType
     {
@@ -123,6 +126,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     {
         if (_pfHealFX == null)
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
+        if (_pfDamageView == null)
+            _pfDamageView = Resources.Load<DamageView>("Prefabs/DamageView");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
     }
@@ -229,11 +234,22 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(damage);
         if (damage.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        hp -= CalculateDamage(damage);
+        var calculatedDamage = CalculateDamage(damage);
+        hp -= calculatedDamage;
         OnDamaged(damage);
 
         if (damage.knockdown)
             Knockdown();
+
+        var damageView = Instantiate(_pfDamageView);
+        damageView.SetDamage(calculatedDamage);
+        damageView.transform.position = transform.position + Vector3.up;
+        damageView.transform.SetParent(_uiRoot);
+
+        var ro = UnityEngine.Random.Range(0f, 0.5f);
+        var phi = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+        var theta = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+        damageView.transform.Translate(ro * Mathf.Sin(phi) * Mathf.Cos(theta), ro * Mathf.Sin(phi) * Mathf.Sin(theta), ro * Mathf.Cos(phi));
     }
     protected virtual void OnDamaged(Damage damage) { }
 

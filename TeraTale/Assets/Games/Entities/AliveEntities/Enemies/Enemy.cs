@@ -2,6 +2,7 @@
 using TeraTaleNet;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Enemy : AliveEntity
 {
@@ -13,9 +14,9 @@ public abstract class Enemy : AliveEntity
     float _baseAttackDamage = 0;
     public AttackSubject _attackSubject;
     public Text nameView;
-    Animator _animator;
+    protected Animator _animator;
 
-    class TargetDamagePair : System.IComparable<TargetDamagePair>
+    public class TargetDamagePair : System.IComparable<TargetDamagePair>
     {
         public AliveEntity target;
         public float accumulatedDamage;
@@ -44,10 +45,10 @@ public abstract class Enemy : AliveEntity
     public override float bonusAttackSpeed { get { return 0; } }
     //return high-damaged target;
     public AliveEntity mainTarget
-    { get { return _targets[_targets.Count - 1].target; } }
+    { get { return _targets.Count > 0 ? _targets[_targets.Count - 1].target : null; } }
+    public List<AliveEntity> targets { get { return (from pair in _targets select pair.target).ToList(); } }
     public MonsterSpawner spawner { get; set; }
 
-    public bool hasTarget { get { return _targets.Count > 0; } }
 
     public bool ContainsTarget(GameObject gameObject)
     {
@@ -65,6 +66,15 @@ public abstract class Enemy : AliveEntity
         nameView.text = name;
     }
 
+    public void FacingDirectionUpdate()
+    {
+        if (mainTarget)
+        {
+            var vec = mainTarget.transform.position - transform.position;
+            transform.LookAt(Vector3.Slerp(transform.forward, vec.normalized, 0.1f) + transform.position);
+        }
+    }
+
     void AttackBegin()
     {
         _attackSubject.enabled = true;
@@ -73,6 +83,11 @@ public abstract class Enemy : AliveEntity
     void AttackEnd()
     {
         _attackSubject.enabled = false;
+    }
+
+    public virtual void OnAttackAnimationEnd(Collider ardColl)
+    {
+        ardColl.enabled = true;
     }
 
     public void AddTarget(AliveEntity target)
@@ -117,7 +132,7 @@ public abstract class Enemy : AliveEntity
         _animator.SetBool("Chase", false);
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         _animator.SetTrigger("Attack");
     }
