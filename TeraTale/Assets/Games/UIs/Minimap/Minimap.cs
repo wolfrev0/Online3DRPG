@@ -49,7 +49,7 @@ public class Minimap : MonoBehaviour
 
     void Update()
     {
-        if (Player.mine)
+        if(Player.mine)
         {
             var ppos = new Vector2(Player.mine.transform.position.x / world.terrainData.size.x * _scroll.content.sizeDelta.x, Player.mine.transform.position.z / world.terrainData.size.z * _scroll.content.sizeDelta.y);
             _playerIconRT.anchoredPosition = ppos;

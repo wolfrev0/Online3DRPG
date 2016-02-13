@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
-using System;
+using System.Linq;
 
 public class Player : AliveEntity
 {
@@ -48,6 +48,8 @@ public class Player : AliveEntity
             return _mine;
         }
     }
+
+    static public List<Player> players { get { return _playersByName.Values.ToList(); } }
 
     static public Player FindPlayerByName(string name)
     {
