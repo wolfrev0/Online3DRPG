@@ -80,6 +80,7 @@
     <Compile Include="Assets\Common\GlobalOption.cs" />
     <Compile Include="Assets\Common\ItemFunctions.cs" />
     <Compile Include="Assets\Common\Projectile.cs" />
+    <Compile Include="Assets\Common\ScrollRectEx.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlotLayoutGroup.cs" />
     <Compile Include="Assets\Games\UIs\ItemSlot.cs" />
     <Compile Include="Assets\Games\UIs\ItemSlotPopupView.cs" />
+    <Compile Include="Assets\Games\UIs\Minimap\Minimap.cs" />
     <Compile Include="Assets\Games\UIs\Modal.cs" />
     <Compile Include="Assets\Games\UIs\MyInfo\MyInfoView.cs" />
     <Compile Include="Assets\Games\UIs\NPCDialog\NPCDialog.cs" />
