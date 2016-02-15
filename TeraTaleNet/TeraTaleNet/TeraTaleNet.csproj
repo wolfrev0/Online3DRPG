@@ -53,6 +53,9 @@
     <Compile Include="Body\ItemStack.cs" />
     <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Consumable\Apple.cs" />
+    <Compile Include="Body\Item\Equipment\Accessory\Accessory.cs" />
+    <Compile Include="Body\Item\Equipment\Accessory\AccessoryNull.cs" />
+    <Compile Include="Body\Item\Equipment\Accessory\FoxTail.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Axe\Axe.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Pickaxe\Pickaxe.cs" />
     <Compile Include="Body\Item\Sundry\Bone.cs" />

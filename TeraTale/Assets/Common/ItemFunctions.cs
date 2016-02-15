@@ -25,8 +25,29 @@ public class ItemFunctions : NetworkScript
         Equipment.onUse += (Item item, object target) =>
         {
             var player = (Player)target;
-            if (player.IsEquiping((Equipment)item))
-                player.Equip(new WeaponNull());
+            var equipment = (Equipment)item;
+            if (player.IsEquiping(equipment))
+            {
+                switch (equipment.equipmentType)
+                {
+                    case Equipment.Type.Accessory:
+                        player.Equip(new AccessoryNull());
+                        break;
+                    case Equipment.Type.Coat:
+                        break;
+                    case Equipment.Type.Gloves:
+                        break;
+                    case Equipment.Type.Hat:
+                        break;
+                    case Equipment.Type.Pants:
+                        break;
+                    case Equipment.Type.Shoes:
+                        break;
+                    case Equipment.Type.Weapon:
+                        player.Equip(new WeaponNull());
+                        break;
+                }
+            }
             else
                 player.Equip((Equipment)item);
         };

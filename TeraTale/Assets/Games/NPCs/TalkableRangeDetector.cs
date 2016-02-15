@@ -7,11 +7,13 @@ public class TalkableRangeDetector : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        dialogStart.gameObject.SetActive(true);
+        if (coll.gameObject == Player.mine.gameObject)
+            dialogStart.gameObject.SetActive(true);
     }
 
     void OnTriggerExit(Collider coll)
     {
-        dialogStart.gameObject.SetActive(false);
+        if (coll.gameObject == Player.mine.gameObject)
+            dialogStart.gameObject.SetActive(false);
     }
 }
