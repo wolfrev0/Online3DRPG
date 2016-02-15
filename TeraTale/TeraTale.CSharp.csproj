@@ -140,8 +140,6 @@
     <Compile Include="Assets\Games\UIs\NPCDialog\NPCDialog.cs" />
     <Compile Include="Assets\Games\UIs\NPCShop\NPCShop.cs" />
     <Compile Include="Assets\Games\UIs\NPCShop\ShopSlot.cs" />
-    <Compile Include="Assets\Games\UIs\PlayerAccessorySlot.cs" />
-    <Compile Include="Assets\Games\UIs\PlayerWeaponSlot.cs" />
     <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlot.cs" />
     <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlotController.cs" />
     <Compile Include="Assets\Games\UIs\ScrollIngredientView\IngredientSlot.cs" />
@@ -150,6 +148,7 @@
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
     <Compile Include="Assets\Games\Worlds\CheatManager.cs" />
+    <Compile Include="Assets\Games\Worlds\DestinationSign.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />

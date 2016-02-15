@@ -34,7 +34,7 @@ public class SellDialog : Modal
     public void RenewPriceText(string amountStr)
     {
         var amount = int.Parse(amountStr);
-        sellPrice.text = Player.mine.itemStacks[_itemStackIndex].item.price * amount + "G";
+        sellPrice.text = Player.mine.itemStacks[_itemStackIndex].item.price * amount + "";
     }
 
     public void Sell()

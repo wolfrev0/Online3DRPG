@@ -52,7 +52,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float healthRegen { get; set; }
     public float defence { get; set; }
     public float magicRegistance { get; set; }
-    public abstract float moveSpeed { get; }
+    public float moveSpeed { get { return baseMoveSpeed + bonusMoveSpeed; } }
+    public abstract float baseMoveSpeed { get; }
+    public abstract float bonusMoveSpeed { get; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
     public int _level = 1;

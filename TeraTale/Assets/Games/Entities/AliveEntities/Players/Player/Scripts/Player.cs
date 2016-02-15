@@ -38,7 +38,8 @@ public class Player : AliveEntity
     public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
     public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
     public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
-    public override float moveSpeed { get { return 3.5f + _accessory.bonusMoveSpeed; } }
+    public override float baseMoveSpeed { get { return 3.5f; } }
+    public override float bonusMoveSpeed { get { return _accessory.bonusMoveSpeed; } }
 
     static Player _mine;
     static public Player mine
