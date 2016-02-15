@@ -10,6 +10,7 @@
             Shoes,
             Gloves,
             Hat,
+            Accessory,
         }
 
         public delegate void OnUse(Item item, object player);

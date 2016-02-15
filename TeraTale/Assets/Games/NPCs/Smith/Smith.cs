@@ -64,11 +64,11 @@ public class Smith : NPC
             };
             s.commands.Add(cmd);
 
-            cmd.name = "조합";
-            cmd.action = () =>
-            {
-            };
-            s.commands.Add(cmd);
+            //cmd.name = "조합";
+            //cmd.action = () =>
+            //{
+            //};
+            //s.commands.Add(cmd);
 
             cmd.name = "퀘스트";
             cmd.action = () =>
