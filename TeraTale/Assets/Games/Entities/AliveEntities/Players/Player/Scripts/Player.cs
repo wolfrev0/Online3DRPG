@@ -21,6 +21,8 @@ public class Player : AliveEntity
     public ItemStackList itemStacks = new ItemStackList(30);
     public Weapon _weapon = new WeaponNull();
     ItemSolid _weaponSolid;
+    public Accessory _accessory = new AccessoryNull();
+    ItemSolid _accessorySolid;
     //Rename Attacker to AttackSubject??
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
@@ -36,7 +38,7 @@ public class Player : AliveEntity
     public override float bonusAttackDamage { get { return _weapon.bonusAttackDamage; } }
     public override float baseAttackSpeed { get { return _baseAttackSpeedByLevel[level]; } }
     public override float bonusAttackSpeed { get { return _weapon.bonusAttackSpeed; } }
-    public override float moveSpeed { get { return 4; } }
+    public override float moveSpeed { get { return 3.5f + _accessory.bonusMoveSpeed; } }
 
     static Player _mine;
     static public Player mine
@@ -76,16 +78,28 @@ public class Player : AliveEntity
         }
     }
 
+    public Accessory accessory
+    {
+        get { return _accessory; }
+
+        private set
+        {
+            _accessory = value;
+            if (isServer)
+            {
+                NetworkDestroy(_accessorySolid);
+                NetworkInstantiate(_accessory.solidPrefab.GetComponent<NetworkScript>(), new ItemSolidArgument(_accessory, transform.position + Vector3.up, 0, 0), "OnAccessoryInstantiate");
+            }
+        }
+    }
+
     public bool isArrived { get { return Vector3.Distance(_navMeshAgent.destination, _navMeshAgent.transform.position) <= _navMeshAgent.stoppingDistance; } }
 
     void OnWeaponInstantiate(ItemSolid itemSolid)
     {
         _weaponSolid = itemSolid;
         _weapon = (Weapon)_weaponSolid.item;
-        if (_weapon.weaponType == Weapon.Type.bow)
-            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.LeftHand);
-        else
-            _weaponSolid.transform.parent = _animator.GetBoneTransform(HumanBodyBones.RightHand);
+        _weaponSolid.transform.SetParent(_animator.GetBoneTransform(weapon.targetBone));
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
         _weaponSolid.transform.localScale = Vector3.one;
@@ -96,6 +110,19 @@ public class Player : AliveEntity
         _attackSubject = _weaponSolid.GetComponent<AttackSubject>();
         _attackSubject.enabled = false;
         _attackSubject.owner = this;
+    }
+
+    void OnAccessoryInstantiate(ItemSolid itemSolid)
+    {
+        _accessorySolid = itemSolid;
+        _accessory = (Accessory)_accessorySolid.item;
+        _accessorySolid.transform.SetParent(_animator.GetBoneTransform(accessory.targetBone));
+        _accessorySolid.transform.localPosition = Vector3.zero;
+        _accessorySolid.transform.localRotation = Quaternion.identity;
+        _accessorySolid.transform.localScale = Vector3.one;
+        _accessorySolid.enabled = false;
+        _accessorySolid.GetComponent<Floater>().enabled = false;
+        _accessorySolid.GetComponent<ItemSpawnEffector>().enabled = false;
     }
 
     protected void Awake()
@@ -269,6 +296,9 @@ public class Player : AliveEntity
     {
         switch (equipment.equipmentType)
         {
+            case Equipment.Type.Accessory:
+                accessory = (Accessory)equipment;
+                break;
             case Equipment.Type.Coat:
                 break;
             case Equipment.Type.Gloves:
@@ -289,6 +319,8 @@ public class Player : AliveEntity
     {
         switch (equipment.equipmentType)
         {
+            case Equipment.Type.Accessory:
+                return accessory == equipment;
             case Equipment.Type.Coat:
                 break;
             case Equipment.Type.Gloves:
@@ -313,10 +345,19 @@ public class Player : AliveEntity
             return;
         Deserialize(rpc.data);
 
+        
+
         //Deserialize only set the field _weapon, not the property weapon. so, we should call this property manually.
         weapon = weapon;
         //Weapon Sync;
         Sync s = new Sync(RPCType.Others, "", "weapon");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        //same as weapon
+        accessory = accessory;
+        s = new Sync(RPCType.Others, "", "accessory");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);

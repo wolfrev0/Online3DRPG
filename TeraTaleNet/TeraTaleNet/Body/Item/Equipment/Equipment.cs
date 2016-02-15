@@ -1,4 +1,6 @@
-﻿namespace TeraTaleNet
+﻿using UnityEngine;
+
+namespace TeraTaleNet
 {
     public abstract class Equipment : Item
     {
@@ -17,6 +19,7 @@
         static public OnUse onUse;
 
         public abstract Type equipmentType { get; }
+        public abstract HumanBodyBones targetBone { get; }
 
         public sealed override Item.Type itemType { get { return Item.Type.equipment; } }
         public sealed override int maxCount { get { return 1; } }

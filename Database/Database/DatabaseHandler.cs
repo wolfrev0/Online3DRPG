@@ -74,7 +74,27 @@ namespace Database
             }
             catch (FileNotFoundException)
             {
-                messenger.Send(query.sender, new SerializedPlayerAnswer(query.player, new byte[1]));
+
+                try
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var data = File.ReadAllBytes(serializedPlayerPath + "\\Default");
+                            messenger.Send(query.sender, new SerializedPlayerAnswer(query.player, data));
+                            return;
+                        }
+                        catch (FileNotFoundException)
+                        { throw; }
+                        catch (IOException)
+                        { }
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    messenger.Send(query.sender, new SerializedPlayerAnswer(query.player, new byte[1]));
+                }
             }
         }
 
