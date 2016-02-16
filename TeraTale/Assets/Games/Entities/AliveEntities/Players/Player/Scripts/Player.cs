@@ -32,6 +32,9 @@ public class Player : AliveEntity
     public int _money = 0;
     public int money { get { return _money; } private set { _money = value; } }
 
+    public float backTumblingCoolTime { get { return 3f; } }
+    public float backTumblingCoolTimeLeft { get; private set; }
+
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
     public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
@@ -158,6 +161,12 @@ public class Player : AliveEntity
             GameServer.currentInstance.QuerySerializedPlayer(name);
     }
 
+    protected new void Update()
+    {
+        base.Update();
+        backTumblingCoolTimeLeft -= Time.deltaTime;
+    }
+
     protected override void OnNetworkDestroy()
     {
         if (isServer)
@@ -215,6 +224,13 @@ public class Player : AliveEntity
     public void BackTumbling(BackTumbling info)
     {
         _animator.SetTrigger("BackTumbling");
+        backTumblingCoolTimeLeft = backTumblingCoolTime;
+    }
+
+    public void BackTumbling()
+    {
+        if (backTumblingCoolTimeLeft < 0f)
+            Send(new BackTumbling());
     }
 
     protected override void Die()
