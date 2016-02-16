@@ -12,7 +12,7 @@ public class Dragon : Enemy
     int nextAttackType;
     System.Random random = new System.Random();
     
-    public override float moveSpeed { get { return 0; } }
+    public override float baseMoveSpeed { get { return 0; } }
 
     public override void OnAttackAnimationEnd(Collider ardColl)
     {

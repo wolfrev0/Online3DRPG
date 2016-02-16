@@ -4,12 +4,14 @@ using TeraTaleNet;
 public class AttackSubjectImpl : AttackSubject
 {
     Collider _collider;
+    AudioSource _sound;
     TrailRenderer _trail;
 
     void Awake()
     {
         owner = GetComponentInParent<AliveEntity>();
         _collider = GetComponent<Collider>();
+        _sound = GetComponent<AudioSource>();
         _trail = GetComponentInChildren<TrailRenderer>();
     }
 
@@ -24,6 +26,8 @@ public class AttackSubjectImpl : AttackSubject
             _collider.enabled = true;
         if (_trail)
             _trail.enabled = true;
+        if (_sound)
+            _sound.Play();
     }
 
     void OnDisable()

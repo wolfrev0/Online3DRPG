@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DamageView : MonoBehaviour
+public class WorldText : MonoBehaviour
 {
     public float life = 1;
     public float speed = 1;
     Text _text;
+    public string text { get { return _text.text; } set { _text.text = value; } }
+    public Color color { get { return _text.color; } set { _text.color = value; } }
 
     void Awake()
     {
@@ -20,10 +22,5 @@ public class DamageView : MonoBehaviour
     void Update()
     {
         transform.position += new Vector3(0, speed * Time.deltaTime, 0);
-    }
-
-    public void SetDamage(float amount)
-    {
-        _text.text = amount.ToString();
     }
 }

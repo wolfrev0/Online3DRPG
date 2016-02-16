@@ -52,7 +52,9 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float healthRegen { get; set; }
     public float defence { get; set; }
     public float magicRegistance { get; set; }
-    public abstract float moveSpeed { get; }
+    public float moveSpeed { get { return baseMoveSpeed + bonusMoveSpeed; } }
+    public abstract float baseMoveSpeed { get; }
+    public abstract float bonusMoveSpeed { get; }
     public float castingTimeDecrease { get; set; }
     public float coolTimeDecrease { get; set; }
     public int _level = 1;
@@ -103,7 +105,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     Transform _uiRoot;
 
     static ParticleSystem _pfHealFX;
-    static DamageView _pfDamageView;
+    static WorldText _pfDamageText;
+    static WorldText _pfHealText;
 
     public Weapon.Type weaponType
     {
@@ -126,8 +129,10 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     {
         if (_pfHealFX == null)
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
-        if (_pfDamageView == null)
-            _pfDamageView = Resources.Load<DamageView>("Prefabs/DamageView");
+        if (_pfDamageText == null)
+            _pfDamageText = Resources.Load<WorldText>("Prefabs/DamageText");
+        if (_pfHealText == null)
+            _pfHealText = Resources.Load<WorldText>("Prefabs/HealText");
         if (isServer)
             InvokeRepeating("PeriodicSync", UnityEngine.Random.Range(0f, 5f), 5f);
     }
@@ -218,13 +223,24 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(heal);
         if (heal.amount < 0)
             throw new ArgumentException("Healing amount should be bigger than 0.");
-        hp += CalculateHeal(heal);
+        var calculatedHeal = CalculateHeal(heal);
+        hp += calculatedHeal;
         OnHealed(heal);
 
         ParticleSystem _particle = Instantiate(_pfHealFX);
         _particle.transform.SetParent(transform);
         _particle.transform.localPosition = Vector3.zero;
         Destroy(_particle.gameObject, _particle.duration);
+
+        var healText = Instantiate(_pfHealText);
+        healText.text = calculatedHeal.ToString();
+        healText.transform.position = transform.position + Vector3.up;
+        healText.transform.SetParent(_uiRoot);
+
+        var ro = UnityEngine.Random.Range(0f, 0.5f);
+        var phi = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+        var theta = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+        healText.transform.Translate(ro * Mathf.Sin(phi) * Mathf.Cos(theta), ro * Mathf.Sin(phi) * Mathf.Sin(theta), ro * Mathf.Cos(phi));
     }
     protected virtual void OnHealed(Heal heal) { }
 
@@ -241,15 +257,15 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
         if (damage.knockdown)
             Knockdown();
 
-        var damageView = Instantiate(_pfDamageView);
-        damageView.SetDamage(calculatedDamage);
-        damageView.transform.position = transform.position + Vector3.up;
-        damageView.transform.SetParent(_uiRoot);
+        var damageText = Instantiate(_pfDamageText);
+        damageText.text = calculatedDamage.ToString();
+        damageText.transform.position = transform.position + Vector3.up;
+        damageText.transform.SetParent(_uiRoot);
 
         var ro = UnityEngine.Random.Range(0f, 0.5f);
         var phi = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
         var theta = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
-        damageView.transform.Translate(ro * Mathf.Sin(phi) * Mathf.Cos(theta), ro * Mathf.Sin(phi) * Mathf.Sin(theta), ro * Mathf.Cos(phi));
+        damageText.transform.Translate(ro * Mathf.Sin(phi) * Mathf.Cos(theta), ro * Mathf.Sin(phi) * Mathf.Sin(theta), ro * Mathf.Cos(phi));
     }
     protected virtual void OnDamaged(Damage damage) { }
 

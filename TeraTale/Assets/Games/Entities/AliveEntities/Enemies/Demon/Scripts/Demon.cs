@@ -14,7 +14,7 @@ public class Demon : Enemy
         base.Start();
     }
 
-    public override float moveSpeed { get { return 3; } }
+    public override float baseMoveSpeed { get { return 3; } }
 
     protected override List<Item> itemsForDrop
     {

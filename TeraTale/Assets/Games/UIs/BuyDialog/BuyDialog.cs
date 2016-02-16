@@ -35,7 +35,7 @@ public class BuyDialog : Modal
     public void RenewPriceText(string amountStr)
     {
         var amount = int.Parse(amountStr);
-        buyPrice.text = _item.price * amount + "G";
+        buyPrice.text = _item.price * amount + "";
     }
 
     public void Buy()

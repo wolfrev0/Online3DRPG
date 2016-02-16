@@ -132,7 +132,7 @@
     <Compile Include="Assets\Games\Portal.cs" />
     <Compile Include="Assets\Games\UIs\BuyDialog\BuyDialog.cs" />
     <Compile Include="Assets\Games\UIs\ChattingView\ChattingView.cs" />
-    <Compile Include="Assets\Games\UIs\DamageView\DamageView.cs" />
+    <Compile Include="Assets\Games\UIs\FakeLoading\FakeLoading.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\Inventory.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlot.cs" />
     <Compile Include="Assets\Games\UIs\Inventory\InventorySlotLayoutGroup.cs" />
@@ -151,7 +151,9 @@
     <Compile Include="Assets\Games\UIs\SellDialog\SellDialog.cs" />
     <Compile Include="Assets\Games\UIs\SpeechBubble\SpeechBubble.cs" />
     <Compile Include="Assets\Games\UIs\StatusView\StatusView.cs" />
+    <Compile Include="Assets\Games\UIs\WorldText\WorldText.cs" />
     <Compile Include="Assets\Games\Worlds\CheatManager.cs" />
+    <Compile Include="Assets\Games\Worlds\DestinationSign.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />

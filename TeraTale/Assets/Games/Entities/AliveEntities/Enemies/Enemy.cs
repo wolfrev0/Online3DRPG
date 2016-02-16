@@ -43,6 +43,7 @@ public abstract class Enemy : AliveEntity
     public override float bonusAttackDamage { get { return 0; } }
     public override float baseAttackSpeed { get { return 1; } }
     public override float bonusAttackSpeed { get { return 0; } }
+    public override float bonusMoveSpeed { get { return 0; } }
     //return high-damaged target;
     public AliveEntity mainTarget
     { get { return _targets.Count > 0 ? _targets[_targets.Count - 1].target : null; } }
