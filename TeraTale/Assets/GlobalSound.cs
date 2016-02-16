@@ -5,6 +5,7 @@ public class GlobalSound : MonoBehaviour
     static public GlobalSound instance;
     public AudioClip die;
     public AudioClip itemPick;
+    public AudioClip[] bgms;
 
     AudioSource _audio;
 
@@ -12,6 +13,7 @@ public class GlobalSound : MonoBehaviour
     {
         _audio = GetComponent<AudioSource>();
         instance = this;
+        PlayBGM();
     }
 
     public void PlayDie()
@@ -22,5 +24,12 @@ public class GlobalSound : MonoBehaviour
     public void PlayItemPick()
     {
         _audio.PlayOneShot(itemPick);
+    }
+
+    void PlayBGM()
+    {
+        var clip = bgms[Random.Range(0, bgms.Length)];
+        _audio.PlayOneShot(clip, 0.7f);
+        Invoke("PlayBGM", clip.length);
     }
 }
