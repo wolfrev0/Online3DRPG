@@ -25,9 +25,9 @@ public class InputHandler : MonoBehaviour
     Action on9 = () => { };
     Action on0 = () => { };
     Action onCtrl = () => { Player.mine.Send(new Attack()); };
-    Action onZ = () => { };
+    Action onZ = () => { Player.mine.BackTumbling(); };
     Action onX = () => { };
-    Action onC = () => { Player.mine.Send(new BackTumbling()); };
+    Action onC = () => { };
     Action onV = () => { };
 
     void Awake()

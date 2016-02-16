@@ -286,7 +286,6 @@ GameObject:
   - 136: {fileID: 13639556}
   - 195: {fileID: 19578548}
   - 114: {fileID: 11442132}
-  - 82: {fileID: 8275784}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -698,85 +697,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!82 &8275784
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149390}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 20
-  Pan2D: 0
-  rolloffMode: 2
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0.15
-      value: 1
-      inSlope: -4.3566437
-      outSlope: -4.3566437
-      tangentMode: 0
-    - time: 0.30561796
-      value: 0.525
-      inSlope: -1.9042075
-      outSlope: -1.9042075
-      tangentMode: 10
-    - time: 1
-      value: 0
-      inSlope: -0.23267975
-      outSlope: -0.23267975
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &9560514
 Animator:
   serializedVersion: 3
@@ -980,7 +900,6 @@ MonoBehaviour:
   _uiRoot: {fileID: 22418844}
   nameView: {fileID: 11404584}
   speechBubble: {fileID: 11446364}
-  dieSound: {fileID: 8300000, guid: cb24983825c72ee4288aa76532f36b28, type: 3}
   _money: 0
 --- !u!114 &11445438
 MonoBehaviour:
