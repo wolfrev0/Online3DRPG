@@ -15,7 +15,9 @@ public class Player : AliveEntity
 
     public Text nameView;
     public SpeechBubble speechBubble;
+    public AudioClip dieSound;
 
+    AudioSource _audio;
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     public ItemStackList itemStacks = new ItemStackList(30);
@@ -130,6 +132,7 @@ public class Player : AliveEntity
     {
         for (int i = 0; i < 30; i++)
             itemStacks.Add(new ItemStack());
+        _audio = GetComponent<AudioSource>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -220,6 +223,8 @@ public class Player : AliveEntity
     protected override void Die()
     {
         _animator.SetTrigger("Die");
+        _audio.clip = dieSound;
+        _audio.Play();
         GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue / 2, float.MaxValue / 2, float.MaxValue / 2);
         Invoke("Respawn", 3.0f);
     }
