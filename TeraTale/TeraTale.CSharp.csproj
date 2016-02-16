@@ -75,11 +75,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BackTumblingView.cs" />
     <Compile Include="Assets\Collecting\Scripts\Collect.cs" />
     <Compile Include="Assets\Collecting\Scripts\CollectFlower.cs" />
     <Compile Include="Assets\Collecting\Scripts\Logging.cs" />
     <Compile Include="Assets\Collecting\Scripts\Mining.cs" />
-    <Compile Include="Assets\BackTumblingView.cs" />
     <Compile Include="Assets\Common\Billboard.cs" />
     <Compile Include="Assets\Common\Floater.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />
@@ -180,6 +180,7 @@
     <Compile Include="Assets\aasdf.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Collecting\AboutHero\Double Sided Standard Diffuse Bump.shader" />
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\References\UnityEngine.xml" />
