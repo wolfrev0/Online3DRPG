@@ -11,7 +11,8 @@ public class Dragon : Enemy
     Collider _ardColl;
     int nextAttackType;
     System.Random random = new System.Random();
-    
+
+    public override float respawnDelay { get { return 60; } }
     public override float baseMoveSpeed { get { return 0; } }
 
     public override void OnAttackAnimationEnd(Collider ardColl)
@@ -97,4 +98,13 @@ public class Dragon : Enemy
 
     protected override float levelForDrop
     { get { return 10; } }
+
+    protected override void Die()
+    {
+        base.Die();
+        var exit = FindObjectOfType<Portal>();
+        var pos = exit.transform.position;
+        pos.y = 3.1f;
+        exit.transform.position = pos;
+    }
 }

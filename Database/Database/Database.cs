@@ -29,6 +29,7 @@ namespace Database
             listenner();//Town
             listenner();//Forest
             listenner();//Mine
+            listenner();//Boss
 
             foreach (var key in _messenger.Keys)
             {

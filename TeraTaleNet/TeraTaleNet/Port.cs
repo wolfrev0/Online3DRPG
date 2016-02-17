@@ -7,6 +7,7 @@
         Town,
         Forest,
         Mine,
+        Boss,
         Proxy,
     }
 }

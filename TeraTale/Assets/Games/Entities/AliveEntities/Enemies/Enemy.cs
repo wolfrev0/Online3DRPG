@@ -49,6 +49,7 @@ public abstract class Enemy : AliveEntity
     { get { return _targets.Count > 0 ? _targets[_targets.Count - 1].target : null; } }
     public List<AliveEntity> targets { get { return (from pair in _targets select pair.target).ToList(); } }
     public MonsterSpawner spawner { get; set; }
+    public virtual float respawnDelay { get { return 10; } }
 
 
     public bool ContainsTarget(GameObject gameObject)
@@ -185,7 +186,7 @@ public abstract class Enemy : AliveEntity
             return;
         foreach (var target in _targets)
             target.target.ExpUp(new ExpUp(levelForDrop));//나중에 accumulatedDamage 비율 계산해서 주자.
-        InvokeRepeating("Respawn", 10.0f, float.MaxValue);
+        InvokeRepeating("Respawn", respawnDelay, float.MaxValue);
         Send(new SetActive(false));
     }
 

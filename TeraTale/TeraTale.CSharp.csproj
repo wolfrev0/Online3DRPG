@@ -157,6 +157,7 @@
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
     <Compile Include="Assets\Network\NetworkScript.cs" />
+    <Compile Include="Assets\Network\Server\Boss.cs" />
     <Compile Include="Assets\Network\Server\Forest.cs" />
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
