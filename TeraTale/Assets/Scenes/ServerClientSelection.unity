@@ -982,8 +982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1f76ee9e4c6974eb4410e5778f3894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: -2
-  owner: 
+  _networkID: -1
+  _owner: 
   pfPlayer: {fileID: 11442132, guid: 1b0db7f866af86e49b639f354474f5d6, type: 2}
 --- !u!4 &881560870
 Transform:

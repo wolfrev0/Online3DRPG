@@ -7,6 +7,7 @@ public class BackTumblingView : MonoBehaviour
     
     void Update()
     {
-        cover.fillAmount = Player.mine.backTumblingCoolTimeLeft / Player.mine.backTumblingCoolTime;
+        if (Player.mine)
+            cover.fillAmount = Player.mine.backTumblingCoolTimeLeft / Player.mine.backTumblingCoolTime;
     }
 }
