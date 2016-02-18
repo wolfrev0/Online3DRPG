@@ -21,7 +21,7 @@ public class Dragon : Enemy
     {
         _ardColl = ardColl;
         if (isServer)
-            Send(new SetDragonNextAttack(Random.Range(2f, 8f), Random.Range(0, 2), Random.Range(int.MinValue, int.MaxValue)));
+            Send(new SetDragonNextAttack(Random.Range(2f, 8f), Random.Range(0, 3), Random.Range(int.MinValue, int.MaxValue)));
     }
 
     public void SetDragonNextAttack(SetDragonNextAttack rpc)

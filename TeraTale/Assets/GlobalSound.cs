@@ -60,6 +60,6 @@ public class GlobalSound : MonoBehaviour
 
     public void PlayPickaxe()
     {
-        _audio.PlayOneShot(bgms[Random.Range(0, pickaxes.Length)]);
+        _audio.PlayOneShot(pickaxes[Random.Range(0, pickaxes.Length)]);
     }
 }
