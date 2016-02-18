@@ -34,6 +34,8 @@ public class Player : AliveEntity
 
     public float backTumblingCoolTime { get { return 3f; } }
     public float backTumblingCoolTimeLeft { get; private set; }
+    public float skillCoolTime { get { return 5f; } }
+    public float skillCoolTimeLeft { get; private set; }
 
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
@@ -165,6 +167,7 @@ public class Player : AliveEntity
     {
         base.Update();
         backTumblingCoolTimeLeft -= Time.deltaTime;
+        skillCoolTimeLeft -= Time.deltaTime;
     }
 
     protected override void OnNetworkDestroy()
@@ -200,6 +203,19 @@ public class Player : AliveEntity
         projectile.GetComponent<AttackSubject>().owner = this;
     }
 
+    void ShotSkill()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            var projectile = Instantiate(_pfArrow);
+            projectile.transform.position = transform.position + Vector3.up;
+            projectile.direction = Quaternion.Euler(0, (i - 2) * 10, 0) * transform.forward;
+            projectile.speed = 10;
+            projectile.autoDestroyTime = 0.8f;
+            projectile.GetComponent<AttackSubject>().owner = this;
+        }
+    }
+
     public void FacingDirectionUpdate()
     {
         var corners = _navMeshAgent.path.corners;
@@ -212,13 +228,24 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetBool("Attack", true);
+        _animator.SetTrigger("Attack");
     }
 
     public void StopAttack()
     {
-        _animator.SetBool("Attack", false);
         _attackSubject.enabled = false;
+    }
+
+    public void Skill(Skill info)
+    {
+        _animator.SetTrigger("Skill");
+        skillCoolTimeLeft = skillCoolTime;
+    }
+
+    public void Skill()
+    {
+        if (skillCoolTimeLeft < 0f)
+            Send(new Skill());
     }
 
     public void BackTumbling(BackTumbling info)

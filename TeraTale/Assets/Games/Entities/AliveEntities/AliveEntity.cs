@@ -91,6 +91,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 {
                     _exp -= expMax;
                     level = level + 1;
+
+                    ParticleSystem _particle = Instantiate(_pfLevelUpFX);
+                    _particle.transform.SetParent(transform);
+                    _particle.transform.localPosition = Vector3.zero;
+                    Destroy(_particle.gameObject, 2.5f);                    
                 }
             }
         }
@@ -105,6 +110,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     Transform _uiRoot;
 
     static ParticleSystem _pfHealFX;
+    static ParticleSystem _pfLevelUpFX;
     static WorldText _pfDamageText;
     static WorldText _pfHealText;
 
@@ -129,6 +135,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     {
         if (_pfHealFX == null)
             _pfHealFX = Resources.Load<ParticleSystem>("Prefabs/Heal");
+        if (_pfLevelUpFX == null)
+            _pfLevelUpFX = Resources.Load<ParticleSystem>("Prefabs/LevelUpFx");
         if (_pfDamageText == null)
             _pfDamageText = Resources.Load<WorldText>("Prefabs/DamageText");
         if (_pfHealText == null)

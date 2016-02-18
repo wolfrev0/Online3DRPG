@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -103,13 +105,14 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyChasing.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\LapisLazuli\Scripts\LapisLazuli.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Mineral\Scripts\Mineral.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBacktumbling.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBackTumbling.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerRunning.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerStaying.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="Assets\Games\Worlds\DestinationSign.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\GlobalSound.cs" />
+    <Compile Include="Assets\LevelUpFx.cs" />
     <Compile Include="Assets\MainUI.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
@@ -173,6 +177,7 @@
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
+    <Compile Include="Assets\PlayerSkill.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireBaseScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
@@ -180,6 +185,7 @@
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
+    <Compile Include="Assets\SkillView.cs" />
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />
     <Compile Include="Assets\UIs\Logins\Scripts\LoginButtonHandler.cs" />
