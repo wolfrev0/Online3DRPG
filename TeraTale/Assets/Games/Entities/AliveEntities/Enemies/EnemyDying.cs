@@ -11,7 +11,7 @@ public class EnemyDying : StateMachineBehaviour
             _enemy = animator.GetComponent<Enemy>();
         animator.SetBool("Died", true);
         _enemy.DropItems();
-        _enemy.Invoke("SetActiveFalse", 2.0f);
+        _enemy.Invoke("SetActiveFalse", _enemy.hideTime);
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -13,7 +13,6 @@ public class BossClearMessage : MonoBehaviour
         _initPos = _rt.anchoredPosition;
         _destination = _initPos;
         instance = this;
-        Show();
     }
 
     public void Show()

@@ -206,11 +206,11 @@ ModelImporter:
     4300000: Box003
     4300002: Box004
     4300004: Model
-    7400000: Take 001
+    7400000: WindAttack
     9500000: //RootNode
     13700000: Model
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -229,7 +229,243 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: WindAttack
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 70
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.29113925
+        functionName: Wind
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.81434596
+        functionName: Wind
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: C_Buffbone_Glb_Center_Loc
+        weight: 1
+      - path: Model
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Pelvis
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Buffbone_Glb_Foot_Loc
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_Foot_end
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_HeelRoll_end
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_InnerRoll_end
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_OuterRoll_end
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_SwivelRoll_end
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_Toe
+        weight: 1
+      - path: Root/Pelvis/L_Pelvis/L_Hip/L_Knee/L_Ankle/L_Foot/L_Toe/L_Toe_end
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Buffbone_Glb_Foot_Loc
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot/R_Foot_end
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot/R_HeelRoll_end
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot/R_InnerRoll_end
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot/R_SwivelRoll_end
+        weight: 1
+      - path: Root/Pelvis/R_Pelvis/R_Hip/R_Knee/R_Ankle/R_Foot/R_Toe
+        weight: 1
+      - path: Root/Pelvis/Tail1
+        weight: 1
+      - path: Root/Pelvis/Tail1/Tail2
+        weight: 1
+      - path: Root/Pelvis/Tail1/Tail2/Tail3
+        weight: 1
+      - path: Root/Pelvis/Tail1/Tail2/Tail3/Tail4
+        weight: 1
+      - path: Root/Pelvis/Tail1/Tail2/Tail3/Tail4/Tail5
+        weight: 1
+      - path: Root/Pelvis/Tail1/Tail2/Tail3/Tail4/Tail5/Tail6
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/ChestScale
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/C_Buffbone_Glb_Chest_Loc
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_Paw_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawHeelRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawInnerRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawOuterRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawSwivelRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawToe
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Clavicle/L_Shoulder/L_Elbow/L_Paw/L_PawToe/L_PawToe_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Gill3
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_Wing_Lower
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_Wing_Lower/L_Wing_Tip
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_WingFing1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_WingFing1/L_WingFing2
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_WingFing3
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/L_Wing_Clavicle/L_Wing_Upper/L_Wing_Mid1/L_Wing_Mid/L_WingFing3/L_WingFing4
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/L_Gill2
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head/Buffbone_Cstm_FireStart
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head/C_Buffbone_Glb_Head_Loc
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head/Jaw
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head/Jaw/Box003
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/Head/Jaw/Box004
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/L_Gill1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/Neck1/R_Gill1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/Neck/R_Gill2
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_Paw_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawHeelRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawInnerRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawOuterRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawSwivelRoll_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawToe
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Clavicle/R_Shoulder/R_Elbow/R_Paw/R_PawToe/R_PawToe_end
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Gill3
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_Wing_Lower
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_Wing_Lower/R_Wing_Tip
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_WingFing1
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_WingFing1/R_WingFing2
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_WingFing3
+        weight: 1
+      - path: Root/Spine1/Spine2/Spine3/Spine4/R_Wing_Clavicle/R_Wing_Upper/R_Wing_Mid1/R_Wing_Mid/R_WingFing3/R_WingFing4
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -253,7 +489,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     human: []
     skeleton: []
@@ -266,7 +502,8 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 638d73a3798d4c248bfcbb5057dc3b01,
+    type: 3}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
