@@ -4427,6 +4427,7 @@ GameObject:
   - 224: {fileID: 22470218}
   - 222: {fileID: 22223170}
   - 114: {fileID: 11424164}
+  - 114: {fileID: 11470660}
   m_Layer: 5
   m_Name: SkillView
   m_TagString: Untagged
@@ -13746,6 +13747,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemStackIndex: -1
+--- !u!114 &11470660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ae50c68736b5a4d91813e1c8751efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cover: {fileID: 11424850}
 --- !u!114 &11470876
 MonoBehaviour:
   m_ObjectHideFlags: 1

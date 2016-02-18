@@ -34,6 +34,8 @@ public class Player : AliveEntity
 
     public float backTumblingCoolTime { get { return 3f; } }
     public float backTumblingCoolTimeLeft { get; private set; }
+    public float skillCoolTime { get { return 5f; } }
+    public float skillCoolTimeLeft { get; private set; }
 
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
@@ -165,6 +167,7 @@ public class Player : AliveEntity
     {
         base.Update();
         backTumblingCoolTimeLeft -= Time.deltaTime;
+        skillCoolTimeLeft -= Time.deltaTime;
     }
 
     protected override void OnNetworkDestroy()
@@ -228,14 +231,21 @@ public class Player : AliveEntity
         _animator.SetTrigger("Attack");
     }
 
-    public void Skill(Skill info)
-    {
-        _animator.SetTrigger("Skill");
-    }
-
     public void StopAttack()
     {
         _attackSubject.enabled = false;
+    }
+
+    public void Skill(Skill info)
+    {
+        _animator.SetTrigger("Skill");
+        skillCoolTimeLeft = skillCoolTime;
+    }
+
+    public void Skill()
+    {
+        if (skillCoolTimeLeft < 0f)
+            Send(new Skill());
     }
 
     public void BackTumbling(BackTumbling info)
