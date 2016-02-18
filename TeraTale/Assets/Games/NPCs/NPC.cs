@@ -40,5 +40,6 @@ public abstract class NPC : MonoBehaviour
         _npcCam.depth = Camera.main.depth + 1;
 
         NPCDialog.instance.StartConversation(scripts);
+        GlobalSound.instance.PlayNPCHello();
     }
 }

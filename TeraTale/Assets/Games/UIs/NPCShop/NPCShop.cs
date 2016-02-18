@@ -28,6 +28,7 @@ public class NPCShop : Modal
     {
         _owner = null;
         gameObject.SetActive(false);
+        GlobalSound.instance.PlayNPCThanks();
     }
 
     protected new void OnEnable()

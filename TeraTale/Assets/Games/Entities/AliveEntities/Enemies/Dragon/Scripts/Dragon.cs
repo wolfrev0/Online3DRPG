@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using TeraTaleNet;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dragon : Enemy
 {
     public Projectile pfMeteor;
     FireBreath fireBreath;
+    Image bossHpBar;
 
     Collider _ardColl;
     int nextAttackType;
@@ -50,6 +52,19 @@ public class Dragon : Enemy
     new void Start()
     {
         base.Start();
+        bossHpBar = GameObject.Find("BossHp").GetComponent<Image>();
+    }
+
+    protected new void OnEnable()
+    {
+        base.OnEnable();
+        BossMessage.instance.Show();
+    }
+
+    protected new void Update()
+    {
+        base.Update();
+        bossHpBar.fillAmount = hp / hpMax;
     }
 
     void MeteorStart()
@@ -89,15 +104,21 @@ public class Dragon : Enemy
         get
         {
             List<Item> ret = new List<Item>();
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new HpPotion());
+            ret.Add(new HpPotion());
+            ret.Add(new HpPotion());
+            ret.Add(new HpPotion());
             ret.Add(new Apple());
+            ret.Add(new Apple());
+            ret.Add(new Bone());
+            ret.Add(new Bone());
+            ret.Add(new Bone());
+            ret.Add(new DevilSheen());
             return ret;
         }
     }
 
     protected override float levelForDrop
-    { get { return 10; } }
+    { get { return 200; } }
 
     protected override void Die()
     {
@@ -106,5 +127,6 @@ public class Dragon : Enemy
         var pos = exit.transform.position;
         pos.y = 3.1f;
         exit.transform.position = pos;
+        BossClearMessage.instance.Show();
     }
 }

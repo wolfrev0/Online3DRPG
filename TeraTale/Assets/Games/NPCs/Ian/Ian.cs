@@ -28,7 +28,7 @@ public class Ian : NPC
             s.commands = new List<Script.Command>();
             s.comment = "나는 오늘도 눈을 감고 음악을 듣는다... 음악만이 이 공간속에서 유일하게 허락된 마약이니깐, 크하하핫!!!";
             cmd.name = "Close";
-            cmd.action = NPCDialog.instance.Close;
+            cmd.action = () => { NPCDialog.instance.Close(true); };
             s.commands.Add(cmd);
             _scripts.Add(s);
 

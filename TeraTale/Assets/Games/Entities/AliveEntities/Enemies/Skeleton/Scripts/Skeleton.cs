@@ -21,9 +21,11 @@ public class Skeleton : Enemy
         get
         {
             List<Item> ret = new List<Item>();
+            ret.Add(new Bone());
             if (Random.Range(0, 2) == 0)
                 ret.Add(new HpPotion());
-            ret.Add(new Bone());
+            if (Random.Range(0, 10) == 0)
+                ret.Add(new BowScroll());
             return ret;
         }
     }

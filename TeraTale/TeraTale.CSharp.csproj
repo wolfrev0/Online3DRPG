@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\BackTumblingView.cs" />
+    <Compile Include="Assets\BossClearMessage.cs" />
+    <Compile Include="Assets\BossMessage.cs" />
     <Compile Include="Assets\Common\Billboard.cs" />
     <Compile Include="Assets\Common\Floater.cs" />
     <Compile Include="Assets\Common\GlobalOption.cs" />

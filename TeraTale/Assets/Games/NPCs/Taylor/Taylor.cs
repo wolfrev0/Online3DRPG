@@ -40,7 +40,7 @@ public class Taylor : NPC
                         break;
                 }
                 cmd.name = "Close";
-                cmd.action = NPCDialog.instance.Close;
+                cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);
 
@@ -53,7 +53,7 @@ public class Taylor : NPC
             {
                 NPCShop.instance.Open(this);
                 Inventory.instance.gameObject.SetActive(true);
-                NPCDialog.instance.Close();
+                NPCDialog.instance.Close(false);
             };
             s.commands.Add(cmd);
 
@@ -63,7 +63,7 @@ public class Taylor : NPC
                 s.commands = new List<Script.Command>();
                 s.comment = "아직 퀘스트가 없어...";
                 cmd.name = "Close";
-                cmd.action = NPCDialog.instance.Close;
+                cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);
 

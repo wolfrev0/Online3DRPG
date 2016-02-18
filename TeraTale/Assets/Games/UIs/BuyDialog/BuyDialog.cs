@@ -44,6 +44,7 @@ public class BuyDialog : Modal
         if(Player.mine.money >= _item.price*amount && Player.mine.CanAddItem(_item, amount))
         {
             Player.mine.BuyItem(_item, amount);
+            GlobalSound.instance.PlayCashRegister();
         }
         else
         {

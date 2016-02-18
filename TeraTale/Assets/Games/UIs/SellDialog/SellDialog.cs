@@ -41,7 +41,10 @@ public class SellDialog : Modal
     {
         var amount = int.Parse(input.text);
         if (Player.mine.itemStacks[_itemStackIndex].count >= amount)
+        {
             Player.mine.SellItem(_itemStackIndex, amount);
+            GlobalSound.instance.PlayCashRegister();
+        }
         else
         {
             //Show Error Message

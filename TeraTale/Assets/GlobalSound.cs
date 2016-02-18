@@ -5,6 +5,10 @@ public class GlobalSound : MonoBehaviour
     static public GlobalSound instance;
     public AudioClip die;
     public AudioClip itemPick;
+    public AudioClip npcHello;
+    public AudioClip npcBye;
+    public AudioClip npcThanks;
+    public AudioClip cashRegister;
     public AudioClip[] bgms;
 
     AudioSource _audio;
@@ -31,5 +35,25 @@ public class GlobalSound : MonoBehaviour
         var clip = bgms[Random.Range(0, bgms.Length)];
         _audio.PlayOneShot(clip, 0.7f);
         Invoke("PlayBGM", clip.length);
+    }
+
+    public void PlayNPCHello()
+    {
+        _audio.PlayOneShot(npcHello);
+    }
+
+    public void PlayNPCBye()
+    {
+        _audio.PlayOneShot(npcBye);
+    }
+
+    public void PlayNPCThanks()
+    {
+        _audio.PlayOneShot(npcThanks);
+    }
+
+    public void PlayCashRegister()
+    {
+        _audio.PlayOneShot(cashRegister);
     }
 }

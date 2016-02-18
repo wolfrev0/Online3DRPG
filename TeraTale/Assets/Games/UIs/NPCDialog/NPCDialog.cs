@@ -51,10 +51,12 @@ public class NPCDialog : Modal
         }
     }
 
-    public void Close()
+    public void Close(bool playByeSound)
     {
         enabled = false;
         npcCam.enabled = false;
         npcCam.depth = Camera.main.depth - 1;
+        if (playByeSound)
+            GlobalSound.instance.PlayNPCBye();
     }
 }

@@ -116,6 +116,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   die: {fileID: 8300000, guid: cb24983825c72ee4288aa76532f36b28, type: 3}
   itemPick: {fileID: 8300000, guid: 2e6ce43ec7d7de849a5d91f6f7962770, type: 3}
+  npcHello: {fileID: 8300000, guid: 0eb9d8bb56d063b4886560d6f29b40b8, type: 3}
+  npcBye: {fileID: 8300000, guid: efd91d03a2b18d849b3f8ad2b2a80d23, type: 3}
+  npcThanks: {fileID: 8300000, guid: 4294b5fe3ad6a484cb746fb9f04108c5, type: 3}
+  cashRegister: {fileID: 8300000, guid: a464ff255a3158645942b50b68b32863, type: 3}
   bgms:
   - {fileID: 8300000, guid: 0c31b5515563b9f4a87d9ff7dce17217, type: 3}
   - {fileID: 8300000, guid: 3c568c637cf456c46a125210ee149feb, type: 3}
