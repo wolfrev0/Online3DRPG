@@ -97,6 +97,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyChasing.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyDying.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\EnemyStaying.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\LapisLazuli\Scripts\LapisLazuli.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Mineral\Scripts\Mineral.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Assets\Games\Worlds\DestinationSign.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\GlobalSound.cs" />
+    <Compile Include="Assets\LevelUpFx.cs" />
     <Compile Include="Assets\MainUI.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />

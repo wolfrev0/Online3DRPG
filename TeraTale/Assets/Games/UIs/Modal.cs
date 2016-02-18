@@ -6,17 +6,17 @@ public abstract class Modal : MonoBehaviour
 
     protected void OnEnable()
     {
-        ++modalOpenCount;
-        if (InputHandler.instance)
-            InputHandler.instance.enabled = false;
+        //++modalOpenCount;
+        //if (InputHandler.instance)
+        //    InputHandler.instance.enabled = false;
     }
 
     protected void OnDisable()
     {
-        if (--modalOpenCount == 0)
-        {
-            if (InputHandler.instance)
-                InputHandler.instance.enabled = true;
-        }
+        //if (--modalOpenCount == 0)
+        //{
+        //    if (InputHandler.instance)
+        //        InputHandler.instance.enabled = true;
+        //}
     }
 }
