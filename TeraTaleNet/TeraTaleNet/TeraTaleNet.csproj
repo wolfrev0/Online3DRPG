@@ -63,6 +63,7 @@
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Wand\Wand.cs" />
     <Compile Include="Body\Item\Sundry\IronOre.cs" />
+    <Compile Include="Body\Item\Sundry\LapisLazuli.cs" />
     <Compile Include="Body\Item\Sundry\Log.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\BowScroll.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\Scroll.cs" />
