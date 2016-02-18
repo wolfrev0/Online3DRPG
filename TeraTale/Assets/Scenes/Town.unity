@@ -327,6 +327,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11475260, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
+      propertyPath: world
+      value: 
+      objectReference: {fileID: 516269351}
     - target: {fileID: 22325390, guid: 52bf02b8aff359647b4d37363ffd5308, type: 2}
       propertyPath: m_Camera
       value: 

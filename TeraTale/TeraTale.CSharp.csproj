@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -161,6 +155,7 @@
     <Compile Include="Assets\Games\Worlds\DestinationSign.cs" />
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\GlobalSound.cs" />
+    <Compile Include="Assets\MainUI.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />
