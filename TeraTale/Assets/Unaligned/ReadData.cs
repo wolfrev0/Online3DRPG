@@ -18,7 +18,7 @@ public class ReadData : MonoBehaviour
 
         mesh = GetComponent<SkinnedMeshRenderer>();
         mesh.materials[0].mainTexture = ReadHead[System.Convert.ToInt32(sr.ReadLine())];
-        mesh.materials[1].mainTexture = ReadBody[System.Convert.ToInt32(sr.ReadLine())];
+        //mesh.materials[1].mainTexture = ReadBody[System.Convert.ToInt32(sr.ReadLine())];
         //mesh.materials[2].mainTexture = ReadFoot[System.Convert.ToInt32(sr.ReadLine())];
 
         sr.Close();
