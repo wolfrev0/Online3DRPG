@@ -604,7 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkID: -2
   _owner: 
-  serverIP: 127.0.0.1
+  serverIP: 211.225.140.92
 --- !u!4 &447090859
 Transform:
   m_ObjectHideFlags: 0

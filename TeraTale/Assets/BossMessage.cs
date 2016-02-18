@@ -37,5 +37,6 @@ public class BossMessage : MonoBehaviour
     void Reset()
     {
         _rt.anchoredPosition = _initPos;
+        _destination = _initPos;
     }
 }
