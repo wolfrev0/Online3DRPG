@@ -102,6 +102,7 @@
     <Compile Include="Body\RPC\Respawn.cs" />
     <Compile Include="Body\RPC\RPC.cs" />
     <Compile Include="Body\RPC\SetActive.cs" />
+    <Compile Include="Body\RPC\Skill.cs" />
     <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\RPC\SellItem.cs" />

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: d337d30fbb8cfac45ab2592dbbcfac3e
+guid: 9674b5b8a87fe654c9333b6ac924a8c5
 timeCreated: 1455797773
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Knight
-    100004: Locator
+    100000: Knight
+    100002: Locator
+    100004: //RootNode
     100006: Skeleton_Arm_L
     100008: Skeleton_Arm_R
     100010: Skeleton_Foot_L
@@ -24,9 +24,9 @@ ModelImporter:
     100032: Skeleton_Spine02
     100034: Skeleton_UpperLeg_L
     100036: Skeleton_UpperLeg_R
-    400000: //RootNode
-    400002: Knight
-    400004: Locator
+    400000: Knight
+    400002: Locator
+    400004: //RootNode
     400006: Skeleton_Arm_L
     400008: Skeleton_Arm_R
     400010: Skeleton_Foot_L
@@ -44,7 +44,7 @@ ModelImporter:
     400034: Skeleton_UpperLeg_L
     400036: Skeleton_UpperLeg_R
     4300000: Knight
-    7400000: KnifeAttack2
+    7400000: KnifeSkill
     9500000: //RootNode
     13700000: Knight
   materials:
@@ -60,11 +60,15 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nDefault bone length found in this file is different
       form the one found in the source avatar:\n\t'Skeleton_UpperLeg_L' : position
-      error = 239.654724 mm\n\t'Skeleton_Leg_L' : position error = 140.966324 mm\n\t'Skeleton_Foot_L'
-      : position error = 178.071167 mm\n"
+      error = 203.283966 mm\n\t'Skeleton_Leg_L' : position error = 140.966309 mm\n\t'Skeleton_Foot_L'
+      : position error = 178.071198 mm\n\nClip 'Take 001' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Skeleton_UpperLeg_R' has translation animation
+      that will be discarded.\n\t'Skeleton_UpperLeg_L' has translation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -72,13 +76,13 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: KnifeAttack2
+      name: KnifeSkill
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 13
+      lastFrame: 14
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0.07
+      level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -86,7 +90,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -95,14 +99,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.30801687
+      - time: 0
         functionName: AttackBegin
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7721519
+      - time: 0.9915612
         functionName: AttackEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -113,9 +117,9 @@ ModelImporter:
       - path: 
         weight: 1
       - path: Knight
-        weight: 0
+        weight: 1
       - path: Locator
-        weight: 0
+        weight: 1
       - path: Skeleton_Root
         weight: 1
       - path: Skeleton_Root/Skeleton_Spine01
