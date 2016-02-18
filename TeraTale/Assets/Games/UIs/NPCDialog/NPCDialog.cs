@@ -17,6 +17,7 @@ public class NPCDialog : Modal
     {
         instance = this;
         npcCam = GameObject.FindWithTag("NPCCamera").GetComponent<Camera>();
+        gameObject.SetActive(false);
     }
 
     void Start()
@@ -26,6 +27,8 @@ public class NPCDialog : Modal
 
     public void StartConversation(List<NPC.Script> scripts)
     {
+        MainUI.instance.gameObject.SetActive(false);
+        gameObject.SetActive(true);
         enabled = true;
         _scripts = scripts;
         _nextScriptIdx = 0;
@@ -53,6 +56,8 @@ public class NPCDialog : Modal
 
     public void Close(bool playByeSound)
     {
+        MainUI.instance.gameObject.SetActive(true);
+        gameObject.SetActive(false);
         enabled = false;
         npcCam.enabled = false;
         npcCam.depth = Camera.main.depth - 1;
