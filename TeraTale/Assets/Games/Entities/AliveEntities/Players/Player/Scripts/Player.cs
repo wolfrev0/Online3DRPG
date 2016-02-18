@@ -200,6 +200,19 @@ public class Player : AliveEntity
         projectile.GetComponent<AttackSubject>().owner = this;
     }
 
+    void ShotSkill()
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            var projectile = Instantiate(_pfArrow);
+            projectile.transform.position = transform.position + Vector3.up;
+            projectile.direction = Quaternion.Euler(0, (i - 2) * 10, 0) * transform.forward;
+            projectile.speed = 10;
+            projectile.autoDestroyTime = 0.8f;
+            projectile.GetComponent<AttackSubject>().owner = this;
+        }
+    }
+
     public void FacingDirectionUpdate()
     {
         var corners = _navMeshAgent.path.corners;
@@ -212,12 +225,16 @@ public class Player : AliveEntity
 
     public void Attack(Attack info)
     {
-        _animator.SetBool("Attack", true);
+        _animator.SetTrigger("Attack");
+    }
+
+    public void Skill(Skill info)
+    {
+        _animator.SetTrigger("Skill");
     }
 
     public void StopAttack()
     {
-        _animator.SetBool("Attack", false);
         _attackSubject.enabled = false;
     }
 

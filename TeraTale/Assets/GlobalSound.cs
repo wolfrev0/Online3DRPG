@@ -9,6 +9,7 @@ public class GlobalSound : MonoBehaviour
     public AudioClip npcBye;
     public AudioClip npcThanks;
     public AudioClip cashRegister;
+    public AudioClip[] pickaxes;
     public AudioClip[] bgms;
 
     AudioSource _audio;
@@ -55,5 +56,10 @@ public class GlobalSound : MonoBehaviour
     public void PlayCashRegister()
     {
         _audio.PlayOneShot(cashRegister);
+    }
+
+    public void PlayPickaxe()
+    {
+        _audio.PlayOneShot(bgms[Random.Range(0, pickaxes.Length)]);
     }
 }

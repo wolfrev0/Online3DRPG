@@ -167,6 +167,7 @@
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
+    <Compile Include="Assets\PlayerSkill.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireBaseScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
