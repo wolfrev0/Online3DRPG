@@ -4551,7 +4551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &187726
 GameObject:
   m_ObjectHideFlags: 0
@@ -15293,6 +15293,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c61713668274db4f86a6a19857bad01, type: 3}
   loadingBar: {fileID: 11433876}
   loadingText: {fileID: 11449294}
+  loadingDelay: 10
 --- !u!114 &11481858
 MonoBehaviour:
   m_ObjectHideFlags: 1

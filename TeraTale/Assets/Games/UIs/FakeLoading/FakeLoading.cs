@@ -9,7 +9,7 @@ public class FakeLoading : MonoBehaviour
     Image image;
     Vector2 _destination;
     float _elapsed = 0;
-    const float loadingDelay = 1;
+    public float loadingDelay = 1;
 
     void Awake()
     {
