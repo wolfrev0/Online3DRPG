@@ -120,6 +120,13 @@ MonoBehaviour:
   npcBye: {fileID: 8300000, guid: efd91d03a2b18d849b3f8ad2b2a80d23, type: 3}
   npcThanks: {fileID: 8300000, guid: 4294b5fe3ad6a484cb746fb9f04108c5, type: 3}
   cashRegister: {fileID: 8300000, guid: a464ff255a3158645942b50b68b32863, type: 3}
+  pickaxes:
+  - {fileID: 8300000, guid: feedf4c2f759844478ab5d4cc77e4c23, type: 3}
+  - {fileID: 8300000, guid: 9ce8f6d202b3c0f4faefe0cc581200f3, type: 3}
+  - {fileID: 8300000, guid: 40482ed47f7df444b86ea987ef23fab7, type: 3}
+  - {fileID: 8300000, guid: d9a1bff4ff4123347a805d2135b8c080, type: 3}
+  - {fileID: 8300000, guid: 65d243d6f6eb0af4e81b01afab395941, type: 3}
+  - {fileID: 8300000, guid: ec4f442edce6a534eb5955cbee4544c3, type: 3}
   bgms:
   - {fileID: 8300000, guid: 0c31b5515563b9f4a87d9ff7dce17217, type: 3}
   - {fileID: 8300000, guid: 3c568c637cf456c46a125210ee149feb, type: 3}

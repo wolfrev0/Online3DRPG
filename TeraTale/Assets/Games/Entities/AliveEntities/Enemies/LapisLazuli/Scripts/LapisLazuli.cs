@@ -30,6 +30,12 @@ public class LapisLazuli : Enemy
         }
     }
 
+    protected override void OnDamaged(Damage damage)
+    {
+        base.OnDamaged(damage);
+        GlobalSound.instance.PlayPickaxe();
+    }
+
     protected override float levelForDrop
     { get { return 10; } }
 
