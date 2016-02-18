@@ -82,6 +82,9 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -148,7 +151,6 @@
   <ItemGroup>
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
     <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
-    <None Include="Assets\References\UnityEngine.xml" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
