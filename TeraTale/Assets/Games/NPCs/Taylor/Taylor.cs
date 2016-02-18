@@ -8,7 +8,8 @@ public class Taylor : NPC
     {
         base.Awake();
         itemStacks[0].Push(new Pickaxe());
-        itemStacks[1].Push(new HpPotion());
+        itemStacks[6].Push(new IronOre());
+        itemStacks[7].Push(new LapisLazuliOre());
     }
 
     protected override List<Script> scripts

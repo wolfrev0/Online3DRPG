@@ -8,12 +8,16 @@ public class Smith : NPC
     {
         base.Awake();
         itemStacks[0].Push(new Axe());
-        itemStacks[1].Push(new Pickaxe());
+        itemStacks[1].Push(new Dagger());
+        itemStacks[2].Push(new Sword());
+        itemStacks[3].Push(new Wand());
+        itemStacks[4].Push(new FoxTail());
 
         itemStacks[6].Push(new HpPotion());
         itemStacks[7].Push(new Bone());
         itemStacks[8].Push(new Log());
         itemStacks[9].Push(new IronOre());
+        itemStacks[10].Push(new LapisLazuliOre());
 
         itemStacks[12].Push(new BowScroll());
     }

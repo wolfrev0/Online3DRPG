@@ -15293,7 +15293,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c61713668274db4f86a6a19857bad01, type: 3}
   loadingBar: {fileID: 11433876}
   loadingText: {fileID: 11449294}
-  loadingDelay: 1
+  loadingDelay: 10
 --- !u!114 &11481858
 MonoBehaviour:
   m_ObjectHideFlags: 1
