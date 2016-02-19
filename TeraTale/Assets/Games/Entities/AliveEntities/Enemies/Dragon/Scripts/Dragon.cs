@@ -28,7 +28,7 @@ public class Dragon : Enemy
     {
         _ardColl = ardColl;
         if (isServer)
-            Send(new SetDragonNextAttack(Random.Range(2f, 8f), Random.Range(0, 3), Random.Range(int.MinValue, int.MaxValue)));
+            Send(new SetDragonNextAttack(Random.Range(2f, 5f), Random.Range(0, 3), Random.Range(int.MinValue, int.MaxValue)));
     }
 
     public void SetDragonNextAttack(SetDragonNextAttack rpc)
@@ -61,7 +61,6 @@ public class Dragon : Enemy
         base.Start();
         bossHpBar = GameObject.Find("BossHp").GetComponent<Image>();
         BossMessage.instance.Show();
-        Die();
     }
 
     protected new void Update()
@@ -116,14 +115,14 @@ public class Dragon : Enemy
         {
             var wind = Instantiate(pfWind);
             var xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
-            var destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 3;
+            var destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 2;
             wind.transform.position = transform.position + Vector3.up * 3 - transform.right * 3;
             wind.direction = (destination - wind.transform.position).normalized;
             wind.GetComponent<AttackSubject>().owner = this;
 
             wind = Instantiate(pfWind);
             xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
-            destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 3;
+            destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 2;
             wind.transform.position = transform.position + Vector3.up * 3 + transform.right * 3;
             wind.direction = (destination - wind.transform.position).normalized;
             wind.GetComponent<AttackSubject>().owner = this;

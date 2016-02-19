@@ -25,6 +25,7 @@ public class PlayerAttacking : StateMachineBehaviour
             _player.StopCoroutine(_attackStackTimer);
         _attackStackTimer = _player.StartCoroutine(ResetAttackStack());
         animator.SetFloat("AttackSpeed", _player.attackSpeed);
+        InputHandler.instance.enabled = true;
     }
 
     IEnumerator ResetAttackStack()

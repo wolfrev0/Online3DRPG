@@ -6,7 +6,7 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
-    static int[] _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
+    static int[] _expMaxByLevel = new int[] { 1, 50, 70, 100, 150, 200 };
     
     [SerializeField]
     Image _hpBar = null;
@@ -91,6 +91,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 {
                     _exp -= expMax;
                     level = level + 1;
+                    hp = hpMax;
+                    stamina = staminaMax;
 
                     ParticleSystem _particle = Instantiate(_pfLevelUpFX);
                     _particle.transform.SetParent(transform);
@@ -148,6 +150,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     protected new void OnEnable()
     {
         base.OnEnable();
+        Sync("transform.localPosition");
+        Sync("transform.localEulerAngles");
         if (isServer)
         {
             hp = hpMax;//Initialize property call

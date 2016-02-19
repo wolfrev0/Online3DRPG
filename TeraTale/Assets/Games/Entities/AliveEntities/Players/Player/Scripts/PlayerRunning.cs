@@ -16,6 +16,7 @@ public class PlayerRunning : StateMachineBehaviour
         }
         _nma.speed = _player.moveSpeed;
         _animator.SetBool("Run", true);
+        InputHandler.instance.enabled = true;
     }
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
