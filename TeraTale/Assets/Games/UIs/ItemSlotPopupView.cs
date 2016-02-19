@@ -47,8 +47,9 @@ public class ItemSlotPopupView : MonoBehaviour
 
     void Update()
     {
-        Vector3 pos;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(_rt, Input.mousePosition, Camera.main, out pos);
-        _rt.position = pos;
+        //Vector3 pos;
+        //RectTransformUtility.ScreenPointToWorldPointInRectangle(_rt, Input.mousePosition, Camera.main, out pos);
+        //_rt.position = pos;
+        _rt.position = Input.mousePosition;
     }
 }

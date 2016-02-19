@@ -145,6 +145,6 @@ public class Dragon : Enemy
         var pos = exit.transform.position;
         pos.y = 0.1f;
         exit.transform.position = pos;
-        BossClearMessage.instance.Show();
+        BossClearMessage.instance.Invoke("Show", 4);
     }
 }

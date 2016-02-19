@@ -98,14 +98,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5435217
+      - time: 0.5093754
         functionName: ShotSkill
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.70886075
+      - time: 0.6747144
+        functionName: ShotSkill
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.82344866
         functionName: ShotSkill
         data: 
         objectReferenceParameter: {instanceID: 0}

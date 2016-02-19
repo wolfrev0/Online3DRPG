@@ -8,7 +8,6 @@ public class PlayerStaying : StateMachineBehaviour
     {
         if (_player == null)
             _player = animator.GetComponent<Player>();
-        InputHandler.instance.enabled = true;
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -205,11 +205,11 @@ public class Player : AliveEntity
 
     void ShotSkill()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 3; i++)
         {
             var projectile = Instantiate(_pfArrow);
             projectile.transform.position = transform.position + Vector3.up;
-            projectile.direction = Quaternion.Euler(0, (i - 2) * 10, 0) * transform.forward;
+            projectile.direction = Quaternion.Euler(0, (i - 1) * 5, 0) * transform.forward;
             projectile.speed = 10;
             projectile.autoDestroyTime = 0.8f;
             projectile.GetComponent<AttackSubject>().owner = this;
