@@ -1743,7 +1743,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116564}
-  m_LocalRotation: {x: -0.6119, y: 0.6120481, z: -0.35428587, w: -0.35419926}
+  m_LocalRotation: {x: -0.61190003, y: 0.61204815, z: -0.3542859, w: -0.3541993}
   m_LocalPosition: {x: 0.00012092279, y: -0.000075964286, z: -0.000063174375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2575,7 +2575,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109710}
-  m_LocalRotation: {x: -0.6119, y: 0.6120481, z: -0.35428587, w: -0.35419926}
+  m_LocalRotation: {x: -0.61190003, y: 0.61204815, z: -0.3542859, w: -0.3541993}
   m_LocalPosition: {x: 0.00012092279, y: -0.000075964286, z: -0.000063174375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3147,6 +3147,7 @@ MonoBehaviour:
   _attackSubject: {fileID: 0}
   nameView: {fileID: 11420010}
   pfMeteor: {fileID: 11453734, guid: 8aeb2c0224fe763499eed3ec0587162b, type: 2}
+  pfWind: {fileID: 11400426, guid: f064e2be53da2824e8894c6373816a56, type: 2}
 --- !u!114 &11420010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6641,6 +6642,11 @@ Prefab:
       propertyPath: bossHpBar
       value: 
       objectReference: {fileID: 11406266, guid: 52bf02b8aff359647b4d37363ffd5308,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: pfWind
+      value: 
+      objectReference: {fileID: 11400426, guid: f064e2be53da2824e8894c6373816a56,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

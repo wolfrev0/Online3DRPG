@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Dragon : Enemy
 {
     public Projectile pfMeteor;
+    public Projectile pfWind;
     FireBreath fireBreath;
     Image bossHpBar;
 
@@ -14,14 +15,15 @@ public class Dragon : Enemy
     int nextAttackType;
     System.Random random = new System.Random();
 
-    public override float respawnDelay { get { return 60; } }
+    public override float respawnDelay { get { return 300; } }
     public override float baseMoveSpeed { get { return 0; } }
+    public override float hideTime { get { return 60; } }
 
     public override void OnAttackAnimationEnd(Collider ardColl)
     {
         _ardColl = ardColl;
         if (isServer)
-            Send(new SetDragonNextAttack(Random.Range(2f, 8f), Random.Range(0, 2), Random.Range(int.MinValue, int.MaxValue)));
+            Send(new SetDragonNextAttack(Random.Range(2f, 8f), Random.Range(0, 3), Random.Range(int.MinValue, int.MaxValue)));
     }
 
     public void SetDragonNextAttack(SetDragonNextAttack rpc)
@@ -53,11 +55,6 @@ public class Dragon : Enemy
     {
         base.Start();
         bossHpBar = GameObject.Find("BossHp").GetComponent<Image>();
-    }
-
-    protected new void OnEnable()
-    {
-        base.OnEnable();
         BossMessage.instance.Show();
     }
 
@@ -99,6 +96,26 @@ public class Dragon : Enemy
         fireBreath.Off();
     }
 
+    void Wind()
+    {
+        if (mainTarget)
+        {
+            var wind = Instantiate(pfWind);
+            var xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
+            var destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 3;
+            wind.transform.position = transform.position + Vector3.up * 3 - transform.right * 3;
+            wind.direction = (destination - wind.transform.position).normalized;
+            wind.GetComponent<AttackSubject>().owner = this;
+
+            wind = Instantiate(pfWind);
+            xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
+            destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 3;
+            wind.transform.position = transform.position + Vector3.up * 3 + transform.right * 3;
+            wind.direction = (destination - wind.transform.position).normalized;
+            wind.GetComponent<AttackSubject>().owner = this;
+        }
+    }
+
     protected override List<Item> itemsForDrop
     {
         get
@@ -126,7 +143,7 @@ public class Dragon : Enemy
         base.Die();
         var exit = FindObjectOfType<Portal>();
         var pos = exit.transform.position;
-        pos.y = 3.1f;
+        pos.y = 0.1f;
         exit.transform.position = pos;
         BossClearMessage.instance.Show();
     }

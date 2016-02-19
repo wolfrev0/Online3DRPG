@@ -17,7 +17,7 @@ public class BossClearMessage : MonoBehaviour
 
     public void Show()
     {
-        _destination = Vector2.zero;
+        _destination = _rt.anchoredPosition + Vector2.right * 1600;
         Invoke("Hide", 5);
     }
 
@@ -30,7 +30,7 @@ public class BossClearMessage : MonoBehaviour
 
     void Hide()
     {
-        _destination = Vector2.right * 1600;
+        _destination = _rt.anchoredPosition + Vector2.right * 1600;
         Invoke("Reset", 3);
     }
 

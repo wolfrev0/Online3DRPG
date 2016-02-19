@@ -27,7 +27,7 @@ public class Minimap : MonoBehaviour
             spawnerIcon.rectTransform.anchoredPosition = new Vector2(spawner.transform.position.x / world.terrainData.size.x * _scroll.content.sizeDelta.x, spawner.transform.position.z / world.terrainData.size.z * _scroll.content.sizeDelta.y);
             var sx = spawner.spawnRange * 2 / world.terrainData.size.x * _scroll.content.sizeDelta.x / 128;
             var sy = spawner.spawnRange * 2 / world.terrainData.size.z * _scroll.content.sizeDelta.y / 128;
-            spawnerIcon.rectTransform.localScale = new Vector3(sx, sy);
+            spawnerIcon.rectTransform.localScale = new Vector3(sx, sy, 1);
         }
         var npcs = FindObjectsOfType<NPC>();
         foreach (var npc in npcs)

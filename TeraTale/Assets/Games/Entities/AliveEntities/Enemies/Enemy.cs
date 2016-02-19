@@ -50,6 +50,7 @@ public abstract class Enemy : AliveEntity
     public List<AliveEntity> targets { get { return (from pair in _targets select pair.target).ToList(); } }
     public MonsterSpawner spawner { get; set; }
     public virtual float respawnDelay { get { return 10; } }
+    public virtual float hideTime { get { return 2; } }
 
 
     public bool ContainsTarget(GameObject gameObject)

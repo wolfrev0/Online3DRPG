@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Games\Entities\Items\Weapons\SwordOld\ReadMe.txt" />
+    <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
     <None Include="Assets\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\Skybox\Fantasy Skybox FREE\Readme\Readme.txt" />
     <None Include="Assets\Skybox\Wispy Sky\ReadMe.txt" />
