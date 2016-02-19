@@ -108,7 +108,7 @@ public class Player : AliveEntity
         _weaponSolid.transform.SetParent(_animator.GetBoneTransform(weapon.targetBone));
         _weaponSolid.transform.localPosition = Vector3.zero;
         _weaponSolid.transform.localRotation = Quaternion.identity;
-        _weaponSolid.transform.localScale = Vector3.one;
+        _weaponSolid.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
         _weaponSolid.enabled = false;
         _weaponSolid.GetComponent<Floater>().enabled = false;
         _weaponSolid.GetComponent<ItemSpawnEffector>().enabled = false;
@@ -125,7 +125,7 @@ public class Player : AliveEntity
         _accessorySolid.transform.SetParent(_animator.GetBoneTransform(accessory.targetBone));
         _accessorySolid.transform.localPosition = Vector3.zero;
         _accessorySolid.transform.localRotation = Quaternion.identity;
-        _accessorySolid.transform.localScale = Vector3.one;
+        _accessorySolid.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         _accessorySolid.enabled = false;
         _accessorySolid.GetComponent<Floater>().enabled = false;
         _accessorySolid.GetComponent<ItemSpawnEffector>().enabled = false;
