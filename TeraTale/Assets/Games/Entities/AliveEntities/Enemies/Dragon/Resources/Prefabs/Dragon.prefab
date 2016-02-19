@@ -1741,7 +1741,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116564}
-  m_LocalRotation: {x: -0.61190003, y: 0.61204815, z: -0.3542859, w: -0.3541993}
+  m_LocalRotation: {x: -0.6119, y: 0.6120481, z: -0.35428587, w: -0.35419926}
   m_LocalPosition: {x: 0.00012092279, y: -0.000075964286, z: -0.000063174375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2573,7 +2573,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109710}
-  m_LocalRotation: {x: -0.61190003, y: 0.61204815, z: -0.3542859, w: -0.3541993}
+  m_LocalRotation: {x: -0.6119, y: 0.6120481, z: -0.35428587, w: -0.35419926}
   m_LocalPosition: {x: 0.00012092279, y: -0.000075964286, z: -0.000063174375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3146,6 +3146,7 @@ MonoBehaviour:
   nameView: {fileID: 11420010}
   pfMeteor: {fileID: 11453734, guid: 8aeb2c0224fe763499eed3ec0587162b, type: 2}
   pfWind: {fileID: 11400426, guid: f064e2be53da2824e8894c6373816a56, type: 2}
+  pfDieFire: {fileID: 132814, guid: aeeda1bc082937548bbeced90afe2c6e, type: 2}
 --- !u!114 &11420010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6618,6 +6619,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11400426, guid: f064e2be53da2824e8894c6373816a56,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: pfDieFire
+      value: 
+      objectReference: {fileID: 132814, guid: aeeda1bc082937548bbeced90afe2c6e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 136126}

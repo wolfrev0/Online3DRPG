@@ -8,16 +8,21 @@ public class Dragon : Enemy
 {
     public Projectile pfMeteor;
     public Projectile pfWind;
+    public GameObject pfDieFire;
     FireBreath fireBreath;
     Image bossHpBar;
+    GameObject fireInstance;
+    Light _light;
 
     Collider _ardColl;
     int nextAttackType;
     System.Random random = new System.Random();
+    bool _died = false;
+    bool _incLight = true;
 
     public override float respawnDelay { get { return 300; } }
     public override float baseMoveSpeed { get { return 0; } }
-    public override float hideTime { get { return 60; } }
+    public override float hideTime { get { return 15; } }
 
     public override void OnAttackAnimationEnd(Collider ardColl)
     {
@@ -56,12 +61,21 @@ public class Dragon : Enemy
         base.Start();
         bossHpBar = GameObject.Find("BossHp").GetComponent<Image>();
         BossMessage.instance.Show();
+        Die();
     }
 
     protected new void Update()
     {
         base.Update();
         bossHpBar.fillAmount = hp / hpMax;
+        if (_died)
+        {
+            transform.position += Vector3.down * Time.deltaTime * 0.2f;
+            if (_incLight && _light.intensity < 2)
+                _light.intensity += Time.deltaTime;
+            else if (_incLight == false && _light.intensity > 0)
+                _light.intensity -= Time.deltaTime;
+        }
     }
 
     void MeteorStart()
@@ -146,5 +160,29 @@ public class Dragon : Enemy
         pos.y = 0.1f;
         exit.transform.position = pos;
         BossClearMessage.instance.Invoke("Show", 4);
+        Invoke("CreateDieFire", 1.5f);
+        GetComponent<NavMeshAgent>().enabled = false;
+    }
+
+    void CreateDieFire()
+    {
+        _died = true;
+        fireInstance = Instantiate(pfDieFire);
+        fireInstance.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        _light = fireInstance.GetComponentInChildren<Light>();
+        Invoke("StopFire", 8);
+        Invoke("DieFlagFalse", 10);
+        Destroy(fireInstance.gameObject, 15);
+    }
+
+    void StopFire()
+    {
+        foreach (var i in fireInstance.GetComponentsInChildren<ParticleSystem>())
+            i.Stop();
+        _incLight = false;
+    }
+    void DieFlagFalse()
+    {
+        _died = false;
     }
 }
