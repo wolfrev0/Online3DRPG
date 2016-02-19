@@ -31,7 +31,7 @@ public abstract class NPC : MonoBehaviour
 
     public void StartConversation()
     {
-        _npcCam.transform.position = transform.position + transform.forward + new Vector3(0, 1.58f, 0);
+        _npcCam.transform.position = transform.position + transform.forward * 2f + new Vector3(0, 1.4f, 0);
         _npcCam.transform.LookAt(transform);
         var angles = _npcCam.transform.eulerAngles;
         angles.x = 0;

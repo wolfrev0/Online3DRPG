@@ -125,7 +125,7 @@ public class Player : AliveEntity
         _accessorySolid.transform.SetParent(_animator.GetBoneTransform(accessory.targetBone));
         _accessorySolid.transform.localPosition = Vector3.zero;
         _accessorySolid.transform.localRotation = Quaternion.identity;
-        _accessorySolid.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        _accessorySolid.transform.localScale = new Vector3(0.13f, 0.13f, 0.13f);
         _accessorySolid.enabled = false;
         _accessorySolid.GetComponent<Floater>().enabled = false;
         _accessorySolid.GetComponent<ItemSpawnEffector>().enabled = false;

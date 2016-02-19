@@ -84,7 +84,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleRotations: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     animationImportErrors: 
     animationImportWarnings: "\nDefault bone length found in this file is different
       form the one found in the source avatar:\n\t'Thigh_L' : position error = 24.623711
@@ -130,7 +130,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.37974682
+      - time: 0.43340537
         functionName: ShotSkill
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -144,7 +144,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.8024905
+      - time: 0.76346606
         functionName: ShotSkill
         data: 
         objectReferenceParameter: {instanceID: 0}

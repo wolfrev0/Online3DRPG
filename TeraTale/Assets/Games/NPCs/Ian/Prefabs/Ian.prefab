@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 496270}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_3_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,7 +23,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 453550}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Forearm_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 425776}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shin_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 414354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Control_Toes_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 417070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thigh_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 452916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foot_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 422594}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_4_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 470434}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_3_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,6 @@ GameObject:
   - 224: {fileID: 22476490}
   - 222: {fileID: 22293188}
   - 114: {fileID: 11471618}
-  - 114: {fileID: 11435132}
   - 114: {fileID: 11485406}
   m_Layer: 5
   m_Name: Name
@@ -201,7 +200,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 452008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +215,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 484488}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_2_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +230,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 487882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thigh_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +245,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 440348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Master_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +260,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400104}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Torso_Lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +275,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421232}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +290,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_4_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +305,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Control_Toes_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +337,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 413600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IK_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +352,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 470134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bicep_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +367,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 431424}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shin_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +382,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 477218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wrist_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +397,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 458896}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Torso_Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +412,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412308}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_3_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +427,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412358}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Forearm_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +442,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 412570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +457,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 479122}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_2_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +472,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 471492}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Toes_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +487,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 452446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bicep_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +502,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 446192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Master_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +517,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 422896}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Torso_Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +533,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 495170}
   - 137: {fileID: 13787068}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: m
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +548,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 438332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IK_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +563,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 448792}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Foot_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +578,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 461088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_4_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +593,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421684}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wrist_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +608,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 497930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Thumb_4_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +623,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 464214}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +638,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 428030}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Toes_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +670,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 438954}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Finger_3_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1276,20 +1275,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &11435132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
-  m_EffectDistance: {x: 1, y: 1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &11452358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1358,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1367,7 +1352,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 15
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
