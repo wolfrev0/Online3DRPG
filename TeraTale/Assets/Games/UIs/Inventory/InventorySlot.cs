@@ -34,27 +34,24 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
     }
 
     public virtual void OnBeginDrag(PointerEventData eventData)
-    { }
+    {
+        _layoutGroup.enabled = false;
+        QuickSlotController.instance.grid.enabled = false;
+    }
 
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
-            return;
-
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Vector3 pos;
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(rt, Input.mousePosition, Camera.main, out pos);
-            rt.position = pos;
+            transform.position = Input.mousePosition + new Vector3(10, -10, 0);
         }
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-        if (Player.mine.itemStacks[itemStackIndex].item.isNull)
-            return;
-
+        _layoutGroup.enabled = true;
         _layoutGroup.SetDirty();
+        QuickSlotController.instance.grid.enabled = true;
 
         if (eventData.pointerCurrentRaycast.gameObject == null)
             Player.mine.DropItemStack(itemStackIndex);
@@ -63,9 +60,6 @@ public class InventorySlot : ItemSlot, IBeginDragHandler, IDragHandler, IEndDrag
     public override void OnDrop(PointerEventData eventData)
     {
         var itemSlot = eventData.pointerDrag.GetComponent<ItemSlot>();
-
-        if (Player.mine.itemStacks[itemSlot.itemStackIndex].item.isNull)
-            return;
 
         if (eventData.button == PointerEventData.InputButton.Left)
             Player.mine.SwapItemStack(itemStackIndex, itemSlot.itemStackIndex);

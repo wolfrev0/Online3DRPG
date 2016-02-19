@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class QuickSlotController : MonoBehaviour
 {
     static public QuickSlotController instance;
     public QuickSlot[] quickSlots;
+    public GridLayoutGroup grid;
 
     void Awake()
     {
