@@ -6,9 +6,9 @@ public class ItemSolid : Entity
     public Item item;
     public ItemSpawnEffector _effector;
 
-    protected new void OnEnable()
+    protected void Awake()
     {
-        //base.OnEnable();
+        transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
 
     public void OnNetInstantiate(ItemSolidArgument arg)
