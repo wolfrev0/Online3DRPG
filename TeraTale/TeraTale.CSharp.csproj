@@ -149,6 +149,7 @@
     <Compile Include="Assets\Games\UIs\NPCShop\ShopSlot.cs" />
     <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlot.cs" />
     <Compile Include="Assets\Games\UIs\QuickSlot\QuickSlotController.cs" />
+    <Compile Include="Assets\Games\UIs\Quit\QuitDialog.cs" />
     <Compile Include="Assets\Games\UIs\ScrollIngredientView\IngredientSlot.cs" />
     <Compile Include="Assets\Games\UIs\ScrollIngredientView\ScrollIngredientView.cs" />
     <Compile Include="Assets\Games\UIs\SellDialog\SellDialog.cs" />
