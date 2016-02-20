@@ -31,9 +31,9 @@ public class StatusView : MonoBehaviour
             return;
         //if (target.GetType().IsSubclassOf(typeof(Player)));//따로처리
         _hpBar.fillAmount = target.hp / target.hpMax;
-        _hpText.text = target.hp + "/" + target.hpMax + "(" + _hpBar.fillAmount * 100 + "%)";
+        _hpText.text = (int)target.hp + "/" + (int)target.hpMax + "(" + (int)(_hpBar.fillAmount * 100) + "%)";
         _staminaBar.fillAmount = target.stamina / target.staminaMax;
-        _staminaText.text = target.stamina + "/" + target.staminaMax + "(" + _staminaBar.fillAmount * 100 + "%)";
+        _staminaText.text = (int)target.stamina + "/" + (int)target.staminaMax + "(" + (int)(_staminaBar.fillAmount * 100) + "%)";
         _levelText.text = target.level.ToString();
         _nameText.text = target.name;
         _expBar.fillAmount = target.exp / target.expMax;

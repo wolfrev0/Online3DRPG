@@ -5,6 +5,7 @@ namespace TeraTaleNet
 {
     public class BowScroll : Scroll
     {
+        public sealed override string ingameName { get { return "고무줄 활 조합서"; } }
         public sealed override int price { get { return 20; } }
         
         public override List<Ingradient> ingredients

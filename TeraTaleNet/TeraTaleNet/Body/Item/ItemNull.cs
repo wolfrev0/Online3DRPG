@@ -2,6 +2,7 @@
 {
     public class ItemNull : Item
     {
+        public sealed override string ingameName { get { return ""; } }
         public sealed override Type itemType { get { return Type.none; } }
         public sealed override int price { get { return 0; } }
         public sealed override string effectExplanation { get { return ""; } }

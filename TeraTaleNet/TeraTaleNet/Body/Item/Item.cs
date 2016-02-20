@@ -18,12 +18,13 @@ namespace TeraTaleNet
         static int currentItemID = 0;
 
         public int _itemID = currentItemID++;
-        
+
         public string name { get { return GetType().Name; } }
         public abstract int price { get; }
         public abstract Type itemType { get; }
         public abstract string effectExplanation { get; }
         public abstract string explanation { get; }
+        public abstract string ingameName { get; }
 
         public Sprite sprite
         { get { return Resources.Load<Sprite>("Textures/" + name); } }

@@ -11,7 +11,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: TeraTale
-  defaultCursor: {fileID: 2800000, guid: 1190a86ea077c174f9efb12903f5bf13, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 4274d8a484fa1eb489f160790bc43474, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
   m_VirtualRealitySplashScreen: {fileID: 0}

@@ -53,7 +53,7 @@ public class Dragon : Enemy
     {
         base.Awake();
         fireBreath = GetComponentInChildren<FireBreath>();
-        GetComponentInChildren<AttackSubjectImpl>().damageCalculator = original => original * 0.1f;
+        GetComponentInChildren<AttackSubjectImpl>().damageCalculator = original => original * 0.2f;
     }
 
     new void Start()
@@ -96,7 +96,9 @@ public class Dragon : Enemy
         else
             meteor.transform.position = target.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() + Vector3.up * 50;
         meteor.direction = new Vector3(0, -1, 0);
-        meteor.GetComponent<AttackSubject>().owner = this;
+        var attackSubject = meteor.GetComponent<AttackSubject>();
+        attackSubject.owner = this;
+        attackSubject.damageCalculator = t => t + 17;
     }
 
     void FireBreathBegin()
@@ -115,17 +117,19 @@ public class Dragon : Enemy
         {
             var wind = Instantiate(pfWind);
             var xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
-            var destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 2;
+            var destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() + Vector3.up;
             wind.transform.position = transform.position + Vector3.up * 3 - transform.right * 3;
             wind.direction = (destination - wind.transform.position).normalized;
-            wind.GetComponent<AttackSubject>().owner = this;
+            var attackSubject = wind.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
 
             wind = Instantiate(pfWind);
             xzSeed = (float)random.NextDouble() * 2 * Mathf.PI;
-            destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() * 2;
+            destination = mainTarget.transform.position + new Vector3(Mathf.Sin(xzSeed), 0, Mathf.Cos(xzSeed)) * (float)random.NextDouble() + Vector3.up;
             wind.transform.position = transform.position + Vector3.up * 3 + transform.right * 3;
             wind.direction = (destination - wind.transform.position).normalized;
-            wind.GetComponent<AttackSubject>().owner = this;
+            attackSubject = wind.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
         }
     }
 
@@ -154,6 +158,9 @@ public class Dragon : Enemy
     protected override void Die()
     {
         base.Die();
+        if (_animator.GetBool("Died"))
+            return;
+        fireBreath.Off();
         var exit = FindObjectOfType<Portal>();
         var pos = exit.transform.position;
         pos.y = 0.1f;

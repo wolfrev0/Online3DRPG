@@ -25,7 +25,7 @@ public class ScrollIngredientView : MonoBehaviour
     {
         gameObject.SetActive(true);
         _scroll = scroll;
-        nameView.text = scroll.name;
+        nameView.text = scroll.ingameName;
         icon.sprite = scroll.output.sprite;
 
         foreach (var ingredientSlot in ingredientSlots)
@@ -52,6 +52,7 @@ public class ScrollIngredientView : MonoBehaviour
         {
             Player.mine.RemoveItem(ingredients[i].item, ingredients[i].count);
         }
+        Player.mine.RemoveItem(_scroll, 1);
         Player.mine.AddItem(_scroll.output);
         Close();
     }

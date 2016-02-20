@@ -8,8 +8,8 @@ using System.Linq;
 public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
-    static float[] _hpMaxByLevel = new float[] { 1, 100, 110, 120, 130, 150 };
-    static float[] _staminaMaxByLevel = new float[] { 1, 110, 115, 120, 126, 133 };
+    static float[] _hpMaxByLevel = new float[] { 1, 100, 120, 150, 190, 240 };
+    static float[] _staminaMaxByLevel = new float[] { 1, 30, 45, 77, 111, 166 };
     static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
     static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
 
@@ -37,6 +37,7 @@ public class Player : AliveEntity
     public float skillCoolTime { get { return 5f; } }
     public float skillCoolTimeLeft { get; private set; }
 
+    protected override Color damageTextColor { get { return Color.red; } }
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
     public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
@@ -168,6 +169,9 @@ public class Player : AliveEntity
         base.Update();
         backTumblingCoolTimeLeft -= Time.deltaTime;
         skillCoolTimeLeft -= Time.deltaTime;
+        stamina += 1 / 60f;
+        if (stamina > staminaMax)
+            stamina = staminaMax;
     }
 
     protected override void OnNetworkDestroy()
@@ -181,11 +185,25 @@ public class Player : AliveEntity
     void AttackBegin()
     {
         _attackSubject.enabled = true;
+        _attackSubject.damageCalculator = t => t;
     }
 
     void AttackEnd()
     {
         _attackSubject.enabled = false;
+        _attackSubject.damageCalculator = t => t;
+    }
+
+    void SwordSkillBegin()
+    {
+        _attackSubject.enabled = true;
+        _attackSubject.damageCalculator = t => t * 3;
+    }
+
+    void SwordSkillEnd()
+    {
+        _attackSubject.enabled = false;
+        _attackSubject.damageCalculator = t => t;
     }
 
     public void SetKnockdown(bool value)
@@ -240,11 +258,12 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("Skill");
         skillCoolTimeLeft = skillCoolTime;
+        stamina -= 10;
     }
 
     public void Skill()
     {
-        if (skillCoolTimeLeft < 0f)
+        if (skillCoolTimeLeft < 0f && stamina > 10)
             Send(new Skill());
     }
 
@@ -252,11 +271,12 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("BackTumbling");
         backTumblingCoolTimeLeft = backTumblingCoolTime;
+        stamina -= 5;
     }
 
     public void BackTumbling()
     {
-        if (backTumblingCoolTimeLeft < 0f)
+        if (backTumblingCoolTimeLeft < 0f & stamina > 5)
             Send(new BackTumbling());
     }
 
@@ -264,15 +284,22 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("Die");
         if (isMine)
+        {
             GlobalSound.instance.PlayDie();
+            PlayerDieDialog.instance.Invoke("Show", 3);
+        }
         GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue / 2, float.MaxValue / 2, float.MaxValue / 2);
-        Invoke("Respawn", 3.0f);
     }
 
-    void Respawn()
+    public void Respawn(Respawn rpc)
     {
         hp = hpMax;
         SwitchWorld("Town");
+    }
+
+    public void Respawn()
+    {
+        Send(new Respawn());
     }
 
     protected override void Knockdown()

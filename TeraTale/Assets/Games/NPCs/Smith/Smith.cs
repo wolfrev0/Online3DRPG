@@ -50,7 +50,7 @@ public class Smith : NPC
                         s.comment = "...할 말 없다고";
                         break;
                 }
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);
@@ -79,7 +79,7 @@ public class Smith : NPC
             {
                 s.commands = new List<Script.Command>();
                 s.comment = "아직 퀘스트가 없어...";
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);

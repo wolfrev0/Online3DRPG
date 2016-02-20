@@ -124,8 +124,11 @@
     <Compile Include="Assets\Games\Entities\Movable.cs" />
     <Compile Include="Assets\Games\ItemSpawner.cs" />
     <Compile Include="Assets\Games\MonsterSpawner.cs" />
+    <Compile Include="Assets\Games\NPCs\Hwang\Hwang.cs" />
     <Compile Include="Assets\Games\NPCs\Ian\Ian.cs" />
+    <Compile Include="Assets\Games\NPCs\Lobo\Lobo.cs" />
     <Compile Include="Assets\Games\NPCs\NPC.cs" />
+    <Compile Include="Assets\Games\NPCs\Nox\Nox.cs" />
     <Compile Include="Assets\Games\NPCs\Smith\Smith.cs" />
     <Compile Include="Assets\Games\NPCs\TalkableRangeDetector.cs" />
     <Compile Include="Assets\Games\NPCs\Taylor\Taylor.cs" />
@@ -167,6 +170,8 @@
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
+    <Compile Include="Assets\OptionDialog.cs" />
+    <Compile Include="Assets\PlayerDieDialog.cs" />
     <Compile Include="Assets\PlayerKnockdown.cs" />
     <Compile Include="Assets\PlayerSkill.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireBaseScript.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="Assets\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
     <Compile Include="Assets\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
+    <Compile Include="Assets\RespawnButton.cs" />
     <Compile Include="Assets\SkillView.cs" />
     <Compile Include="Assets\Skybox\Fantasy Skybox FREE\Scripts\FSPlayer.cs" />
     <Compile Include="Assets\UIs\Costomizing\ParsingData.cs" />

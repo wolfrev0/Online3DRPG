@@ -130,14 +130,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.09704641
-        functionName: AttackBegin
+        functionName: SwordSkillBegin
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7721519
-        functionName: AttackEnd
+        functionName: SwordSkillEnd
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

@@ -27,7 +27,10 @@ public class AttackSubjectImpl : AttackSubject
         if (_trail)
             _trail.enabled = true;
         if (_sound)
+        {
             _sound.Play();
+            _sound.volume = GlobalSound.instance.effectVolume;
+        }
     }
 
     void OnDisable()

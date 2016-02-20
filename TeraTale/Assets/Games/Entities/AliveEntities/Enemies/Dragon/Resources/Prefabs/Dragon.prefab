@@ -3115,7 +3115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LV.0
+  m_Text: LV.5
 --- !u!114 &11410670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3141,7 +3141,7 @@ MonoBehaviour:
   _uiRoot: {fileID: 22447516}
   _hpMax: 500
   _staminaMax: 1
-  _baseAttackDamage: 10
+  _baseAttackDamage: 13
   _attackSubject: {fileID: 0}
   nameView: {fileID: 11420010}
   pfMeteor: {fileID: 11453734, guid: 8aeb2c0224fe763499eed3ec0587162b, type: 2}
@@ -6607,7 +6607,7 @@ Prefab:
       objectReference: {fileID: 22447516}
     - target: {fileID: 0}
       propertyPath: _baseAttackDamage
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bossHpBar

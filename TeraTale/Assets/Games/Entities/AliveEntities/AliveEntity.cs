@@ -35,12 +35,13 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float stamina
     {
         get { return _stamina; }
-        private set
+        set
         {
             _stamina = value;
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
+    protected virtual Color damageTextColor { get { return Color.white; } }
     public abstract float staminaMax { get; }
     public float attackDamage { get { return baseAttackDamage + bonusAttackDamage; } }
     public abstract float baseAttackDamage { get; }
@@ -262,7 +263,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(damage);
         if (damage.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        var calculatedDamage = CalculateDamage(damage);
+        var calculatedDamage = (int)CalculateDamage(damage);
         hp -= calculatedDamage;
         OnDamaged(damage);
 
@@ -271,6 +272,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
 
         var damageText = Instantiate(_pfDamageText);
         damageText.text = calculatedDamage.ToString();
+        damageText.color = damageTextColor;
         damageText.transform.position = transform.position + Vector3.up;
         damageText.transform.SetParent(_uiRoot);
 
