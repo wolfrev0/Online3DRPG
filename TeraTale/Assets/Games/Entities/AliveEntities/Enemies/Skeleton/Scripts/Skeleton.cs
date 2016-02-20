@@ -17,6 +17,12 @@ public class Skeleton : Enemy
     public override float respawnDelay { get { return 60; } }
     public override float baseMoveSpeed { get { return 2; } }
 
+    protected override void OnDamaged(Damage damage)
+    {
+        base.OnDamaged(damage);
+        GlobalSound.instance.PlaySkeletonHit();
+    }
+
     protected override List<Item> itemsForDrop
     {
         get

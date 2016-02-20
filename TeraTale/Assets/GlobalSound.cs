@@ -11,6 +11,10 @@ public class GlobalSound : MonoBehaviour
     public AudioClip cashRegister;
     public AudioClip[] pickaxes;
     public AudioClip[] bgms;
+    public AudioClip[] zombieHit;
+    public AudioClip[] skeletonHit;
+    public AudioClip dragonFire;
+    public AudioClip dragonDie;
 
     AudioSource _audio;
 
@@ -72,6 +76,21 @@ public class GlobalSound : MonoBehaviour
     public void PlayPickaxe()
     {
         _audio.PlayOneShot(pickaxes[Random.Range(0, pickaxes.Length)], effectVolume);
+    }
+
+    public void PlayZombieHit()
+    {
+        _audio.PlayOneShot(zombieHit[Random.Range(0, zombieHit.Length)], effectVolume);
+    }
+
+    public void PlaySkeletonHit()
+    {
+        _audio.PlayOneShot(skeletonHit[Random.Range(0, skeletonHit.Length)], effectVolume);
+    }
+
+    public void PlayDragonDie()
+    {
+        _audio.PlayOneShot(dragonDie, effectVolume);
     }
 
     public void Reset()

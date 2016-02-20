@@ -139,6 +139,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95a7fa7ed3888034980279166272c5f1, type: 3}
   - {fileID: 8300000, guid: dee9ea2ba811a6849977901e8a946853, type: 3}
   - {fileID: 8300000, guid: e710fcfba0861f4458de003d80b5ea8a, type: 3}
+  zombieHit:
+  - {fileID: 8300000, guid: c922228ce934d4447aaa6eb74a76b083, type: 3}
+  - {fileID: 8300000, guid: 2b00abfd03d4b804a89917dafcbfc108, type: 3}
+  skeletonHit:
+  - {fileID: 8300000, guid: a5fe9086cd99e9446bb8790c50c39339, type: 3}
+  - {fileID: 8300000, guid: 34e26e57376b05343a5fcc425c2e3879, type: 3}
+  - {fileID: 8300000, guid: 946d0a3b8be38a94996e727b8f314d2a, type: 3}
+  - {fileID: 8300000, guid: b06eda3b1dd45714f91e0184e12cf47b, type: 3}
+  - {fileID: 8300000, guid: 9d0c152c17a3f7249bc8c8639c44bd16, type: 3}
+  dragonFire: {fileID: 8300000, guid: b8704586055591c44ae15cc57f528c9d, type: 3}
+  dragonDie: {fileID: 8300000, guid: d37a8c67034400c42994218af00d15fd, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

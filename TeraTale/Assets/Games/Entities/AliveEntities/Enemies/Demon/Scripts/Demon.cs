@@ -16,6 +16,12 @@ public class Demon : Enemy
 
     public override float baseMoveSpeed { get { return 3; } }
 
+    protected override void OnDamaged(Damage damage)
+    {
+        base.OnDamaged(damage);
+        GlobalSound.instance.PlayZombieHit();
+    }
+
     protected override List<Item> itemsForDrop
     {
         get

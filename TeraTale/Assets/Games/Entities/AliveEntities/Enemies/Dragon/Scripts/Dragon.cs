@@ -168,6 +168,7 @@ public class Dragon : Enemy
         BossClearMessage.instance.Invoke("Show", 4);
         Invoke("CreateDieFire", 1.5f);
         GetComponent<NavMeshAgent>().enabled = false;
+        GlobalSound.instance.PlayDragonDie();
     }
 
     void CreateDieFire()
