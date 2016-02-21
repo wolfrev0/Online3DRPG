@@ -51,5 +51,9 @@ public class ItemSlotPopupView : MonoBehaviour
             _rt.position = new Vector2(-999, -999);
         else
             _rt.position = Input.mousePosition;
+        if (_rt.position.y > Screen.height / 2)
+            _rt.pivot = new Vector2(0, 1);
+        else
+            _rt.pivot = new Vector2(0, 0);
     }
 }

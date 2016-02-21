@@ -22,6 +22,14 @@ public class ItemFunctions : NetworkScript
                 player.Heal(new Heal("", 15));
             }
         };
+        RecallScroll.onUse += (Item item, object target) =>
+        {
+            if (isServer)
+            {
+                var player = (Player)target;
+                player.SwitchWorld("Town");
+            }
+        };
         Equipment.onUse += (Item item, object target) =>
         {
             var player = (Player)target;

@@ -19,6 +19,7 @@ public class Mineral : Enemy
             ret.Add(new IronOre());
             ret.Add(new IronOre());
             ret.Add(new IronOre());
+            ret.Add(new IronOre());
             ret.Add(new Rock());
             ret.Add(new Rock());
             ret.Add(new Rock());

@@ -20,6 +20,7 @@ public class Smith : NPC
         itemStacks[10].Push(new LapisLazuliOre());
 
         itemStacks[12].Push(new BowScroll());
+        itemStacks[13].Push(new RecallScroll());
     }
 
     protected override List<Script> scripts

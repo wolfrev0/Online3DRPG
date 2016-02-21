@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class Bird : KineticEntity
 {
@@ -9,11 +7,12 @@ public class Bird : KineticEntity
     protected override void Appear()
     {
         _animator.SetBool("Idle", true);
-        _skimesh.material.mainTexture = _birdTexture[UnityEngine.Random.Range(0, 4)];
+        _skimesh.material.mainTexture = _birdTexture[Random.Range(0, 4)];
     }
 
     protected override void Disappear()
     {
         _animator.SetBool("Idle", false);
+        Invoke("Appear", Random.Range(6, 10));
     }
 }

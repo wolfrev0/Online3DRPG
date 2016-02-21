@@ -8,12 +8,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 427416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967287
   m_IsActive: 1
 --- !u!1 &169004
 GameObject:
@@ -25,12 +25,12 @@ GameObject:
   - 4: {fileID: 401488}
   - 33: {fileID: 3326264}
   - 23: {fileID: 2381634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967287
   m_IsActive: 1
 --- !u!1 &173554
 GameObject:
@@ -42,12 +42,12 @@ GameObject:
   - 4: {fileID: 431894}
   - 33: {fileID: 3395240}
   - 23: {fileID: 2359050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Object001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967287
   m_IsActive: 1
 --- !u!4 &401488
 Transform:
@@ -67,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124330}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 400.645, y: 0.000000008974493, z: 228.40854}
+  m_LocalRotation: {x: 0, y: -0.20653024, z: 0, w: 0.9784402}
+  m_LocalPosition: {x: 109.87, y: 3.003113, z: 127.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 401488}

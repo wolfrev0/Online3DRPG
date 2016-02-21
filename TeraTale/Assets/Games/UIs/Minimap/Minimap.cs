@@ -19,7 +19,6 @@ public class Minimap : MonoBehaviour
 
     void Start()
     {
-        var camPos = new Vector2(Camera.main.transform.position.x / world.terrainData.size.x * _scroll.content.sizeDelta.x, Camera.main.transform.position.z / world.terrainData.size.z * _scroll.content.sizeDelta.y);
         var spawners = FindObjectsOfType<MonsterSpawner>();
         foreach (var spawner in spawners)
         {

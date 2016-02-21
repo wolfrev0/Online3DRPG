@@ -21,11 +21,6 @@ public class Tree : Enemy
             ret.Add(new Log());
             ret.Add(new Log());
             ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
             return ret;
         }
     }
