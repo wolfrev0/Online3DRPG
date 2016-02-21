@@ -14,6 +14,7 @@ public class Demon : Enemy
         base.Start();
     }
 
+    public override float respawnDelay { get { return 30; } }
     public override float baseMoveSpeed { get { return 3; } }
 
     protected override void OnDamaged(Damage damage)

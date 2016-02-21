@@ -37,6 +37,6 @@ public class ServerClientSelectionHandler : MonoBehaviour
     public void OnClient()
     {
         FindObjectOfType<Certificator>().enabled = true;
-        SceneManager.LoadScene("Login");
+        SceneManager.LoadScene("Logo");
     }
 }

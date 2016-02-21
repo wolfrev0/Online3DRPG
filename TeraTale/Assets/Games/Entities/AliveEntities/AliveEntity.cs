@@ -203,6 +203,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     {
         if (isLocal)
         {
+            //if (_posError.magnitude > 3)
+            //{
+            //    transform.position += _posError;
+            //    _posError = Vector3.zero;
+            //}
             transform.position += _posError / 6;
             _posError = _posError * 5 / 6;
             transform.eulerAngles += _rotError / 6;

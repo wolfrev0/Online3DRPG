@@ -581,6 +581,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 434156}
   - 135: {fileID: 13594894}
+  - 114: {fileID: 11469490}
   m_Layer: 0
   m_Name: Wrist_R
   m_TagString: Untagged
@@ -1135,7 +1136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11.2, y: -1.999939, z: -6.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428172}
@@ -1420,7 +1421,7 @@ MonoBehaviour:
   _hpMax: 50
   _staminaMax: 1
   _baseAttackDamage: 2
-  _attackSubject: {fileID: 0}
+  _attackSubject: {fileID: 11469490}
   nameView: {fileID: 11409596}
 --- !u!114 &11434230
 MonoBehaviour:
@@ -1489,6 +1490,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11469490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cc7c2c3235c8a409ae0598c71efb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  knockdown: 0
 --- !u!114 &11476442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1541,7 +1555,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172734}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.04

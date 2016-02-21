@@ -16,13 +16,8 @@ public class LapisLazuli : Enemy
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
                 ret.Add(new LapisLazuliOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new LapisLazuliOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new LapisLazuliOre());
-            ret.Add(new Rock());
-            ret.Add(new Rock());
-            ret.Add(new Rock());
+            ret.Add(new LapisLazuliOre());
+            ret.Add(new LapisLazuliOre());
             ret.Add(new Rock());
             ret.Add(new Rock());
             ret.Add(new Rock());

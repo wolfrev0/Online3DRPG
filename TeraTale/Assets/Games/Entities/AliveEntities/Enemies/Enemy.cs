@@ -57,6 +57,11 @@ public abstract class Enemy : AliveEntity
     {
         return _targets.Find(t => t.target.gameObject == gameObject) != null;
     }
+    
+    public void OnNetInstantiate(ItemSolidArgument arg)
+    {
+        gameObject.SetActive(false);
+    }
 
     protected void Awake()
     {

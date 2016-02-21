@@ -212,7 +212,7 @@ ModelImporter:
       name: Jab
       takeName: Box1_M3_Right_Cross
       firstFrame: 0
-      lastFrame: 26
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: -0.07
@@ -221,9 +221,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0

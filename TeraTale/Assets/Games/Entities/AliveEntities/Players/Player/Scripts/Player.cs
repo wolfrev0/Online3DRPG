@@ -10,7 +10,7 @@ public class Player : AliveEntity
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
     static float[] _hpMaxByLevel = new float[] { 1, 100, 120, 150, 190, 240 };
     static float[] _staminaMaxByLevel = new float[] { 1, 30, 45, 77, 111, 166 };
-    static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
+    static float[] _baseAttackDamageByLevel = new float[] { 1, 12, 13, 15, 18, 22 };
     static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
 
     public Text nameView;

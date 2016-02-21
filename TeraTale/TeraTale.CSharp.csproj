@@ -84,6 +84,7 @@
     <Compile Include="Assets\Common\ItemFunctions.cs" />
     <Compile Include="Assets\Common\Projectile.cs" />
     <Compile Include="Assets\Common\ScrollRectEx.cs" />
+    <Compile Include="Assets\EndingCredit.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Assets\Games\Worlds\InputHandler.cs" />
     <Compile Include="Assets\GlobalSound.cs" />
     <Compile Include="Assets\LevelUpFx.cs" />
+    <Compile Include="Assets\Logo.cs" />
     <Compile Include="Assets\MainUI.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />

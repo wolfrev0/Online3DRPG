@@ -8,6 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ServerClientSelection.unity
   - enabled: 1
+    path: Assets/Scenes/Logo.unity
+  - enabled: 1
     path: Assets/Scenes/Costomizing.unity
   - enabled: 1
     path: Assets/Scenes/Forest.unity
