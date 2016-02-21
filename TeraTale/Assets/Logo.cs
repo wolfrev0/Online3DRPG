@@ -10,6 +10,6 @@ public class Logo : MonoBehaviour
 
     void LoadLogin()
     {
-        SceneManager.LoadScene("Login");
+        SceneManager.LoadScene("MainMenu");
     }
 }

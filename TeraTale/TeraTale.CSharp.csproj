@@ -164,6 +164,7 @@
     <Compile Include="Assets\GlobalSound.cs" />
     <Compile Include="Assets\LevelUpFx.cs" />
     <Compile Include="Assets\Logo.cs" />
+    <Compile Include="Assets\MainMenu\SelectButton.cs" />
     <Compile Include="Assets\MainUI.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />

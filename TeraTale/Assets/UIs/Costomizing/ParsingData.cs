@@ -44,6 +44,6 @@ public class ParsingData : MonoBehaviour
     }
     public void LoadData()
     {
-       SceneManager.LoadScene("Login");
+       SceneManager.LoadScene("MainMenu");
     }
 }
