@@ -84,6 +84,7 @@
     <Compile Include="Assets\Common\ItemFunctions.cs" />
     <Compile Include="Assets\Common\Projectile.cs" />
     <Compile Include="Assets\Common\ScrollRectEx.cs" />
+    <Compile Include="Assets\Edan.cs" />
     <Compile Include="Assets\EndingCredit.cs" />
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Assets\Network\Server\GameServer.cs" />
     <Compile Include="Assets\Network\Server\Mine.cs" />
     <Compile Include="Assets\Network\Server\Town.cs" />
+    <Compile Include="Assets\Oliver.cs" />
     <Compile Include="Assets\OptionDialog.cs" />
     <Compile Include="Assets\PlayerDieDialog.cs" />
     <Compile Include="Assets\PlayerKnockdown.cs" />

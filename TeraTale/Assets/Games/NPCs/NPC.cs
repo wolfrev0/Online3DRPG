@@ -20,6 +20,7 @@ public abstract class NPC : MonoBehaviour
     
     protected abstract List<Script> scripts { get; }
     public ItemStackList itemStacks = new ItemStackList(30);
+    public bool helloSound = true;
 
     protected void Awake()
     {
@@ -40,6 +41,7 @@ public abstract class NPC : MonoBehaviour
         _npcCam.depth = Camera.main.depth + 1;
 
         NPCDialog.instance.StartConversation(scripts);
-        GlobalSound.instance.PlayNPCHello();
+        if (helloSound)
+            GlobalSound.instance.PlayNPCHello();
     }
 }
