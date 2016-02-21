@@ -85,7 +85,7 @@ public abstract class NetworkScript : MonoBehaviour
     public void NetworkInstantiate(NetworkScript prefab, IAutoSerializable callbackArg)
     {
         var ni = new NetworkInstantiate(prefab.name, callbackArg, "");
-        Send(ni);
+        NetworkProgramUnity.currentInstance.Send(ni);
     }
 
     public void NetworkInstantiate(NetworkScript prefab, string callback)
