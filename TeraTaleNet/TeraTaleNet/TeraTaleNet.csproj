@@ -68,6 +68,7 @@
     <Compile Include="Body\Item\Sundry\Log.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\BowScroll.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\Scroll.cs" />
+    <Compile Include="Body\RPC\AddQuest.cs" />
     <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\BuyItem.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
+    <Compile Include="Body\RPC\RemoveQuest.cs" />
     <Compile Include="Body\RPC\SetNextAttack.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RemoveItem.cs" />

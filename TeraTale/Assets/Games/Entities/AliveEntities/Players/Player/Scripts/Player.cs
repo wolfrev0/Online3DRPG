@@ -15,7 +15,9 @@ public class Player : AliveEntity
 
     public Text nameView;
     public SpeechBubble speechBubble;
-    
+
+    public bool gotQuest;
+
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     public ItemStackList itemStacks = new ItemStackList(30);
@@ -412,6 +414,26 @@ public class Player : AliveEntity
         return false;
     }
 
+    public void AddQuest(AddQuest quest)
+    {
+        gotQuest = true;
+    }
+
+    public void AddQuest()
+    {
+        Send(new AddQuest());
+    }
+
+    public void RemoveQuest(RemoveQuest quest)
+    {
+        gotQuest = false;
+    }
+
+    public void RemoveQuest()
+    {
+        Send(new RemoveQuest());
+    }
+
     public void SerializedPlayer(SerializedPlayer rpc)
     {
         if (isLocal)
@@ -439,6 +461,12 @@ public class Player : AliveEntity
 
         //itemStack Sync
         s = new Sync(RPCType.Others, "", "itemStacks");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        //itemStack Sync
+        s = new Sync(RPCType.Others, "", "gotQuest");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);

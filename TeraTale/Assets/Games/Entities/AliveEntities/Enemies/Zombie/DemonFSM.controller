@@ -24,7 +24,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Knockdown
     m_Type: 9
@@ -355,7 +355,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400004, guid: dd6550ece43af764e8e9a802baa977e6, type: 3}
+  m_Motion: {fileID: 7400000, guid: 2b9e12fdf6715c04d973fead5ecd563e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
