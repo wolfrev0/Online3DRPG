@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginButtonHandler : MonoBehaviour
@@ -15,5 +16,10 @@ public class LoginButtonHandler : MonoBehaviour
     public void OnButtonClicked()
     {
         _certificator.SendLoginRequest(id.text, pw.text);
+    }
+
+    public void OnCustomizing()
+    {
+        SceneManager.LoadScene("Customizing");
     }
 }

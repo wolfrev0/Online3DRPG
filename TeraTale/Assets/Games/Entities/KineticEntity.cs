@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public abstract class KineticEntity : Entity
+public abstract class KineticEntity : MonoBehaviour
 {
     protected Animator _animator;
     protected SkinnedMeshRenderer _skimesh;

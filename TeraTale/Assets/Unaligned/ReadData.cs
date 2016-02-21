@@ -17,9 +17,7 @@ public class ReadData : MonoBehaviour
         StreamReader sr = new StreamReader(new FileStream("TextureInfo.txt", FileMode.Open));
 
         mesh = GetComponent<SkinnedMeshRenderer>();
-        mesh.materials[0].mainTexture = ReadHead[System.Convert.ToInt32(sr.ReadLine())];
-        mesh.materials[1].mainTexture = ReadBody[System.Convert.ToInt32(sr.ReadLine())];
-        //mesh.materials[2].mainTexture = ReadFoot[System.Convert.ToInt32(sr.ReadLine())];
+        mesh.materials[0].mainTexture = ReadHead[Convert.ToInt32(sr.ReadLine())];
 
         sr.Close();
     }
