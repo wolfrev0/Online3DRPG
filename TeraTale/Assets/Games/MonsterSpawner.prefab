@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.479, y: -2, z: 17.655}
+  m_LocalPosition: {x: -41.8, y: 0, z: -21.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -40,10 +40,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fcfa91a372c2947b055e215998cf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: -11
+  _networkID: -20
   _owner: 
-  pfEnemy: {fileID: 11438764, guid: a0faa7a6b2cc1db44b147199a21c8c4c, type: 2}
-  enemyCount: 1
+  pfEnemy: {fileID: 11479884, guid: 834dcd257f5f17c438990d2f6124abdb, type: 2}
+  enemyCount: 8
 --- !u!135 &13550502
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -54,7 +54,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
