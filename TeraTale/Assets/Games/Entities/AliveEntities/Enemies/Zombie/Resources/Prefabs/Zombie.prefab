@@ -663,7 +663,7 @@ GameObject:
   - 195: {fileID: 19533470}
   - 114: {fileID: 11424442}
   m_Layer: 0
-  m_Name: Demon
+  m_Name: Zombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2676,7 +2676,7 @@ Transform:
   - {fileID: 1972945654}
   - {fileID: 1633187896}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
 --- !u!1 &1462438822
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,6 +2803,14 @@ Prefab:
       value: 
       objectReference: {fileID: 11421734, guid: ddf27f3a26ae93940bf2e3c0c3131031,
         type: 2}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: enemyCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13550502, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
   m_IsPrefabParent: 0
@@ -2853,6 +2861,23 @@ Prefab:
       propertyPath: m_Name
       value: MineralSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: _networkID
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: enemyCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13550502, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: pfEnemy
+      value: 
+      objectReference: {fileID: 11438764, guid: a0faa7a6b2cc1db44b147199a21c8c4c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
   m_IsPrefabParent: 0
@@ -3071,6 +3096,19 @@ Prefab:
       propertyPath: _networkID
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: enemyCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13550502, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451242, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
+      propertyPath: pfEnemy
+      value: 
+      objectReference: {fileID: 11438764, guid: a0faa7a6b2cc1db44b147199a21c8c4c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9058dbd033c056c4283673afd1bd18f8, type: 2}
   m_IsPrefabParent: 0

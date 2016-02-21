@@ -2,7 +2,7 @@
 using TeraTaleNet;
 using UnityEngine;
 
-public class Demon : Enemy
+public class Zombie : Enemy
 {
     new void Awake()
     {

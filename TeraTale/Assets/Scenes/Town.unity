@@ -17016,6 +17016,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 511332252}
   m_Mesh: {fileID: 4300000, guid: 9572731e924c98844a5fa6ab532916a1, type: 3}
+--- !u!1001 &512465798
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.523
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.108
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.098
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 404214, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 190516, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+      propertyPath: m_Name
+      value: Log
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: fd65e94712b37ba43ab5417418b166c6, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &512837350
 GameObject:
   m_ObjectHideFlags: 0

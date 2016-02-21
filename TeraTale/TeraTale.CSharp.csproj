@@ -88,7 +88,6 @@
     <Compile Include="Assets\Games\Camera\CameraController.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\AliveEntity.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\AttackRangeDetector.cs" />
-    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Demon\Scripts\Demon.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Resources\FireBreath\FireBreath.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Resources\Meteor\Meteor.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Dragon\Scripts\Dragon.cs" />
@@ -103,6 +102,7 @@
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Skeleton\Scripts\Skeleton.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\TargetDetector.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Tree\Scripts\Tree.cs" />
+    <Compile Include="Assets\Games\Entities\AliveEntities\Enemies\Zombie\Scripts\Zombie.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerAttacking.cs" />
     <Compile Include="Assets\Games\Entities\AliveEntities\Players\Player\Scripts\PlayerBackTumbling.cs" />
