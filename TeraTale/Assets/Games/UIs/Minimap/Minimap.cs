@@ -10,11 +10,14 @@ public class Minimap : MonoBehaviour
     public Image pfPortalIcon;
     ScrollRectEx _scroll;
     RectTransform _playerIconRT;
+    Mask _mask;
+    bool _expand = false;
 
     void Awake()
     {
         _scroll = GetComponent<ScrollRectEx>();
         _playerIconRT = playerIcon.GetComponent<RectTransform>();
+        _mask = GetComponent<Mask>();
     }
 
     void Start()
@@ -57,8 +60,34 @@ public class Minimap : MonoBehaviour
             var ppos = new Vector2(Player.mine.transform.position.x / world.terrainData.size.x * _scroll.content.sizeDelta.x, Player.mine.transform.position.z / world.terrainData.size.z * _scroll.content.sizeDelta.y);
             ppos = Quaternion.Euler(0, 0, Camera.main.transform.eulerAngles.y) * ppos;
             _playerIconRT.anchoredPosition = ppos;
-            _scroll.SetContentAnchoredPosition(-ppos);
-            _scroll.SetDirty();
+            if (_expand == false)
+            {
+                _scroll.SetContentAnchoredPosition(-ppos);
+                _scroll.SetDirty();
+            }
         }
+    }
+
+    public void Toggle()
+    {
+        if (_expand)
+            Restrict();
+        else
+            Expand();
+    }
+
+    public void Expand()
+    {
+        _expand = true;
+        _mask.enabled = false;
+        
+        _scroll.SetContentAnchoredPosition(Vector2.zero);
+        _scroll.SetDirty();
+    }
+
+    public void Restrict()
+    {
+        _expand = false;
+        _mask.enabled = true;
     }
 }
