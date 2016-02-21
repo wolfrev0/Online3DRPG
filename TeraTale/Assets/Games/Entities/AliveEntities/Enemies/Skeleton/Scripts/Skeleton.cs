@@ -31,7 +31,7 @@ public class Skeleton : Enemy
             ret.Add(new Bone());
             if (Random.Range(0, 2) == 0)
                 ret.Add(new HpPotion());
-            if (Random.Range(0, 3) == 0)
+            if (Random.Range(0, 2) == 0)
                 ret.Add(new BowScroll());
             return ret;
         }
