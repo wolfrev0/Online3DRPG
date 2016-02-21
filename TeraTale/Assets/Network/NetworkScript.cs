@@ -123,6 +123,11 @@ public abstract class NetworkScript : MonoBehaviour
 
     public void Destroy()
     {
+        foreach (var i in GetComponentsInChildren<NetworkScript>())
+        {
+            if (i != this)
+                i.Destroy();
+        }
         Send(new RemoveBufferedRPC(userName, "NetworkInstantiate", networkID));
         Send(new NetworkDestroy(networkID));
         Destroy(gameObject);
