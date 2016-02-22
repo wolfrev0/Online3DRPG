@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TeraTaleNet;
+using UnityStandardAssets.ImageEffects;
 
 public abstract class NPC : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public abstract class NPC : MonoBehaviour
         _npcCam.transform.eulerAngles = angles;
         _npcCam.enabled = true;
         _npcCam.depth = Camera.main.depth + 1;
+        _npcCam.GetComponent<DepthOfFieldDeprecated>().objectFocus = transform;
 
         NPCDialog.instance.StartConversation(scripts);
         if (helloSound)
