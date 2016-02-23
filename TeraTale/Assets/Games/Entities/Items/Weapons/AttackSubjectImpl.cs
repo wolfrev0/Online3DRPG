@@ -3,6 +3,7 @@ using TeraTaleNet;
 
 public class AttackSubjectImpl : AttackSubject
 {
+    public bool destroyOnTargetTriggered;
     Collider _collider;
     AudioSource _sound;
     TrailRenderer _trail;
@@ -46,7 +47,11 @@ public class AttackSubjectImpl : AttackSubject
         if (NetworkScript.isLocal)
             return;
         if (coll.tag == targetTag)
+        {
             ApplyDamage(coll.GetComponent<AliveEntity>());
+            if (destroyOnTargetTriggered)
+                Destroy(gameObject);
+        }
     }
 
     void OnParticleCollision(GameObject other)
@@ -54,7 +59,9 @@ public class AttackSubjectImpl : AttackSubject
         if (NetworkScript.isLocal)
             return;
         if (other.tag == targetTag)
+        {
             ApplyDamage(other.GetComponent<AliveEntity>());
+        }
     }
 
     void ApplyDamage(AliveEntity target)

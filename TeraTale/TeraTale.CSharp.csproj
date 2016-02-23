@@ -166,6 +166,9 @@
     <Compile Include="Assets\Logo.cs" />
     <Compile Include="Assets\MainMenu\SelectButton.cs" />
     <Compile Include="Assets\MainUI.cs" />
+    <Compile Include="Assets\Mega Toon FX Free Pack\Script\AutoDestory.cs" />
+    <Compile Include="Assets\Mega Toon FX Free Pack\Script\CameraOrbit.cs" />
+    <Compile Include="Assets\Mega Toon FX Free Pack\Script\SceneManager.cs" />
     <Compile Include="Assets\Network\Certificator.cs" />
     <Compile Include="Assets\Network\Client.cs" />
     <Compile Include="Assets\Network\NetworkProgramUnity.cs" />

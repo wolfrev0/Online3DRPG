@@ -10,7 +10,7 @@ public abstract class KineticEntity : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _skimesh = GetComponentInChildren<SkinnedMeshRenderer>();
-        Appear();
+        Invoke("Appear", Random.Range(0f, 2f));
     }
     
     void OnTriggerEnter(Collider coll)

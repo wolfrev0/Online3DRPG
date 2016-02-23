@@ -32,9 +32,9 @@ namespace Proxy
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
-            Action<Port> connector = (Port port) =>
+            Action<string, Port> connector = (string ip, Port port) =>
             {
-                var stream = _agent.Connect("127.0.0.1", port);
+                var stream = _agent.Connect(ip, port);
                 stream.Write(new ConnectorInfo("Proxy"));
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
@@ -43,11 +43,11 @@ namespace Proxy
                 _rpcBufferByWorld.Add(port.ToString(), new List<RPC>());
             };
 
-            connector(Port.Login);
-            connector(Port.Town);
-            connector(Port.Forest);
-            connector(Port.Mine);
-            connector(Port.Boss);
+            connector("127.0.0.1", Port.Login);
+            connector("127.0.0.1", Port.Town);
+            connector("127.0.0.1", Port.Forest);
+            connector("127.0.0.1", Port.Mine);
+            connector("127.0.0.1", Port.Boss);
 
             foreach (var key in _messenger.Keys)
             {

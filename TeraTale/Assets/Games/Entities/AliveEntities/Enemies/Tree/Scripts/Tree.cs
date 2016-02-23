@@ -25,6 +25,12 @@ public class Tree : Enemy
         }
     }
 
+    protected override void OnDamaged(Damage damage)
+    {
+        base.OnDamaged(damage);
+        GlobalSound.instance.PlayTree();
+    }
+
     protected override float levelForDrop
     { get { return 10; } }
 

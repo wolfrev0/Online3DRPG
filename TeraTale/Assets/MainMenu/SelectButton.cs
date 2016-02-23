@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SelectButton : MonoBehaviour
 {
     public void JoinCustomize()
     {
-        Application.LoadLevel("Customizing");
+        SceneManager.LoadScene("Customizing");
     }
 
     public void JoinLogin()
     {
-        Application.LoadLevel("Login");
+        SceneManager.LoadScene("Login");
     }
+
+    public void Quit()
+    { Application.Quit(); }
 }

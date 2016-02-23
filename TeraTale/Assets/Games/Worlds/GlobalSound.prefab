@@ -148,6 +148,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 946d0a3b8be38a94996e727b8f314d2a, type: 3}
   - {fileID: 8300000, guid: b06eda3b1dd45714f91e0184e12cf47b, type: 3}
   - {fileID: 8300000, guid: 9d0c152c17a3f7249bc8c8639c44bd16, type: 3}
+  treeHits:
+  - {fileID: 8300000, guid: 9ad335528c129da4a968fcfe639395e6, type: 3}
+  - {fileID: 8300000, guid: 043d3fb5e5e7fca46bffd6b8c4a94c6c, type: 3}
+  - {fileID: 8300000, guid: 34e067b6e181bf646ab1a7733a8bd052, type: 3}
+  - {fileID: 8300000, guid: 5ad70e6a852e8dd4e9b2ca8bcbdbb31d, type: 3}
+  - {fileID: 8300000, guid: 950e0dfb544b0b647aed15d27614ec3d, type: 3}
+  - {fileID: 8300000, guid: 96b6faad82d2c9a4388decc16f8db7c7, type: 3}
+  - {fileID: 8300000, guid: 38f3c30e5a35af744a0c6d0b8c049f87, type: 3}
   dragonFire: {fileID: 8300000, guid: b8704586055591c44ae15cc57f528c9d, type: 3}
   dragonDie: {fileID: 8300000, guid: d37a8c67034400c42994218af00d15fd, type: 3}
 --- !u!1001 &100100000

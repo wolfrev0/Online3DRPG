@@ -3132,14 +3132,14 @@ MonoBehaviour:
   _hpBar: {fileID: 11498122}
   _staminaBar: {fileID: 11493830}
   _levelText: {fileID: 11408234}
-  _hp: 500
+  _hp: 800
   _stamina: 1
   _level: 5
   _exp: 0
   _syncedPos: {x: 0, y: 0, z: 0}
   _syncedRot: {x: 0, y: 0, z: 0}
   _uiRoot: {fileID: 22447516}
-  _hpMax: 500
+  _hpMax: 800
   _staminaMax: 1
   _baseAttackDamage: 13
   _attackSubject: {fileID: 0}
@@ -3193,6 +3193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Player
   knockdown: 0
+  destroyOnTargetTriggered: 0
 --- !u!114 &11443328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6623,6 +6624,14 @@ Prefab:
       propertyPath: pfDieFire
       value: 
       objectReference: {fileID: 132814, guid: aeeda1bc082937548bbeced90afe2c6e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: _hp
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: _hpMax
+      value: 800
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 136126}

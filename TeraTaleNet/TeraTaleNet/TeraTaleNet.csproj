@@ -59,6 +59,7 @@
     <Compile Include="Body\Item\Equipment\Accessory\FoxTail.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Axe\Axe.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Knife\DevilSheen.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Knife\Sheen.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Pickaxe\Pickaxe.cs" />
     <Compile Include="Body\Item\Sundry\Bone.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\RPC\SellItem.cs" />
+    <Compile Include="Body\RPC\WandAttack.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SerializedPlayerAnswer.cs" />

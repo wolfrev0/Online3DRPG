@@ -6,6 +6,7 @@ public class SkillView : MonoBehaviour
     public Image cover;
     public Sprite swordIcon;
     public Sprite bowIcon;
+    public Sprite wandIcon;
     Image icon;
 
     void Awake()
@@ -25,6 +26,10 @@ public class SkillView : MonoBehaviour
                     break;
                 case TeraTaleNet.Weapon.Type.bow:
                     icon.sprite = bowIcon;
+                    icon.enabled = true;
+                    break;
+                case TeraTaleNet.Weapon.Type.wand:
+                    icon.sprite = wandIcon;
                     icon.enabled = true;
                     break;
                 default:

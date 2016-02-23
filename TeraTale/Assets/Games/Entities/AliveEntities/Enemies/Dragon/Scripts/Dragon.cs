@@ -148,6 +148,7 @@ public class Dragon : Enemy
             ret.Add(new Bone());
             ret.Add(new LapisLazuliOre());
             ret.Add(new DevilSheen());
+            ret.Add(new Sheen());
             return ret;
         }
     }

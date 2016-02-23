@@ -1,0 +1,78 @@
+@최종발표 메모
+
+낚시-Water Tag로 처리
+악세사리
+
+플레이어 웨폰타입
+Default 플레이어 아이템
+Release로 빌드
+그래픽 프로세서로 실행
+시연자들 주의사항 : 메인시연자보다 먼저 월드이동을 하지 마라.
+-------------------------------------------------------------
+@그외
+
+-Proxy에 Lock, Messenger에 Lock 이 겹친다. 해결해라????
+-리팩토링
+-PushChat BUffered 복구해도 되는지 확인
+-Static인것과 Member인 것을 구분하고 캡슐화(기능밀집, 접근범위(정보은닉))를 좀 더 강화하고 기능세분화 쪽의 리팩토링 필요
+Server아닌곳까지 Instantiate의 내부속성값을 전달할 필요 없을듯.
+isNull이 Ture일때 Type검사를 안해서 새로운 아이템먹을떄 맨앞에 Null이면 거기에들어간다. 
+패킷버퍼 크기를 8KB로 늘렸지만, 그래도 부족하면 8KB 넘는 패킷에 대해서는 분할해서 전송하고 분할해서 받는 형식으로 수정해야함.
+AliveEntity는 KineticEntity에 들어가야하는가?
+
+아이템 시간지나면 사라지기
+NetworkDestroy를 other로 하지 않고 All로 처리하면 RPC Not Arrived를 피할 수 있을듯.
+로고
+에셋 Magic Pack으로 마법서 사용하는 타입 만들어보자.
+직업 시스템
+허브약초
+Sage
+완드
+스킬 시스템
+던전, 보스몹 만들기.
+카메라-플레이어 사이 오브젝트 투명화(터레인이므로 반투명도 고려하자.)
+NPC 상점/퀘스트
+옷
+미니맵
+낚시
+Item 클래스들을 ISerializable 활용하여 TeraTaleNet에서 분리하기
+레벨업 이펙트
+때릴때마다 확률적으로 광물, 목재 나오게 하기
+마우스 커서 변경
+클릭위치표시
+UI 온일때 Input Off
+Specific 도 있지만 CurrentServer Type을 추가하면 편할듯
+상대 정보 표시
+발표생각해서 UI크기 조정(1280x720)
+크리티컬?
+레벨디자인
+맵디자인
+연출
+꾸미기
+
+버그
+-Tree NetworkScript.Start가 실행되기 전에 Reset이 도착하는경우가 있는데, 그러면 RPC NotSended 발생하고 위치 안맞는다. Periodic Sync 로 땜빵중
+-동일한 종류의 아이템이 2개의 ItemStack에 분산되어있을때 한번에 Sell 못한다.
+-지금 조합서 조합에 대장장이가 필요없다. 대장장이가 조합하면 좋을텐데
+-Item.maxCount를 넘는 Buy가 불가능하다. 2개의 stack에 나눠 저장하면 편할텐데.
+-움직이는중에 Modal을 켜면, 움직임 멈추고나서 input이 활성화된다. 처리필요
+-MyInfoView에 Modal적용 안되있음
+-미니맵에 자신만 표시된다.
+
+진행흐름도
+스킬-낚시 등
+
+UDP Connection 추가
+하트비트 Health Packet(타임아웃) 보내서 연결끊김 감지
+하트비트 Health Packet(타임아웃) 관리를 스레드로 분리할까
+Proxy 엔디안정렬 고려하기
+NAT 처리는 GPG5 Networking 참고
+
+껌씹기 기억력
+심호흡
+
+최적화
+Packet의 Header만 보고 rpc이면 바이트째로 보내고 Packet이면 Body도 Deserialize
+Item.Use가 종속성 문제떄문에 delegate로 해결중이니 위 최적화 문제해결해서 처리해라
+변경점이 없을만한부분에서 Reflection 관련 코드를 좀 줄이자.(컴파일타임 정보제공)
+RPC서브클래스 없이 클래스 하나로 제공하고 매개변수로 Packet을 받으면 좋겠다.

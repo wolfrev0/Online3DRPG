@@ -15,6 +15,7 @@ public class Player : AliveEntity
 
     public Text nameView;
     public SpeechBubble speechBubble;
+    public ParticleSystem magicCircle;
 
     public bool gotQuest;
 
@@ -29,6 +30,7 @@ public class Player : AliveEntity
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
     static Projectile _pfArrow;
+    static Projectile _pfFireBall;
     static Player _pfPlayer;
 
     public int _money = 0;
@@ -159,6 +161,8 @@ public class Player : AliveEntity
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         if (_pfArrow == null)
             _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfFireBall == null)
+            _pfFireBall = Resources.Load<Projectile>("Prefabs/FireBall");
         if (_pfPlayer == null)
             _pfPlayer = Resources.Load<Player>("Prefabs/Player");
 
@@ -232,8 +236,40 @@ public class Player : AliveEntity
             projectile.direction = Quaternion.Euler(0, (i - 1) * 5, 0) * transform.forward;
             projectile.speed = 10;
             projectile.autoDestroyTime = 0.8f;
-            projectile.GetComponent<AttackSubject>().owner = this;
+            var attackSubject = projectile.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
+            if (i == 1)
+                attackSubject.knockdown = true;
         }
+    }
+
+    void WandAttack()
+    {
+        var projectile = Instantiate(_pfFireBall);
+        projectile.transform.position = transform.position + Vector3.up;
+        projectile.direction = transform.forward;
+        projectile.speed = 5;
+        projectile.autoDestroyTime = 0.8f;
+        projectile.GetComponent<AttackSubject>().owner = this;
+    }
+
+    void WandSkill()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            var projectile = Instantiate(_pfFireBall);
+            projectile.transform.position = transform.position + Vector3.up;
+            projectile.direction = Quaternion.Euler(0, 45 * i, 0) * transform.forward;
+            projectile.speed = 8;
+            projectile.autoDestroyTime = 0.8f;
+            var attackSubject = projectile.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
+            attackSubject.knockdown = true;
+        }
+
+        var circle = Instantiate(magicCircle);
+        circle.transform.position = transform.position + Vector3.up * 0.1f;
+        Destroy(circle.gameObject, 1);
     }
 
     public void FacingDirectionUpdate()

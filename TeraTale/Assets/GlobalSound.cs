@@ -13,6 +13,7 @@ public class GlobalSound : MonoBehaviour
     public AudioClip[] bgms;
     public AudioClip[] zombieHit;
     public AudioClip[] skeletonHit;
+    public AudioClip[] treeHits;
     public AudioClip dragonFire;
     public AudioClip dragonDie;
 
@@ -86,6 +87,11 @@ public class GlobalSound : MonoBehaviour
     public void PlaySkeletonHit()
     {
         _audio.PlayOneShot(skeletonHit[Random.Range(0, skeletonHit.Length)], effectVolume);
+    }
+
+    public void PlayTree()
+    {
+        _audio.PlayOneShot(treeHits[Random.Range(0, treeHits.Length)], effectVolume);
     }
 
     public void PlayDragonDie()
