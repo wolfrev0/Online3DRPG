@@ -95,18 +95,32 @@ namespace Proxy
             {
                 while (stopped == false)
                 {
-                    lock (_lock)
+                    try
                     {
-                        foreach (var key in _messenger.Keys)
+                        lock (_lock)
                         {
-                            if (_serverKeys.Contains(key) == false)
-                                _messenger.Dispatch(key);
+                            foreach (var key in _messenger.Keys)
+                            {
+                                if (_serverKeys.Contains(key) == false)
+                                    _messenger.Dispatch(key);
+                            }
                         }
+
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
 
             _messenger.Start();
+            _messenger.onDisconnected = key => 
+            {
+                _rpcBufferByWorld[_worldByUser[key]].RemoveAll(rpc => rpc.sender == key);
+                _dispatchers.Remove(key);
+                _worldByUser.Remove(key);
+            };
             _confirmMessenger.Start();
         }
 
@@ -230,8 +244,11 @@ namespace Proxy
             {
                 if (buffer[i].GetType().Name == packet.typeName)
                 {
-                    NetworkInstantiate ni = (NetworkInstantiate)buffer[i];
+                    NetworkInstantiate ni = buffer[i] as NetworkInstantiate;
                     if (ni != null && ni.networkID == packet.networkID)
+                        buffer.RemoveAt(i);
+                    Sync sync = buffer[i] as Sync;
+                    if (sync != null && sync.signallerID == packet.networkID)
                         buffer.RemoveAt(i);
                 }
             }

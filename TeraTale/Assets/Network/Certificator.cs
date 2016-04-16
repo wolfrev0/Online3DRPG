@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
@@ -6,14 +7,14 @@ using TeraTaleNet;
 
 public class Certificator : NetworkProgramUnity
 {
-    public string serverIP = "127.0.0.1";
+    public InputField proxyIP;
     NetworkAgent _agent = new NetworkAgent();
     object _locker = new object();
     int _confirmID;
 
     protected override void OnStart()
     {
-        _messenger.Register("Proxy", _agent.Connect(serverIP, Port.Proxy));
+        _messenger.Register("Proxy", _agent.Connect(proxyIP.text, Port.Proxy));
         Console.WriteLine("Proxy connected.");
 
         foreach (var key in _messenger.Keys)

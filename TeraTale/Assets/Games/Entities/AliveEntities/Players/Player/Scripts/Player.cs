@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
 using System.Linq;
+using System;
 
 public class Player : AliveEntity
 {
@@ -149,7 +150,15 @@ public class Player : AliveEntity
         base.Start();
         name = owner;
         nameView.text = name;
-        _playersByName.Add(name, this);
+        try
+        {
+            _playersByName.Add(name, this);
+        }
+        catch (ArgumentException e)
+        {
+            History.Log(e.ToString());
+            _playersByName[name] = this;
+        }
         if (isMine)
         {
             var cam = FindObjectOfType<CameraController>();
@@ -483,32 +492,32 @@ public class Player : AliveEntity
         //Deserialize only set the field _weapon, not the property weapon. so, we should call this property manually.
         weapon = weapon;
         //Weapon Sync;
-        Sync s = new Sync(RPCType.Others, "", "weapon");
+        Sync s = new Sync(RPCType.Others | RPCType.Buffered, "", "weapon");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //same as weapon
         accessory = accessory;
-        s = new Sync(RPCType.Others, "", "accessory");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "accessory");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //itemStack Sync
-        s = new Sync(RPCType.Others, "", "itemStacks");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "itemStacks");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //itemStack Sync
-        s = new Sync(RPCType.Others, "", "gotQuest");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "gotQuest");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //money Sync
-        s = new Sync(RPCType.Others, "", "money");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "money");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);

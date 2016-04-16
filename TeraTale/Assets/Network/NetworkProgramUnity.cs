@@ -46,11 +46,11 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
         {
             OnEnd();
             StopAllCoroutines();
-            _messenger.Dispose();
+            _messenger.Join();
         }
         finally
         {
-            History.Save();
+            History.Save(); ;
         }
     }
 
