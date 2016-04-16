@@ -99,4 +99,9 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
     {
         signallersByID.Remove(signaller.networkID);
     }
+
+    public void PlayerDisconnect(Messenger messenger, string key, PlayerDisconnect packet)
+    {
+        Destroy(Player.FindPlayerByName(packet.name).gameObject);
+    }
 }

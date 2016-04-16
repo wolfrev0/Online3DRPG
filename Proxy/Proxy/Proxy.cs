@@ -117,6 +117,11 @@ namespace Proxy
             _messenger.Start();
             _messenger.onDisconnected = key => 
             {
+                foreach (var target in _messenger.Keys)
+                {
+                    if (target != key && _worldByUser[target] == _worldByUser[key])
+                        _messenger.Send(target, new PlayerDisconnect(key));
+                }
                 _rpcBufferByWorld[_worldByUser[key]].RemoveAll(rpc => rpc.sender == key);
                 _dispatchers.Remove(key);
                 _worldByUser.Remove(key);
@@ -247,9 +252,12 @@ namespace Proxy
                     NetworkInstantiate ni = buffer[i] as NetworkInstantiate;
                     if (ni != null && ni.networkID == packet.networkID)
                         buffer.RemoveAt(i);
-                    Sync sync = buffer[i] as Sync;
-                    if (sync != null && sync.signallerID == packet.networkID)
-                        buffer.RemoveAt(i);
+                    else
+                    {
+                        Sync sync = buffer[i] as Sync;
+                        if (sync != null && sync.signallerID == packet.networkID)
+                            buffer.RemoveAt(i);
+                    }
                 }
             }
         }
