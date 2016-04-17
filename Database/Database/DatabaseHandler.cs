@@ -11,7 +11,6 @@ namespace Database
     class DatabaseHandler : MessageHandler
     {
         static string accountPath = "Accounts";
-        static string playerLocationPath = "PlayerLocation";
         static string serializedPlayerPath = "SerializedPlayer";
 
         void LoginQuery(Messenger messenger, string key, LoginQuery query)
@@ -26,11 +25,7 @@ namespace Database
                         var name = account.ReadLine();
                         if (query.pw == pw)
                         {
-                            using (var location = new StreamReader(new FileStream(playerLocationPath + "\\" + name, FileMode.Open)))
-                            {
-                                var world = location.ReadLine();
-                                messenger.Send("Login", new LoginAnswer(query.confirmID, true, name, world));
-                            }
+                            messenger.Send("Login", new LoginAnswer(query.confirmID, true, name, "Town"));
                         }
                         else
                         {

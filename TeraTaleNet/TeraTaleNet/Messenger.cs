@@ -28,7 +28,7 @@ namespace TeraTaleNet
         bool _disposed = false;
         object _locker = new object();
         public delegate void OnDisconnected(string name);
-        public OnDisconnected onDisconnected;
+        public OnDisconnected onDisconnected = key => { };
 
         Dictionary<Type, MethodInfo> handlerByType = new Dictionary<Type, MethodInfo>();
 

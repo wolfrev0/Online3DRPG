@@ -64,17 +64,24 @@ namespace Proxy
                 _agent.Bind("0.0.0.0", Port.Proxy, 4);
                 while (stopped == false)
                 {
-                    if (_agent.HasConnectReq())
+                    try
                     {
-                        string stringID = _currentConfirmId.ToString();
-                        int ID = _currentConfirmId;
-                        lock (_lock)
+                        if (_agent.HasConnectReq())
                         {
-                            _confirmMessenger.Register(stringID, _agent.Listen());
-                            _confirmMessenger.Send(stringID, new ConfirmID(ID));
+                            string stringID = _currentConfirmId.ToString();
+                            int ID = _currentConfirmId;
+                            lock (_lock)
+                            {
+                                _confirmMessenger.Register(stringID, _agent.Listen());
+                                _confirmMessenger.Send(stringID, new ConfirmID(ID));
+                            }
+                            _currentConfirmId++;
+                            Console.WriteLine("Client connected.");
                         }
-                        _currentConfirmId++;
-                        Console.WriteLine("Client connected.");
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
@@ -83,10 +90,17 @@ namespace Proxy
             {
                 while (stopped == false)
                 {
-                    lock (_lock)
+                    try
                     {
-                        foreach (var confirmID in _confirmMessenger.Keys)
-                            _confirmMessenger.Dispatch(confirmID);
+                        lock (_lock)
+                        {
+                            foreach (var confirmID in _confirmMessenger.Keys)
+                                _confirmMessenger.Dispatch(confirmID);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
@@ -172,13 +186,28 @@ namespace Proxy
                 }
                 else
                 {
-                    lock (_lock)
+                    try
                     {
-                        PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
-                        AddClient(answer.name, stream);
+                        lock (_lock)
+                        {
+                            PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
+                            AddClient(answer.name, stream);
+                        }
+                        try
+                        {
+                            _worldByUser.Add(answer.name, answer.world);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            History.Log(e.ToString());
+                            _worldByUser[answer.name] = answer.world;
+                        }
+                        _messenger.Send(answer.name, answer);
                     }
-                    _worldByUser.Add(answer.name, answer.world);
-                    _messenger.Send(answer.name, answer);
+                    catch(Exception e)
+                    {
+                        History.Log(e.ToString());
+                    }
                 }
             }
             else

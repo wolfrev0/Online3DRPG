@@ -112,6 +112,9 @@ public abstract class Enemy : AliveEntity
     {
         if (_targets.Find(t => t.target.networkID == rpc.targetID) == null)
         {
+            //target can be null when TargetPlayer is being deleted by some situation like SwitchWorld, Die, etc...
+            if (_targets.Count > 0 && _targets.First().target == null)
+                _targets.RemoveAt(0);
             _targets.Add(new TargetDamagePair((AliveEntity)NetworkProgramUnity.currentInstance.signallersByID[rpc.targetID], 0));
             _targets.Sort();
         }
