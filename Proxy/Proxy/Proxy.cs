@@ -43,6 +43,7 @@ namespace Proxy
                 _rpcBufferByWorld.Add(port.ToString(), new List<RPC>());
             };
 
+            connector("127.0.0.1", Port.Database);
             connector("127.0.0.1", Port.Login);
             connector("127.0.0.1", Port.Town);
             connector("127.0.0.1", Port.Forest);
@@ -170,6 +171,11 @@ namespace Proxy
             GC.SuppressFinalize(this);
         }
 
+        void SignUp(Messenger messenger, string key, SignUp packet)
+        {
+            _messenger.Send("Database", packet);
+        }
+
         void LoginQuery(Messenger messenger, string key, LoginQuery query)
         {
             _messenger.Send("Login", query);
@@ -182,6 +188,7 @@ namespace Proxy
                 if (IsLoggedIn(answer.name))
                 {
                     answer.accepted = false;
+                    answer.message = "이미 로그인 중입니다.";
                     _confirmMessenger.Send(answer.confirmID.ToString(), answer);
                 }
                 else

@@ -30,6 +30,7 @@ namespace Database
             listenner();//Forest
             listenner();//Mine
             listenner();//Boss
+            listenner();//Proxy
 
             foreach (var key in _messenger.Keys)
             {

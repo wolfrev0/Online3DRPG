@@ -8,6 +8,7 @@ using TeraTaleNet;
 public class Certificator : NetworkProgramUnity
 {
     public InputField proxyIP;
+    public Action<string> onLoginFailed = s => { };
     NetworkAgent _agent = new NetworkAgent();
     object _locker = new object();
     int _confirmID;
@@ -84,6 +85,10 @@ public class Certificator : NetworkProgramUnity
             userName = answer.name;
             net.signallersByID = signallersByID;
             net.enabled = true;            
+        }
+        else
+        {
+            onLoginFailed(answer.message);
         }
     }
 }

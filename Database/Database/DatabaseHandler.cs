@@ -6,12 +6,31 @@ namespace Database
 {
     class InvalidLoginException : Exception
     {
+        public string message;
+        public InvalidLoginException(string message)
+        { this.message = message; }
     }
 
     class DatabaseHandler : MessageHandler
     {
         static string accountPath = "Accounts";
         static string serializedPlayerPath = "SerializedPlayer";
+
+        void SignUp(Messenger messenger, string key, SignUp packet)
+        {
+            try
+            {
+                using (var account = new StreamWriter(new FileStream(accountPath + "\\" + packet.id, FileMode.Create)))
+                {
+                    account.WriteLine(packet.pw);
+                    account.WriteLine(packet.id);
+                }
+            }
+            catch (Exception e)
+            {
+                History.Log(e.ToString());
+            }
+        }
 
         void LoginQuery(Messenger messenger, string key, LoginQuery query)
         {
@@ -29,18 +48,20 @@ namespace Database
                         }
                         else
                         {
-                            throw new InvalidLoginException();
+                            throw new InvalidLoginException("PW가 다릅니다.");
                         }
                     }
                 }
                 catch (IOException)
                 {
-                    throw new InvalidLoginException();
+                    throw new InvalidLoginException("존재하지 않는 ID입니다.");
                 }
             }
-            catch (InvalidLoginException)
+            catch (InvalidLoginException e)
             {
-                messenger.Send("Login", new LoginAnswer(query.confirmID, false, "", ""));
+                var answer = new LoginAnswer(query.confirmID, false, "", "");
+                answer.message = e.message;
+                messenger.Send("Login", answer);
             }
         }
 
