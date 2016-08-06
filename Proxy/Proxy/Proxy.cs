@@ -62,7 +62,7 @@ namespace Proxy
 
             _accepter = Task.Run(() =>
             {
-                _agent.Bind("0.0.0.0", Port.Proxy, 4);
+                _agent.Bind("127.0.0.1", Port.Proxy, 4);
                 while (stopped == false)
                 {
                     try
