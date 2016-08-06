@@ -5,16 +5,6 @@ using System.Collections.Generic;
 
 namespace TeraTaleNet
 {
-    public class DisconnectException : Exception
-    {
-        public string key;
-
-        public DisconnectException(string key)
-        {
-            this.key = key;
-        }
-    }
-
     public class Messenger : IDisposable
     {
         //concurrent Dictionary?
@@ -27,8 +17,6 @@ namespace TeraTaleNet
         bool _stopped = false;
         bool _disposed = false;
         object _locker = new object();
-        public delegate void OnDisconnected(string name);
-        public OnDisconnected onDisconnected = key => { };
 
         Dictionary<Type, MethodInfo> handlerByType = new Dictionary<Type, MethodInfo>();
 
@@ -124,6 +112,7 @@ namespace TeraTaleNet
                 else
                     handlerByType[Packet.GetTypeByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
             }
+            Thread.Sleep(10);
         }
 
         public void DispatcherCoroutine(string key)
@@ -138,89 +127,66 @@ namespace TeraTaleNet
 
         void Sender()
         {
-            while (_stopped == false)
+            try
             {
-                lock (_locker)
+                while (_stopped == false)
                 {
-                    try
+                    lock(_locker)
                     {
                         foreach (var key in Keys)
                         {
-                            try
+                            if (_sendQByKey[key].Count > 0)
                             {
-                                if (_sendQByKey[key].Count > 0)
-                                {
-                                    //Need ioLock?
-                                    var packet = _sendQByKey[key].Dequeue();
-                                    History.Log("Sended : " + Packet.GetTypeByIndex(packet.header.type));
-                                    _streamByKey[key].Write(packet);
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                History.Log(e.ToString());
-                                throw new DisconnectException(key);
+                                //Need ioLock?
+                                var packet = _sendQByKey[key].Dequeue();
+                                History.Log("Sended : " + Packet.GetTypeByIndex(packet.header.type));
+                                _streamByKey[key].Write(packet);
                             }
                         }
                     }
-                    catch (DisconnectException e)
-                    {
-                        _streamByKey[e.key].Dispose();
-                        _streamByKey.Remove(e.key);
-                        _recvQByKey.Remove(e.key);
-                        _sendQByKey.Remove(e.key);
-                        onDisconnected(e.key);
-                    }
-                    finally
-                    {
-                    }
+                    Thread.Sleep(10);
                 }
             }
-            History.Save();
+            catch (Exception e)
+            {
+                History.Log(e.ToString());
+            }
+            finally
+            {
+                History.Save();
+            }
         }
 
         void Receiver()
         {
-            while (_stopped == false)
+            try
             {
-                lock (_locker)
+                while (_stopped == false)
                 {
-                    try
+                    lock (_locker)
                     {
                         foreach (var key in Keys)
                         {
-                            try
+                            if (_streamByKey[key].HasPacket())
                             {
-                                if (_streamByKey[key].HasPacket())
-                                {
-                                    //Need ioLock?
-                                    var packet = _streamByKey[key].Read();
-                                    History.Log("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
-                                    _recvQByKey[key].Enqueue(packet);
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                History.Log(e.ToString());
-                                throw new DisconnectException(key);
+                                //Need ioLock?
+                                var packet = _streamByKey[key].Read();
+                                History.Log("Recieved : " + Packet.GetTypeByIndex(packet.header.type));
+                                _recvQByKey[key].Enqueue(packet);
                             }
                         }
-
                     }
-                    catch (DisconnectException e)
-                    {
-                        _streamByKey[e.key].Dispose();
-                        _streamByKey.Remove(e.key);
-                        _sendQByKey.Remove(e.key);
-                        _recvQByKey.Remove(e.key);
-                        onDisconnected(e.key);
-                    }
-                    finally
-                    {
-                    }
+                    Thread.Sleep(10);
                 }
             }
-            History.Save();
+            catch (Exception e)
+            {
+                History.Log(e.ToString());
+            }
+            finally
+            {
+                History.Save();
+            }
         }
 
         public void Join()
