@@ -21,7 +21,6 @@ namespace TeraTaleNet
                 while (_stopped == false)
                 {
                     OnUpdate();
-                    Thread.Sleep(10);
                 }
             }
             catch (Exception e)

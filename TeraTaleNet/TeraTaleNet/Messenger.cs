@@ -124,7 +124,6 @@ namespace TeraTaleNet
                 else
                     handlerByType[Packet.GetTypeByIndex(packet.header.type)].Invoke(listener, new object[] { this, key, packet.body });
             }
-            Thread.Sleep(10);
         }
 
         public void DispatcherCoroutine(string key)
@@ -174,7 +173,6 @@ namespace TeraTaleNet
                     }
                     finally
                     {
-                        Thread.Sleep(10);
                     }
                 }
             }
@@ -219,7 +217,6 @@ namespace TeraTaleNet
                     }
                     finally
                     {
-                        Thread.Sleep(10);
                     }
                 }
             }
