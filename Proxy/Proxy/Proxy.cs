@@ -130,17 +130,17 @@ namespace Proxy
             });
 
             _messenger.Start();
-            //_messenger.onDisconnected = key => 
-            //{
-            //    foreach (var target in _messenger.Keys)
-            //    {
-            //        if (target != key && _worldByUser[target] == _worldByUser[key])
-            //            _messenger.Send(target, new PlayerDisconnect(key));
-            //    }
-            //    _rpcBufferByWorld[_worldByUser[key]].RemoveAll(rpc => rpc.sender == key);
-            //    _dispatchers.Remove(key);
-            //    _worldByUser.Remove(key);
-            //};
+            _messenger.onDisconnected = key =>
+            {
+                foreach (var target in _messenger.Keys)
+                {
+                    if (target != key && _worldByUser[target] == _worldByUser[key])
+                        _messenger.Send(target, new PlayerDisconnect(key));
+                }
+                _rpcBufferByWorld[_worldByUser[key]].RemoveAll(rpc => rpc.sender == key);
+                _dispatchers.Remove(key);
+                _worldByUser.Remove(key);
+            };
             _confirmMessenger.Start();
         }
 
