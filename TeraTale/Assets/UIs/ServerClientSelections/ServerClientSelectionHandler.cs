@@ -7,6 +7,13 @@ public class ServerClientSelectionHandler : MonoBehaviour
     public Town town;
     public Forest forest;
 
+    void Start()
+    {
+        Screen.SetResolution(1280, 720, false);
+        //OnServer("Boss");
+        OnClient();
+    }
+
     public void OnDatabase()
     {
         var database = new Process();
