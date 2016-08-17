@@ -40,7 +40,7 @@ public class Taylor : NPC
                         s.comment = "판다를 어떻게 판다? 캬컄ㅋㅋ컄ㅋ";
                         break;
                 }
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);
@@ -63,7 +63,7 @@ public class Taylor : NPC
             {
                 s.commands = new List<Script.Command>();
                 s.comment = "아직 퀘스트가 없어...";
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);

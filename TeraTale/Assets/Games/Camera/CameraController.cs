@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     {
         if (target != null)
         {
-            transform.position = target.transform.position + relativeAtTargetPos;
+            transform.position = target.transform.position + Quaternion.Euler(0, transform.eulerAngles.y, 0) * relativeAtTargetPos;
             
             if (3 > relativeAtTargetPos.magnitude)
             {

@@ -16,16 +16,10 @@ public class Mineral : Enemy
             List<Item> ret = new List<Item>();
             if (Random.Range(0, 2) == 0)
                 ret.Add(new IronOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new IronOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new IronOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new IronOre());
-            if (Random.Range(0, 2) == 0)
-                ret.Add(new IronOre());
-            ret.Add(new Rock());
-            ret.Add(new Rock());
+            ret.Add(new IronOre());
+            ret.Add(new IronOre());
+            ret.Add(new IronOre());
+            ret.Add(new IronOre());
             ret.Add(new Rock());
             ret.Add(new Rock());
             ret.Add(new Rock());

@@ -8,10 +8,12 @@ public class IngredientSlot : MonoBehaviour
     public Text needAmount;
     public Text haveAmount;
     bool _isSatisfied = false;
+    Image img;
 
     public void Hide()
     {
         gameObject.SetActive(false);
+        img = GetComponent<Image>();
     }
 
     public void Reset(Scroll.Ingradient ingredient)
@@ -23,9 +25,15 @@ public class IngredientSlot : MonoBehaviour
         needAmount.text = need.ToString();
         haveAmount.text = have.ToString();
         if (have >= need)
+        {
             _isSatisfied = true;
+            img.color = new Color(0, 200, 255, 255);
+        }
         else
+        {
             _isSatisfied = false;
+            img.color = new Color(255, 0, 10, 255);
+        }
     }
 
     public bool isSatisfied { get { return _isSatisfied; } }

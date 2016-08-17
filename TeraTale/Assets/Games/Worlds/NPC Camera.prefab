@@ -11,6 +11,7 @@ GameObject:
   - 20: {fileID: 2098868}
   - 124: {fileID: 12451798}
   - 92: {fileID: 9223072}
+  - 114: {fileID: 11419530}
   m_Layer: 0
   m_Name: NPC Camera
   m_TagString: NPCCamera
@@ -47,7 +48,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10
+  far clip plane: 50
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -71,6 +72,43 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137426}
   m_Enabled: 1
+--- !u!114 &11419530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d8db0ec466c14429f58c68c16398a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quality: 1
+  resolution: 2
+  simpleTweakMode: 1
+  focalPoint: 1
+  smoothness: 0.6
+  focalZDistance: 0.3
+  focalZStartCurve: 1
+  focalZEndCurve: 1
+  objectFocus: {fileID: 0}
+  focalSize: 0
+  bluriness: 4
+  maxBlurSpread: 0.5
+  foregroundBlurExtrude: 1.15
+  dofBlurShader: {fileID: 4800000, guid: bb4af680337344a4abad65a4e8873c50, type: 3}
+  dofShader: {fileID: 4800000, guid: 987fb0677d01f43ce8a9dbf12271e668, type: 3}
+  visualize: 0
+  bokehDestination: 1
+  bokeh: 0
+  bokehSupport: 1
+  bokehShader: {fileID: 4800000, guid: 57cdacf9b217546aaa18edf39a6151c0, type: 3}
+  bokehTexture: {fileID: 2800000, guid: fc00ec05a89da4ff695a4273715cd5ce, type: 3}
+  bokehScale: 2.4
+  bokehIntensity: 0.15
+  bokehThresholdContrast: 0.1
+  bokehThresholdLuminance: 0.55
+  bokehDownsample: 1
 --- !u!124 &12451798
 Behaviour:
   m_ObjectHideFlags: 1

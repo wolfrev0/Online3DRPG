@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TeraTaleNet;
+using UnityStandardAssets.ImageEffects;
 
 public abstract class NPC : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public abstract class NPC : MonoBehaviour
     
     protected abstract List<Script> scripts { get; }
     public ItemStackList itemStacks = new ItemStackList(30);
+    public bool helloSound = true;
 
     protected void Awake()
     {
@@ -31,15 +33,17 @@ public abstract class NPC : MonoBehaviour
 
     public void StartConversation()
     {
-        _npcCam.transform.position = transform.position + transform.forward + new Vector3(0, 1.58f, 0);
+        _npcCam.transform.position = transform.position + transform.forward * 2f + new Vector3(0, 1.4f, 0);
         _npcCam.transform.LookAt(transform);
         var angles = _npcCam.transform.eulerAngles;
         angles.x = 0;
         _npcCam.transform.eulerAngles = angles;
         _npcCam.enabled = true;
         _npcCam.depth = Camera.main.depth + 1;
+        _npcCam.GetComponent<DepthOfFieldDeprecated>().objectFocus = transform;
 
         NPCDialog.instance.StartConversation(scripts);
-        GlobalSound.instance.PlayNPCHello();
+        if (helloSound)
+            GlobalSound.instance.PlayNPCHello();
     }
 }

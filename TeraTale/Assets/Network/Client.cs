@@ -30,7 +30,7 @@ public class Client : NetworkProgramUnity
         {
             while (_messenger.CanReceive(key))
                 _messenger.DispatcherCoroutine(key);
-            yield return new WaitForSeconds(0);
+            yield return null;
         }
     }
 

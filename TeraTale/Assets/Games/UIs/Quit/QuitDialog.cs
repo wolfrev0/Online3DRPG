@@ -13,7 +13,6 @@ public class QuitDialog : MonoBehaviour
     public void OnQuit()
     {
         Application.Quit();
-        Debug.Log("Quit");
     }
 
     public void OffQuit()

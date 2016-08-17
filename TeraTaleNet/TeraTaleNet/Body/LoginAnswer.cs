@@ -6,6 +6,7 @@
         public bool accepted;
         public string name;
         public string world;
+        public string message = "";
 
         public LoginAnswer(int confirmID, bool accepted, string name, string world)
         {

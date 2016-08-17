@@ -23,7 +23,7 @@ public class ItemSlotPopupView : MonoBehaviour
     {
         set
         {
-            nameText.text = value.name;
+            nameText.text = value.ingameName;
             price.text = value.price + " G";
             itemType.text = value.itemType.ToString();
             weaponType.text = "";
@@ -47,9 +47,13 @@ public class ItemSlotPopupView : MonoBehaviour
 
     void Update()
     {
-        //Vector3 pos;
-        //RectTransformUtility.ScreenPointToWorldPointInRectangle(_rt, Input.mousePosition, Camera.main, out pos);
-        //_rt.position = pos;
-        _rt.position = Input.mousePosition;
+        if (Input.GetKey(KeyCode.Mouse0))
+            _rt.position = new Vector2(-999, -999);
+        else
+            _rt.position = Input.mousePosition;
+        if (_rt.position.y > Screen.height / 2)
+            _rt.pivot = new Vector2(0, 1);
+        else
+            _rt.pivot = new Vector2(0, 0);
     }
 }

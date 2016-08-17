@@ -55,8 +55,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131774}
-  m_LocalRotation: {x: 0.42461252, y: -0.3999481, z: -0.7701242, w: 0.2581753}
-  m_LocalPosition: {x: -0.11284345, y: 0.023159932, z: -0.14693163}
+  m_LocalRotation: {x: 0.3535534, y: 0.3535534, z: -0.14644663, w: 0.85355335}
+  m_LocalPosition: {x: -0.08, y: 0, z: -0.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 415464}
@@ -119,8 +119,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.45559973, y: 0.0830413, z: 1.8499075}
-  m_Center: {x: 0.00000012665987, y: 0, z: 0}
+  m_Size: {x: 1.4385232, y: 2.0631857, z: 1.4352925}
+  m_Center: {x: 0.13760942, y: -0.003574133, z: -0.6290709}
 --- !u!114 &11446484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c308e8d9b4146de4d9f6bfac5ddef9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: 0
-  owner: 
+  _networkID: 0
+  _owner: 
   _effector: {fileID: 0}
 --- !u!114 &11487092
 MonoBehaviour:
@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72d40cb16f8fc24f8ce23f8385b7286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
   targetTag: Enemy
+  knockdown: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

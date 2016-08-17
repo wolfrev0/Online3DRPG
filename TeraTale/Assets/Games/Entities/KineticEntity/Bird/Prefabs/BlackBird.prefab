@@ -214,8 +214,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198288}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: -1.4, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0.6029372, z: 0, w: -0.7977887}
+  m_LocalPosition: {x: 85.3747, y: 5.2584, z: 81.287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 461622}
@@ -265,7 +265,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 164204}
-  m_LocalRotation: {x: 0.85412186, y: 0.5024113, z: 0.12986533, w: 0.034548476}
+  m_LocalRotation: {x: 0.854122, y: 0.50241137, z: 0.12986535, w: 0.03454848}
   m_LocalPosition: {x: -0.1951614, y: 0.14085796, z: 0.026968423}
   m_LocalScale: {x: 0.99999994, y: 0.9999998, z: 0.99999976}
   m_Children:
@@ -367,10 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac12ccd04bc60714aab8a63ad5c6156c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkID: 0
-  owner: 
-  AppearTime: 0
-  disappearTime: 5
+  _networkID: 0
+  _owner: 
   _birdTexture:
   - {fileID: 2800000, guid: 539075ce7385f5e4a9944c0c5c1904e6, type: 3}
   - {fileID: 2800000, guid: 50c832168d9d4804ca68fb6f5fe64793, type: 3}
@@ -387,7 +385,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.21
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: -0.6}
 --- !u!137 &13765120
 SkinnedMeshRenderer:

@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
-using TeraTaleNet;
 
 public class GlobalOption : MonoBehaviour
 {
+    static public GlobalOption instance;
+    public float bgmVolume = 1;
+    public float effectVolume = 1;
+
     void Awake()
     {
-        //Application.logMessageReceived += (string logString, string stackTrace, LogType type) =>
-        //{
-        //    History.Log(logString);
-        //    History.Log(stackTrace);
-        //};
-        //Screen.SetResolution(1600, 900, false);
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }

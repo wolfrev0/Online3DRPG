@@ -32,9 +32,9 @@ namespace Proxy
             _messenger = new Messenger(this);
             _confirmMessenger = new Messenger(this);
 
-            Action<Port> connector = (Port port) =>
+            Action<string, Port> connector = (string ip, Port port) =>
             {
-                var stream = _agent.Connect("127.0.0.1", port);
+                var stream = _agent.Connect(ip, port);
                 stream.Write(new ConnectorInfo("Proxy"));
                 _messenger.Register(port.ToString(), stream);
                 Console.WriteLine(port.ToString() + " connected.");
@@ -43,11 +43,12 @@ namespace Proxy
                 _rpcBufferByWorld.Add(port.ToString(), new List<RPC>());
             };
 
-            connector(Port.Login);
-            connector(Port.Town);
-            connector(Port.Forest);
-            connector(Port.Mine);
-            connector(Port.Boss);
+            connector("127.0.0.1", Port.Database);
+            connector("127.0.0.1", Port.Login);
+            connector("127.0.0.1", Port.Town);
+            connector("127.0.0.1", Port.Forest);
+            connector("127.0.0.1", Port.Mine);
+            connector("127.0.0.1", Port.Boss);
 
             foreach (var key in _messenger.Keys)
             {
@@ -61,20 +62,27 @@ namespace Proxy
 
             _accepter = Task.Run(() =>
             {
-                _agent.Bind("0.0.0.0", Port.Proxy, 4);
+                _agent.Bind("127.0.0.1", Port.Proxy, 4);
                 while (stopped == false)
                 {
-                    if (_agent.HasConnectReq())
+                    try
                     {
-                        string stringID = _currentConfirmId.ToString();
-                        int ID = _currentConfirmId;
-                        lock (_lock)
+                        if (_agent.HasConnectReq())
                         {
-                            _confirmMessenger.Register(stringID, _agent.Listen());
-                            _confirmMessenger.Send(stringID, new ConfirmID(ID));
+                            string stringID = _currentConfirmId.ToString();
+                            int ID = _currentConfirmId;
+                            lock (_lock)
+                            {
+                                _confirmMessenger.Register(stringID, _agent.Listen());
+                                _confirmMessenger.Send(stringID, new ConfirmID(ID));
+                            }
+                            _currentConfirmId++;
+                            Console.WriteLine("Client connected.");
                         }
-                        _currentConfirmId++;
-                        Console.WriteLine("Client connected.");
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
@@ -83,10 +91,17 @@ namespace Proxy
             {
                 while (stopped == false)
                 {
-                    lock (_lock)
+                    try
                     {
-                        foreach (var confirmID in _confirmMessenger.Keys)
-                            _confirmMessenger.Dispatch(confirmID);
+                        lock (_lock)
+                        {
+                            foreach (var confirmID in _confirmMessenger.Keys)
+                                _confirmMessenger.Dispatch(confirmID);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
@@ -95,18 +110,37 @@ namespace Proxy
             {
                 while (stopped == false)
                 {
-                    lock (_lock)
+                    try
                     {
-                        foreach (var key in _messenger.Keys)
+                        lock (_lock)
                         {
-                            if (_serverKeys.Contains(key) == false)
-                                _messenger.Dispatch(key);
+                            foreach (var key in _messenger.Keys)
+                            {
+                                if (_serverKeys.Contains(key) == false)
+                                    _messenger.Dispatch(key);
+                            }
                         }
+
+                    }
+                    catch (Exception e)
+                    {
+                        History.Log(e.ToString());
                     }
                 }
             });
 
             _messenger.Start();
+            _messenger.onDisconnected = key =>
+            {
+                foreach (var target in _messenger.Keys)
+                {
+                    if (target != key && _worldByUser[target] == _worldByUser[key])
+                        _messenger.Send(target, new PlayerDisconnect(key));
+                }
+                _rpcBufferByWorld[_worldByUser[key]].RemoveAll(rpc => rpc.sender == key);
+                _dispatchers.Remove(key);
+                _worldByUser.Remove(key);
+            };
             _confirmMessenger.Start();
         }
 
@@ -137,6 +171,11 @@ namespace Proxy
             GC.SuppressFinalize(this);
         }
 
+        void SignUp(Messenger messenger, string key, SignUp packet)
+        {
+            _messenger.Send("Database", packet);
+        }
+
         void LoginQuery(Messenger messenger, string key, LoginQuery query)
         {
             _messenger.Send("Login", query);
@@ -149,17 +188,33 @@ namespace Proxy
                 if (IsLoggedIn(answer.name))
                 {
                     answer.accepted = false;
+                    answer.message = "이미 로그인 중입니다.";
                     _confirmMessenger.Send(answer.confirmID.ToString(), answer);
                 }
                 else
                 {
-                    lock (_lock)
+                    try
                     {
-                        PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
-                        AddClient(answer.name, stream);
+                        lock (_lock)
+                        {
+                            PacketStream stream = _confirmMessenger.Unregister(answer.confirmID.ToString());
+                            AddClient(answer.name, stream);
+                        }
+                        try
+                        {
+                            _worldByUser.Add(answer.name, answer.world);
+                        }
+                        catch (ArgumentException e)
+                        {
+                            History.Log(e.ToString());
+                            _worldByUser[answer.name] = answer.world;
+                        }
+                        _messenger.Send(answer.name, answer);
                     }
-                    _worldByUser.Add(answer.name, answer.world);
-                    _messenger.Send(answer.name, answer);
+                    catch(Exception e)
+                    {
+                        History.Log(e.ToString());
+                    }
                 }
             }
             else
@@ -230,9 +285,15 @@ namespace Proxy
             {
                 if (buffer[i].GetType().Name == packet.typeName)
                 {
-                    NetworkInstantiate ni = (NetworkInstantiate)buffer[i];
+                    NetworkInstantiate ni = buffer[i] as NetworkInstantiate;
                     if (ni != null && ni.networkID == packet.networkID)
                         buffer.RemoveAt(i);
+                    else
+                    {
+                        Sync sync = buffer[i] as Sync;
+                        if (sync != null && sync.signallerID == packet.networkID)
+                            buffer.RemoveAt(i);
+                    }
                 }
             }
         }

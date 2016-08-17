@@ -46,11 +46,11 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
         {
             OnEnd();
             StopAllCoroutines();
-            _messenger.Dispose();
+            _messenger.Join();
         }
         finally
         {
-            History.Save();
+            History.Save(); ;
         }
     }
 
@@ -98,5 +98,10 @@ public abstract class NetworkProgramUnity : NetworkScript, MessageHandler
     public void UnregisterSignaller(NetworkScript signaller)
     {
         signallersByID.Remove(signaller.networkID);
+    }
+
+    public void PlayerDisconnect(Messenger messenger, string key, PlayerDisconnect packet)
+    {
+        Destroy(Player.FindPlayerByName(packet.name).gameObject);
     }
 }

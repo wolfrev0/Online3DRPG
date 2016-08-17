@@ -1,0 +1,19 @@
+1개씬 1개서버 할당법
+
+Accept하는 부분은 다 Connect하는 서버의 IP로 할당하거나 0.0.0.0(Any)로 둬야한다.
+Connect함수의 인자에는 Accept하는 서버의 IP주소가 적혀야한다.
+TeraTale프로젝트의 Certificator 멤버중 public string의 proxy IP주소는 Proxy서버의 IP를 적어야한다.
+Database, Login, Proxy는 백그라운드에 있어도 크게 문제 없으므로 2016.2.23 겨울방학프로젝트 발표시연때는 GameServer들(Town, Forest, Mine, Boss)만 별도의 서버를 할당하도록 사용했다.
+
+
+
+4개씬 1개서버 할당법
+
+지금 상태에서 TeraTale프로젝트의 Certificator 멤버중 public string의 proxy IP주소는 Proxy서버의 IP를 적기만 하면 된다.
+
+
+
+로컬만 접속가능하도록 하는법
+
+Proxy의 Accept부분을 루프백 아이피로 설정한다.
+물론 Certificator의 proxy IP도 동일

@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Enemy
   knockdown: 0
+  destroyOnTargetTriggered: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -333,6 +334,14 @@ Prefab:
       objectReference: {fileID: 8300000, guid: 0f754cf3a426bea48a1252b40a7642bd, type: 3}
     - target: {fileID: 0}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destroyOnTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destroyOnTargetTriggered
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

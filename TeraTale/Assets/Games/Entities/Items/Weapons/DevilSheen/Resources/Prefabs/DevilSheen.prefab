@@ -77,8 +77,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102858}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0.081, y: -0.077, z: -0.09}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: -0.31, y: -0.127, z: -0.152}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 488658}
@@ -91,7 +91,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 22.29, y: 0, z: -8.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 444004}
@@ -104,8 +104,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137188}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.916, y: -0.076, z: -0.094}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+  m_LocalPosition: {x: -0.315, y: 1.355, z: -0.148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 445936}
@@ -181,8 +181,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1.0730481, y: 0.15261765, z: 0.11232397}
-  m_Center: {x: -0.9127596, y: -0.07646307, z: -0.09074335}
+  m_Size: {x: 0.15708852, y: 2.4727855, z: 0.14177608}
+  m_Center: {x: -0.3104645, y: 0.9252362, z: -0.15259272}
 --- !u!82 &8210288
 AudioSource:
   m_ObjectHideFlags: 1
@@ -323,8 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c308e8d9b4146de4d9f6bfac5ddef9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkID: 18
-  _owner: Town
+  _networkID: 0
+  _owner: 
   _effector: {fileID: 0}
 --- !u!114 &11478876
 MonoBehaviour:
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Enemy
   knockdown: 0
+  destroyOnTargetTriggered: 0
 --- !u!198 &19827120
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -664,7 +665,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 12
-    radius: 0.4
+    radius: 0.71491235
     angle: 25
     length: 5
     boxX: 1

@@ -22,11 +22,11 @@ public class ItemSpawnEffector : MonoBehaviour
     {
         if (_elapsed / _frequency < _time)
         {
-            _elapsed += Time.deltaTime * _frequency;
             var y = (Mathf.Sin(_elapsed) - _prevSin);
             var xzDelta = xzSpeed * Time.deltaTime * 2;
             transform.position += new Vector3(Mathf.Sin(xzAngle) * xzDelta, y * 2f, Mathf.Cos(xzAngle) * xzDelta);
             _prevSin = Mathf.Sin(_elapsed);
+            _elapsed += Time.deltaTime * _frequency;
         }
         else
         {

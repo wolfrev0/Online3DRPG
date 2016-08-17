@@ -4,18 +4,22 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TeraTaleNet;
 using System.Linq;
+using System;
 
 public class Player : AliveEntity
 {
     static Dictionary<string, Player> _playersByName = new Dictionary<string, Player>();
-    static float[] _hpMaxByLevel = new float[] { 1, 100, 110, 120, 130, 150 };
-    static float[] _staminaMaxByLevel = new float[] { 1, 110, 115, 120, 126, 133 };
-    static float[] _baseAttackDamageByLevel = new float[] { 1, 10, 12, 15, 18, 20 };
+    static float[] _hpMaxByLevel = new float[] { 1, 100, 120, 150, 190, 240 };
+    static float[] _staminaMaxByLevel = new float[] { 1, 30, 45, 77, 111, 166 };
+    static float[] _baseAttackDamageByLevel = new float[] { 1, 12, 13, 15, 18, 22 };
     static float[] _baseAttackSpeedByLevel = new float[] { 1, 1.01f, 1.02f, 1.03f, 1.04f, 1.05f };
 
     public Text nameView;
     public SpeechBubble speechBubble;
-    
+    public ParticleSystem magicCircle;
+
+    public bool gotQuest;
+
     NavMeshAgent _navMeshAgent;
     Animator _animator;
     public ItemStackList itemStacks = new ItemStackList(30);
@@ -27,6 +31,7 @@ public class Player : AliveEntity
     AttackSubject _attackSubject;
     //StreamingSkill (Base Attack) Management
     static Projectile _pfArrow;
+    static Projectile _pfFireBall;
     static Player _pfPlayer;
 
     public int _money = 0;
@@ -37,6 +42,7 @@ public class Player : AliveEntity
     public float skillCoolTime { get { return 5f; } }
     public float skillCoolTimeLeft { get; private set; }
 
+    protected override Color damageTextColor { get { return Color.red; } }
     public override float hpMax { get { return _hpMaxByLevel[level]; } }
     public override float staminaMax { get { return _staminaMaxByLevel[level]; } }
     public override float baseAttackDamage { get { return _baseAttackDamageByLevel[level]; } }
@@ -125,7 +131,7 @@ public class Player : AliveEntity
         _accessorySolid.transform.SetParent(_animator.GetBoneTransform(accessory.targetBone));
         _accessorySolid.transform.localPosition = Vector3.zero;
         _accessorySolid.transform.localRotation = Quaternion.identity;
-        _accessorySolid.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        _accessorySolid.transform.localScale = new Vector3(0.13f, 0.13f, 0.13f);
         _accessorySolid.enabled = false;
         _accessorySolid.GetComponent<Floater>().enabled = false;
         _accessorySolid.GetComponent<ItemSpawnEffector>().enabled = false;
@@ -144,7 +150,15 @@ public class Player : AliveEntity
         base.Start();
         name = owner;
         nameView.text = name;
-        _playersByName.Add(name, this);
+        try
+        {
+            _playersByName.Add(name, this);
+        }
+        catch (ArgumentException e)
+        {
+            History.Log(e.ToString());
+            _playersByName[name] = this;
+        }
         if (isMine)
         {
             var cam = FindObjectOfType<CameraController>();
@@ -156,6 +170,8 @@ public class Player : AliveEntity
         transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
         if (_pfArrow == null)
             _pfArrow = Resources.Load<Projectile>("Prefabs/Arrow");
+        if (_pfFireBall == null)
+            _pfFireBall = Resources.Load<Projectile>("Prefabs/FireBall");
         if (_pfPlayer == null)
             _pfPlayer = Resources.Load<Player>("Prefabs/Player");
 
@@ -168,6 +184,9 @@ public class Player : AliveEntity
         base.Update();
         backTumblingCoolTimeLeft -= Time.deltaTime;
         skillCoolTimeLeft -= Time.deltaTime;
+        stamina += 1 / 60f;
+        if (stamina > staminaMax)
+            stamina = staminaMax;
     }
 
     protected override void OnNetworkDestroy()
@@ -181,11 +200,25 @@ public class Player : AliveEntity
     void AttackBegin()
     {
         _attackSubject.enabled = true;
+        _attackSubject.damageCalculator = t => t;
     }
 
     void AttackEnd()
     {
         _attackSubject.enabled = false;
+        _attackSubject.damageCalculator = t => t;
+    }
+
+    void SwordSkillBegin()
+    {
+        _attackSubject.enabled = true;
+        _attackSubject.damageCalculator = t => t * 3;
+    }
+
+    void SwordSkillEnd()
+    {
+        _attackSubject.enabled = false;
+        _attackSubject.damageCalculator = t => t;
     }
 
     public void SetKnockdown(bool value)
@@ -212,8 +245,40 @@ public class Player : AliveEntity
             projectile.direction = Quaternion.Euler(0, (i - 1) * 5, 0) * transform.forward;
             projectile.speed = 10;
             projectile.autoDestroyTime = 0.8f;
-            projectile.GetComponent<AttackSubject>().owner = this;
+            var attackSubject = projectile.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
+            if (i == 1)
+                attackSubject.knockdown = true;
         }
+    }
+
+    void WandAttack()
+    {
+        var projectile = Instantiate(_pfFireBall);
+        projectile.transform.position = transform.position + Vector3.up;
+        projectile.direction = transform.forward;
+        projectile.speed = 5;
+        projectile.autoDestroyTime = 0.8f;
+        projectile.GetComponent<AttackSubject>().owner = this;
+    }
+
+    void WandSkill()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            var projectile = Instantiate(_pfFireBall);
+            projectile.transform.position = transform.position + Vector3.up;
+            projectile.direction = Quaternion.Euler(0, 45 * i, 0) * transform.forward;
+            projectile.speed = 8;
+            projectile.autoDestroyTime = 0.8f;
+            var attackSubject = projectile.GetComponent<AttackSubject>();
+            attackSubject.owner = this;
+            attackSubject.knockdown = true;
+        }
+
+        var circle = Instantiate(magicCircle);
+        circle.transform.position = transform.position + Vector3.up * 0.1f;
+        Destroy(circle.gameObject, 1);
     }
 
     public void FacingDirectionUpdate()
@@ -240,11 +305,12 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("Skill");
         skillCoolTimeLeft = skillCoolTime;
+        stamina -= 10;
     }
 
     public void Skill()
     {
-        if (skillCoolTimeLeft < 0f)
+        if (skillCoolTimeLeft < 0f && stamina > 10)
             Send(new Skill());
     }
 
@@ -252,11 +318,12 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("BackTumbling");
         backTumblingCoolTimeLeft = backTumblingCoolTime;
+        stamina -= 5;
     }
 
     public void BackTumbling()
     {
-        if (backTumblingCoolTimeLeft < 0f)
+        if (backTumblingCoolTimeLeft < 0f & stamina > 5)
             Send(new BackTumbling());
     }
 
@@ -264,15 +331,22 @@ public class Player : AliveEntity
     {
         _animator.SetTrigger("Die");
         if (isMine)
+        {
             GlobalSound.instance.PlayDie();
+            PlayerDieDialog.instance.Invoke("Show", 3);
+        }
         GetComponent<CapsuleCollider>().center = new Vector3(float.MaxValue / 2, float.MaxValue / 2, float.MaxValue / 2);
-        Invoke("Respawn", 3.0f);
     }
 
-    void Respawn()
+    public void Respawn(Respawn rpc)
     {
         hp = hpMax;
         SwitchWorld("Town");
+    }
+
+    public void Respawn()
+    {
+        Send(new Respawn());
     }
 
     protected override void Knockdown()
@@ -385,6 +459,26 @@ public class Player : AliveEntity
         return false;
     }
 
+    public void AddQuest(AddQuest quest)
+    {
+        gotQuest = true;
+    }
+
+    public void AddQuest()
+    {
+        Send(new AddQuest());
+    }
+
+    public void RemoveQuest(RemoveQuest quest)
+    {
+        gotQuest = false;
+    }
+
+    public void RemoveQuest()
+    {
+        Send(new RemoveQuest());
+    }
+
     public void SerializedPlayer(SerializedPlayer rpc)
     {
         if (isLocal)
@@ -398,26 +492,32 @@ public class Player : AliveEntity
         //Deserialize only set the field _weapon, not the property weapon. so, we should call this property manually.
         weapon = weapon;
         //Weapon Sync;
-        Sync s = new Sync(RPCType.Others, "", "weapon");
+        Sync s = new Sync(RPCType.Others | RPCType.Buffered, "", "weapon");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //same as weapon
         accessory = accessory;
-        s = new Sync(RPCType.Others, "", "accessory");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "accessory");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //itemStack Sync
-        s = new Sync(RPCType.Others, "", "itemStacks");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "itemStacks");
+        s.signallerID = networkID;
+        s.sender = userName;
+        Sync(s);
+
+        //itemStack Sync
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "gotQuest");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);
 
         //money Sync
-        s = new Sync(RPCType.Others, "", "money");
+        s = new Sync(RPCType.Others | RPCType.Buffered, "", "money");
         s.signallerID = networkID;
         s.sender = userName;
         Sync(s);

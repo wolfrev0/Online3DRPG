@@ -41,9 +41,8 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\Unity\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -54,11 +53,13 @@
     <Compile Include="Body\ItemStack.cs" />
     <Compile Include="Body\ItemStackList.cs" />
     <Compile Include="Body\Item\Consumable\Apple.cs" />
+    <Compile Include="Body\Item\Consumable\RecallScroll.cs" />
     <Compile Include="Body\Item\Equipment\Accessory\Accessory.cs" />
     <Compile Include="Body\Item\Equipment\Accessory\AccessoryNull.cs" />
     <Compile Include="Body\Item\Equipment\Accessory\FoxTail.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Axe\Axe.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Knife\DevilSheen.cs" />
+    <Compile Include="Body\Item\Equipment\Weapon\Knife\Sheen.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Pickaxe\Pickaxe.cs" />
     <Compile Include="Body\Item\Sundry\Bone.cs" />
     <Compile Include="Body\Item\Equipment\Weapon\Bow\Bow.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Body\Item\Sundry\Log.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\BowScroll.cs" />
     <Compile Include="Body\Item\Sundry\Scroll\Scroll.cs" />
+    <Compile Include="Body\PlayerDisconnect.cs" />
+    <Compile Include="Body\RPC\AddQuest.cs" />
     <Compile Include="Body\RPC\AddTarget.cs" />
     <Compile Include="Body\RPC\BackTumbling.cs" />
     <Compile Include="Body\RPC\BuyItem.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Body\RPC\Navigate.cs" />
     <Compile Include="Body\RPC\NetworkDestroy.cs" />
     <Compile Include="Body\RPC\NetworkInstantiate.cs" />
+    <Compile Include="Body\RPC\RemoveQuest.cs" />
     <Compile Include="Body\RPC\SetNextAttack.cs" />
     <Compile Include="Body\RPC\PushChat.cs" />
     <Compile Include="Body\RPC\RemoveItem.cs" />
@@ -107,12 +111,14 @@
     <Compile Include="Body\RPC\SwapItemStack.cs" />
     <Compile Include="Body\RPC\Sync.cs" />
     <Compile Include="Body\RPC\SellItem.cs" />
+    <Compile Include="Body\RPC\WandAttack.cs" />
     <Compile Include="Body\SerializableType.cs" />
     <Compile Include="Body\RPC\SerializedPlayer.cs" />
     <Compile Include="Body\SerializedPlayerAnswer.cs" />
     <Compile Include="Body\SerializedPlayerQuery.cs" />
     <Compile Include="Body\SerializedPlayerSave.cs" />
     <Compile Include="Body\RPC\SwitchWorld.cs" />
+    <Compile Include="Body\SignUp.cs" />
     <Compile Include="ConcurrentDictionary.cs" />
     <Compile Include="ConcurrentQueue.cs" />
     <Compile Include="ConnecterType.cs" />

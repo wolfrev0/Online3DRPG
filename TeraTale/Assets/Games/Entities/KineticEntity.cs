@@ -1,24 +1,22 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public abstract class KineticEntity : Entity
+public abstract class KineticEntity : MonoBehaviour
 {
     protected Animator _animator;
     protected SkinnedMeshRenderer _skimesh;
-    public float AppearTime;
-    public float disappearTime;
 
     protected void Start()
     {
         _animator = GetComponent<Animator>();
         _skimesh = GetComponentInChildren<SkinnedMeshRenderer>();
-        Invoke("Appear", Random.Range(1, AppearTime));
-        Invoke("Disappear",Random.Range(AppearTime,disappearTime));
+        Invoke("Appear", Random.Range(0f, 2f));
     }
     
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider coll)
     {
-        Disappear();
+        if (coll.tag == "Player")
+            Disappear();
     }
 
     protected abstract void Appear();

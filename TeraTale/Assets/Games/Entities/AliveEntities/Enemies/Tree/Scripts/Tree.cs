@@ -21,13 +21,14 @@ public class Tree : Enemy
             ret.Add(new Log());
             ret.Add(new Log());
             ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
-            ret.Add(new Log());
             return ret;
         }
+    }
+
+    protected override void OnDamaged(Damage damage)
+    {
+        base.OnDamaged(damage);
+        GlobalSound.instance.PlayTree();
     }
 
     protected override float levelForDrop

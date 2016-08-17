@@ -13,13 +13,15 @@ public class Smith : NPC
         itemStacks[3].Push(new Wand());
         itemStacks[4].Push(new FoxTail());
 
-        itemStacks[6].Push(new HpPotion());
-        itemStacks[7].Push(new Bone());
-        itemStacks[8].Push(new Log());
-        itemStacks[9].Push(new IronOre());
-        itemStacks[10].Push(new LapisLazuliOre());
+        itemStacks[6].Push(new Apple());
+        itemStacks[7].Push(new HpPotion());
+        itemStacks[8].Push(new Bone());
+        itemStacks[9].Push(new Log());
+        itemStacks[10].Push(new IronOre());
+        itemStacks[11].Push(new LapisLazuliOre());
 
         itemStacks[12].Push(new BowScroll());
+        itemStacks[13].Push(new RecallScroll());
     }
 
     protected override List<Script> scripts
@@ -50,7 +52,7 @@ public class Smith : NPC
                         s.comment = "...할 말 없다고";
                         break;
                 }
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);
@@ -79,7 +81,7 @@ public class Smith : NPC
             {
                 s.commands = new List<Script.Command>();
                 s.comment = "아직 퀘스트가 없어...";
-                cmd.name = "Close";
+                cmd.name = "나가기";
                 cmd.action = () => { NPCDialog.instance.Close(true); };
                 s.commands.Add(cmd);
                 _scripts.Add(s);

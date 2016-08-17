@@ -6,7 +6,7 @@ using TeraTaleNet;
 //추후에 Attackable과 Damagable로 인터페이스 분리하려면 해라. 근데 필요할지는 의문.
 public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAutoSerializable
 {
-    static int[] _expMaxByLevel = new int[] { 1, 100, 160, 250, 400, 999 };
+    static int[] _expMaxByLevel = new int[] { 1, 50, 70, 100, 150, 200 };
     
     [SerializeField]
     Image _hpBar = null;
@@ -35,12 +35,13 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     public float stamina
     {
         get { return _stamina; }
-        private set
+        set
         {
             _stamina = value;
             _staminaBar.fillAmount = stamina / staminaMax;
         }
     }
+    protected virtual Color damageTextColor { get { return Color.white; } }
     public abstract float staminaMax { get; }
     public float attackDamage { get { return baseAttackDamage + bonusAttackDamage; } }
     public abstract float baseAttackDamage { get; }
@@ -91,6 +92,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
                 {
                     _exp -= expMax;
                     level = level + 1;
+                    hp = hpMax;
+                    stamina = staminaMax;
 
                     ParticleSystem _particle = Instantiate(_pfLevelUpFX);
                     _particle.transform.SetParent(transform);
@@ -148,6 +151,8 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     protected new void OnEnable()
     {
         base.OnEnable();
+        Sync("transform.localPosition");
+        Sync("transform.localEulerAngles");
         if (isServer)
         {
             hp = hpMax;//Initialize property call
@@ -198,6 +203,11 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
     {
         if (isLocal)
         {
+            //if (_posError.magnitude > 3)
+            //{
+            //    transform.position += _posError;
+            //    _posError = Vector3.zero;
+            //}
             transform.position += _posError / 6;
             _posError = _posError * 5 / 6;
             transform.eulerAngles += _rotError / 6;
@@ -258,7 +268,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
             Send(damage);
         if (damage.amount < 0)
             throw new ArgumentException("Damage amount should be bigger than 0.");
-        var calculatedDamage = CalculateDamage(damage);
+        var calculatedDamage = (int)CalculateDamage(damage);
         hp -= calculatedDamage;
         OnDamaged(damage);
 
@@ -267,6 +277,7 @@ public abstract class AliveEntity : Entity, Attackable, Damagable, Movable, IAut
 
         var damageText = Instantiate(_pfDamageText);
         damageText.text = calculatedDamage.ToString();
+        damageText.color = damageTextColor;
         damageText.transform.position = transform.position + Vector3.up;
         damageText.transform.SetParent(_uiRoot);
 

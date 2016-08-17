@@ -12,23 +12,35 @@ public class Ian : NPC
             Script.Command cmd;
 
             s.commands = new List<Script.Command>();
-            s.comment = "내 안의 흑염룡이 날뛰는군. 크크큭...";
-            cmd.name = "Next";
-            cmd.action = NPCDialog.instance.Next;
-            s.commands.Add(cmd);
-            _scripts.Add(s);
+            s.comment = "안녕하십니까. 어디 불편한데라도 있으신지?";
+            cmd.name = "대화하기";
+            cmd.action = () =>
+            {
+                s.commands = new List<Script.Command>();
+                s.comment = "요즘 부상자가 늘어서 힘드네...에고";
+                cmd.name = "나가기";
+                cmd.action = () => { NPCDialog.instance.Close(true); };
+                s.commands.Add(cmd);
+                _scripts.Add(s);
 
-            s.commands = new List<Script.Command>();
-            s.comment = "그것은 마치... 운명의 데스티니, 죽음의 데스!";
-            cmd.name = "Next";
-            cmd.action = NPCDialog.instance.Next;
+                NPCDialog.instance.Next();
+            };
             s.commands.Add(cmd);
-            _scripts.Add(s);
+            cmd.name = "치료받기";
+            cmd.action = () =>
+            {
+                Player.mine.Heal(new TeraTaleNet.Heal("", Player.mine.hpMax));
+                //stamina heal not implemented
 
-            s.commands = new List<Script.Command>();
-            s.comment = "나는 오늘도 눈을 감고 음악을 듣는다... 음악만이 이 공간속에서 유일하게 허락된 마약이니깐, 크하하핫!!!";
-            cmd.name = "Close";
-            cmd.action = () => { NPCDialog.instance.Close(true); };
+                s.commands = new List<Script.Command>();
+                s.comment = "치료가 완료되었습니다. 좋은하루 되세요~ ^^*";
+                cmd.name = "나가기";
+                cmd.action = () => { NPCDialog.instance.Close(true); };
+                s.commands.Add(cmd);
+                _scripts.Add(s);
+
+                NPCDialog.instance.Next();
+            };
             s.commands.Add(cmd);
             _scripts.Add(s);
 

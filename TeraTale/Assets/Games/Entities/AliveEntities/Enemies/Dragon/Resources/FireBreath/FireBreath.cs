@@ -16,6 +16,7 @@ public class FireBreath : MonoBehaviour
         fire.Play();
         smoke.Play();
         _audio.Play();
+        _audio.volume = GlobalSound.instance.effectVolume;
     }
 
     public void Off()
