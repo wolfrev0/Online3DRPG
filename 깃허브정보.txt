@@ -1,8 +1,0 @@
-깃헙 링크
-https://github.com/Lobo-Prix/TeraTale
-
-마지막 작업브랜치 - ResourceChange
-링크:https://github.com/Lobo-Prix/TeraTale/tree/ResourceChange
-
-주의사항
-ResourceChange브랜치의 마지막에 수정한내용(커밋 3개)가 sync되지 않는다. 그러므로 원격에 없으니 로컬백업본을 지우지 마라.
