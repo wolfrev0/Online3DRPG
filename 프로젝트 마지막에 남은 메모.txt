@@ -68,9 +68,6 @@ UDP Connection 추가
 Proxy 엔디안정렬 고려하기
 NAT 처리는 GPG5 Networking 참고
 
-껌씹기 기억력
-심호흡
-
 최적화
 Packet의 Header만 보고 rpc이면 바이트째로 보내고 Packet이면 Body도 Deserialize
 Item.Use가 종속성 문제떄문에 delegate로 해결중이니 위 최적화 문제해결해서 처리해라
